@@ -5,46 +5,59 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import CursorFollower from "../components/CursorFollower";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from 'next-themes';
+import Providers from "./providers";
 
 // Load local fonts
-const technorFont = localFont({
+const roundo = localFont({
   src: [
     {
-      path: '../../public/fonts/Technor-Regular.woff2',
+      path: '../../public/fonts/Roundo-Regular.woff2',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/Technor-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-technor',
-  display: 'swap',
-});
-
-const supremeFont = localFont({
-  src: [
-    {
-      path: '../../public/fonts/Supreme-Regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/Supreme-Medium.woff2',
+      path: '../../public/fonts/Roundo-Medium.woff2',
       weight: '500',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/Supreme-Bold.woff2',
-      weight: '700',
+      path: '../../public/fonts/Roundo-SemiBold.woff2',
+      weight: '600',
       style: 'normal',
     },
+    {
+      path: '../../public/fonts/Roundo-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    }
   ],
-  variable: '--font-supreme',
-  display: 'swap',
+  variable: '--font-roundo',
+});
+
+const pilcrow = localFont({
+  src: [
+    {
+      path: '../../public/fonts/PilcrowRounded-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/PilcrowRounded-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/PilcrowRounded-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/PilcrowRounded-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-pilcrow',
 });
 
 export const metadata: Metadata = {
@@ -92,13 +105,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={cn(
-        technorFont.variable,
-        supremeFont.variable,
-        "antialiased font-supreme relative"
+        roundo.variable,
+        pilcrow.variable,
+        "antialiased font-pilcrow relative"
       )}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <Providers>
           {/* Global animated background shapes */}
           <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden animated-bg-shapes opacity-20">
             <div className="shape"></div>
@@ -113,7 +126,7 @@ export default function RootLayout({
           <Navigation />
           <main id="main-content" className="relative z-10">{children}</main>
           <Footer />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { RiMailLine, RiPhoneLine, RiMapPinLine, RiSendPlane2Line, RiArrowRightLine } from 'react-icons/ri';
 
 // Components
@@ -285,9 +285,9 @@ export default function ContactPage() {
                           <Button variant="outline" onClick={prevStep}>
                             Back
                           </Button>
-                          <Button type="submit">
+                          <button type="submit" className="bg-primary text-white font-technor rounded-full transition-all duration-300 inline-flex items-center justify-center text-base py-3 px-6 hover:bg-primary-dark">
                             Send Message
-                          </Button>
+                          </button>
                         </div>
                       </motion.div>
                     )}

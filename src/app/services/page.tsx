@@ -31,7 +31,7 @@ const serviceDetails = [
     ],
     process: [
       { step: 1, title: 'Research', description: 'In-depth market and competitor analysis to understand your positioning.' },
-      { step: 2, title: 'Strategy', description: 'Define your brand's unique value proposition and target audience.' },
+      { step: 2, title: 'Strategy', description: 'Define your brand\'s unique value proposition and target audience.' },
       { step: 3, title: 'Design', description: 'Create visual elements that embody your brand identity.' },
       { step: 4, title: 'Implementation', description: 'Roll out your brand identity across all channels and touchpoints.' },
     ],
@@ -74,7 +74,7 @@ const serviceDetails = [
       'App Store Optimization',
     ],
     process: [
-      { step: 1, title: 'Strategy', description: 'Define your app's purpose, features, and target platform.' },
+      { step: 1, title: 'Strategy', description: 'Define your app\'s purpose, features, and target platform.' },
       { step: 2, title: 'Design', description: 'Create wireframes and user interface designs optimized for mobile.' },
       { step: 3, title: 'Development', description: 'Build the app with robust code and efficient architecture.' },
       { step: 4, title: 'Testing', description: 'Conduct thorough testing across devices and operating systems.' },

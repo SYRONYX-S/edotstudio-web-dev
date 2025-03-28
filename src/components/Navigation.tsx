@@ -1,274 +1,166 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "next-themes";
-import Link from "next/link";
-import Image from "next/image";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { RiMenuLine, RiCloseLine, RiSunLine, RiMoonLine } from 'react-icons/ri';
+
+// Components
+import Button from './Button';
+
+const navLinks = [
+  { name: 'HOME', href: '/' },
+  { name: 'ABOUT', href: '/about' },
+  { name: 'SERVICES', href: '/services' },
+  { name: 'PROJECTS', href: '/projects' },
+  { name: 'REVIEWS', href: '/reviews' },
+  { name: 'BLOG', href: '/blog' },
+  { name: 'CONTACT', href: '/contact' },
+];
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { setTheme, resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrolled]);
-
-  const toggleTheme = () => {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
-
-  const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/#about' },
-    { name: 'Portfolio', href: '/#portfolio' },
-    { name: 'Services', href: '/#services' },
-    { name: 'Contact', href: '/#contact' },
-  ];
+  const { theme, setTheme } = useTheme();
 
   return (
-    <>
-      <motion.nav
-        className={`fixed top-0 left-0 w-full z-50 py-4 transition-all duration-300 ${
-          scrolled 
-            ? "shadow-md bg-white/95 dark:bg-[#1B1B1B]/95 backdrop-blur-xl" 
-            : "bg-white/70 dark:bg-[#1B1B1B]/70 backdrop-blur-md"
-        }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="relative flex items-center logo-hover">
-              <motion.div
-                className="relative w-36 h-9 flex items-center"
-                transition={{ duration: 0.2 }}
-              >
-                <Image
-                  src="/logo-dark.svg"
-                  alt="Logo"
-                  fill
-                  className="object-contain dark:hidden"
-                  priority
-                />
-                <Image
-                  src="/logo-light.svg"
-                  alt="Logo"
-                  fill
-                  className="object-contain hidden dark:block"
-                  priority
-                />
-              </motion.div>
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="navbar-container"
+    >
+      <div className="navbar-content">
+        {/* Logo */}
+        <Link href="/" className="nav-logo-container">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="relative w-36 h-10 flex items-center"
+          >
+            <Image
+              src="/images/logo-light.png"
+              alt="EdotStudio Logo"
+              width={120}
+              height={32}
+              className="nav-logo dark:hidden"
+              priority
+            />
+            <Image
+              src="/images/logo-dark.png"
+              alt="EdotStudio Logo"
+              width={120}
+              height={32}
+              className="nav-logo hidden dark:block"
+              priority
+            />
+          </motion.div>
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div className="nav-links-island">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="nav-link"
+            >
+              {link.name}
             </Link>
-
-            {/* Desktop navigation links - Island Design */}
-            <div className="hidden md:flex items-center justify-center navbar-island">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="navbar-link mx-5 text-base"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-
-            {/* Right side - Theme toggle and CTA */}
-            <div className="hidden md:flex items-center">
-              {/* Theme toggle */}
-              <motion.button
-                onClick={toggleTheme}
-                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 mr-4 theme-toggle-btn"
-                aria-label="Toggle dark mode"
-                whileHover={{ scale: 1.1 }}
-              >
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="relative"
-                >
-                  {resolvedTheme === "dark" ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-yellow-300 theme-icon"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 theme-icon text-gray-800 dark:text-white"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
-                  )}
-                </motion.div>
-              </motion.button>
-
-              {/* CTA Button */}
-              <Link href="/#contact">
-                <motion.div
-                  className="cta-button bg-orange hover:bg-orange-hover text-white font-medium px-6 py-2.5 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl shadow-orange/30 hover:shadow-orange/40 font-technor tracking-wide"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get In Touch
-                </motion.div>
-              </Link>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
-              <motion.button
-                onClick={toggleTheme}
-                className="p-2 mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 theme-toggle-btn"
-                aria-label="Toggle dark mode"
-                whileHover={{ scale: 1.1 }}
-              >
-                <motion.div
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="relative"
-                >
-                  {resolvedTheme === "dark" ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-yellow-300 theme-icon"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 theme-icon text-gray-800 dark:text-white"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
-                  )}
-                </motion.div>
-              </motion.button>
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-                aria-controls="mobile-menu"
-                aria-expanded="false"
-              >
-                <span className="sr-only">Open main menu</span>
-                {!isMobileMenuOpen ? (
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    className="h-6 w-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
-      </motion.nav>
 
-      {/* Mobile menu */}
+        {/* Right Side */}
+        <div className="flex items-center gap-4">
+          {/* Theme Toggle */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+          >
+            <AnimatePresence mode="wait">
+              {theme === 'dark' ? (
+                <motion.div
+                  key="sun"
+                  initial={{ opacity: 0, rotate: -180 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 180 }}
+                  transition={{ duration: 0.3 }}
+                  className="theme-toggle-icon"
+                >
+                  <RiSunLine className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="moon"
+                  initial={{ opacity: 0, rotate: -180 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 180 }}
+                  transition={{ duration: 0.3 }}
+                  className="theme-toggle-icon"
+                >
+                  <RiMoonLine className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+
+          {/* CTA Button */}
+          <Button
+            href="/template"
+            className="hidden md:inline-flex"
+          >
+            TEMPLATE
+          </Button>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+          >
+            {isMobileMenuOpen ? (
+              <RiCloseLine className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+            ) : (
+              <RiMenuLine className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="md:hidden fixed top-[68px] left-0 w-full bg-white/95 dark:bg-[#1B1B1B]/95 backdrop-blur-md z-40 shadow-lg"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white dark:bg-dark-300 shadow-lg"
           >
-            <div className="px-4 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col">
-              {navLinks.map((link, index) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <motion.div
-                    className="block px-3 py-2 rounded-md text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-orange transition-colors"
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex flex-col space-y-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="nav-link py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
-                  </motion.div>
-                </Link>
-              ))}
-              {/* Mobile CTA Button */}
-              <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                <motion.div
-                  className="mt-2 cta-button bg-orange hover:bg-orange-hover text-white font-medium px-4 py-2.5 rounded-full text-center transition-all duration-300 shadow-lg hover:shadow-xl shadow-orange/30 hover:shadow-orange/40 font-technor tracking-wide"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: navLinks.length * 0.05 }}
+                  </Link>
+                ))}
+                <Button
+                  href="/template"
+                  className="w-full mt-4"
                 >
-                  Get In Touch
-                </motion.div>
-              </Link>
+                  TEMPLATE
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </motion.nav>
   );
 }

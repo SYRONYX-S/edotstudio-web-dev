@@ -1,52 +1,256 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #1B1B1B;
-  --primary: #f77425;
-  --primary-light: #f9914d;
-  --primary-dark: #e66a1d;
-  --primary-subtle: rgba(247, 116, 37, 0.15);
-  --secondary: #1B1B1B;
-  --secondary-light: #444444;
-  --secondary-dark: #000000;
-  --text-light: #ffffff;
-  --text-dark: #1B1B1B;
-  --orange: #f77425;
-  --orange-hover: #e66a1d;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 24 100% 40%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 24 100% 40%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 24 100% 40%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 24 100% 40%;
+  }
 }
 
-.dark {
-  --primary: #f77425;
-  --primary-light: #f9914d;
-  --primary-dark: #e66a1d;
-  --primary-subtle: rgba(247, 116, 37, 0.2);
-  --secondary: #1B1B1B;
-  --secondary-light: #444444;
-  --secondary-dark: #000000;
-  --white: #FFFFFF;
-  --black: #000000;
-  --light: #FCFCFC;
-  --dark: #1B1B1B;
-  
-  /* Dark mode theme colors */
-  --dark-100: #2A2A2A;
-  --dark-200: #222222;
-  --dark-300: #1F1F1F;
-  --dark-400: #181818;
-  --dark-500: #0F0F0F;
-  
-  --background: var(--dark);
-  --foreground: var(--white);
-  
-  color-scheme: dark;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-supreme);
-  --font-heading: var(--font-technor);
+@layer components {
+  .nav-logo {
+    @apply max-h-[32px] w-auto;
+  }
+
+  .nav-logo-container {
+    @apply mr-2.5;
+  }
+
+  .theme-toggle-icon {
+    @apply transition-all duration-300;
+  }
+
+  .navbar-container {
+    @apply fixed top-0 left-0 right-0 z-50 py-3;
+  }
+
+  .navbar-content {
+    @apply container mx-auto px-4 flex items-center justify-between;
+  }
+
+  .nav-links-island {
+    @apply hidden md:flex items-center gap-6 px-6 py-2 rounded-full bg-white/80 dark:bg-secondary/80 backdrop-blur-sm shadow-lg;
+  }
+
+  .nav-link {
+    @apply text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300;
+  }
+
+  .custom-cursor {
+    @apply fixed pointer-events-none z-50 mix-blend-difference;
+  }
+
+  .cursor-dot {
+    @apply w-2 h-2 bg-white rounded-full;
+  }
+
+  .cursor-ring {
+    @apply w-8 h-8 border-2 border-white rounded-full;
+  }
+
+  .glass {
+    @apply bg-white/80 dark:bg-secondary/80 backdrop-blur-sm shadow-lg;
+  }
+
+  .preloader {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-background;
+  }
+
+  .preloader-content {
+    @apply relative w-full max-w-md;
+  }
+
+  .preloader-logo {
+    @apply w-32 h-32 mx-auto mb-8;
+  }
+
+  .preloader-progress {
+    @apply h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
+  }
+
+  .preloader-progress-bar {
+    @apply h-full bg-primary transition-all duration-300;
+  }
+
+  .preloader-text {
+    @apply text-center text-gray-600 dark:text-gray-400 mt-4;
+  }
+
+  .dust-particle {
+    @apply absolute w-1 h-1 bg-primary/20 rounded-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Custom Styles */
+.nav-logo {
+  @apply max-h-[32px] w-auto;
+}
+
+.nav-logo-container {
+  @apply mr-2.5;
+}
+
+/* Theme Toggle Icon Transition */
+.theme-toggle-icon {
+  @apply transition-all duration-300;
+}
+
+/* Navbar Styles */
+.navbar-container {
+  @apply fixed top-0 left-0 right-0 z-50 py-3;
+}
+
+.navbar-content {
+  @apply container mx-auto px-4 flex items-center justify-between;
+}
+
+.nav-links-island {
+  @apply hidden md:flex items-center gap-6 px-6 py-2 rounded-full bg-white/80 dark:bg-secondary/80 backdrop-blur-sm shadow-lg;
+}
+
+.nav-link {
+  @apply text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors duration-300;
+}
+
+/* Font Classes */
+.font-roundo {
+  font-family: var(--font-roundo);
+}
+
+.font-pilcrow {
+  font-family: var(--font-pilcrow);
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  @apply fixed pointer-events-none z-50 mix-blend-difference;
+}
+
+.cursor-dot {
+  @apply w-2 h-2 bg-white rounded-full;
+}
+
+.cursor-ring {
+  @apply w-8 h-8 border-2 border-white rounded-full;
+}
+
+/* Glassmorphism */
+.glass {
+  @apply bg-white/80 dark:bg-secondary/80 backdrop-blur-sm shadow-lg;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Preloader */
+.preloader {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-background;
+}
+
+.preloader-content {
+  @apply relative w-full max-w-md;
+}
+
+.preloader-logo {
+  @apply w-32 h-32 mx-auto mb-8;
+}
+
+.preloader-progress {
+  @apply h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
+}
+
+.preloader-progress-bar {
+  @apply h-full bg-primary transition-all duration-300;
+}
+
+.preloader-text {
+  @apply text-center text-gray-600 dark:text-gray-400 mt-4;
+}
+
+/* Dust Particles */
+.dust-particle {
+  @apply absolute w-1 h-1 bg-primary/20 rounded-full;
 }
 
 /* Base styling */
