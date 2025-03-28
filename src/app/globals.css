@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+:root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -24,6 +24,8 @@
     --input: 240 5.9% 90%;
     --ring: 24 100% 40%;
     --radius: 0.5rem;
+    --primary-light: #E86000;
+    --background-dark: #0A0A0A;
   }
 
   .dark {
@@ -46,6 +48,100 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 24 100% 40%;
+  }
+
+  body {
+    @apply bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 70%);
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: -1;
+    animation: pulse 15s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1) translate(0%, 0%);
+    }
+    33% {
+      transform: scale(1.1) translate(2%, -1%);
+    }
+    66% {
+      transform: scale(0.9) translate(-1%, 1%);
+    }
+  }
+
+  /* Floating shapes */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, var(--primary) 0%, transparent 8%),
+      radial-gradient(circle at 80% 70%, var(--primary) 0%, transparent 8%),
+      radial-gradient(circle at 40% 80%, var(--primary) 0%, transparent 6%),
+      radial-gradient(circle at 70% 20%, var(--primary) 0%, transparent 6%);
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: -1;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translate(0%, 0%);
+    }
+    25% {
+      transform: translate(1%, 2%);
+    }
+    50% {
+      transform: translate(-1%, -1%);
+    }
+    75% {
+      transform: translate(-2%, 1%);
+    }
+  }
+
+  * {
+    @apply transition-colors duration-300 ease-in-out;
+  }
+
+  /* Theme transition overrides for specific elements */
+  a, button, input, select, textarea {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  /* Smooth transitions for background elements */
+  .bg-background, .bg-background-dark,
+  .bg-primary, .bg-primary-light,
+  .bg-gray-100, .bg-gray-200, .bg-gray-800, .bg-gray-900,
+  .from-primary, .to-primary,
+  .via-primary {
+    @apply transition-[background-color,background-image] duration-300 ease-in-out;
+  }
+
+  /* Smooth transitions for text and border colors */
+  .text-primary, .text-gray-600, .text-gray-900,
+  .border-primary, .border-gray-200, .border-gray-800 {
+    @apply transition-[color,border-color] duration-300 ease-in-out;
+  }
+
+  /* Smooth transitions for shadows and opacity */
+  .shadow-lg, .shadow-xl, .opacity-0, .opacity-100 {
+    @apply transition-[box-shadow,opacity] duration-300 ease-in-out;
+  }
+
+  /* Smooth backdrop blur transitions */
+  .backdrop-blur-sm, .backdrop-blur-md, .backdrop-blur-lg {
+    @apply transition-[backdrop-filter] duration-300 ease-in-out;
   }
 }
 
@@ -131,6 +227,18 @@
 
   .dust-particle {
     @apply absolute w-1 h-1 bg-primary/20 rounded-full;
+  }
+
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply relative py-16 md:py-24;
+  }
+
+  .section-inner {
+    @apply relative z-10;
   }
 }
 
@@ -836,4 +944,16 @@ html {
 
 .cta-button:hover::before {
   opacity: 1;
+}
+
+/* Make sections transparent to show global background */
+.section {
+  background: transparent !important;
+}
+.serivces-card-icon {
+  color: var(--primary-light);
+}
+.serivces-card-icon svg {
+  width: 60%;
+  height: 60%;
 }

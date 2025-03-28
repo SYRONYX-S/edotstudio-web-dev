@@ -15,12 +15,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, href, variant = 'default', size = 'md', children, ...props }, ref) => {
-    const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:pointer-events-none";
+    const baseStyles = "relative inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 overflow-hidden";
     
     const variants = {
-      default: "bg-primary hover:bg-primary-light dark:bg-primary dark:hover:bg-primary-light text-white",
-      outline: "border-2 border-primary text-primary hover:bg-primary hover:text-white dark:border-primary dark:text-primary dark:hover:bg-primary dark:hover:text-white",
-      ghost: "text-primary hover:bg-primary/10 dark:text-primary dark:hover:bg-primary/10"
+      default: "bg-primary text-white hover:bg-primary-light before:absolute before:inset-0 before:bg-white/20 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500 before:ease-out",
+      outline: "border-2 border-primary text-primary hover:bg-primary hover:text-white before:absolute before:inset-0 before:bg-primary before:translate-y-[100%] hover:before:translate-y-0 before:transition-transform before:duration-300 before:ease-out",
+      ghost: "text-primary hover:bg-primary/10 before:absolute before:inset-0 before:bg-primary/5 before:scale-x-0 hover:before:scale-x-100 before:origin-left before:transition-transform before:duration-300 before:ease-out"
     };
     
     const sizes = {
@@ -29,12 +29,18 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "h-12 px-8 text-lg"
     };
 
+    const content = (
+      <span className="relative z-10 flex items-center gap-2">
+        {children}
+      </span>
+    );
+
     const classes = cn(baseStyles, variants[variant], sizes[size], className);
 
     if (href) {
       return (
         <Link href={href} className={classes}>
-          {children}
+          {content}
         </Link>
       );
     }
@@ -45,7 +51,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {children}
+        {content}
       </button>
     );
   }

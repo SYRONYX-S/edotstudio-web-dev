@@ -142,15 +142,15 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-background-light dark:bg-background-dark shadow-lg"
+            className="md:hidden fixed top-20 left-0 right-0 bg-background-light dark:bg-background-dark shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto z-50"
           >
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex flex-col space-y-4">
+            <div className="container mx-auto px-4 py-6">
+              <div className="flex flex-col space-y-6">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="text-sm font-medium hover:text-primary transition-colors duration-200"
+                    className="text-lg font-medium hover:text-primary transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -158,9 +158,10 @@ export default function Navigation() {
                 ))}
                 <Button
                   href="/template"
-                  className="w-full bg-primary hover:bg-primary-light dark:bg-primary dark:hover:bg-primary-light text-white"
+                  className="w-full hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light"
+                  variant="outline"
                 >
-                  TEMPLATE
+                  Get in Touch
                 </Button>
               </div>
             </div>

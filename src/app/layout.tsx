@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
-import Navigation from "../components/Navigation";
-import Footer from "../components/Footer";
-import CursorFollower from "../components/CursorFollower";
-import FloatingButtons from "../components/FloatingButtons";
-import Preloader from "../components/Preloader";
-import { cn } from "@/lib/utils";
-import Providers from "./providers";
+import { Inter } from 'next/font/google';
+import ClientLayout from "@/components/ClientLayout";
 
 // Load local fonts
 const roundo = localFont({
@@ -62,6 +57,8 @@ const pilcrow = localFont({
   variable: '--font-pilcrow',
 });
 
+const inter = Inter({ subsets: ['latin'] });
+
 export const metadata: Metadata = {
   title: "EdotStudio | Top-Tier Digital Solutions Agency",
   description: "EdotStudio is a leading digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
@@ -108,29 +105,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={cn(
-        roundo.variable,
-        pilcrow.variable,
-        "antialiased font-pilcrow relative"
-      )}>
-        <Providers>
-          <Preloader />
-          {/* Global animated background shapes */}
-          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden animated-bg-shapes opacity-20">
-            <div className="shape"></div>
-            <div className="shape"></div>
-            <div className="shape"></div>
-          </div>
-          
-          <a href="#main-content" className="skip-to-content">
-            Skip to content
-          </a>
-          <CursorFollower />
-          <Navigation />
-          <main id="main-content" className="relative z-10 pt-20">{children}</main>
-          <Footer />
-          <FloatingButtons />
-        </Providers>
+      <body className={`${roundo.variable} ${pilcrow.variable} antialiased font-pilcrow relative`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

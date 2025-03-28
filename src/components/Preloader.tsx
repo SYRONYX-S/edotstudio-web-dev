@@ -44,24 +44,24 @@ export default function Preloader() {
                 <motion.div
                   key={i}
                   className="absolute rounded-full border border-primary"
-                  initial={{ opacity: 0.3, scale: 0.8 }}
+                  initial={{ opacity: 0.2, scale: 0.8 }}
                   animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 120, 240, 360],
+                    opacity: [0.2, 0.8, 0.2],
+                    scale: [0.8, 1.2, 0.8],
+                    rotate: [0, 180, 360],
                   }}
                   transition={{
-                    duration: 3,
+                    duration: 2,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: i * 0.4,
+                    delay: i * 0.3,
                   }}
                   style={{
-                    width: `${(i + 1) * 80}px`,
-                    height: `${(i + 1) * 80}px`,
-                    left: `-${((i + 1) * 80) / 2}px`,
-                    top: `-${((i + 1) * 80) / 2}px`,
-                    borderWidth: '1px',
+                    width: `${(i + 1) * 100}px`,
+                    height: `${(i + 1) * 100}px`,
+                    left: `-${((i + 1) * 100) / 2}px`,
+                    top: `-${((i + 1) * 100) / 2}px`,
+                    borderWidth: '1.5px',
                   }}
                 />
               ))}

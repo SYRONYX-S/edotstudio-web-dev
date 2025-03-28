@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-[#1B1B1B] backdrop-blur-sm">
+      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
         {/* Enhanced animated circles */}
         <div className="absolute inset-0 overflow-hidden z-0">
           <motion.div 
@@ -189,16 +189,17 @@ export default function Home() {
                 <Button 
                   href="/contact" 
                   size="lg"
+                  className='bg-primary-light text-white dark:text-white hover:bg-primary-light'
                   icon={<RiArrowRightLine />}
                 >
-                  Let's Build Something
+                  Start Your Digital Transformation
                 </Button>
                 <Button 
                   href="/services" 
                   variant="outline"
                   size="lg"
                 >
-                  Explore Our Services
+                  Discover What We Can Do
                 </Button>
               </motion.div>
             </motion.div>
@@ -232,7 +233,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section className="py-20 bg-white dark:bg-dark-200 services-section animated-gradient">
+      <section className="py-20 bg-white-200 dark:bg-dark services-section">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -280,7 +281,7 @@ export default function Home() {
       </section>
 
       {/* Process Section - New */}
-      <section className="py-20 bg-gray-100 dark:bg-dark-100 animated-gradient">
+      <section className="py-20 bg-white-100 dark:bg-dark-200">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -367,7 +368,7 @@ export default function Home() {
       </section>
 
       {/* Featured Work */}
-      <section className="py-20 bg-light dark:bg-dark-200 animated-gradient">
+      <section className="py-20 bg-light dark:bg-dark-200">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -416,7 +417,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us - New Section */}
-      <section className="py-20 bg-white dark:bg-dark-300 animated-gradient">
+      <section className="py-20 bg-white dark:bg-dark-200">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -471,7 +472,7 @@ export default function Home() {
               className="relative"
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl frosted-container">
-                <Image
+          <Image
                   src={fallbackImage}
                   width={600}
                   height={700}
@@ -498,7 +499,7 @@ export default function Home() {
       </section>
 
       {/* Clients Section */}
-      <section className="py-16 bg-gray-100 dark:bg-dark-300 animated-gradient">
+      <section className="py-16 bg-white-200 dark:bg-dark-200">
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-10">
             <h3 className="text-xl font-technor text-gray-800 dark:text-white mb-6">Trusted by Industry-Leading Companies</h3>
@@ -552,7 +553,7 @@ export default function Home() {
               <Button 
                 href="/contact" 
                 size="lg"
-                className="bg-white text-primary hover:bg-gray-100"
+                className="bg-white text-black dark:text-white hover:bg-primary-light"
                 icon={<RiArrowRightLine />}
               >
                 Get in Touch
@@ -567,7 +568,7 @@ export default function Home() {
               </Button>
             </div>
           </div>
-        </div>
+    </div>
       </section>
     </>
   );
