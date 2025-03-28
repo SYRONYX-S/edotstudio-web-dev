@@ -29,27 +29,27 @@ const Navigation: React.FC = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 w-full z-50 py-3 glass-dark shadow-lg backdrop-blur-md"
+        className="fixed top-0 left-0 w-full flex items-center h-18 z-50 py-3 glass-dark shadow-lg backdrop-blur-md"
       >
         <div className="container mx-auto px-4 flex justify-between items-center">
           {/* Logo and Links Container */}
           <div className="flex items-center">
             {/* Logo with fixed width and proper centering */}
-            <Link href="/" className="flex items-center justify-center relative z-50" style={{ marginRight: '10px' }}>
+            <Link href="/" className="flex items-center justify-center relative z-50" style={{ marginRight: '25px' }}>
               <div className="h-10 flex items-center justify-center">
                 <Image
                   src="/logo.svg"
                   alt="EdotStudio Logo"
                   width={120}
                   height={32}
-                  className="dark:opacity-0 h-8 w-auto object-contain transition-opacity duration-300"
+                  className="nav-logo dark:opacity-0 h-8 w-auto object-contain transition-opacity duration-300"
                 />
                 <Image
                   src="/logo-light.svg"
                   alt="EdotStudio Logo"
                   width={120}
                   height={32}
-                  className="absolute top-1/2 left-0 -translate-y-1/2 opacity-0 dark:opacity-100 h-8 w-auto object-contain transition-opacity duration-300"
+                  className="nav-logo absolute top-1/2 left-0 -translate-y-1/2 opacity-0 dark:opacity-100 h-8 w-auto object-contain transition-opacity duration-300"
                 />
               </div>
             </Link>
@@ -58,7 +58,7 @@ const Navigation: React.FC = () => {
             <div className="hidden md:block h-6 w-px bg-gray-600" style={{ marginRight: '12px' }}></div>
             
             {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center nav-links-container" style={{ marginLeft: '3px' }}>
+            <div className="hidden md:flex items-center nav-links-container" style={{ marginLeft: '13px' }}>
               {navLinks.map((link, index) => (
                 <motion.div
                   key={link.name}
