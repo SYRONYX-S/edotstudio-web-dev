@@ -3,21 +3,23 @@
 :root {
   --background: #ffffff;
   --foreground: #1B1B1B;
-  --primary: #C75000;
-  --primary-light: #FF6B00;
-  --primary-dark: #A34000;
-  --primary-subtle: rgba(199, 80, 0, 0.15);
+  --primary: #f77425;
+  --primary-light: #f9914d;
+  --primary-dark: #e66a1d;
+  --primary-subtle: rgba(247, 116, 37, 0.15);
   --secondary: #1B1B1B;
   --secondary-light: #444444;
   --secondary-dark: #000000;
   --text-light: #ffffff;
   --text-dark: #1B1B1B;
+  --orange: #f77425;
+  --orange-hover: #e66a1d;
 }
 
 .dark {
-  --primary: #C75000; 
-  --primary-light: #FFD0B5; 
-  --primary-dark: #7A3000;
+  --primary: #f77425;
+  --primary-light: #f9914d;
+  --primary-dark: #e66a1d;
   --secondary: #1B1B1B;
   --secondary-light: #444444;
   --secondary-dark: #000000;
@@ -533,4 +535,44 @@ html {
 
 .dark .dust-particles .particle {
   background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Navbar island styling */
+.navbar-island {
+  background-color: rgba(17, 17, 17, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 9999px; /* Fully rounded */
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-link {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+  color: var(--orange);
+}
+
+/* Hover effects */
+.logo-hover {
+  transition: transform 0.3s ease;
+}
+
+.logo-hover:hover {
+  transform: scale(1.05);
+}
+
+.hover-rotate {
+  transition: transform 0.3s ease;
+}
+
+.hover-rotate:hover {
+  transform: rotate(5deg);
 }

@@ -15,7 +15,6 @@ import ParallaxSection from '@/components/ParallaxSection';
 import MarqueeClients from '@/components/MarqueeClients';
 import TestimonialSlider from '@/components/TestimonialSlider';
 import PortfolioItem from '@/components/PortfolioItem';
-import ClientPreloader from '@/components/ClientPreloader';
 
 // Data
 import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
@@ -37,10 +36,8 @@ export default function Home() {
 
   return (
     <>
-      <ClientPreloader />
-      
       {/* Hero Section */}
-      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-[#1B1B1B]">
+      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-[#1B1B1B] backdrop-blur-sm">
         {/* Enhanced animated circles */}
         <div className="absolute inset-0 overflow-hidden z-0">
           <motion.div 
@@ -158,7 +155,7 @@ export default function Home() {
         </div>
         
         {/* Frosted glass overlay */}
-        <div className="absolute inset-0 backdrop-blur-[5px] bg-white/5 dark:bg-black/20 z-1"></div>
+        <div className="absolute inset-0 bg-white/5 dark:bg-black/10 backdrop-blur-[5px] z-1"></div>
         
         {/* Content */}
         <div className="container mx-auto px-4 z-10 mt-20">

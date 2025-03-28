@@ -3,161 +3,253 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
-import ThemeToggle from './ThemeToggle';
-import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== scrolled) {
+        setScrolled(isScrolled);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrolled]);
+
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Contact', href: '/contact' },
-    { name: 'FAQ', href: '/faq' },
+    { name: 'HOME', href: '/' },
+    { name: 'ABOUT', href: '/#about' },
+    { name: 'SERVICES', href: '/#services' },
+    { name: 'PROJECTS', href: '/#projects' },
+    { name: 'REVIEWS', href: '/#reviews' },
+    { name: 'BLOG', href: '/blog' },
+    { name: 'CONTACT', href: '/#contact' },
   ];
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
 
   return (
     <>
       <motion.nav
+        className={`fixed top-0 left-0 w-full backdrop-blur-md z-50 py-3 transition-all duration-300 ${
+          scrolled 
+            ? "bg-white/90 dark:bg-[#1B1B1B]/90 shadow-md" 
+            : "bg-white/70 dark:bg-[#1B1B1B]/70"
+        }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 w-full flex items-center h-18 z-50 py-3 glass-dark shadow-lg backdrop-blur-md"
       >
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          {/* Logo and Links Container */}
-          <div className="flex items-center">
-            {/* Logo with fixed width and proper centering */}
-            <Link href="/" className="flex items-center justify-center relative z-50" style={{ marginRight: '25px' }}>
-              <div className="h-10 flex items-center justify-center">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="relative flex items-center logo-hover">
+              <motion.div
+                className="relative w-32 h-8 flex items-center"
+                transition={{ duration: 0.2 }}
+              >
                 <Image
-                  src="/logo.svg"
-                  alt="EdotStudio Logo"
-                  width={120}
-                  height={32}
-                  className="nav-logo dark:opacity-0 h-8 w-auto object-contain transition-opacity duration-300"
+                  src="/logo-dark.svg"
+                  alt="Logo"
+                  fill
+                  className="object-contain dark:hidden"
+                  priority
                 />
                 <Image
                   src="/logo-light.svg"
-                  alt="EdotStudio Logo"
-                  width={120}
-                  height={32}
-                  className="nav-logo absolute top-1/2 left-0 -translate-y-1/2 opacity-0 dark:opacity-100 h-8 w-auto object-contain transition-opacity duration-300"
+                  alt="Logo"
+                  fill
+                  className="object-contain hidden dark:block"
+                  priority
                 />
-              </div>
+              </motion.div>
             </Link>
-            
-            {/* Vertical Divider */}
-            <div className="hidden md:block h-6 w-px bg-gray-600" style={{ marginRight: '12px' }}></div>
-            
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center nav-links-container" style={{ marginLeft: '13px' }}>
-              {navLinks.map((link, index) => (
-                <motion.div
+
+            {/* Desktop navigation links - Island Design */}
+            <div className="hidden md:flex items-center justify-center navbar-island">
+              {navLinks.map((link) => (
+                <Link
                   key={link.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.1 }}
+                  href={link.href}
+                  className="navbar-link mx-4"
                 >
-                  <Link 
-                    href={link.href}
-                    className="font-supreme text-white hover:text-primary transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
+                  {link.name}
+                </Link>
               ))}
             </div>
-          </div>
 
-          {/* Right Side Elements - CTA and Theme Toggle */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* Theme Toggle */}
-            <ThemeToggle className="glass dark:glass-dark" />
+            {/* Right side - Theme toggle and CTA */}
+            <div className="hidden md:flex items-center">
+              {/* Theme toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 mr-4"
+                aria-label="Toggle dark mode"
+              >
+                {resolvedTheme === "dark" ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-yellow-300"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                  </svg>
+                )}
+              </button>
 
-            {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: navLinks.length * 0.1 }}
-            >
-              <Link href="/contact">
-                <motion.button
+              {/* CTA Button */}
+              <Link href="/#contact">
+                <motion.div
+                  className="bg-orange hover:bg-orange-hover text-white font-medium px-5 py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-primary text-white px-6 py-2 rounded-full font-technor hover:bg-primary-dark transition-all duration-300"
                 >
-                  Get In Touch
-                </motion.button>
+                  TEMPLATE
+                </motion.div>
               </Link>
-            </motion.div>
-          </div>
+            </div>
 
-          {/* Mobile Navigation */}
-          <div className="md:hidden flex items-center space-x-2">
-            {/* Theme Toggle - Mobile */}
-            <ThemeToggle className="glass dark:glass-dark" />
-            
-            <button 
-              onClick={toggleMobileMenu}
-              className="text-foreground p-2 focus:outline-none z-50 relative glass dark:glass-dark rounded-full"
-              aria-label="Toggle mobile menu"
-            >
-              {isMobileMenuOpen ? (
-                <RiCloseLine className="w-6 h-6" />
-              ) : (
-                <RiMenu3Line className="w-6 h-6" />
-              )}
-            </button>
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button
+                onClick={toggleTheme}
+                className="p-2 mr-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                aria-label="Toggle dark mode"
+              >
+                {resolvedTheme === "dark" ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-yellow-300"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                  </svg>
+                )}
+              </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                {!isMobileMenuOpen ? (
+                  <svg
+                    className="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed inset-0 bg-secondary/90 backdrop-blur-lg z-40 flex flex-col items-center justify-center p-8"
+            className="md:hidden fixed top-[60px] left-0 w-full bg-white/95 dark:bg-[#1B1B1B]/95 backdrop-blur-md z-40 shadow-lg"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
           >
-            <div className="flex flex-col items-center space-y-6 w-full">
+            <div className="px-4 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col">
               {navLinks.map((link, index) => (
-                <motion.div
+                <Link
                   key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="w-full text-center"
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Link 
-                    href={link.href}
-                    className="font-technor text-white text-2xl hover:text-primary block py-2 w-full glass-dark rounded-xl"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                  <motion.div
+                    className="block px-3 py-2 rounded-md text-base font-medium text-center hover:bg-gray-100 dark:hover:bg-slate-800 hover:text-orange transition-colors"
+                    initial={{ opacity: 0, y: -5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
                   >
                     {link.name}
-                  </Link>
-                </motion.div>
+                  </motion.div>
+                </Link>
               ))}
-              <Link href="/contact" className="w-full" onClick={() => setIsMobileMenuOpen(false)}>
-                <motion.button
+              {/* Mobile CTA Button */}
+              <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                <motion.div
+                  className="mt-2 bg-orange hover:bg-orange-hover text-white font-medium px-4 py-2 rounded-full text-center transition-all duration-300 shadow-md hover:shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-primary text-white px-6 py-3 rounded-full font-technor mt-4 w-full"
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navLinks.length * 0.05 }}
                 >
-                  Get In Touch
-                </motion.button>
+                  TEMPLATE
+                </motion.div>
               </Link>
             </div>
           </motion.div>
