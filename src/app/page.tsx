@@ -169,7 +169,7 @@ export default function Home() {
                 as="h1"
                 type="staggered"
                 color="primary"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-technor uppercase"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-pilcrow  font-semibold"
               />
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}

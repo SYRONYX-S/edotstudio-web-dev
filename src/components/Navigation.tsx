@@ -114,7 +114,8 @@ export default function Navigation() {
           {/* CTA Button */}
           <Button
             href="/template"
-            className="hidden md:inline-flex bg-primary hover:bg-primary-light dark:bg-primary dark:hover:bg-primary-light text-white"
+            className="hidden md:inline-flex hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light"
+            variant="outline"
           >
             Get in Touch
           </Button>
