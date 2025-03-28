@@ -37,55 +37,125 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-dark-500 animated-gradient backdrop-blur-sm">
-        {/* Animated background shapes */}
-        <div className="animated-bg-shapes">
-          <div className="shape"></div>
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
-        
-        {/* Background glow effect */}
-        <div className="absolute inset-0 bg-gradient-radial from-primary-400/20 via-transparent to-transparent opacity-70 dark:from-primary-500/30"></div>
-        
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Rotating geometric shapes */}
+      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-[#1B1B1B] backdrop-blur-sm">
+        {/* Enhanced animated circles */}
+        <div className="absolute inset-0 overflow-hidden z-0">
           <motion.div 
-            className="absolute -right-32 -top-32 opacity-10"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="w-96 h-96 rounded-full border-[40px] border-primary-400 dark:border-primary-500"></div>
-          </motion.div>
-          
-          <motion.div 
-            className="absolute -left-32 -bottom-32 opacity-10"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
-          >
-            <div className="w-[500px] h-[500px] rounded-full border-[50px] border-primary-300 dark:border-primary-600"></div>
-          </motion.div>
-          
-          {/* Floating elements */}
-          <motion.div 
-            className="absolute top-1/4 left-[10%] w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-xl opacity-20"
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[10%] left-[15%] w-[300px] h-[300px] rounded-full bg-primary-500/10 dark:bg-primary-500/20 blur-[80px]"
+            animate={{ 
+              x: [0, 50, 0, -50, 0],
+              y: [0, -50, 0, 50, 0]
+            }}
+            transition={{ 
+              duration: 25, 
+              repeat: Infinity,
+              ease: "easeInOut" 
+            }}
           />
           
           <motion.div 
-            className="absolute bottom-1/4 right-[15%] w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-full opacity-30"
-            animate={{ y: [0, -30, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] rounded-full bg-primary-500/15 dark:bg-primary-500/25 blur-[100px]"
+            animate={{ 
+              x: [0, -70, 0, 70, 0],
+              y: [0, 70, 0, -70, 0]
+            }}
+            transition={{ 
+              duration: 30, 
+              repeat: Infinity,
+              ease: "easeInOut" 
+            }}
           />
           
           <motion.div 
-            className="absolute top-1/3 right-[20%] w-12 h-12 bg-primary-300 dark:bg-primary-700 rounded-xl opacity-25"
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[50%] right-[30%] w-[200px] h-[200px] rounded-full bg-primary-600/10 dark:bg-primary-600/20 blur-[60px]"
+            animate={{ 
+              x: [0, 60, 0, -60, 0],
+              y: [0, -60, 0, 60, 0]
+            }}
+            transition={{ 
+              duration: 20, 
+              repeat: Infinity,
+              ease: "easeInOut" 
+            }}
           />
         </div>
+        
+        {/* Dust particles */}
+        <div className="dust-particles absolute inset-0 z-1">
+          <motion.div 
+            className="particle" 
+            style={{top: '10%', left: '15%'}}
+            animate={{ 
+              x: [0, -30, 0], 
+              y: [0, 30, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{ 
+              duration: 30, 
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+          />
+          <motion.div 
+            className="particle" 
+            style={{top: '35%', left: '80%'}}
+            animate={{ 
+              x: [0, -20, 0], 
+              y: [0, 20, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{ 
+              duration: 25, 
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+          />
+          <motion.div 
+            className="particle" 
+            style={{top: '70%', left: '35%'}}
+            animate={{ 
+              x: [0, -25, 0], 
+              y: [0, 25, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{ 
+              duration: 20, 
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+          />
+          <motion.div 
+            className="particle" 
+            style={{top: '20%', left: '55%'}}
+            animate={{ 
+              x: [0, -15, 0], 
+              y: [0, 15, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{ 
+              duration: 35, 
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+          />
+          <motion.div 
+            className="particle" 
+            style={{top: '85%', left: '25%'}}
+            animate={{ 
+              x: [0, -22, 0], 
+              y: [0, 22, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{ 
+              duration: 28, 
+              repeat: Infinity,
+              ease: "linear" 
+            }}
+          />
+        </div>
+        
+        {/* Frosted glass overlay */}
+        <div className="absolute inset-0 bg-white/5 dark:bg-black/10 backdrop-blur-[5px] z-1"></div>
         
         {/* Content */}
         <div className="container mx-auto px-4 z-10 mt-20">

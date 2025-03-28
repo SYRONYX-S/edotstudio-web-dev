@@ -512,3 +512,25 @@ html {
   display: flex;
   align-items: center;
 }
+
+/* Dust particles effect */
+.dust-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dust-particles .particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dark .dust-particles .particle {
+  background-color: rgba(255, 255, 255, 0.15);
+}
