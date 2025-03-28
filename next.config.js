@@ -1,7 +1,7 @@
-/** @type {import('next').NextConfig} */
+import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   /* config options here */
 };
 
-module.exports = nextConfig;
+export default nextConfig;

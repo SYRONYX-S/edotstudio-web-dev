@@ -468,6 +468,24 @@ html {
   font-family: var(--font-supreme);
 }
 
+/* Text glow effect for primary colored text */
+.text-shadow-glow {
+  text-shadow: 0 0 10px rgba(199, 80, 0, 0.3);
+}
+
+.dark .text-shadow-glow {
+  text-shadow: 0 0 15px rgba(255, 107, 0, 0.5);
+}
+
+/* Small glow effect for interactive elements */
+.shadow-glow-sm {
+  box-shadow: 0 0 10px rgba(199, 80, 0, 0.3);
+}
+
+.dark .shadow-glow-sm {
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+}
+
 .nav-logo {
   max-height: 25px;
   height: 100%;

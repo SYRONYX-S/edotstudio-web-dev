@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-dark-200 animated-gradient">
+      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-dark-500 animated-gradient backdrop-blur-sm">
         {/* Animated background shapes */}
         <div className="animated-bg-shapes">
           <div className="shape"></div>
@@ -99,7 +99,7 @@ export default function Home() {
                 as="h1"
                 type="staggered"
                 color="primary"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-technor"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-technor text-shadow-glow"
               />
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}

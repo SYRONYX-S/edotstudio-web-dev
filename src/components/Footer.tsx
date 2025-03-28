@@ -95,12 +95,18 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             className="col-span-1 lg:col-span-1"
           >
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-6 group">
               <div className="flex items-center">
-                <div className="bg-primary rounded-full p-2 mr-3">
-                  <span className="text-white text-xl font-bold">E.</span>
+                <Image
+                  src="/logo-light.svg"
+                  alt="EdotStudio Logo"
+                  width={40}
+                  height={40}
+                  className="mr-3"
+                />
+                <div className="text-2xl font-bold font-technor text-white group-hover:text-primary transition-colors duration-300">
+                  EdotStudio
                 </div>
-                <div className="text-2xl font-bold font-technor text-white">EdotStudio</div>
               </div>
             </Link>
             
@@ -116,7 +122,7 @@ const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
-                  className="bg-white/5 hover:bg-primary text-white p-2 rounded-full transition-colors duration-300"
+                  className="bg-white/5 hover:bg-primary text-white p-2 rounded-full transition-colors duration-300 hover:shadow-glow-sm"
                   aria-label={link.name}
                 >
                   {link.icon}
