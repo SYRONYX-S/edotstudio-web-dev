@@ -20,6 +20,7 @@
   --primary: #f77425;
   --primary-light: #f9914d;
   --primary-dark: #e66a1d;
+  --primary-subtle: rgba(247, 116, 37, 0.2);
   --secondary: #1B1B1B;
   --secondary-light: #444444;
   --secondary-dark: #000000;
@@ -539,13 +540,13 @@ html {
 
 /* Navbar island styling */
 .navbar-island {
-  background-color: rgba(17, 17, 17, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(17, 17, 17, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: 9999px; /* Fully rounded */
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 1.75rem;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-link {
@@ -553,26 +554,25 @@ html {
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.05em;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .navbar-link:hover {
   color: var(--orange);
 }
 
-/* Hover effects */
-.logo-hover {
-  transition: transform 0.3s ease;
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--orange);
+  transition: width 0.3s ease;
 }
 
-.logo-hover:hover {
-  transform: scale(1.05);
-}
-
-.hover-rotate {
-  transition: transform 0.3s ease;
-}
-
-.hover-rotate:hover {
-  transform: rotate(5deg);
+.navbar-link:hover::after {
+  width: 100%;
 }

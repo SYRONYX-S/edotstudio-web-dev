@@ -5,6 +5,8 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import CursorFollower from "../components/CursorFollower";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from 'next-themes';
+
 // Load local fonts
 const technorFont = localFont({
   src: [
@@ -96,20 +98,22 @@ export default function RootLayout({
         supremeFont.variable,
         "antialiased font-supreme relative"
       )}>
-        {/* Global animated background shapes */}
-        <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden animated-bg-shapes opacity-20">
-          <div className="shape"></div>
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
-        
-        <a href="#main-content" className="skip-to-content">
-          Skip to content
-        </a>
-        <CursorFollower />
-        <Navigation />
-        <main id="main-content" className="relative z-10">{children}</main>
-        <Footer />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          {/* Global animated background shapes */}
+          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden animated-bg-shapes opacity-20">
+            <div className="shape"></div>
+            <div className="shape"></div>
+            <div className="shape"></div>
+          </div>
+          
+          <a href="#main-content" className="skip-to-content">
+            Skip to content
+          </a>
+          <CursorFollower />
+          <Navigation />
+          <main id="main-content" className="relative z-10">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

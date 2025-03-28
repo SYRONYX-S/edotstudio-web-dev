@@ -3,8 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from 'next-themes';
+import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
+import ThemeToggle from './ThemeToggle';
+import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { useTheme } from "next-themes";
 
 const Navigation: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,22 +33,22 @@ const Navigation: React.FC = () => {
   };
 
   const navLinks = [
-    { name: 'HOME', href: '/' },
-    { name: 'ABOUT', href: '/#about' },
-    { name: 'SERVICES', href: '/#services' },
-    { name: 'PROJECTS', href: '/#projects' },
-    { name: 'REVIEWS', href: '/#reviews' },
-    { name: 'BLOG', href: '/blog' },
-    { name: 'CONTACT', href: '/#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/#about' },
+    { name: 'Portfolio', href: '/#portfolio' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Contact', href: '/#contact' },
   ];
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 w-full backdrop-blur-md z-50 py-3 transition-all duration-300 ${
-          scrolled 
-            ? "bg-white/90 dark:bg-[#1B1B1B]/90 shadow-md" 
-            : "bg-white/70 dark:bg-[#1B1B1B]/70"
+        className={`fixed top-0 left-0 w-full z-50 py-3 ${
+          scrolled ? "shadow-sm" : ""
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -125,11 +128,11 @@ const Navigation: React.FC = () => {
               {/* CTA Button */}
               <Link href="/#contact">
                 <motion.div
-                  className="bg-orange hover:bg-orange-hover text-white font-medium px-5 py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="bg-orange hover:bg-orange-hover text-white font-medium px-5 py-2 rounded-full transition-all duration-300 shadow-md hover:shadow-lg shadow-orange/20 hover:shadow-orange/30"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  TEMPLATE
+                  Get In Touch
                 </motion.div>
               </Link>
             </div>
@@ -241,14 +244,14 @@ const Navigation: React.FC = () => {
               {/* Mobile CTA Button */}
               <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)}>
                 <motion.div
-                  className="mt-2 bg-orange hover:bg-orange-hover text-white font-medium px-4 py-2 rounded-full text-center transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="mt-2 bg-orange hover:bg-orange-hover text-white font-medium px-4 py-2 rounded-full text-center transition-all duration-300 shadow-md hover:shadow-lg shadow-orange/20 hover:shadow-orange/30"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: navLinks.length * 0.05 }}
                 >
-                  TEMPLATE
+                  Get In Touch
                 </motion.div>
               </Link>
             </div>
