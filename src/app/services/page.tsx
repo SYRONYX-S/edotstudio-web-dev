@@ -193,7 +193,7 @@ export default function ServicesPage() {
                 className="bg-white dark:bg-dark-300 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="text-4xl text-primary mb-6">
-                  <service.icon />
+                  {React.createElement(service.icon)}
                 </div>
                 <h3 className="text-2xl font-technor text-primary mb-4">{service.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 font-supreme">{service.description}</p>
