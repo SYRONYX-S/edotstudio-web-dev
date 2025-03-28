@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { ArrowRight } from "lucide-react";
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -39,26 +40,12 @@ export default function ServiceCard({ icon, title, description, href = '#' }: Se
       <p className="text-gray-600 dark:text-gray-300 mb-6">{description}</p>
 
       {/* Learn More Link */}
-      <Link
-        href={href || '#'}
-        className="services-card-link-text inline-flex items-center text-primary font-medium group-hover:gap-2 transition-all duration-300"
-      >
-        <span className="relative">Learn More</span>
-        <motion.span
-          initial={{ x: -5, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="relative"
-        >
-          <motion.span
-            className="inline-block"
-            whileHover={{ x: 5 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
-            →
-          </motion.span>
-        </motion.span>
-      </Link>
+      <div className="flex items-center text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors duration-300">
+        <span className="mr-2 group-hover:text-primary transition-colors duration-300">Learn more</span>
+        <ArrowRight 
+          className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300 ease-in-out"
+        />
+      </div>
 
       {/* Hover Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

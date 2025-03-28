@@ -19,7 +19,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     
     const variants = {
       default: "bg-primary text-white hover:bg-primary-light before:absolute before:inset-0 before:bg-white/20 before:translate-x-[-100%] hover:before:translate-x-[100%] before:transition-transform before:duration-500 before:ease-out",
-      outline: "border-2 border-primary text-primary hover:bg-primary hover:text-white before:absolute before:inset-0 before:bg-primary before:translate-y-[100%] hover:before:translate-y-0 before:transition-transform before:duration-300 before:ease-out",
+      outline: "border-2 border-primary-light text-primary hover:bg-primary-light hover:text-white before:absolute before:inset-0 before:bg-primary-light before:translate-y-[100%] hover:before:translate-y-0 before:transition-transform before:duration-300 before:ease-out",
       ghost: "text-primary hover:bg-primary/10 before:absolute before:inset-0 before:bg-primary/5 before:scale-x-0 hover:before:scale-x-100 before:origin-left before:transition-transform before:duration-300 before:ease-out"
     };
     

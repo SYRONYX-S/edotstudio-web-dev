@@ -48,7 +48,7 @@ export default function ScrollBackground() {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute top-[15%] left-[20%] w-32 h-32 border border-primary/10 rounded-lg"
+          className="absolute top-[15%] left-[20%] w-32 h-32 border border-primary/30 rounded-lg"
         />
 
         <motion.div
@@ -62,7 +62,7 @@ export default function ScrollBackground() {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute bottom-[20%] right-[15%] w-40 h-40 border border-primary/10 rounded-full"
+          className="absolute bottom-[20%] right-[15%] w-40 h-40 border border-primary/30 rounded-full"
         />
 
         {/* Subtle lines with scroll and continuous motion */}
@@ -79,7 +79,7 @@ export default function ScrollBackground() {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute top-[30%] left-[25%] w-[20vw] h-[1px] bg-primary/10"
+          className="absolute top-[30%] left-[25%] w-[20vw] h-[1px] bg-primary/30"
         />
 
         <motion.div
@@ -95,7 +95,7 @@ export default function ScrollBackground() {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute top-[45%] right-[20%] w-[15vw] h-[1px] bg-primary/10"
+          className="absolute top-[45%] right-[20%] w-[15vw] h-[1px] bg-primary/30"
         />
 
         {/* Triangle shape */}
@@ -109,7 +109,7 @@ export default function ScrollBackground() {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute top-[60%] left-[40%] w-0 h-0 border-l-[30px] border-l-transparent border-b-[52px] border-b-primary/10 border-r-[30px] border-r-transparent"
+          className="absolute top-[60%] left-[40%] w-0 h-0 border-l-[30px] border-l-transparent border-b-[52px] border-b-primary/30 border-r-[30px] border-r-transparent"
         />
 
         {/* Random subtle lines */}
@@ -145,7 +145,7 @@ export default function ScrollBackground() {
             ease: "linear",
             repeat: Infinity,
           }}
-          className="absolute top-[70%] right-[35%] w-24 h-16 border border-primary/10"
+          className="absolute top-[70%] right-[35%] w-24 h-16 border border-primary/30"
         />
       </div>
     </div>

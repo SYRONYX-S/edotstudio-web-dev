@@ -142,7 +142,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden fixed top-20 left-0 right-0 bg-background-light dark:bg-background-dark shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto z-50"
+            className="md:hidden fixed top-20 left-0 right-0 bg-white dark:bg-background-dark shadow-lg max-h-[calc(100vh-5rem)] overflow-y-auto z-50 border-t-2"
           >
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col space-y-6">

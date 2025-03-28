@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { RiArrowRightLine, RiArrowRightUpLine, RiCheckboxCircleLine, RiBriefcase4Line, RiTimeLine, RiTeamLine } from 'react-icons/ri';
+import { Lightbulb, Code, Rocket, Shield, Users, Award, TrendingUp, Globe } from 'lucide-react';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -280,88 +281,205 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Process Section - New */}
-      <section className="py-20 bg-white-100 dark:bg-dark-200">
-        <div className="container mx-auto px-4 relative z-10">
+      {/* Our Approach Section */}
+      <section className="py-20 relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-grid-gray-900/[0.02] dark:bg-grid-white/[0.02] -z-10" />
+        <div className="absolute inset-0 flex items-center justify-center -z-10">
+          <div className="w-[500px] h-[500px]" />
+        </div>
+
+        <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl md:text-5xl font-display mb-4"
+            >
               Our Approach
-            </div>
-            <AnimatedTitle 
-              title="Our Proven Process"
-              className="text-2xl md:text-4xl mb-4 font-technor"
-            />
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
-              We follow a systematic approach to ensure every project is delivered with excellence and meets your business objectives.
-            </p>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            >
+              We follow a systematic approach to deliver exceptional results for every project
+            </motion.p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
             {[
-              { 
-                step: '01', 
-                title: 'Discovery', 
-                description: 'We start by understanding your business goals, target audience, and project requirements.',
-                icon: '🔍'
+              {
+                title: "Discovery & Strategy",
+                description: "We dive deep into your business needs and craft a tailored strategy that aligns with your goals.",
+                icon: <Lightbulb className="w-6 h-6 text-primary" />,
+                color: "from-primary/10 to-primary/5"
               },
-              { 
-                step: '02', 
-                title: 'Strategy', 
-                description: 'Our team develops a comprehensive strategy tailored to your specific needs and objectives.',
-                icon: '📊'
+              {
+                title: "Design & Development",
+                description: "Our team creates intuitive designs and develops robust solutions using cutting-edge technologies.",
+                icon: <Code className="w-6 h-6 text-primary" />,
+                color: "from-primary/5 to-primary/10"
               },
-              { 
-                step: '03', 
-                title: 'Creation', 
-                description: 'We bring your project to life through design, development, and content creation.',
-                icon: '💡'
+              {
+                title: "Testing & Deployment",
+                description: "Rigorous testing ensures quality while our deployment process guarantees smooth transitions.",
+                icon: <Shield className="w-6 h-6 text-primary" />,
+                color: "from-primary/10 to-primary/5"
               },
-              { 
-                step: '04', 
-                title: 'Launch & Optimize', 
-                description: 'We deploy your project and continuously optimize for maximum performance.',
-                icon: '🚀'
-              },
-            ].map((item, index) => (
+              {
+                title: "Launch & Support",
+                description: "We ensure successful launches and provide ongoing support to keep your solution running optimally.",
+                icon: <Rocket className="w-6 h-6 text-primary" />,
+                color: "from-primary/5 to-primary/10"
+              }
+            ].map((approach, index) => (
               <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 30 }}
+                key={approach.title}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="relative z-10 glass-card hover-tilt"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative"
               >
-                <div className="text-5xl mb-6 opacity-10 absolute top-6 right-6 font-technor">{item.step}</div>
-                <div className="text-3xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-technor text-primary mb-3">{item.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 font-supreme">{item.description}</p>
+                {/* Card */}
+                <div className="relative overflow-hidden rounded-2xl bg-white/50 dark:bg-black/10 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-1 transition-all duration-300 ease-in-out group-hover:border-primary/50">
+                  {/* Gradient Background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${approach.color} opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out`} />
+
+                  {/* Content Container */}
+                  <div className="relative p-6">
+                    {/* Step Number */}
+                    <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-primary/5 dark:bg-primary/10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                      <span className="text-primary text-sm font-semibold">{index + 1}</span>
+                    </div>
+
+                    {/* Icon Container */}
+                    <div className="mb-6 w-14 h-14 rounded-xl bg-primary/5 dark:bg-primary/10 flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 ease-in-out">
+                      {approach.icon}
+                    </div>
+
+                    {/* Text Content */}
+                    <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-all duration-300">
+                      {approach.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 transition-all duration-300">
+                      {approach.description}
+                    </p>
+
+                    {/* Hover Line */}
+                    <div className="absolute bottom-0 left-0 w-0 h-1 bg-primary group-hover:w-full transition-all duration-500 ease-out" />
+                  </div>
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="absolute -z-10 inset-0 bg-gradient-to-br from-primary/0 to-primary/10 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out" />
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-dark-400 text-white">
+      {/* Our Impact Section */}
+      <section className="py-20 relative">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <AnimatedTitle 
-              title="Our Impact in Numbers"
-              color="light"
-              className="text-2xl md:text-4xl mb-4 font-technor"
-            />
+          <div className="text-center mb-16">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-4xl md:text-5xl font-display mb-4"
+            >
+              Our Impact
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+            >
+              Making a difference through innovative digital solutions
+            </motion.p>
           </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {stats.map((stat) => (
-              <div key={stat.id} className="p-6 glass-dark hover-tilt rounded-xl transform hover:-translate-y-2 transition-transform duration-300">
-                <CountUp
-                  end={stat.value}
-                  suffix={stat.suffix}
-                  className="text-4xl md:text-5xl font-technor font-bold text-primary mb-2"
-                />
-                <p className="text-sm md:text-base font-medium font-supreme">{stat.label}</p>
-              </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Global Reach",
+                description: "Impacting businesses and users across multiple continents with our innovative solutions.",
+                icon: <Globe className="w-8 h-8 text-primary" />,
+                stat: "20+",
+                statLabel: "Countries",
+              },
+              {
+                title: "Client Success",
+                description: "Helping businesses achieve their goals through strategic digital transformation.",
+                icon: <TrendingUp className="w-8 h-8 text-primary" />,
+                stat: "95%",
+                statLabel: "Success Rate",
+              },
+              {
+                title: "User Satisfaction",
+                description: "Creating experiences that delight users and exceed expectations.",
+                icon: <Users className="w-8 h-8 text-primary" />,
+                stat: "1M+",
+                statLabel: "Users",
+              },
+              {
+                title: "Industry Recognition",
+                description: "Earning accolades and recognition for our innovative approach and results.",
+                icon: <Award className="w-8 h-8 text-primary" />,
+                stat: "15+",
+                statLabel: "Awards",
+              }
+            ].map((impact, index) => (
+              <motion.div
+                key={impact.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative"
+              >
+                {/* Card */}
+                <div className="h-full relative rounded-2xl bg-white/30 dark:bg-black/10 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-300 ease-in-out group-hover:border-primary/50 group-hover:translate-y-[-5px]">
+                  {/* Stat Display */}
+                  <div className="absolute top-6 right-6">
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-primary mb-1 transform group-hover:scale-110 group-hover:translate-x-[-5px] transition-all duration-300 ease-in-out">
+                        {impact.stat}
+                      </div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400 transition-all duration-300">
+                        {impact.statLabel}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Icon with Glow */}
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0 bg-primary/20 blur-xl transform group-hover:scale-150 transition-all duration-500 ease-out" />
+                    <div className="relative z-10 w-16 h-16 rounded-2xl bg-primary/5 dark:bg-primary/10 flex items-center justify-center transform group-hover:-rotate-12 group-hover:scale-110 transition-all duration-300 ease-in-out">
+                      {impact.icon}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-all duration-300">
+                    {impact.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 transition-all duration-300">
+                    {impact.description}
+                  </p>
+
+                  {/* Decorative Corner */}
+                  <div className="absolute bottom-0 right-0 w-24 h-24">
+                    <div className="absolute bottom-0 right-0 w-full h-full bg-primary/5 dark:bg-primary/10 transform rotate-45 translate-x-1/2 translate-y-1/2 group-hover:scale-150 transition-all duration-500 ease-out" />
+                  </div>
+                </div>
+
+                {/* Hover Glow Effect */}
+                <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/0 to-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out -z-10" />
+              </motion.div>
             ))}
           </div>
         </div>
