@@ -158,7 +158,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-white/5 dark:bg-black/10 backdrop-blur-[5px] z-1"></div>
         
         {/* Content */}
-        <div className="container mx-auto px-4 z-10 mt-20">
+        <div className="container mx-auto px-4 z-10">
           <div className="flex flex-col items-center text-center">
             <motion.div 
               style={{ y, opacity }}
@@ -169,7 +169,7 @@ export default function Home() {
                 as="h1"
                 type="staggered"
                 color="primary"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-technor text-shadow-glow"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-technor uppercase"
               />
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}

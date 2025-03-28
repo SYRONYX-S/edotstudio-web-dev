@@ -20,10 +20,13 @@ module.exports = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: '#FFFFFF',
+        'background-dark': '#1B1B1B',
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: '#C75000',
+          light: '#E85E00',
+          dark: '#A64200',
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {

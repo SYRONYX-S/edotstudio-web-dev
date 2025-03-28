@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,16 +22,25 @@ const navLinks = [
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="navbar-container"
+      className="fixed top-0 left-0 h-20 flex items-center right-0 z-50 bg-background/80 dark:bg-background-dark/80 backdrop-blur-lg shadow-lg"
     >
-      <div className="navbar-content">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="nav-logo-container">
           <motion.div
@@ -39,31 +48,31 @@ export default function Navigation() {
             className="relative w-36 h-10 flex items-center"
           >
             <Image
-              src="/images/logo-light.png"
+              src="/logo-dark.svg"
               alt="EdotStudio Logo"
               width={120}
               height={32}
-              className="nav-logo dark:hidden"
+              className="block dark:hidden"
               priority
             />
             <Image
-              src="/images/logo-dark.png"
+              src="/logo-light.svg"
               alt="EdotStudio Logo"
               width={120}
               height={32}
-              className="nav-logo hidden dark:block"
+              className="hidden dark:block"
               priority
             />
           </motion.div>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="nav-links-island">
+        <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="nav-link"
+              className="text-md font-medium hover:text-primary transition-colors duration-200"
             >
               {link.name}
             </Link>
@@ -77,9 +86,9 @@ export default function Navigation() {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
               {theme === 'dark' ? (
                 <motion.div
                   key="sun"
@@ -87,9 +96,8 @@ export default function Navigation() {
                   animate={{ opacity: 1, rotate: 0 }}
                   exit={{ opacity: 0, rotate: 180 }}
                   transition={{ duration: 0.3 }}
-                  className="theme-toggle-icon"
                 >
-                  <RiSunLine className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                  <RiSunLine className="w-5 h-5 text-primary" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -98,9 +106,8 @@ export default function Navigation() {
                   animate={{ opacity: 1, rotate: 0 }}
                   exit={{ opacity: 0, rotate: 180 }}
                   transition={{ duration: 0.3 }}
-                  className="theme-toggle-icon"
                 >
-                  <RiMoonLine className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+                  <RiMoonLine className="w-5 h-5 text-primary" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -109,20 +116,20 @@ export default function Navigation() {
           {/* CTA Button */}
           <Button
             href="/template"
-            className="hidden md:inline-flex"
+            className="hidden md:inline-flex bg-primary hover:bg-primary-light dark:bg-primary dark:hover:bg-primary-light text-white"
           >
-            TEMPLATE
+            Get in Touch
           </Button>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+            className="md:hidden p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
           >
             {isMobileMenuOpen ? (
-              <RiCloseLine className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              <RiCloseLine className="w-6 h-6 text-primary" />
             ) : (
-              <RiMenuLine className="w-6 h-6 text-gray-700 dark:text-gray-300" />
+              <RiMenuLine className="w-6 h-6 text-primary" />
             )}
           </button>
         </div>
@@ -136,7 +143,7 @@ export default function Navigation() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-dark-300 shadow-lg"
+            className="md:hidden bg-background-light dark:bg-background-dark shadow-lg"
           >
             <div className="container mx-auto px-4 py-4">
               <div className="flex flex-col space-y-4">
@@ -144,7 +151,7 @@ export default function Navigation() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="nav-link py-2"
+                    className="text-sm font-medium hover:text-primary transition-colors duration-200"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
@@ -152,7 +159,7 @@ export default function Navigation() {
                 ))}
                 <Button
                   href="/template"
-                  className="w-full mt-4"
+                  className="w-full bg-primary hover:bg-primary-light dark:bg-primary dark:hover:bg-primary-light text-white"
                 >
                   TEMPLATE
                 </Button>

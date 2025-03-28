@@ -4,6 +4,8 @@ import "./globals.css";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import CursorFollower from "../components/CursorFollower";
+import FloatingButtons from "../components/FloatingButtons";
+import Preloader from "../components/Preloader";
 import { cn } from "@/lib/utils";
 import Providers from "./providers";
 
@@ -112,6 +114,7 @@ export default function RootLayout({
         "antialiased font-pilcrow relative"
       )}>
         <Providers>
+          <Preloader />
           {/* Global animated background shapes */}
           <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden animated-bg-shapes opacity-20">
             <div className="shape"></div>
@@ -124,8 +127,9 @@ export default function RootLayout({
           </a>
           <CursorFollower />
           <Navigation />
-          <main id="main-content" className="relative z-10">{children}</main>
+          <main id="main-content" className="relative z-10 pt-20">{children}</main>
           <Footer />
+          <FloatingButtons />
         </Providers>
       </body>
     </html>

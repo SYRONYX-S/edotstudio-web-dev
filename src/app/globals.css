@@ -57,7 +57,9 @@
     @apply bg-background text-foreground transition-colors duration-300;
   }
 }
-
+.key-color-bg {
+  border: 1px solid var(--accent);
+}
 @layer components {
   .nav-logo {
     @apply max-h-[32px] w-auto;
@@ -159,7 +161,9 @@
 .nav-logo-container {
   @apply mr-2.5;
 }
-
+.nav-logo-container img {
+  height: 30px
+}
 /* Theme Toggle Icon Transition */
 .theme-toggle-icon {
   @apply transition-all duration-300;

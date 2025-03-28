@@ -143,8 +143,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-3 font-supreme">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-400 hover:text-primary transition-colors flex items-center">
-                    <span className="mr-2 text-xs">▸</span> {link.name}
+                  <Link 
+                    href={link.href} 
+                    className="text-gray-400 hover:text-primary transition-colors duration-300 flex items-center group"
+                  >
+                    <span className="mr-2 text-xs opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">▸</span>
+                    <span className="transform translate-x-[-10px] group-hover:translate-x-0 transition-transform duration-300">{link.name}</span>
                   </Link>
                 </li>
               ))}
@@ -163,8 +167,12 @@ const Footer: React.FC = () => {
             <ul className="space-y-3 font-supreme">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-gray-400 hover:text-primary transition-colors flex items-center">
-                    <span className="mr-2 text-xs">▸</span> {link.name}
+                  <Link 
+                    href={link.href} 
+                    className="text-gray-400 hover:text-primary transition-colors duration-300 flex items-center group"
+                  >
+                    <span className="mr-2 text-xs opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">▸</span>
+                    <span className="transform translate-x-[-10px] group-hover:translate-x-0 transition-transform duration-300">{link.name}</span>
                   </Link>
                 </li>
               ))}
@@ -187,7 +195,10 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Email Us</p>
-                  <a href="mailto:info@edotstudio.com" className="text-gray-400 hover:text-primary transition-colors">
+                  <a 
+                    href="mailto:info@edotstudio.com" 
+                    className="text-gray-400 hover:text-primary transition-colors duration-300 inline-block"
+                  >
                     info@edotstudio.com
                   </a>
                 </div>
@@ -198,7 +209,10 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Call Us</p>
-                  <a href="tel:+1234567890" className="text-gray-400 hover:text-primary transition-colors">
+                  <a 
+                    href="tel:+1234567890" 
+                    className="text-gray-400 hover:text-primary transition-colors duration-300 inline-block"
+                  >
                     +1 (234) 567-890
                   </a>
                 </div>
@@ -209,11 +223,15 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Visit Us</p>
-                  <p className="text-gray-400">
-                    123 Creative Street,<br />
-                    Innovation City, 12345<br />
-                    United States
-                  </p>
+                  <a 
+                    href="https://maps.google.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-gray-400 hover:text-primary transition-colors duration-300 inline-block"
+                  >
+                    123 Business Street, Suite 100<br />
+                    New York, NY 10001
+                  </a>
                 </div>
               </li>
             </ul>
