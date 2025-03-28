@@ -1,0 +1,111 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="600" fill="#A34000"/>
+  
+  <!-- Background Gradient -->
+  <rect width="1200" height="600" fill="url(#paint0_radial)"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="200" cy="300" r="400" fill="#C75000" opacity="0.4"/>
+  <circle cx="1000" cy="300" r="350" fill="#7A3000" opacity="0.3"/>
+  
+  <!-- Diagonal Stripes -->
+  <g opacity="0.1">
+    <rect x="-100" y="650" width="1400" height="20" transform="rotate(-45 -100 650)" fill="white"/>
+    <rect x="-100" y="750" width="1400" height="10" transform="rotate(-45 -100 750)" fill="white"/>
+    <rect x="-100" y="850" width="1400" height="5" transform="rotate(-45 -100 850)" fill="white"/>
+  </g>
+  
+  <!-- Pattern Grid -->
+  <g opacity="0.05">
+    <rect x="50" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="150" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="250" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="350" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="450" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="550" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="650" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="750" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="850" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="950" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1050" y="50" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1150" y="50" width="10" height="10" rx="5" fill="white"/>
+
+    <rect x="50" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="150" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="250" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="350" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="450" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="550" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="650" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="750" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="850" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="950" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1050" y="150" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1150" y="150" width="10" height="10" rx="5" fill="white"/>
+
+    <rect x="50" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="150" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="250" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="350" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="450" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="550" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="650" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="750" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="850" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="950" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1050" y="250" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1150" y="250" width="10" height="10" rx="5" fill="white"/>
+
+    <rect x="50" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="150" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="250" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="350" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="450" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="550" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="650" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="750" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="850" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="950" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1050" y="350" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1150" y="350" width="10" height="10" rx="5" fill="white"/>
+
+    <rect x="50" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="150" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="250" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="350" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="450" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="550" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="650" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="750" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="850" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="950" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1050" y="450" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1150" y="450" width="10" height="10" rx="5" fill="white"/>
+
+    <rect x="50" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="150" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="250" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="350" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="450" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="550" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="650" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="750" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="850" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="950" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1050" y="550" width="10" height="10" rx="5" fill="white"/>
+    <rect x="1150" y="550" width="10" height="10" rx="5" fill="white"/>
+  </g>
+  
+  <!-- Wave Effect -->
+  <path d="M0,450 C200,400 400,500 600,450 C800,400 1000,500 1200,450 V600 H0 V450Z" fill="#FF6B00" opacity="0.2"/>
+  
+  <!-- Highlight Curve -->
+  <path d="M-100,200 C200,50 400,350 700,150 C1000,-50 1200,200 1300,100" stroke="white" stroke-width="3" opacity="0.1"/>
+  
+  <defs>
+    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 300) rotate(90) scale(500)">
+      <stop offset="0" stop-color="#FF6B00" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#7A3000" stop-opacity="0.8"/>
+    </radialGradient>
+  </defs>
+</svg> 

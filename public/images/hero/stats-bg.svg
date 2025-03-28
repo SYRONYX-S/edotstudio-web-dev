@@ -1,0 +1,70 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="600" fill="#1B1B1B"/>
+  
+  <!-- Background Patterns -->
+  <rect x="0" y="0" width="1200" height="600" fill="#1B1B1B"/>
+  
+  <!-- Abstract Shapes -->
+  <circle cx="100" cy="100" r="200" fill="#C75000" opacity="0.05"/>
+  <circle cx="1100" cy="500" r="250" fill="#C75000" opacity="0.05"/>
+  <circle cx="600" cy="300" r="300" fill="#C75000" opacity="0.02"/>
+  
+  <!-- Decorative Dots Patterns -->
+  <g opacity="0.2">
+    <circle cx="200" cy="100" r="2" fill="white"/>
+    <circle cx="220" cy="100" r="2" fill="white"/>
+    <circle cx="240" cy="100" r="2" fill="white"/>
+    <circle cx="260" cy="100" r="2" fill="white"/>
+    <circle cx="280" cy="100" r="2" fill="white"/>
+    
+    <circle cx="200" cy="120" r="2" fill="white"/>
+    <circle cx="220" cy="120" r="2" fill="white"/>
+    <circle cx="240" cy="120" r="2" fill="white"/>
+    <circle cx="260" cy="120" r="2" fill="white"/>
+    <circle cx="280" cy="120" r="2" fill="white"/>
+    
+    <circle cx="200" cy="140" r="2" fill="white"/>
+    <circle cx="220" cy="140" r="2" fill="white"/>
+    <circle cx="240" cy="140" r="2" fill="white"/>
+    <circle cx="260" cy="140" r="2" fill="white"/>
+    <circle cx="280" cy="140" r="2" fill="white"/>
+  </g>
+  
+  <g opacity="0.2">
+    <circle cx="900" cy="400" r="2" fill="white"/>
+    <circle cx="920" cy="400" r="2" fill="white"/>
+    <circle cx="940" cy="400" r="2" fill="white"/>
+    <circle cx="960" cy="400" r="2" fill="white"/>
+    <circle cx="980" cy="400" r="2" fill="white"/>
+    
+    <circle cx="900" cy="420" r="2" fill="white"/>
+    <circle cx="920" cy="420" r="2" fill="white"/>
+    <circle cx="940" cy="420" r="2" fill="white"/>
+    <circle cx="960" cy="420" r="2" fill="white"/>
+    <circle cx="980" cy="420" r="2" fill="white"/>
+    
+    <circle cx="900" cy="440" r="2" fill="white"/>
+    <circle cx="920" cy="440" r="2" fill="white"/>
+    <circle cx="940" cy="440" r="2" fill="white"/>
+    <circle cx="960" cy="440" r="2" fill="white"/>
+    <circle cx="980" cy="440" r="2" fill="white"/>
+  </g>
+  
+  <!-- Lines -->
+  <line x1="0" y1="150" x2="1200" y2="150" stroke="#C75000" stroke-width="1" opacity="0.1"/>
+  <line x1="0" y1="300" x2="1200" y2="300" stroke="#C75000" stroke-width="1" opacity="0.1"/>
+  <line x1="0" y1="450" x2="1200" y2="450" stroke="#C75000" stroke-width="1" opacity="0.1"/>
+  
+  <line x1="300" y1="0" x2="300" y2="600" stroke="#C75000" stroke-width="1" opacity="0.1"/>
+  <line x1="600" y1="0" x2="600" y2="600" stroke="#C75000" stroke-width="1" opacity="0.1"/>
+  <line x1="900" y1="0" x2="900" y2="600" stroke="#C75000" stroke-width="1" opacity="0.1"/>
+  
+  <!-- Decorative Elements -->
+  <rect x="50" y="500" width="150" height="4" rx="2" fill="#C75000" opacity="0.3"/>
+  <rect x="1000" y="100" width="150" height="4" rx="2" fill="#C75000" opacity="0.3"/>
+  <rect x="500" y="250" width="200" height="4" rx="2" fill="#C75000" opacity="0.2"/>
+  
+  <!-- Animated-looking Elements (static in SVG) -->
+  <path d="M100,400 Q300,200 500,350 T900,250" stroke="#C75000" stroke-width="2" fill="none" opacity="0.2"/>
+  <path d="M100,350 Q300,450 500,300 T900,350" stroke="#FFFFFF" stroke-width="1" fill="none" opacity="0.1"/>
+</svg> 

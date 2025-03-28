@@ -1,103 +1,504 @@
-import Image from "next/image";
+'use client';
+
+import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { RiArrowRightLine, RiArrowRightUpLine, RiCheckboxCircleLine, RiBriefcase4Line, RiTimeLine, RiTeamLine } from 'react-icons/ri';
+
+// Components
+import AnimatedTitle from '@/components/AnimatedTitle';
+import Button from '@/components/Button';
+import CountUp from '@/components/CountUp';
+import ServiceCard from '@/components/ServiceCard';
+import ParallaxSection from '@/components/ParallaxSection';
+import MarqueeClients from '@/components/MarqueeClients';
+import TestimonialSlider from '@/components/TestimonialSlider';
+import PortfolioItem from '@/components/PortfolioItem';
+
+// Data
+import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
+
+// Use a placeholder for missing images
+const fallbackImage = '/images/hero/hero-graphic.svg';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  // Reference for scroll parallax effects
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end start"],
+  });
+  
+  // Parallax effects for the hero section
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <>
+      {/* Hero Section */}
+      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-light dark:bg-dark-200 animated-gradient">
+        {/* Animated background shapes */}
+        <div className="animated-bg-shapes">
+          <div className="shape"></div>
+          <div className="shape"></div>
+          <div className="shape"></div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        
+        {/* Background glow effect */}
+        <div className="absolute inset-0 bg-gradient-radial from-primary-400/20 via-transparent to-transparent opacity-70 dark:from-primary-500/30"></div>
+        
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Rotating geometric shapes */}
+          <motion.div 
+            className="absolute -right-32 -top-32 opacity-10"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="w-96 h-96 rounded-full border-[40px] border-primary-400 dark:border-primary-500"></div>
+          </motion.div>
+          
+          <motion.div 
+            className="absolute -left-32 -bottom-32 opacity-10"
+            animate={{ rotate: -360 }}
+            transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
+          >
+            <div className="w-[500px] h-[500px] rounded-full border-[50px] border-primary-300 dark:border-primary-600"></div>
+          </motion.div>
+          
+          {/* Floating elements */}
+          <motion.div 
+            className="absolute top-1/4 left-[10%] w-16 h-16 bg-primary-100 dark:bg-primary-900 rounded-xl opacity-20"
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          
+          <motion.div 
+            className="absolute bottom-1/4 right-[15%] w-24 h-24 bg-primary-200 dark:bg-primary-800 rounded-full opacity-30"
+            animate={{ y: [0, -30, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          
+          <motion.div 
+            className="absolute top-1/3 right-[20%] w-12 h-12 bg-primary-300 dark:bg-primary-700 rounded-xl opacity-25"
+            animate={{ y: [0, -15, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </div>
+        
+        {/* Content */}
+        <div className="container mx-auto px-4 z-10 mt-20">
+          <div className="flex flex-col items-center text-center">
+            <motion.div 
+              style={{ y, opacity }}
+              className="mb-8"
+            >
+              <AnimatedTitle 
+                title="Creating Digital Experiences That Captivate"
+                as="h1"
+                type="staggered"
+                color="primary"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-technor"
+              />
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8 font-supreme"
+              >
+                EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.6 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center"
+              >
+                <Button 
+                  href="/contact" 
+                  size="lg"
+                  icon={<RiArrowRightLine />}
+                >
+                  Let's Build Something
+                </Button>
+                <Button 
+                  href="/services" 
+                  variant="outline"
+                  size="lg"
+                >
+                  Explore Our Services
+                </Button>
+              </motion.div>
+            </motion.div>
+            
+            {/* Hero badges */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="flex flex-wrap justify-center gap-4 mt-8"
+            >
+              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
+                <RiCheckboxCircleLine className="text-primary-500 mr-2" />
+                <span className="text-sm font-medium font-supreme">Award-winning Design</span>
+              </div>
+              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
+                <RiBriefcase4Line className="text-primary-500 mr-2" />
+                <span className="text-sm font-medium font-supreme">200+ Projects Delivered</span>
+              </div>
+              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
+                <RiTimeLine className="text-primary-500 mr-2" />
+                <span className="text-sm font-medium font-supreme">10+ Years Experience</span>
+              </div>
+              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
+                <RiTeamLine className="text-primary-500 mr-2" />
+                <span className="text-sm font-medium font-supreme">50+ Team Members</span>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-20 bg-white dark:bg-dark-200 services-section animated-gradient">
+        <div className="animated-bg-shapes">
+          <div className="shape"></div>
+          <div className="shape"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              Our Expertise
+            </div>
+            <AnimatedTitle 
+              title="Comprehensive Digital Solutions"
+              type="reveal"
+              className="text-2xl md:text-4xl mb-4 font-technor"
+            />
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
+              We combine creativity and technology to deliver exceptional digital solutions that drive results for your business.
+            </p>
+          </div>
+          
+          <div className="bento-grid">
+            {services.map((service, index) => (
+              <ServiceCard
+                key={service.id}
+                title={service.title}
+                description={service.description}
+                icon={<service.icon />}
+                link={service.link}
+                color={service.color}
+                index={index}
+                className="glass-card hover-tilt"
+              />
+            ))}
+          </div>
+          
+          {/* Services CTA */}
+          <div className="mt-16 text-center">
+            <Button 
+              href="/services" 
+              icon={<RiArrowRightLine />}
+            >
+              View All Services
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section - New */}
+      <section className="py-20 bg-gray-100 dark:bg-dark-100 animated-gradient">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              Our Approach
+            </div>
+            <AnimatedTitle 
+              title="Our Proven Process"
+              className="text-2xl md:text-4xl mb-4 font-technor"
+            />
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
+              We follow a systematic approach to ensure every project is delivered with excellence and meets your business objectives.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { 
+                step: '01', 
+                title: 'Discovery', 
+                description: 'We start by understanding your business goals, target audience, and project requirements.',
+                icon: '🔍'
+              },
+              { 
+                step: '02', 
+                title: 'Strategy', 
+                description: 'Our team develops a comprehensive strategy tailored to your specific needs and objectives.',
+                icon: '📊'
+              },
+              { 
+                step: '03', 
+                title: 'Creation', 
+                description: 'We bring your project to life through design, development, and content creation.',
+                icon: '💡'
+              },
+              { 
+                step: '04', 
+                title: 'Launch & Optimize', 
+                description: 'We deploy your project and continuously optimize for maximum performance.',
+                icon: '🚀'
+              },
+            ].map((item, index) => (
+              <motion.div
+                key={item.step}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="relative z-10 glass-card hover-tilt"
+              >
+                <div className="text-5xl mb-6 opacity-10 absolute top-6 right-6 font-technor">{item.step}</div>
+                <div className="text-3xl mb-4">{item.icon}</div>
+                <h3 className="text-xl font-technor text-primary mb-3">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 font-supreme">{item.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 bg-dark-400 text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <AnimatedTitle 
+              title="Our Impact in Numbers"
+              color="light"
+              className="text-2xl md:text-4xl mb-4 font-technor"
+            />
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((stat) => (
+              <div key={stat.id} className="p-6 glass-dark hover-tilt rounded-xl transform hover:-translate-y-2 transition-transform duration-300">
+                <CountUp
+                  end={stat.value}
+                  suffix={stat.suffix}
+                  className="text-4xl md:text-5xl font-technor font-bold text-primary mb-2"
+                />
+                <p className="text-sm md:text-base font-medium font-supreme">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Work */}
+      <section className="py-20 bg-light dark:bg-dark-200 animated-gradient">
+        <div className="animated-bg-shapes">
+          <div className="shape"></div>
+          <div className="shape"></div>
+          <div className="shape"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+            <div>
+              <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+                Our Portfolio
+              </div>
+              <AnimatedTitle 
+                title="Featured Work"
+                color="primary"
+                className="text-2xl md:text-4xl mb-4 font-technor"
+              />
+              <p className="text-gray-600 dark:text-gray-400 max-w-xl">
+                Explore our selected projects that showcase our expertise and creativity.
+              </p>
+            </div>
+            <div className="mt-6 md:mt-0">
+              <Button 
+                href="/portfolio"
+                icon={<RiArrowRightUpLine />}
+                variant="outline"
+              >
+                View All Projects
+              </Button>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {portfolioProjects.slice(0, 3).map((project, index) => (
+              <PortfolioItem
+                key={project.id}
+                title={project.title}
+                category={project.category}
+                image={project.image}
+                href={project.href}
+                index={index}
+                className="frosted-container hover-tilt"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us - New Section */}
+      <section className="py-20 bg-white dark:bg-dark-300 animated-gradient">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+                Why Choose Us
+              </div>
+              <AnimatedTitle 
+                title="Committed to Excellence in Digital Solutions"
+                className="text-2xl md:text-4xl mb-6 font-technor"
+              />
+              <p className="text-gray-600 dark:text-gray-300 mb-8">
+                At EdotStudio, we're not just another digital agency. We're a team of passionate experts committed to delivering exceptional results for our clients.
+              </p>
+              
+              <div className="space-y-4">
+                {[
+                  { title: 'Expert Team', description: 'Our team consists of industry experts with years of experience.' },
+                  { title: 'Custom Solutions', description: 'We create tailored solutions that address your specific business needs.' },
+                  { title: 'Client-Centric Approach', description: 'Your success is our priority – we focus on delivering value to your business.' },
+                  { title: 'Cutting-Edge Technology', description: 'We leverage the latest technologies to create future-proof solutions.' },
+                ].map((item, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-start glass-card p-4 mb-4"
+                  >
+                    <div className="bg-primary-subtle dark:bg-primary-dark/30 text-primary rounded-full p-1 mt-1 mr-4 flex-shrink-0">
+                      <RiCheckboxCircleLine className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-1">{item.title}</h3>
+                      <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              
+              <div className="mt-8">
+                <Button href="/about">
+                  Learn More About Us
+                </Button>
+              </div>
+            </div>
+            
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl frosted-container">
+                <Image
+                  src={fallbackImage}
+                  width={600}
+                  height={700}
+                  alt="EdotStudio Team Working" 
+                  className="w-full h-auto object-cover rounded-2xl"
+                />
+                <div className="absolute inset-0 bg-primary-500/10 dark:bg-primary-900/30 backdrop-blur-[2px]"></div>
+                
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-8">
+                  <div className="text-white text-xl md:text-2xl font-technor mb-2">Ready to transform your digital presence?</div>
+                  <p className="text-white/80 mb-4 font-supreme">Let's create something amazing together.</p>
+                  <Button 
+                    href="/contact" 
+                    size="sm" 
+                    className="bg-white text-primary hover:bg-gray-100"
+                  >
+                    Get Started
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Clients Section */}
+      <section className="py-16 bg-gray-100 dark:bg-dark-300 animated-gradient">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-10">
+            <h3 className="text-xl font-technor text-gray-800 dark:text-white mb-6">Trusted by Industry-Leading Companies</h3>
+          </div>
+          
+          <div className="glass-card p-6 text-center font-supreme">
+            <p className="text-gray-700 dark:text-gray-300 italic">Our clients list is currently being updated.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-20 bg-white dark:bg-dark-200 animated-gradient">
+        <div className="animated-bg-shapes">
+          <div className="shape"></div>
+          <div className="shape"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              Testimonials
+            </div>
+            <AnimatedTitle 
+              title="What Our Clients Say"
+              className="text-2xl md:text-4xl mb-4 font-technor"
+            />
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
+              Don't just take our word for it. Hear what our clients have to say about working with us.
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto glass-card p-6 text-center font-supreme">
+            <p className="text-gray-700 dark:text-gray-300 italic">Client testimonials are currently being updated.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section - Using simple background instead of ParallaxSection */}
+      <section className="py-20 bg-primary text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="frosted-container py-12 px-6">
+            <AnimatedTitle 
+              title="Let's Create the Future Together"
+              color="light"
+              className="text-3xl md:text-5xl mb-6 font-technor"
+            />
+            <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg font-supreme">
+              Ready to elevate your digital presence? Contact us today to discuss how we can help your business grow.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                href="/contact" 
+                size="lg"
+                className="bg-white text-primary hover:bg-gray-100"
+                icon={<RiArrowRightLine />}
+              >
+                Get in Touch
+              </Button>
+              <Button 
+                href="/portfolio" 
+                variant="outline"
+                size="lg"
+                className="border-white text-white hover:bg-white/10"
+              >
+                View Our Work
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
