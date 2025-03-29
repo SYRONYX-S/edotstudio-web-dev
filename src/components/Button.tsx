@@ -2,19 +2,19 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   variant?: 'default' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
+  icon?: React.ReactNode;
   className?: string;
   children: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, href, variant = 'default', size = 'md', children, ...props }, ref) => {
+  ({ className, href, variant = 'default', size = 'md', icon, children, ...props }, ref) => {
     const baseStyles = "relative inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 overflow-hidden";
     
     const variants = {
@@ -32,6 +32,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const content = (
       <span className="relative z-10 flex items-center gap-2">
         {children}
+        {icon && <span className="ml-2">{icon}</span>}
       </span>
     );
 
@@ -59,4 +60,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button';
 
-export default Button; 
+export default Button;

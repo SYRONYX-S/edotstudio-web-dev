@@ -4,7 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { RiLinkedinFill, RiTwitterXFill, RiFacebookFill, RiInstagramLine, RiMailLine, RiPhoneLine, RiMapPinLine, RiArrowRightLine } from 'react-icons/ri';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { RiArrowRightLine, RiMailLine, RiPhoneLine, RiMapPinLine } from 'react-icons/ri';
 import { cn } from '@/lib/utils';
 
 const Footer: React.FC = () => {
@@ -42,10 +43,10 @@ const Footer: React.FC = () => {
   };
 
   const socialLinks = [
-    { name: 'LinkedIn', icon: <RiLinkedinFill className="w-5 h-5" />, href: 'https://linkedin.com' },
-    { name: 'Twitter', icon: <RiTwitterXFill className="w-5 h-5" />, href: 'https://twitter.com' },
-    { name: 'Facebook', icon: <RiFacebookFill className="w-5 h-5" />, href: 'https://facebook.com' },
-    { name: 'Instagram', icon: <RiInstagramLine className="w-5 h-5" />, href: 'https://instagram.com' },
+    { icon: FaFacebook, href: 'https://facebook.com/edotstudio', label: 'Facebook' },
+    { icon: FaTwitter, href: 'https://twitter.com/edotstudio', label: 'Twitter' },
+    { icon: FaInstagram, href: 'https://instagram.com/edotstudio', label: 'Instagram' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/company/edotstudio', label: 'LinkedIn' },
   ];
 
   const currentYear = new Date().getFullYear();
@@ -115,17 +116,17 @@ const Footer: React.FC = () => {
             </p>
             
             <div className="flex items-center space-x-4 mb-6">
-              {socialLinks.map((link) => (
+              {socialLinks.map((social) => (
                 <motion.a
-                  key={link.name}
-                  href={link.href}
+                  key={social.label}
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1 }}
                   className="bg-white/5 hover:bg-primary text-white p-2 rounded-full transition-colors duration-300 hover:shadow-glow-sm"
-                  aria-label={link.name}
+                  aria-label={social.label}
                 >
-                  {link.icon}
+                  <social.icon className="w-5 h-5" />
                 </motion.a>
               ))}
             </div>

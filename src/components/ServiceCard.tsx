@@ -4,22 +4,33 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from "lucide-react";
+import { cn } from '@/lib/utils';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
   href: string;
+  className?: string;
 }
 
-export default function ServiceCard({ icon, title, description, href = '#' }: ServiceCardProps) {
+const ServiceCard: React.FC<ServiceCardProps> = ({
+  icon,
+  title,
+  description,
+  href = '#',
+  className
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="group relative bg-background/50 dark:bg-background-dark/50 backdrop-blur-sm rounded-2xl p-6 overflow-hidden"
+      className={cn(
+        'group relative bg-background/50 dark:bg-background-dark/50 backdrop-blur-sm rounded-2xl p-6 overflow-hidden',
+        className
+      )}
     >
       {/* Border Gradient */}
       <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-100" />
@@ -51,4 +62,6 @@ export default function ServiceCard({ icon, title, description, href = '#' }: Se
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </motion.div>
   );
-} 
+};
+
+export default ServiceCard; 

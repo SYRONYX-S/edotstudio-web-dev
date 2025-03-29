@@ -1,101 +1,111 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useAnimationControls } from 'framer-motion';
+import Image from 'next/image';
+import AnimatedTitle from '@/components/AnimatedTitle';
 
 interface Client {
   name: string;
   logo: string;
-  url: string;
+  website: string;
 }
 
-const clients: Client[] = [
-  {
-    name: 'Client 1',
-    logo: '/clients/client1.svg',
-    url: 'https://client1.com'
-  },
-  {
-    name: 'Client 2',
-    logo: '/clients/client2.svg',
-    url: 'https://client2.com'
-  },
-  // Add more clients here
-];
+const ClientsMarquee = () => {
+  const controls = useAnimationControls();
+  const [width, setWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-export default function ClientsMarquee() {
+  const clients: Client[] = [
+    { name: 'Al-Khuloud', logo: '/clients/Al-Khuloud.png', website: 'https://alkhuloud.com' },
+    { name: 'Brandlifte', logo: '/clients/Brandlifte.png', website: 'https://brandlifte.com' },
+    { name: 'Dunes', logo: '/clients/Dunes.png', website: 'https://dunes.com' },
+    { name: 'Ecoscape', logo: '/clients/Ecoscape.png', website: 'https://ecoscape.com' },
+    { name: 'Frostbite', logo: '/clients/Frostbite.png', website: 'https://frostbite.com' },
+    { name: 'Glow', logo: '/clients/Glow.png', website: 'https://glow.com' },
+    { name: 'Luminary', logo: '/clients/Luminary.png', website: 'https://luminary.com' },
+    { name: 'Nexus', logo: '/clients/Nexus.png', website: 'https://nexus.com' },
+  ];
+
+  // Double the array for seamless loop
+  const allClients = [...clients, ...clients];
+
+  useEffect(() => {
+    if (containerRef.current) {
+      setWidth(containerRef.current.scrollWidth / 2);
+    }
+  }, []);
+
+  useEffect(() => {
+    controls.start({
+      x: -width,
+      transition: {
+        duration: 20,
+        ease: "linear",
+        repeat: Infinity,
+      },
+    });
+  }, [controls, width]);
+
+  const handleHover = (isPaused: boolean) => {
+    controls.stop();
+    if (!isPaused) {
+      controls.start({
+        x: -width,
+        transition: {
+          duration: 20,
+          ease: "linear",
+          repeat: Infinity,
+        },
+      });
+    }
+  };
+
   return (
-    <section className="w-full py-20 overflow-hidden bg-background">
-      <div className="container mx-auto mb-10 text-center">
-        <p className="text-primary/80 font-medium mb-4">BRANDS COLLABORATIONS</p>
-        <h2 className="text-4xl md:text-5xl font-display mb-8">Brands that trust us</h2>
+    <section className="py-20 bg-black">
+      <div className="container mx-auto px-4 mb-12">
+        <div className="text-center">
+          <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            OUR CLIENTS
+          </div>
+          <AnimatedTitle 
+            title="Brands that trust us"
+            className="text-2xl md:text-4xl mb-4 font-technor text-white"
+          />
+        </div>
       </div>
 
-      <div className="relative w-full">
-        {/* Gradient Overlays */}
-        <div className="absolute left-0 top-0 bottom-0 w-40 z-10 bg-gradient-to-r from-background to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-40 z-10 bg-gradient-to-l from-background to-transparent" />
-
-        {/* First Marquee */}
-        <div className="flex gap-8 items-center">
-          <motion.div
-            className="flex gap-8 items-center"
-            animate={{
-              x: [0, -1920], // Adjust based on total width
-            }}
-            transition={{
-              duration: 30,
-              ease: "linear",
-              repeat: Infinity,
-            }}
-          >
-            {[...clients, ...clients].map((client, index) => (
-              <a
-                key={index}
-                href={client.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative flex items-center justify-center min-w-[200px] h-24 bg-muted/50 rounded-xl px-6 hover:bg-muted/80 transition-colors group"
-              >
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="max-w-[140px] max-h-12 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                />
-              </a>
-            ))}
-          </motion.div>
-          
-          {/* Duplicate for seamless loop */}
-          <motion.div
-            className="flex gap-8 items-center absolute left-0"
-            animate={{
-              x: [1920, 0], // Adjust based on total width
-            }}
-            transition={{
-              duration: 30,
-              ease: "linear",
-              repeat: Infinity,
-            }}
-          >
-            {[...clients, ...clients].map((client, index) => (
-              <a
-                key={index}
-                href={client.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative flex items-center justify-center min-w-[200px] h-24 bg-muted/50 rounded-xl px-6 hover:bg-muted/80 transition-colors group"
-              >
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="max-w-[140px] max-h-12 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                />
-              </a>
-            ))}
-          </motion.div>
-        </div>
+      <div className="relative w-full overflow-hidden">
+        <motion.div
+          ref={containerRef}
+          className="flex gap-8"
+          animate={controls}
+          onMouseEnter={() => handleHover(true)}
+          onMouseLeave={() => handleHover(false)}
+        >
+          {allClients.map((client, index) => (
+            <a
+              key={`${client.name}-${index}`}
+              href={client.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative min-w-[240px] h-24 group bg-[#1A1A1A] rounded-2xl flex items-center justify-center"
+            >
+              <Image
+                src={client.logo}
+                alt={client.name}
+                width={180}
+                height={60}
+                className="object-contain transition-all duration-300
+                  filter grayscale opacity-70
+                  group-hover:grayscale-0 group-hover:opacity-100"
+              />
+            </a>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
-} 
+};
+
+export default ClientsMarquee;

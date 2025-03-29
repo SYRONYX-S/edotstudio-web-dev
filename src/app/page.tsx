@@ -16,6 +16,8 @@ import ParallaxSection from '@/components/ParallaxSection';
 import MarqueeClients from '@/components/MarqueeClients';
 import TestimonialSlider from '@/components/TestimonialSlider';
 import PortfolioItem from '@/components/PortfolioItem';
+import ClientsMarquee from '@/components/ClientsMarquee';
+import FAQ from '@/components/FAQ';
 
 // Data
 import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
@@ -170,7 +172,7 @@ export default function Home() {
                 as="h1"
                 type="staggered"
                 color="primary"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-pilcrow  font-semibold"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-supreme font-semibold"
               />
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -233,8 +235,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-white-200 dark:bg-dark services-section">
+      {/* Services Section - Original Design */}
+      <section className="py-20 relative overflow-hidden">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -261,9 +263,7 @@ export default function Home() {
                 title={service.title}
                 description={service.description}
                 icon={<service.icon />}
-                link={service.link}
-                color={service.color}
-                index={index}
+                href={service.link}
                 className="glass-card hover-tilt"
               />
             ))}
@@ -281,6 +281,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Portfolio Section */}
+      <section className="py-20 relative overflow-hidden">
+        <div className="animated-bg-shapes">
+          <div className="shape"></div>
+          <div className="shape"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+            <div>
+              <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+                Our Portfolio
+              </div>
+              <AnimatedTitle 
+                title="Featured Work"
+                color="primary"
+                className="text-2xl md:text-4xl mb-4 font-technor"
+              />
+              <p className="text-gray-600 dark:text-gray-400 max-w-xl">
+                Explore our selected projects that showcase our expertise and creativity.
+              </p>
+            </div>
+            <div className="mt-6 md:mt-0">
+              <Button 
+                href="/portfolio"
+                icon={<RiArrowRightUpLine />}
+                variant="outline"
+              >
+                View All Projects
+              </Button>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {portfolioProjects.slice(0, 3).map((project, index) => (
+              <PortfolioItem
+                key={project.id}
+                title={project.title}
+                category={project.category}
+                image={project.image}
+                href={project.href}
+                index={index}
+                className="frosted-container hover-tilt"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Clients Marquee Section */}
+      <ClientsMarquee />
+
       {/* Our Approach Section */}
       <section className="py-20 relative overflow-hidden">
         {/* Background Elements */}
@@ -291,19 +342,22 @@ export default function Home() {
 
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+              Our Approach
+            </div>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl md:text-5xl font-display mb-4"
+              className="text-2xl md:text-4xl mb-4 font-technor"
             >
-              Our Approach
+              Our Proven Process
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-supreme"
             >
               We follow a systematic approach to deliver exceptional results for every project
             </motion.p>
@@ -385,21 +439,24 @@ export default function Home() {
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+              Our Impact
+            </div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl md:text-5xl font-display mb-4"
+              className="text-2xl md:text-4xl mb-4 font-technor"
             >
-              Our Impact
+              Making a Difference
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-supreme"
             >
-              Making a difference through innovative digital solutions
+              Our impact speaks through numbers and successful transformations
             </motion.p>
           </div>
 
@@ -480,55 +537,6 @@ export default function Home() {
                 {/* Hover Glow Effect */}
                 <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/0 to-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out -z-10" />
               </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Work */}
-      <section className="py-20 bg-light dark:bg-dark-200">
-        <div className="animated-bg-shapes">
-          <div className="shape"></div>
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
-            <div>
-              <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
-                Our Portfolio
-              </div>
-              <AnimatedTitle 
-                title="Featured Work"
-                color="primary"
-                className="text-2xl md:text-4xl mb-4 font-technor"
-              />
-              <p className="text-gray-600 dark:text-gray-400 max-w-xl">
-                Explore our selected projects that showcase our expertise and creativity.
-              </p>
-            </div>
-            <div className="mt-6 md:mt-0">
-              <Button 
-                href="/portfolio"
-                icon={<RiArrowRightUpLine />}
-                variant="outline"
-              >
-                View All Projects
-              </Button>
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {portfolioProjects.slice(0, 3).map((project, index) => (
-              <PortfolioItem
-                key={project.id}
-                title={project.title}
-                category={project.category}
-                image={project.image}
-                href={project.href}
-                index={index}
-                className="frosted-container hover-tilt"
-              />
             ))}
           </div>
         </div>
@@ -616,19 +624,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clients Section */}
-      <section className="py-16 bg-white-200 dark:bg-dark-200">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-10">
-            <h3 className="text-xl font-technor text-gray-800 dark:text-white mb-6">Trusted by Industry-Leading Companies</h3>
-          </div>
-          
-          <div className="glass-card p-6 text-center font-supreme">
-            <p className="text-gray-700 dark:text-gray-300 italic">Our clients list is currently being updated.</p>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section className="py-20 bg-white dark:bg-dark-200 animated-gradient">
         <div className="animated-bg-shapes">
@@ -637,7 +632,7 @@ export default function Home() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
               Testimonials
             </div>
             <AnimatedTitle 
@@ -649,13 +644,56 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto glass-card p-6 text-center font-supreme">
-            <p className="text-gray-700 dark:text-gray-300 italic">Client testimonials are currently being updated.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "CEO, TechVision Inc.",
+                content: "EdotStudio transformed our digital presence completely. Their team's attention to detail and innovative approach helped us achieve our goals faster than expected.",
+                image: "/testimonials/client1.jpg"
+              },
+              {
+                name: "Michael Chen",
+                role: "Marketing Director, GrowthWave",
+                content: "Working with EdotStudio and their partner Brandlifté was a game-changer. The combination of technical expertise and creative marketing strategies delivered exceptional results.",
+                image: "/testimonials/client2.jpg"
+              },
+              {
+                name: "Emma Williams",
+                role: "Founder, EcoStyle",
+                content: "The collaborative approach between EdotStudio and their agency partners ensured we got the best of both worlds - cutting-edge development and creative excellence.",
+                image: "/testimonials/client3.jpg"
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={testimonial.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group relative"
+              >
+                <div className="h-full relative rounded-2xl bg-white/30 dark:bg-black/10 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-300 ease-in-out group-hover:border-primary/50">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
+                      <span className="text-primary text-xl">❝</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{testimonial.name}</h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-400 italic">"{testimonial.content}"</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section - Using simple background instead of ParallaxSection */}
+      {/* FAQ Section - Moved to before CTA */}
+      <FAQ />
+
+      {/* CTA Section */}
       <section className="py-20 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <div className="frosted-container py-12 px-6">

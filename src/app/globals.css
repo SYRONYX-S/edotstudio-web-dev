@@ -847,11 +847,11 @@ button, a, input, select, textarea {
 
 /* Font utility classes */
 .font-technor {
-  font-family: var(--font-technor);
+  font-family: 'Technor', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 .font-supreme {
-  font-family: var(--font-supreme);
+  font-family: 'Supreme', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 /* Text glow effect for primary colored text */
@@ -1015,7 +1015,7 @@ button, a, input, select, textarea {
 
 /* Make sections transparent to show global background */
 .section {
-  background: transparent !important;
+  @apply bg-transparent;
 }
 .serivces-card-icon {
   color: var(--primary-light);
@@ -1023,4 +1023,58 @@ button, a, input, select, textarea {
 .serivces-card-icon svg {
   width: 60%;
   height: 60%;
+}
+
+/* Ensure font priorities */
+.font-technor {
+  font-family: 'Technor', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-supreme {
+  font-family: 'Supreme', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Add smooth transitions for theme changes */
+* {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
+/* Specific transitions for interactive elements */
+a, button, input, select, textarea {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Background transitions */
+.bg-white, .bg-black, .bg-primary, .bg-secondary, [class*='bg-gray'] {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
+/* Text color transitions */
+[class*='text-'] {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
+/* Border color transitions */
+[class*='border-'] {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
+/* Shadow transitions */
+[class*='shadow-'] {
+  @apply transition-shadow duration-300 ease-in-out;
+}
+
+/* Opacity transitions */
+[class*='opacity-'] {
+  @apply transition-opacity duration-300 ease-in-out;
+}
+
+/* Backdrop blur transitions */
+[class*='backdrop-blur'] {
+  @apply transition-[backdrop-filter] duration-300 ease-in-out;
+}
+
+/* Make sections transparent to show global background */
+section {
+  @apply bg-transparent;
 }
