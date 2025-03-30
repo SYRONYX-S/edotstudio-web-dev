@@ -84,25 +84,25 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-light dark:bg-secondary">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+      <section className="relative pt-32 pb-20">
+        <div className="container mx-auto px-4 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+              CONTACT US
+            </div>
             <AnimatedTitle
               title="Let's Connect"
-              as="h1"
-              type="staggered"
-              color="primary"
-              className="text-4xl md:text-6xl mb-6 font-technor"
+              className="text-4xl md:text-7xl mb-6 font-technor text-foreground dark:text-white"
             />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 font-supreme"
-            >
-              Ready to start your project? Get in touch with our team to discuss how we can help bring your vision to life.
-            </motion.p>
-          </div>
+            <p className="font-pilcrow text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
+            Ready to start your project? Get in touch with our team to discuss how we can help bring your vision to life.
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -115,12 +115,12 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-white dark:bg-dark-200 shadow-xl rounded-2xl p-8 md:p-10"
+              className="bg-white dark:bg-black/30 shadow-xl rounded-2xl p-8 md:p-10"
             >
               {formSubmitted ? (
                 // Form Submitted Successfully
                 <div className="text-center py-12">
-                  <div className="text-primary text-6xl mb-6">
+                  <div className="text-primary dark:text-primary text-6xl mb-6">
                     <RiSendPlane2Line className="mx-auto" />
                   </div>
                   <h3 className="text-2xl font-technor text-primary mb-4">Message Sent Successfully!</h3>
@@ -147,7 +147,7 @@ export default function ContactPage() {
               ) : (
                 // Multi-step Form
                 <div>
-                  <h2 className="text-2xl font-technor text-primary mb-2">Get in Touch</h2>
+                  <h2 className="text-2xl font-technor text-primary-light font-semibold mb-2">Get in Touch</h2>
                   <p className="text-gray-600 dark:text-gray-300 mb-8 font-supreme">
                     Fill out the form below and we'll get back to you as soon as possible.
                   </p>
@@ -155,11 +155,11 @@ export default function ContactPage() {
                   {/* Form Steps Indicator */}
                   <div className="flex mb-8">
                     <div className="flex-1">
-                      <div className={`w-full h-1 ${formStep >= 1 ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700'}`}></div>
+                      <div className={`w-full h-1 ${formStep >= 1 ? 'bg-primary-light dark:bg-primary-light' : 'bg-gray-200 dark:bg-gray-700'}`}></div>
                       <div className="text-xs text-center mt-1 text-gray-500 dark:text-gray-400 font-supreme">Personal Info</div>
                     </div>
                     <div className="flex-1">
-                      <div className={`w-full h-1 ${formStep >= 2 ? 'bg-primary' : 'bg-gray-200 dark:bg-gray-700'}`}></div>
+                      <div className={`w-full h-1 ${formStep >= 2 ? 'bg-primary-light dark:bg-primary-light' : 'bg-gray-200 dark:bg-gray-700'}`}></div>
                       <div className="text-xs text-center mt-1 text-gray-500 dark:text-gray-400 font-supreme">Project Details</div>
                     </div>
                   </div>
@@ -233,7 +233,7 @@ export default function ContactPage() {
                         )}
                         
                         <div className="flex justify-end">
-                          <Button onClick={nextStep} icon={<RiArrowRightLine />}>
+                          <Button variant="outline" onClick={nextStep} icon={<RiArrowRightLine />}>
                             Next Step
                           </Button>
                         </div>
@@ -285,7 +285,7 @@ export default function ContactPage() {
                           <Button variant="outline" onClick={prevStep}>
                             Back
                           </Button>
-                          <button type="submit" className="bg-primary text-white font-technor rounded-full transition-all duration-300 inline-flex items-center justify-center text-base py-3 px-6 hover:bg-primary-dark">
+                          <button type="submit" className="bg-primary dark:bg-primary-light text-white font-technor rounded-full transition-all duration-300 inline-flex items-center justify-center text-base py-3 px-6 hover:bg-primary-dark">
                             Send Message
                           </button>
                         </div>
@@ -303,7 +303,7 @@ export default function ContactPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="bg-primary text-white rounded-2xl p-8 md:p-10 mb-10"
+                className="bg-primary dark:bg-primary text-white rounded-2xl p-8 md:p-10 mb-10"
               >
                 <h3 className="text-2xl font-technor mb-6">Contact Information</h3>
                 
@@ -356,7 +356,7 @@ export default function ContactPage() {
                     <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                       <button
                         onClick={() => setShowFaq(showFaq === index ? null : index)}
-                        className="w-full text-left px-6 py-4 font-medium bg-gray-50 dark:bg-dark-300 dark:text-white flex justify-between items-center"
+                        className="w-full text-left px-6 py-4 font-medium bg-gray-50 dark:bg-black/20 dark:text-white flex justify-between items-center"
                       >
                         <span className="pr-2">{faq.question}</span>
                         <span className="text-primary text-xl transition-transform duration-300 transform flex-shrink-0 ml-2">
@@ -388,12 +388,12 @@ export default function ContactPage() {
       </section>
 
       {/* Map Section */}
-      <section className="py-12 bg-gray-100 dark:bg-secondary">
+      {/* <section className="py-12 bg-gray-100 dark:bg-secondary">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-technor text-primary mb-8">Find Us</h3>
           
           <div className="rounded-2xl overflow-hidden shadow-lg h-[400px] max-w-5xl mx-auto">
-            {/* This would be a real Google Maps embed in production */}
+            
             <div className="w-full h-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center">
               <p className="text-gray-600 dark:text-gray-400 font-supreme">
                 Google Maps Embed Would Appear Here
@@ -401,7 +401,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 } 
