@@ -57,9 +57,9 @@ export default function Portfolio() {
             </div>
             <AnimatedTitle
               title="Our Portfolio"
-              className="text-4xl md:text-7xl mb-6 font-roundo text-foreground dark:text-white"
+              className="text-4xl md:text-7xl mb-6 font-technor text-foreground dark:text-white"
             />
-            <p className="text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
+            <p className="font-pilcrow text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
               Discover how we've helped businesses transform their digital presence through innovative solutions and strategic partnerships.
             </p>
 
@@ -111,7 +111,7 @@ export default function Portfolio() {
                           href={project.partnership.url}
                           target="_blank"
                           rel="noopener noreferrer" 
-                          className="absolute top-4 right-4 dark:bg-black/40 border dark:border-white/20 text-white px-4 py-1.5 rounded-full text-sm backdrop-blur-sm hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
+                          className="absolute top-4 right-4 bg-black/30 dark:bg-black/40 border dark:border-white/20 text-white px-4 py-1.5 rounded-full text-sm backdrop-blur-sm hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
                         >
                           With {project.partnership.name}
                         </Link>
@@ -120,10 +120,10 @@ export default function Portfolio() {
                     <div className="p-8">
                       <div className="flex justify-between items-start mb-4">
                         <div>
-                          <p className="text-sm font-medium text-primary mb-2">
+                          <p className="text-sm font-medium text-primary -mb-2">
                             {project.category}
                           </p>
-                          <h3 className="text-2xl font-semibold mb-2 dark:text-white group-hover:text-primary transition-colors duration-300">
+                          <h3 className="text-2xl font-technor mb-0 text-primary-light dark:text-primary transition-colors duration-300">
                             {project.title}
                           </h3>
                         </div>
@@ -131,20 +131,20 @@ export default function Portfolio() {
                           {project.year}
                         </span>
                       </div>
-                      <p className="dark:text-white/70 mb-6">
+                      <p className="dark:text-white/70 mb-6 font-pilcrow">
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.services.map((service, idx) => (
                           <span
                             key={idx}
-                            className="dark:bg-white/5 dark:text-white/70 px-4 py-1.5 rounded-full text-sm border dark:border-white/10 backdrop-blur-sm"
+                            className="dark:bg-white/5 dark:text-white/70 px-4 py-1.5 rounded-full text-sm border dark:border-white/10 backdrop-blur-sm font-pilcrow"
                           >
                             {service}
                           </span>
                         ))}
                       </div>
-                      <div className="flex items-center text-primary group/link">
+                      <div className="font-pilcrow flex items-center text-primary group/link">
                         <span className="mr-2 group-hover/link:mr-4 transition-all duration-300">View Case Study</span>
                         <RiArrowRightLine className="transform group-hover/link:translate-x-1 transition-all duration-300" />
                       </div>
@@ -175,11 +175,11 @@ export default function Portfolio() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+              <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow">
                 PARTNERSHIPS
               </div>
               <h2 className="text-4xl md:text-5xl font-technor mb-6 dark:text-white">Strategic Collaborations</h2>
-              <p className="dark:text-white/70 text-lg max-w-3xl mx-auto">
+              <p className="dark:text-white/70 text-lg max-w-3xl mx-auto font-pilcrow">
                 While we excel in web, app, and software development in-house, we partner with specialized agencies to ensure the highest quality deliverables for our clients.
               </p>
             </motion.div>
@@ -277,10 +277,10 @@ export default function Portfolio() {
       {/* CTA Section */}
       <section className="relative py-32 overflow-hidden">
         {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 dark:from-transparent dark:via-black/40 dark:to-black/60" />
+        <div className="absolute inset-0  " />
         <motion.div
           style={{ y: y2 }}
-          className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_50%,#FF4D0015,transparent)]"
+          className="absolute inset-0"
         />
         
         <div className="container mx-auto px-4 relative">
@@ -291,28 +291,28 @@ export default function Portfolio() {
             viewport={{ once: true }}
             className="max-w-5xl mx-auto text-center"
           >
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-6">
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-6 font-pilcrow">
               START YOUR PROJECT
             </div>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-technor mb-8 dark:text-white leading-tight">
               Ready to Transform Your <br />
               <span className="text-primary">Digital Presence?</span>
             </h2>
-            <p className="text-lg md:text-xl dark:text-white/70 mb-12 max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl dark:text-white/70 mb-12 max-w-3xl mx-auto font-pilcrow">
               Let's collaborate to bring your vision to life. Our team of experts is ready to help you create something extraordinary.
             </p>
             
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
               <Link
                 href="/contact"
-                className="group flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-glow hover:shadow-glow-lg"
+                className="group flex items-center gap-2 bg-primary-light dark:bg-primary-light hover:bg-primary/90 dark:hover:bg-primary/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-glow hover:shadow-glow-lg"
               >
                 Start a Project
                 <RiArrowRightUpLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </Link>
               <Link
                 href="/about"
-                className="group flex items-center gap-2 dark:bg-white/5 hover:dark:bg-white/10 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-sm"
+                className="group flex items-center gap-2 bg-black/5 dark:bg-white/5 hover:dark:bg-white/10 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-sm"
               >
                 Learn More About Us
                 <RiArrowRightLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1" />

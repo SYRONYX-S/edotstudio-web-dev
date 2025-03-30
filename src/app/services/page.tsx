@@ -140,7 +140,7 @@ export default function Services() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   
   return (
-    <main className="min-h-screen relative dark:bg-background">
+    <main className="min-h-screen relative dark:bg-transparent">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20">
         <div className="container mx-auto px-4 relative">
@@ -201,7 +201,7 @@ export default function Services() {
           key={service.id}
           id={service.id}
           className={`py-20 ${
-            index % 2 === 0 ? 'bg-gray-100 dark:bg-dark-300' : 'bg-white dark:bg-dark-200'
+            index % 2 === 0 ? 'bg-primary/5 dark:bg-black/20' : 'bg-white dark:bg-transparent'
           }`}
         >
           <div className="container mx-auto px-4">
@@ -214,11 +214,11 @@ export default function Services() {
                 transition={{ duration: 0.5 }}
                 className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} font-supreme`}
               >
-                <div className="mb-2 inline-block py-1 px-3 bg-primary/10 rounded-full">
-                  <span className="text-primary text-sm font-medium">{service.subtitle}</span>
+                <div className="mb-2 inline-block py-1 px-3 bg-primary/10 rounded-full -left-1 relative">
+                  <span className="text-primary text-sm font-medium font-pilcrow uppercase">{service.subtitle}</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-technor text-primary mb-6">{service.title}</h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-8">{service.description}</p>
+                <h2 className="text-3xl md:text-4xl font-roundo uppercase font-semibold text-primary-light dark:text-primary mb-6">{service.title}</h2>
+                <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">{service.description}</p>
                 
                 {/* Features */}
                 <div className="mb-8">
@@ -227,7 +227,7 @@ export default function Services() {
                     {service.features.map((feature) => (
                       <div key={feature} className="flex items-start">
                         <RiCheckLine className="text-primary mt-1 mr-2 flex-shrink-0" />
-                        <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                        <span className="text-gray-700 dark:text-gray-300 font-pilcrow">{feature}</span>
                       </div>
                     ))}
                   </div>
@@ -240,13 +240,13 @@ export default function Services() {
                     {service.process.map((step) => (
                       <div key={step.step} className="flex">
                         <div className="mr-4 flex-shrink-0">
-                          <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-medium">
+                          <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary text-white flex items-center justify-center font-medium">
                             {step.step}
                           </div>
                         </div>
                         <div>
-                          <h4 className="text-lg font-medium text-primary mb-1">{step.title}</h4>
-                          <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
+                          <h4 className="text-lg font-medium text-primary mb-1 font-pilcrow">{step.title}</h4>
+                          <p className="text-gray-600 dark:text-gray-400 font-pilcrow">{step.description}</p>
                         </div>
                       </div>
                     ))}
