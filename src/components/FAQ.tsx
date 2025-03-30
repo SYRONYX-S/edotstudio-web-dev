@@ -84,10 +84,10 @@ const FAQ = () => {
           <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
             FAQ
           </div>
-          <h2 className="text-2xl md:text-4xl mb-4 font-technor">
+          <h2 className="text-2xl md:text-4xl mb-0 font-technor">
             Frequently Asked Questions
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-supreme">
+          <p className="font-pilcrow text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Find answers to common questions about our services and process
           </p>
         </div>

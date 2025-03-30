@@ -62,7 +62,7 @@ const ClientsMarquee = () => {
   };
 
   return (
-    <section className="py-20 bg-black">
+    <section className="py-20 bg-transparent">
       <div className="container mx-auto px-4 mb-12">
         <div className="text-center">
           <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -89,7 +89,7 @@ const ClientsMarquee = () => {
               href={client.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative min-w-[240px] h-24 group bg-[#1A1A1A] rounded-2xl flex items-center justify-center"
+              className="relative min-w-[240px] h-24 group bg-black bg-opacity-10 rounded-2xl flex items-center justify-center"
             >
               <Image
                 src={client.logo}

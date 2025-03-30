@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
             <div className="lg:col-span-3">
               <h2 className="text-2xl md:text-3xl font-technor text-white mb-2">Stay Updated</h2>
-              <p className="text-gray-300 mb-0 font-supreme">Get the latest design trends, news and exclusive offers directly in your inbox.</p>
+              <p className="text-gray-300 mb-0 font-pilcrow">Get the latest design trends, news and exclusive offers directly in your inbox.</p>
             </div>
             <div className="lg:col-span-2">
               <form className="flex flex-col sm:flex-row gap-3">
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
                   placeholder="Your email address" 
                   className="bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder:text-gray-400 flex-grow focus:outline-none focus:ring-2 focus:ring-primary"
                 />
-                <button className="bg-primary hover:bg-primary-dark text-white font-technor px-6 py-3 rounded-lg transition-colors flex items-center justify-center whitespace-nowrap">
+                <button className="bg-primary dark:bg-primary hover:bg-primary-dark dark:hover:bg-primary-dark text-white font-technor px-6 py-3 rounded-lg transition-colors flex items-center justify-center whitespace-nowrap">
                   Subscribe <RiArrowRightLine className="ml-2" />
                 </button>
               </form>
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
               </div>
             </Link>
             
-            <p className="text-gray-400 mb-6 font-supreme">
+            <p className="text-gray-400 mb-6 font-pilcrow">
               Top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
             </p>
             
@@ -141,7 +141,7 @@ const Footer: React.FC = () => {
             className="col-span-1"
           >
             <h3 className="text-xl font-technor text-white relative mb-6 pb-3 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-16 after:bg-primary">Services</h3>
-            <ul className="space-y-3 font-supreme">
+            <ul className="space-y-3 font-pilcrow">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
                   <Link 
@@ -165,7 +165,7 @@ const Footer: React.FC = () => {
             className="col-span-1"
           >
             <h3 className="text-xl font-technor text-white relative mb-6 pb-3 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-16 after:bg-primary">Company</h3>
-            <ul className="space-y-3 font-supreme">
+            <ul className="space-y-3 font-pilcrow">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link 
@@ -189,7 +189,7 @@ const Footer: React.FC = () => {
             className="col-span-1"
           >
             <h3 className="text-xl font-technor text-white relative mb-6 pb-3 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-16 after:bg-primary">Contact Us</h3>
-            <ul className="space-y-5 font-supreme">
+            <ul className="space-y-5 font-pilcrow">
               <li className="flex items-start">
                 <div className="bg-white/5 rounded-full p-2 mr-3 mt-1">
                   <RiMailLine className="text-primary" />
@@ -245,7 +245,7 @@ const Footer: React.FC = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-gray-500 text-sm font-supreme">
+              <p className="text-gray-400 text-sm font-pilcrow font-semibold">
                 &copy; {currentYear} EdotStudio. All rights reserved.
               </p>
             </div>
@@ -254,7 +254,7 @@ const Footer: React.FC = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-500 hover:text-primary text-sm transition-colors"
+                  className="text-gray-400 hover:text-primary text-sm transition-colors"
                 >
                   {link.name}
                 </Link>

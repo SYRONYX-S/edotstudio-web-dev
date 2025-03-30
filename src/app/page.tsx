@@ -578,14 +578,14 @@ export default function Home() {
                     </div>
                     <div>
                       <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-1">{item.title}</h3>
-                      <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
+                      <p className="text-gray-600 dark:text-gray-300 font-pilcrow">{item.description}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
               
               <div className="mt-8">
-                <Button href="/about">
+                <Button href="/about" className='bg-primary-light dark:bg-transparent dark:border-2 dark:border-primary-light dark:hover:bg-primary-light text-white dark:text-white hover:bg-primary-light font-pilcrow'>
                   Learn More About Us
                 </Button>
               </div>
@@ -609,11 +609,11 @@ export default function Home() {
                 
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-8">
                   <div className="text-white text-xl md:text-2xl font-technor mb-2">Ready to transform your digital presence?</div>
-                  <p className="text-white/80 mb-4 font-supreme">Let's create something amazing together.</p>
+                  <p className="text-white/80 mb-4 font-pilcrow">Let's create something amazing together.</p>
                   <Button 
                     href="/contact" 
                     size="sm" 
-                    className="bg-white text-primary hover:bg-gray-100"
+                    className="bg-white dark:bg-white text-primary dark:text-black hover:bg-primary-light dark:hover:bg-primary-light hover:text-white dark:hover:text-white"
                   >
                     Get Started
                   </Button>
@@ -632,12 +632,12 @@ export default function Home() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
               Testimonials
             </div>
             <AnimatedTitle 
               title="What Our Clients Say"
-              className="text-2xl md:text-4xl mb-4 font-technor"
+              className="text-2xl md:text-4xl mb-0 font-technor"
             />
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
               Don't just take our word for it. Hear what our clients have to say about working with us.
@@ -678,11 +678,11 @@ export default function Home() {
                       <span className="text-primary text-xl">❝</span>
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
+                      <h4 className="font-pilcrow text-xl -mb-0.5 font-semibold text-gray-900 dark:text-gray-100">{testimonial.name}</h4>
+                      <p className="text-sm text-primary-light dark:text-primary-light font-semibold font-pilcrow">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-400 italic">"{testimonial.content}"</p>
+                  <p className="text-gray-600 dark:text-white italic">"{testimonial.content}"</p>
                 </div>
               </motion.div>
             ))}
@@ -694,7 +694,7 @@ export default function Home() {
       <FAQ />
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-white">
+      <section className="py-20 bg-primary dark:bg-primary text-white">
         <div className="container mx-auto px-4 text-center">
           <div className="frosted-container py-12 px-6">
             <AnimatedTitle 
@@ -702,14 +702,14 @@ export default function Home() {
               color="light"
               className="text-3xl md:text-5xl mb-6 font-technor"
             />
-            <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg font-supreme">
+            <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg font-pilcrow">
               Ready to elevate your digital presence? Contact us today to discuss how we can help your business grow.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 href="/contact" 
                 size="lg"
-                className="bg-white text-black dark:text-white hover:bg-primary-light"
+                className="bg-white dark:bg-white text-black dark:text-black hover:bg-primary-light"
                 icon={<RiArrowRightLine />}
               >
                 Get in Touch
