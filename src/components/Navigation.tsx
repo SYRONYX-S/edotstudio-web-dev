@@ -36,7 +36,7 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 h-20 flex items-center right-0 z-50 bg-background/80 dark:bg-background-dark/80 backdrop-blur-lg shadow-lg"
+      className="fixed top-0 left-0 h-20 flex items-center  right-0 z-50 bg-background/80 dark:bg-background-dark/80 backdrop-blur-lg shadow-lg"
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
@@ -70,7 +70,7 @@ export default function Navigation() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-md font-medium hover:text-primary transition-colors duration-200"
+              className="text-md font-medium !font-pilcrow hover:text-primary transition-colors duration-200"
             >
               {link.name}
             </Link>
@@ -114,7 +114,7 @@ export default function Navigation() {
           {/* CTA Button */}
           <Button
             href="/template"
-            className="hidden md:inline-flex hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light"
+            className="font-pilcrow hidden md:inline-flex hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light"
             variant="outline"
           >
             Get in Touch

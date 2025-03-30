@@ -57,6 +57,43 @@ const pilcrow = localFont({
   variable: '--font-pilcrow',
 });
 
+const technor = localFont({
+  src: [
+    {
+      path: '../../public/fonts/Technor-Regular.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/Technor-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-technor',
+});
+
+const supreme = localFont({
+  src: [
+    {
+      path: '../../public/fonts/Supreme-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/Supreme-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/Supreme-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    }
+  ],
+  variable: '--font-supreme',
+});
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -105,7 +142,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${roundo.variable} ${pilcrow.variable} antialiased font-pilcrow relative`}>
+      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

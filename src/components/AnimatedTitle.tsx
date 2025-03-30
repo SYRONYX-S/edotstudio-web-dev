@@ -81,7 +81,7 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
 
   // Render the appropriate HTML tag
   const renderTitle = () => {
-    const baseClasses = `font-technor ${colorClasses[color]} ${className}`;
+    const baseClasses = `${colorClasses[color]} ${className}`;
 
     switch (as) {
       case 'h1':

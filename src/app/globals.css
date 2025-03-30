@@ -53,7 +53,7 @@
   }
 
   body {
-    @apply bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100;
+    @apply bg-background dark:bg-background-dark text-gray-900 dark:text-gray-100 font-pilcrow;
     position: relative;
     overflow-x: hidden;
   }
@@ -145,6 +145,10 @@
   .backdrop-blur-sm, .backdrop-blur-md, .backdrop-blur-lg {
     @apply transition-[backdrop-filter] duration-300 ease-in-out;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-roundo;
+  }
 }
 
 @layer base {
@@ -152,9 +156,19 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-pilcrow;
   }
 }
+
+/* Override for base HTML elements */
+body {
+  font-family: var(--font-pilcrow) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-roundo) !important;
+}
+
 .key-color-bg {
   border: 1px solid var(--accent);
 }
@@ -298,11 +312,19 @@
 
 /* Font Classes */
 .font-roundo {
-  font-family: var(--font-roundo);
+  font-family: var(--font-roundo) !important;
 }
 
 .font-pilcrow {
-  font-family: var(--font-pilcrow);
+  font-family: var(--font-pilcrow) !important;
+}
+
+.font-technor {
+  font-family: var(--font-technor) !important;
+}
+
+.font-supreme {
+  font-family: var(--font-supreme) !important;
 }
 
 /* Custom Cursor */
@@ -847,11 +869,11 @@ button, a, input, select, textarea {
 
 /* Font utility classes */
 .font-technor {
-  font-family: 'Technor', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-technor) !important;
 }
 
 .font-supreme {
-  font-family: 'Supreme', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-supreme) !important;
 }
 
 /* Text glow effect for primary colored text */
@@ -1014,7 +1036,7 @@ button, a, input, select, textarea {
 }
 
 /* Make sections transparent to show global background */
-.section {
+section {
   @apply bg-transparent;
 }
 .serivces-card-icon {
@@ -1027,11 +1049,11 @@ button, a, input, select, textarea {
 
 /* Ensure font priorities */
 .font-technor {
-  font-family: 'Technor', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-technor) !important;
 }
 
 .font-supreme {
-  font-family: 'Supreme', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-family: var(--font-supreme) !important;
 }
 
 /* Add smooth transitions for theme changes */

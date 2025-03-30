@@ -129,7 +129,7 @@ const serviceDetails = [
   },
 ];
 
-export default function ServicesPage() {
+export default function Services() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -140,42 +140,27 @@ export default function ServicesPage() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   
   return (
-    <>
+    <main className="min-h-screen relative dark:bg-background">
       {/* Hero Section */}
-      <section ref={targetRef} className="relative pt-32 pb-20 overflow-hidden bg-light dark:bg-secondary">
-        <div className="container mx-auto px-4 z-10 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div style={{ y, opacity }}>
-              <AnimatedTitle
-                title="Our Services"
-                as="h1"
-                type="staggered"
-                color="primary"
-                className="text-4xl md:text-6xl mb-6 font-technor"
-              />
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-12 font-supreme"
-              >
-                We offer a comprehensive range of digital services to help your business grow. From branding to web development, we've got you covered.
-              </motion.p>
-            </motion.div>
-          </div>
-        </div>
-        
-        {/* Background elements */}
-        <div className="absolute top-0 right-0 -z-10 w-1/2 h-full opacity-10">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#C75000" d="M45.3,-73.5C59.9,-66.5,73.5,-55.6,81.4,-41.5C89.3,-27.5,91.5,-10.3,87.7,5.3C84,20.8,74.4,34.8,63.5,45.9C52.6,57,40.5,65.3,27.1,70.3C13.6,75.4,-1.1,77.3,-16.8,75.6C-32.5,74,-49.1,68.9,-61.2,58.3C-73.3,47.8,-80.8,31.8,-84.2,14.3C-87.5,-3.2,-86.6,-22.3,-78.9,-37.1C-71.1,-51.9,-56.4,-62.5,-41.5,-69.2C-26.5,-76,-13.3,-79,1.5,-81.5C16.2,-84,32.5,-86,45.3,-73.5Z" transform="translate(100 100)" />
-          </svg>
-        </div>
-        
-        <div className="absolute bottom-0 left-0 -z-10 w-1/2 h-full opacity-10">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#C75000" d="M45.7,-76.9C59.3,-71.2,70.8,-59.3,77.9,-45.2C85,-31,87.6,-15.5,85.7,-1.1C83.8,13.3,77.4,26.6,69.4,39.1C61.4,51.6,51.8,63.4,39.7,70.7C27.6,78,13.8,80.9,-0.4,81.5C-14.6,82.1,-29.2,80.4,-42.8,74.5C-56.4,68.5,-69,58.3,-76.5,45.1C-84,31.9,-86.5,15.9,-84.8,1C-83.2,-14,-77.4,-28,-69.8,-41.3C-62.2,-54.6,-52.8,-67.2,-40.4,-73.8C-28,-80.4,-14,-81.1,0.8,-82.5C15.7,-83.9,31.3,-86,45.7,-76.9Z" transform="translate(100 100)" />
-          </svg>
+      <section className="relative pt-32 pb-20">
+        <div className="container mx-auto px-4 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+              OUR SERVICES
+            </div>
+            <AnimatedTitle
+              title="What We Do"
+              className="text-4xl md:text-7xl mb-6 font-technor text-foreground dark:text-white"
+            />
+            <p className="text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
+              From web development to digital marketing, we offer comprehensive solutions to help your business thrive in the digital world.
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -311,6 +296,6 @@ export default function ServicesPage() {
           </Button>
         </div>
       </section>
-    </>
+    </main>
   );
 } 

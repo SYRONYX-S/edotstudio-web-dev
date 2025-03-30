@@ -32,7 +32,7 @@ export default function ApproachCard({ title, description, icon, index }: Approa
         </div>
 
         {/* Content */}
-        <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
+        <h3 className="font-pilcrow uppercase text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors duration-300">
           {title}
         </h3>
         <p className="text-gray-600 dark:text-gray-400">

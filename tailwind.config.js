@@ -62,6 +62,8 @@ module.exports = {
       fontFamily: {
         roundo: ['var(--font-roundo)'],
         pilcrow: ['var(--font-pilcrow)'],
+        technor: ['var(--font-technor)'],
+        supreme: ['var(--font-supreme)'],
       },
       keyframes: {
         "accordion-down": {

@@ -5,7 +5,7 @@ import AnimatedTitle from '@/components/AnimatedTitle';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { RiArrowRightLine } from 'react-icons/ri';
+import { RiArrowRightLine, RiArrowRightUpLine } from 'react-icons/ri';
 import { AbstractBackground } from '@/components/AbstractBackground';
 import { projects } from './data';
 
@@ -37,19 +37,11 @@ export default function Portfolio() {
     : projects.filter(project => project.category === selectedCategory);
 
   return (
-    <main className="min-h-screen relative dark:bg-background">
+    <main className="min-h-screen relative bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
       {/* Abstract Background */}
       <AbstractBackground className="!fixed" />
 
       {/* Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] dark:opacity-20" />
-        
-        {/* Shapes */}
-        <motion.div style={{ y: y1, opacity }} className="absolute top-20 left-[15%] w-[30rem] h-[30rem] bg-[radial-gradient(circle_at_center,#FF4D0015,transparent_70%)] blur-xl dark:bg-[radial-gradient(circle_at_center,#FF4D0025,transparent_70%)]" />
-        <motion.div style={{ y: y2, opacity }} className="absolute top-40 right-[15%] w-[25rem] h-[25rem] bg-[radial-gradient(circle_at_center,#FF4D0010,transparent_70%)] blur-xl dark:bg-[radial-gradient(circle_at_center,#FF4D0020,transparent_70%)]" />
-      </div>
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20">
@@ -65,7 +57,7 @@ export default function Portfolio() {
             </div>
             <AnimatedTitle
               title="Our Portfolio"
-              className="text-4xl md:text-7xl mb-6 font-technor text-foreground dark:text-white"
+              className="text-4xl md:text-7xl mb-6 font-roundo text-foreground dark:text-white"
             />
             <p className="text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
               Discover how we've helped businesses transform their digital presence through innovative solutions and strategic partnerships.
@@ -77,9 +69,9 @@ export default function Portfolio() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  className={`px-6 py-2.5 rounded-full text-sm font-technor font-medium transition-all duration-300 ${
                     selectedCategory === category
-                      ? 'bg-primary text-white shadow-glow'
+                      ? 'bg-primary dark:bg-primary text-white shadow-glow'
                       : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white backdrop-blur-sm'
                   }`}
                 >
@@ -279,6 +271,82 @@ export default function Portfolio() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative py-32 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 dark:from-transparent dark:via-black/40 dark:to-black/60" />
+        <motion.div
+          style={{ y: y2 }}
+          className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_50%,#FF4D0015,transparent)]"
+        />
+        
+        <div className="container mx-auto px-4 relative">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-5xl mx-auto text-center"
+          >
+            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-6">
+              START YOUR PROJECT
+            </div>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-technor mb-8 dark:text-white leading-tight">
+              Ready to Transform Your <br />
+              <span className="text-primary">Digital Presence?</span>
+            </h2>
+            <p className="text-lg md:text-xl dark:text-white/70 mb-12 max-w-3xl mx-auto">
+              Let's collaborate to bring your vision to life. Our team of experts is ready to help you create something extraordinary.
+            </p>
+            
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+              <Link
+                href="/contact"
+                className="group flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-glow hover:shadow-glow-lg"
+              >
+                Start a Project
+                <RiArrowRightUpLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </Link>
+              <Link
+                href="/about"
+                className="group flex items-center gap-2 dark:bg-white/5 hover:dark:bg-white/10 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-sm"
+              >
+                Learn More About Us
+                <RiArrowRightLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+
+            {/* Stats */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-20 border-t dark:border-white/10"
+            >
+              {[
+                { number: '150+', label: 'Projects Completed' },
+                { number: '50+', label: 'Happy Clients' },
+                { number: '10+', label: 'Years Experience' },
+                { number: '25+', label: 'Team Members' }
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 * index }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                  <div className="text-sm dark:text-white/70">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </main>

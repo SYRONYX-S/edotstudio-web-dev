@@ -172,13 +172,13 @@ export default function Home() {
                 as="h1"
                 type="staggered"
                 color="primary"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl font-supreme font-semibold"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl !font-technor"
               />
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8 font-supreme"
+                className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8 font-pilcrow"
               >
                 EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
               </motion.p>
@@ -192,7 +192,7 @@ export default function Home() {
                 <Button 
                   href="/contact" 
                   size="lg"
-                  className='bg-primary-light text-white dark:text-white hover:bg-primary-light'
+                  className='bg-primary-light text-white dark:text-white hover:bg-primary-light font-pilcrow'
                   icon={<RiArrowRightLine />}
                 >
                   Start Your Digital Transformation
@@ -216,19 +216,19 @@ export default function Home() {
             >
               <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
                 <RiCheckboxCircleLine className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-supreme">Award-winning Design</span>
+                <span className="text-sm font-medium font-pilcrow">Award-winning Design</span>
               </div>
               <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
                 <RiBriefcase4Line className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-supreme">200+ Projects Delivered</span>
+                <span className="text-sm font-medium font-pilcrow">200+ Projects Delivered</span>
               </div>
               <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
                 <RiTimeLine className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-supreme">10+ Years Experience</span>
+                <span className="text-sm font-medium font-pilcrow">10+ Years Experience</span>
               </div>
               <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
                 <RiTeamLine className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-supreme">50+ Team Members</span>
+                <span className="text-sm font-medium font-pilcrow">50+ Team Members</span>
               </div>
             </motion.div>
           </div>
@@ -243,15 +243,15 @@ export default function Home() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Expertise
             </div>
             <AnimatedTitle 
               title="Comprehensive Digital Solutions"
               type="reveal"
-              className="text-2xl md:text-4xl mb-4 font-technor"
+              className="text-2xl md:text-4xl mb-0 font-technor"
             />
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
               We combine creativity and technology to deliver exceptional digital solutions that drive results for your business.
             </p>
           </div>
@@ -290,15 +290,15 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center mb-12">
             <div>
-              <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
                 Our Portfolio
               </div>
               <AnimatedTitle 
-                title="Featured Work"
+                title="Featured Works"
                 color="primary"
-                className="text-2xl md:text-4xl mb-4 font-technor"
+                className="text-2xl md:text-4xl mb-0 font-technor"
               />
-              <p className="text-gray-600 dark:text-gray-400 max-w-xl">
+              <p className="text-gray-600 dark:text-gray-400 max-w-xl font-pilcrow">
                 Explore our selected projects that showcase our expertise and creativity.
               </p>
             </div>
@@ -342,14 +342,14 @@ export default function Home() {
 
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Approach
             </div>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-2xl md:text-4xl mb-4 font-technor"
+              className="text-2xl md:text-4xl mb-0 font-technor"
             >
               Our Proven Process
             </motion.h2>
@@ -357,7 +357,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-supreme"
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-pilcrow"
             >
               We follow a systematic approach to deliver exceptional results for every project
             </motion.p>
@@ -415,7 +415,7 @@ export default function Home() {
                     </div>
 
                     {/* Text Content */}
-                    <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-all duration-300">
+                    <h3 className="uppercase font-pilcrow text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-all duration-300">
                       {approach.title}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 transition-all duration-300">
@@ -439,14 +439,14 @@ export default function Home() {
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Impact
             </div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-2xl md:text-4xl mb-4 font-technor"
+              className="text-2xl md:text-4xl mb-0 font-technor"
             >
               Making a Difference
             </motion.h2>
@@ -454,7 +454,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-supreme"
+              className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-pilcrow"
             >
               Our impact speaks through numbers and successful transformations
             </motion.p>
@@ -521,10 +521,10 @@ export default function Home() {
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-all duration-300">
+                  <h3 className="font-pilcrow uppercase text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-all duration-300">
                     {impact.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400 transition-all duration-300">
+                  <p className="text-gray-600 dark:text-gray-400 transition-all duration-300 font-pilcrow">
                     {impact.description}
                   </p>
 
@@ -547,14 +547,14 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
                 Why Choose Us
               </div>
               <AnimatedTitle 
                 title="Committed to Excellence in Digital Solutions"
-                className="text-2xl md:text-4xl mb-6 font-technor"
+                className="text-2xl md:text-4xl mb-2 font-technor"
               />
-              <p className="text-gray-600 dark:text-gray-300 mb-8">
+              <p className="text-gray-600 dark:text-gray-300 mb-8 font-pilcrow">
                 At EdotStudio, we're not just another digital agency. We're a team of passionate experts committed to delivering exceptional results for our clients.
               </p>
               

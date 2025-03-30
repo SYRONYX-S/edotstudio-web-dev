@@ -47,11 +47,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       </motion.div>
 
       {/* Content */}
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
+      <h3 className="text-xl font-semibold mb-3 font-pilcrow uppercase">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300 mb-6">{description}</p>
 
       {/* Learn More Link */}
-      <div className="flex items-center text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors duration-300">
+      <div className="flex items-center text-gray dark:text-gray-100 font-pilcrow group-hover:text-primary transition-colors duration-300">
         <span className="mr-2 group-hover:text-primary transition-colors duration-300">Learn more</span>
         <ArrowRight 
           className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300 ease-in-out"
