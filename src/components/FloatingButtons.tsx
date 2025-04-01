@@ -3,14 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RiArrowUpLine, RiWhatsappLine } from 'react-icons/ri';
+import { useTheme } from 'next-themes';
 
 export default function FloatingButtons() {
   const [showButtons, setShowButtons] = useState(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = window.innerHeight; // Assuming hero section is 100vh
-      setShowButtons(window.scrollY > heroHeight);
+      const heroHeight = window.innerHeight; // Hero section is typically 100vh
+      setShowButtons(window.scrollY > (heroHeight * 0.5)); // Show when scrolled past half of hero
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -31,7 +33,7 @@ export default function FloatingButtons() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-6 right-6 z-50 flex flex-col gap-4"
+          className="fixed bottom-8 right-8 z-50 flex flex-col gap-4"
         >
           {/* WhatsApp Button */}
           <motion.a
@@ -39,20 +41,22 @@ export default function FloatingButtons() {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+            whileTap={{ scale: 0.95 }}
+            className="w-10 h-10 flex items-center justify-center bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
           >
-            <RiWhatsappLine className="w-6 h-6" />
+            <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/40 to-primary-light/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <RiWhatsappLine className="w-5 h-5 text-primary-light dark:text-primary-light relative z-10" />
           </motion.a>
 
           {/* Back to Top Button */}
           <motion.button
             onClick={scrollToTop}
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="bg-primary text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+            whileTap={{ scale: 0.95 }}
+            className="w-10 h-10 flex items-center justify-center bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
           >
-            <RiArrowUpLine className="w-6 h-6" />
+            <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/40 to-primary-light/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <RiArrowUpLine className="w-5 h-5 text-primary-light dark:text-primary-light relative z-10" />
           </motion.button>
         </motion.div>
       )}

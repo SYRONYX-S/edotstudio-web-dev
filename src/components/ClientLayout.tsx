@@ -8,6 +8,7 @@ import FloatingButtons from "./FloatingButtons";
 import Preloader from "./Preloader";
 import Providers from "../app/providers";
 import ScrollBackground from "./ScrollBackground";
+import PageWrapper from "./PageWrapper";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -25,7 +26,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         </a>
         <CursorFollower />
         <Navigation />
-        <main id="main-content" className="min-h-screen pt-20">{children}</main>
+        <PageWrapper>
+          <main id="main-content" className="min-h-screen pt-20">{children}</main>
+        </PageWrapper>
         <Footer />
         <FloatingButtons />
       </div>

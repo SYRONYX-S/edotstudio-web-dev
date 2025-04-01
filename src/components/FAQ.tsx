@@ -78,10 +78,10 @@ const FAQItem = ({ question, answer }: FAQItem) => {
 
 const FAQ = () => {
   return (
-    <section className="py-20 bg-transparent dark:bg-dark-200">
+    <section className="py-20 bg-white dark:bg-dark-200">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+          <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
             FAQ
           </div>
           <h2 className="text-2xl md:text-4xl mb-0 font-technor">

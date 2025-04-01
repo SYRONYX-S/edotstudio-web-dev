@@ -68,17 +68,18 @@ export default function OurImpact() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative"
+              whileHover={{ y: -8 }}
+              className="group relative transition-all duration-500 ease-out"
             >
               {/* Card */}
-              <div className="h-full relative rounded-2xl bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden">
+              <div className="h-full relative rounded-2xl bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-500 ease-out hover:shadow-xl group-hover:border-primary/30">
                 {/* Stat Display */}
                 <div className="absolute top-6 right-6">
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-primary mb-1 group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-2xl font-bold text-primary mb-1 transition-all duration-500 ease-out group-hover:scale-110 group-hover:text-primary-light">
                       {impact.stat}
                     </div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                    <div className="text-sm text-gray-500 dark:text-gray-400 transition-all duration-500 ease-out group-hover:text-primary-light">
                       {impact.statLabel}
                     </div>
                   </div>
@@ -86,28 +87,28 @@ export default function OurImpact() {
 
                 {/* Icon with Glow */}
                 <div className="relative mb-6">
-                  <div className="absolute inset-0 bg-primary/20 blur-xl transform group-hover:scale-150 transition-transform duration-500" />
-                  <div className="relative z-10 w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 flex items-center justify-center transform group-hover:-rotate-12 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-primary/20 blur-xl transform transition-all duration-500 ease-out group-hover:scale-150" />
+                  <div className="relative z-10 w-16 h-16 rounded-2xl bg-white dark:bg-gray-800 flex items-center justify-center transform transition-all duration-500 ease-out group-hover:-rotate-12 group-hover:shadow-lg">
                     {impact.icon}
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+                <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100 transition-all duration-500 ease-out group-hover:text-primary-light">
                   {impact.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 transition-all duration-500 ease-out group-hover:text-gray-800 dark:group-hover:text-gray-200">
                   {impact.description}
                 </p>
 
                 {/* Decorative Corner */}
                 <div className="absolute bottom-0 right-0 w-24 h-24">
-                  <div className="absolute bottom-0 right-0 w-full h-full bg-primary/5 dark:bg-primary/10 transform rotate-45 translate-x-1/2 translate-y-1/2 group-hover:scale-150 transition-transform duration-500" />
+                  <div className="absolute bottom-0 right-0 w-full h-full bg-primary/5 dark:bg-primary/10 transform rotate-45 translate-x-1/2 translate-y-1/2 transition-all duration-500 ease-out group-hover:scale-150 group-hover:bg-primary/10" />
                 </div>
               </div>
 
               {/* Hover Glow Effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/0 to-primary/30 opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-500 -z-10" />
+              <div className="absolute -inset-0.5 bg-gradient-to-br from-primary/0 to-primary/30 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500 ease-out -z-10" />
             </motion.div>
           ))}
         </div>

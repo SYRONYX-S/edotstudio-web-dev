@@ -122,11 +122,12 @@ const Footer: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  whileHover={{ scale: 1.1 }}
-                  className="bg-white/5 hover:bg-primary text-white p-2 rounded-full transition-colors duration-300 hover:shadow-glow-sm"
+                  whileHover={{ scale: 1.1, y: -5 }}
+                  className="bg-white/5 hover:bg-primary text-white p-2 rounded-full transition-all duration-300 hover:shadow-glow-sm relative group overflow-hidden"
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5" />
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary-light/40 to-primary/90 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-0 group-hover:scale-100"></span>
+                  <social.icon className="w-5 h-5 relative z-10" />
                 </motion.a>
               ))}
             </div>
@@ -190,49 +191,58 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-xl font-technor text-white relative mb-6 pb-3 after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-16 after:bg-primary">Contact Us</h3>
             <ul className="space-y-5 font-pilcrow">
-              <li className="flex items-start">
-                <div className="bg-white/5 rounded-full p-2 mr-3 mt-1">
+              <li className="flex items-start group">
+                <div className="bg-white/5 rounded-full p-2 mr-3 mt-1 transition-colors duration-300 group-hover:bg-primary/20">
                   <RiMailLine className="text-primary" />
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Email Us</p>
-                  <a 
+                  <motion.a 
                     href="mailto:info@edotstudio.com" 
-                    className="text-gray-400 hover:text-primary transition-colors duration-300 inline-block"
+                    className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
+                    whileHover={{ x: 5 }}
                   >
-                    info@edotstudio.com
-                  </a>
+                    <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
+                      info@edotstudio.com
+                    </span>
+                  </motion.a>
                 </div>
               </li>
-              <li className="flex items-start">
-                <div className="bg-white/5 rounded-full p-2 mr-3 mt-1">
+              <li className="flex items-start group">
+                <div className="bg-white/5 rounded-full p-2 mr-3 mt-1 transition-colors duration-300 group-hover:bg-primary/20">
                   <RiPhoneLine className="text-primary" />
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Call Us</p>
-                  <a 
+                  <motion.a 
                     href="tel:+1234567890" 
-                    className="text-gray-400 hover:text-primary transition-colors duration-300 inline-block"
+                    className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
+                    whileHover={{ x: 5 }}
                   >
-                    +1 (234) 567-890
-                  </a>
+                    <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
+                      +1 (234) 567-890
+                    </span>
+                  </motion.a>
                 </div>
               </li>
-              <li className="flex items-start">
-                <div className="bg-white/5 rounded-full p-2 mr-3 mt-1">
+              <li className="flex items-start group">
+                <div className="bg-white/5 rounded-full p-2 mr-3 mt-1 transition-colors duration-300 group-hover:bg-primary/20">
                   <RiMapPinLine className="text-primary" />
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Visit Us</p>
-                  <a 
+                  <motion.a 
                     href="https://maps.google.com" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-gray-400 hover:text-primary transition-colors duration-300 inline-block"
+                    className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
+                    whileHover={{ x: 5 }}
                   >
-                    123 Business Street, Suite 100<br />
-                    New York, NY 10001
-                  </a>
+                    <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
+                      123 Business Street, Suite 100<br />
+                      New York, NY 10001
+                    </span>
+                  </motion.a>
                 </div>
               </li>
             </ul>
@@ -249,12 +259,13 @@ const Footer: React.FC = () => {
                 &copy; {currentYear} EdotStudio. All rights reserved.
               </p>
             </div>
-            <div className="flex flex-wrap items-center space-x-6 font-supreme">
+            
+            <div className="flex flex-wrap justify-center gap-6">
               {footerLinks.legal.map((link) => (
-                <Link
+                <Link 
                   key={link.name}
                   href={link.href}
-                  className="text-gray-400 hover:text-primary text-sm transition-colors"
+                  className="text-gray-400 hover:text-primary text-sm font-pilcrow transition-colors duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 hover:after:w-full after:bg-primary after:transition-all after:duration-300"
                 >
                   {link.name}
                 </Link>

@@ -243,7 +243,7 @@ export default function Home() {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Expertise
             </div>
             <AnimatedTitle 
@@ -273,6 +273,7 @@ export default function Home() {
           <div className="mt-16 text-center">
             <Button 
               href="/services" 
+              className='bg-primary-light'
               icon={<RiArrowRightLine />}
             >
               View All Services
@@ -290,7 +291,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center mb-12">
             <div>
-              <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
                 Our Portfolio
               </div>
               <AnimatedTitle 
@@ -342,7 +343,7 @@ export default function Home() {
 
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Approach
             </div>
             <motion.h2 
@@ -439,7 +440,7 @@ export default function Home() {
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Impact
             </div>
             <motion.h2
@@ -543,11 +544,11 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us - New Section */}
-      <section className="py-20 bg-transparent dark:bg-dark-200">
+      <section className="py-20 bg-white dark:bg-dark-200">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="uppercase font-pilcrow inline-block glass dark:glass-dark text-primary-600 dark:text-primary-300 px-4 py-1 rounded-full text-sm font-medium mb-4">
+              <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
                 Why Choose Us
               </div>
               <AnimatedTitle 
@@ -625,14 +626,14 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-transparent dark:bg-dark-200 animated-gradient">
+      <section className="py-20 bg-white dark:bg-dark-200 animated-gradient">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-12">
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
               Testimonials
             </div>
             <AnimatedTitle 

@@ -95,7 +95,7 @@ const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
             className="w-full px-4 md:px-10 text-center"
           >
             <div className="mb-6">
-              <div className="relative h-20 w-20 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20">
+              <div className="relative h-20 w-20 mx-auto mb-4 rounded-full overflow-hidden ring-4 ring-primary/20 transition-all duration-300 ease-out hover:ring-primary/50">
                 <Image
                   src={currentTestimonial.avatar}
                   alt={currentTestimonial.author}
@@ -139,7 +139,7 @@ const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handlePrev}
-              className="bg-white dark:bg-dark-300 text-primary hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white p-2 rounded-full shadow-md transition-colors duration-300"
+              className="bg-white dark:bg-dark-300 text-primary hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white p-2 rounded-full shadow-md transition-all duration-300"
               aria-label="Previous testimonial"
             >
               <RiArrowLeftSLine className="text-2xl" />
@@ -149,7 +149,7 @@ const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleNext}
-              className="bg-white dark:bg-dark-300 text-primary hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white p-2 rounded-full shadow-md transition-colors duration-300"
+              className="bg-white dark:bg-dark-300 text-primary hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white p-2 rounded-full shadow-md transition-all duration-300"
               aria-label="Next testimonial"
             >
               <RiArrowRightSLine className="text-2xl" />
@@ -166,8 +166,8 @@ const TestimonialSlider: React.FC<TestimonialSliderProps> = ({
                   setDirection(i > currentIndex ? 1 : -1);
                   setCurrentIndex(i);
                 }}
-                className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  i === currentIndex ? 'bg-primary w-4' : 'bg-gray-300 dark:bg-gray-600'
+                className={`h-2 rounded-full transition-all duration-500 ease-out ${
+                  i === currentIndex ? 'bg-primary w-4' : 'bg-gray-300 dark:bg-gray-600 w-2 hover:bg-primary/50 dark:hover:bg-primary/50'
                 }`}
                 aria-label={`Go to testimonial ${i + 1}`}
               />

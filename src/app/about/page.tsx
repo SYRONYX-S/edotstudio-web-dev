@@ -3,40 +3,75 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { RiRocketLine, RiCodeSLine, RiAiLine, RiTeamLine } from 'react-icons/ri';
+import { RiRocketLine, RiCodeSLine, RiTeamLine, RiLightbulbLine, RiShieldLine, RiComputerLine } from 'react-icons/ri';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
-import ParallaxSection from '@/components/ParallaxSection';
 import Button from '@/components/Button';
+import { AbstractBackground } from '@/components/AbstractBackground';
 
 export default function About() {
   const achievements = [
-    { number: '14+', label: 'Projects Completed' },
-    { number: '8+', label: 'Active Projects' },
-    { number: '2+', label: 'Years Experience' },
-    { number: '100%', label: 'Client Satisfaction' },
+    { number: '50+', label: 'Projects Completed', icon: <RiRocketLine className="text-3xl text-primary-light" /> },
+    { number: '12+', label: 'Active Projects', icon: <RiCodeSLine className="text-3xl text-primary-light" /> },
+    { number: '5+', label: 'Years Experience', icon: <RiLightbulbLine className="text-3xl text-primary-light" /> },
+    { number: '100%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" /> },
   ];
 
   const technologies = [
     {
       category: 'Frontend',
+      icon: <RiCodeSLine className="text-3xl text-primary-light" />,
       items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']
     },
     {
       category: 'Backend',
+      icon: <RiTeamLine className="text-3xl text-primary-light" />,
       items: ['Node.js', 'Python', 'MongoDB', 'PostgreSQL', 'Firebase']
     },
     {
       category: 'Tools & AI',
+      icon: <RiComputerLine className="text-3xl text-primary-light" />,
       items: ['GitHub Copilot', 'ChatGPT', 'Midjourney', 'Figma', 'AWS']
     }
   ];
 
+  const team = [
+    {
+      name: "Alex Johnson",
+      role: "Founder & CEO",
+      image: "/images/team/team1.jpg",
+      bio: "Visionary leader with 10+ years in digital solutions and a passion for innovative technologies."
+    },
+    {
+      name: "Sarah Chen",
+      role: "Creative Director",
+      image: "/images/team/team2.jpg",
+      bio: "Award-winning designer focused on creating memorable brand experiences that drive engagement."
+    },
+    {
+      name: "Michael Rivera",
+      role: "Technical Lead",
+      image: "/images/team/team3.jpg",
+      bio: "Full-stack developer with expertise in scalable architecture and performance optimization."
+    },
+    {
+      name: "Emma Wilson",
+      role: "Marketing Strategist",
+      image: "/images/team/team4.jpg",
+      bio: "Digital marketing expert who combines data-driven insights with creative storytelling."
+    }
+  ];
+
   return (
-    <main className="min-h-screen relative dark:bg-background">
+    <main className="min-h-screen relative dark:bg-black">
+      {/* Abstract Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <AbstractBackground />
+      </div>
+      
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20">
+      <section className="relative pt-32 pb-20 z-10">
         <div className="container mx-auto px-4 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -44,24 +79,24 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               ABOUT US
             </div>
             <AnimatedTitle
-              title="Our Journey of Innovation"
-              className="text-4xl md:text-7xl mb-6 font-roundo text-foreground dark:text-white"
+              title="Our Story of Innovation"
+              className="text-4xl md:text-7xl mb-6 font-technor text-black dark:text-white"
             />
-            <p className="text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
-              From web development specialists to a full-service digital studio, discover how we're shaping the future of digital experiences.
+            <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-lg mb-12 font-pilcrow">
+              From ambitious beginnings to industry leadership, we're on a mission to transform digital experiences with creativity, technology, and strategic insight.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Journey Section */}
-      <ParallaxSection className="py-20">
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="glass dark:glass-dark rounded-2xl p-8 md:p-12">
+          <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/20 dark:border-white/10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -69,35 +104,66 @@ export default function About() {
                 viewport={{ once: true }}
                 className="space-y-6"
               >
-                <h2 className="text-3xl md:text-4xl font-roundo text-primary">Our Story</h2>
-                <div className="space-y-4 text-gray-800 dark:text-gray-200">
+                <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                  OUR JOURNEY
+                </div>
+                <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Creative Vision, Technical Excellence</h2>
+                <div className="space-y-4 text-gray-700 dark:text-gray-300 font-pilcrow">
                   <p>
-                    Founded in 2022 as SYRONYX Web and App Solutions, we began our journey with a focused mission: to deliver exceptional web development solutions. In our initial phase, we successfully completed 14 projects, working with notable clients and establishing our reputation for quality and reliability.
+                    Founded with a singular vision to bridge technical innovation with creative design, EdotStudio has evolved into a full-spectrum digital powerhouse. Our journey began with crafting exceptional websites and applications, and has expanded to encompass comprehensive brand experiences.
                   </p>
                   <p>
-                    In 2025, we evolved into EdotStudio, expanding our service offerings to meet the growing demands of the digital landscape. This transformation marked a new chapter in our journey, enabling us to provide comprehensive digital solutions while maintaining our commitment to innovation and excellence.
+                    Today, we partner with ambitious businesses to create digital products that stand apart through their technical excellence, visual distinction, and strategic insight. Every project we undertake is approached as an opportunity to push boundaries and deliver work that exceeds expectations.
+                  </p>
+                  <p>
+                    Our team combines decades of collective experience with a relentless drive to remain at the forefront of digital trends and technologies. This unique blend of expertise and exploration allows us to create solutions that are not just current—they're ahead of the curve.
                   </p>
                 </div>
               </motion.div>
-              <div className="relative h-[400px] rounded-xl overflow-hidden">
-                <Image
-                  src="/images/hero/about-hero.jpg"
-                  alt="EdotStudio Journey"
-                  fill
-                  priority
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-xl"
-                />
+              <div className="relative rounded-xl overflow-hidden">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="relative h-[500px] w-full rounded-xl overflow-hidden group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
+                  <Image
+                    src="/images/hero/about-hero.jpg"
+                    alt="EdotStudio Journey"
+                    fill
+                    priority
+                    style={{ objectFit: 'cover' }}
+                    className="rounded-xl group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute bottom-8 left-8 z-20">
+                    <h3 className="text-white text-2xl font-technor mb-2">10+ Years Combined Experience</h3>
+                    <p className="text-white/80 font-pilcrow">Building digital excellence</p>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
         </div>
-      </ParallaxSection>
+      </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-white dark:bg-dark-200">
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+              OUR IMPACT
+            </div>
+            <AnimatedTitle
+              title="Numbers That Define Us"
+              className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white"
+            />
+            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
+              Behind every statistic is a success story—a digital experience that exceeded expectations and delivered measurable results.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <motion.div
                 key={achievement.label}
@@ -105,10 +171,58 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="text-center"
+                className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 dark:border-white/5 hover:border-primary-light/20 transition-all duration-300 group"
               >
-                <h3 className="text-4xl md:text-5xl font-roundo text-primary mb-2">{achievement.number}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{achievement.label}</p>
+                <div className="mb-4">{achievement.icon}</div>
+                <h3 className="text-4xl md:text-5xl font-technor text-primary-light mb-2 group-hover:scale-110 origin-left transition-transform duration-300">{achievement.number}</h3>
+                <p className="text-gray-700 dark:text-gray-300 font-pilcrow">{achievement.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-20 relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+              OUR TEAM
+            </div>
+            <AnimatedTitle
+              title="Meet the Experts"
+              className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white"
+            />
+            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
+              Our diverse team brings together expertise across technology, design, and strategy to deliver exceptional digital experiences.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member, index) => (
+              <motion.div
+                key={member.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group"
+              >
+                <div className="relative h-[300px] w-full rounded-2xl overflow-hidden mb-4 transition-all duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10 group-hover:from-primary/70 transition-all duration-500"></div>
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute bottom-6 left-6 right-6 z-20">
+                    <h3 className="text-white text-xl font-technor mb-1 group-hover:text-white transition-colors duration-300">{member.name}</h3>
+                    <p className="text-primary-light font-pilcrow text-sm font-semibold">{member.role}</p>
+                  </div>
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 font-pilcrow text-sm">{member.bio}</p>
               </motion.div>
             ))}
           </div>
@@ -116,18 +230,18 @@ export default function About() {
       </section>
 
       {/* Technology Stack */}
-      <section className="py-20 bg-gray-100 dark:bg-dark-300">
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               OUR TECH STACK
             </div>
             <AnimatedTitle
               title="Powered by Innovation"
-              className="text-3xl md:text-4xl mb-6 font-roundo"
+              className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white"
             />
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              We leverage cutting-edge technologies and AI-assisted development workflows to deliver exceptional results.
+            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
+              We leverage cutting-edge technologies and forward-thinking methodologies to create future-proof digital experiences.
             </p>
           </div>
 
@@ -139,14 +253,15 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-dark-200 p-8 rounded-xl shadow-lg"
+                className="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 dark:border-white/5 hover:border-primary-light/20 transition-all duration-300 group"
               >
-                <h3 className="text-xl font-roundo text-primary mb-4">{tech.category}</h3>
+                <div className="mb-4">{tech.icon}</div>
+                <h3 className="text-xl font-technor text-primary-light mb-4 group-hover:translate-x-2 transition-transform duration-300">{tech.category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {tech.items.map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1 bg-gray-100 dark:bg-dark-300 rounded-full text-sm"
+                      className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-sm font-pilcrow transition-colors duration-300 hover:bg-primary-light/20 hover:text-black dark:hover:text-white"
                     >
                       {item}
                     </span>
@@ -159,22 +274,28 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-white">
+      <section className="py-20 relative z-10">
         <div className="container mx-auto px-4 text-center">
-          <AnimatedTitle
-            title="Ready to Build Something Amazing?"
-            color="light"
-            className="text-3xl md:text-4xl mb-6 font-roundo"
-          />
-          <p className="text-white/90 max-w-2xl mx-auto mb-8">
-            Let's collaborate to bring your digital vision to life with our expertise in modern technologies and innovative solutions.
-          </p>
-          <Button
-            href="/contact"
-            className="bg-white text-primary hover:bg-gray-100"
-          >
-            Start a Project
-          </Button>
+          <div className="bg-black/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-16 border border-white/10 dark:border-white/5 relative overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden opacity-10">
+              <svg className="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 text-primary-light" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M48.8,-52.2C61.9,-37.4,71,-18.7,72.1,1.1C73.3,20.9,66.6,41.8,53.5,57.2C40.3,72.6,20.1,82.5,-0.9,83.4C-21.9,84.4,-43.8,76.5,-59.3,61.2C-74.9,45.9,-84.1,23,-81.8,2.2C-79.5,-18.5,-65.8,-37,-49.9,-51.7C-33.9,-66.4,-17,-77.2,1.2,-78.4C19.3,-79.7,38.6,-71.3,48.8,-52.2Z" transform="translate(100 100)"></path>
+              </svg>
+            </div>
+            <AnimatedTitle
+              title="Ready to Transform Your Digital Presence?"
+              className="text-3xl md:text-5xl mb-6 font-technor text-white"
+            />
+            <p className="text-white/80 max-w-2xl mx-auto mb-8 font-pilcrow">
+              Let's collaborate to bring your vision to life with innovative solutions that drive engagement, growth, and lasting impact.
+            </p>
+            <Button
+              href="/contact"
+              className="bg-primary-light text-white hover:bg-primary-light/90 font-technor transition-all duration-300 hover:shadow-glow-lg"
+            >
+              Start Your Project
+            </Button>
+          </div>
         </div>
       </section>
     </main>

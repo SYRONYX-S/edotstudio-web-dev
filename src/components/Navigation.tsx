@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import { RiMenuLine, RiCloseLine, RiSunLine, RiMoonLine } from 'react-icons/ri';
+import { usePathname } from 'next/navigation';
 
 // Components
 import Button from './Button';
@@ -22,6 +23,7 @@ export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -36,7 +38,7 @@ export default function Navigation() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 h-20 flex items-center  right-0 z-50 bg-background/80 dark:bg-background-dark/80 backdrop-blur-lg shadow-lg"
+      className="fixed top-0 left-0 h-20 flex items-center right-0 z-50 bg-background/80 dark:bg-background-dark/80 backdrop-blur-lg shadow-lg"
     >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
@@ -66,15 +68,34 @@ export default function Navigation() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-md font-medium !font-pilcrow hover:text-primary transition-colors duration-200"
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = mounted && (
+              link.href === '/' 
+                ? pathname === '/'
+                : pathname?.startsWith(link.href)
+            );
+            
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`relative text-md font-medium !font-pilcrow transition-colors duration-200 ${
+                  isActive 
+                    ? 'text-primary-light' 
+                    : 'hover:text-primary'
+                }`}
+              >
+                {link.name}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavItem"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1.5 w-1.5 bg-primary-light rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Right Side */}
@@ -113,8 +134,10 @@ export default function Navigation() {
 
           {/* CTA Button */}
           <Button
-            href="/template"
-            className="font-pilcrow hidden md:inline-flex hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light"
+            href="/contact"
+            className={`font-pilcrow hidden md:inline-flex hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light ${
+              pathname === '/contact' ? 'bg-primary-light dark:bg-primary-light text-white dark:text-white' : ''
+            }`}
             variant="outline"
           >
             Get in Touch
@@ -146,19 +169,42 @@ export default function Navigation() {
           >
             <div className="container mx-auto px-4 py-6">
               <div className="flex flex-col space-y-6">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="text-lg font-medium hover:text-primary transition-colors duration-200"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = mounted && (
+                    link.href === '/' 
+                      ? pathname === '/'
+                      : pathname?.startsWith(link.href)
+                  );
+                  
+                  return (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      className={`relative text-lg font-medium transition-colors duration-200 ${
+                        isActive 
+                          ? 'text-primary-light' 
+                          : 'hover:text-primary'
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <div className="flex items-center">
+                        {link.name}
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeMobileNavItem"
+                            className="ml-2 h-1.5 w-1.5 bg-primary-light rounded-full"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
                 <Button
-                  href="/template"
-                  className="w-full hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light"
+                  href="/contact"
+                  className={`w-full hover:bg-primary-light dark:hover:bg-primary-light text-black dark:text-white border-primary-light dark:border-primary-light shadow-primary-light dark:shadow-primary-light ${
+                    pathname === '/contact' ? 'bg-primary-light dark:bg-primary-light text-white dark:text-white' : ''
+                  }`}
                   variant="outline"
                 >
                   Get in Touch
