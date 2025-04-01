@@ -18,6 +18,7 @@ import TestimonialSlider from '@/components/TestimonialSlider';
 import PortfolioItem from '@/components/PortfolioItem';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import FAQ from '@/components/FAQ';
+import { AbstractBackground } from '@/components/AbstractBackground';
 
 // Data
 import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
@@ -39,6 +40,10 @@ export default function Home() {
 
   return (
     <>
+      {/* Abstract Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <AbstractBackground />
+      </div>
       {/* Hero Section */}
       <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
         {/* Enhanced animated circles */}

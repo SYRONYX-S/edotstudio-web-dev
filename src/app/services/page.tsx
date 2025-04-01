@@ -9,6 +9,7 @@ import { RiArrowRightLine, RiCheckLine } from 'react-icons/ri';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
+import { AbstractBackground } from '@/components/AbstractBackground';
 
 // Data
 import { services } from '@/data';
@@ -141,6 +142,10 @@ export default function Services() {
   
   return (
     <main className="min-h-screen relative dark:bg-transparent">
+      {/* Abstract Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <AbstractBackground />
+      </div>
       {/* Hero Section */}
       <section className="relative pt-32 pb-20">
         <div className="container mx-auto px-4 relative">
@@ -165,7 +170,7 @@ export default function Services() {
       </section>
 
       {/* Services Overview */}
-      <section className="py-20 bg-white dark:bg-dark-200">
+      <section className="py-20 bg-transparent dark:bg-transparent">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
@@ -175,7 +180,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-dark-300 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white/60 dark:bg-black/30 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="text-4xl text-primary mb-6">
                   <service.icon />
@@ -201,7 +206,7 @@ export default function Services() {
           key={service.id}
           id={service.id}
           className={`py-20 ${
-            index % 2 === 0 ? 'bg-primary/5 dark:bg-black/20' : 'bg-white dark:bg-transparent'
+            index % 2 === 0 ? 'bg-primary/5 dark:bg-black/20' : 'bg-transparent dark:bg-transparent'
           }`}
         >
           <div className="container mx-auto px-4">
@@ -290,7 +295,7 @@ export default function Services() {
           </p>
           <Button 
             href="/contact" 
-            className="bg-white text-primary hover:bg-gray-100"
+            className="bg-white text-primary-light font-bold hover:bg-gray-100"
           >
             Get in Touch
           </Button>
