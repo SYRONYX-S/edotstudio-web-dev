@@ -2,36 +2,36 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Award, TrendingUp, Globe } from 'lucide-react';
+import { Users, Calendar, TrendingUp, Briefcase } from 'lucide-react';
 
 const impacts = [
   {
-    title: "Global Reach",
-    description: "Impacting businesses and users across multiple continents with our innovative solutions.",
-    icon: <Globe className="w-8 h-8 text-primary" />,
-    stat: "20+",
-    statLabel: "Countries",
+    title: "Years in Business",
+    description: "Started our journey in February 2022, evolving and growing with every project.",
+    icon: <Calendar className="w-8 h-8 text-primary" />,
+    stat: "3+",
+    statLabel: "Years Experience",
   },
   {
-    title: "Client Success",
-    description: "Helping businesses achieve their goals through strategic digital transformation.",
-    icon: <TrendingUp className="w-8 h-8 text-primary" />,
-    stat: "95%",
-    statLabel: "Success Rate",
-  },
-  {
-    title: "User Satisfaction",
-    description: "Creating experiences that delight users and exceed expectations.",
+    title: "Team Strength",
+    description: "A focused team of talented specialists dedicated to delivering top-tier solutions.",
     icon: <Users className="w-8 h-8 text-primary" />,
-    stat: "1M+",
-    statLabel: "Users",
+    stat: "3+",
+    statLabel: "Team Members",
   },
   {
-    title: "Industry Recognition",
-    description: "Earning accolades and recognition for our innovative approach and results.",
-    icon: <Award className="w-8 h-8 text-primary" />,
+    title: "Client Retention",
+    description: "Building lasting relationships through consistent delivery and client satisfaction.",
+    icon: <TrendingUp className="w-8 h-8 text-primary" />,
+    stat: "90%",
+    statLabel: "Retention Rate",
+  },
+  {
+    title: "Project Success",
+    description: "Successfully completed projects across various industries and technologies.",
+    icon: <Briefcase className="w-8 h-8 text-primary" />,
     stat: "15+",
-    statLabel: "Awards",
+    statLabel: "Projects Delivered",
   }
 ];
 
@@ -49,7 +49,7 @@ export default function OurImpact() {
             transition={{ duration: 0.5 }}
             className="text-4xl md:text-5xl font-display mb-4"
           >
-            Our Impact
+            Our Journey
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -57,7 +57,7 @@ export default function OurImpact() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
           >
-            Making a difference through innovative digital solutions
+            What we've accomplished so far in our digital adventure
           </motion.p>
         </div>
 

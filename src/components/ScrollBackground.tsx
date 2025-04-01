@@ -11,8 +11,10 @@ interface Shape {
   rotate: number;
   opacity: number;
   blur: string;
-  type: 'circle' | 'square' | 'triangle' | 'donut';
+  depth: number;
+  type: 'circle' | 'square' | 'triangle' | 'donut' | 'cube' | 'pyramid';
   color: string;
+  gradient?: boolean;
 }
 
 // Create a fixed number of transform values - this is key to avoiding the hooks error
@@ -83,28 +85,40 @@ export default function ScrollBackground() {
   
   useEffect(() => {
     // Generate shapes only once on component mount
-    const types: Array<'circle' | 'square' | 'triangle' | 'donut'> = ['circle', 'square', 'triangle', 'donut'];
+    const types: Array<'circle' | 'square' | 'triangle' | 'donut' | 'cube' | 'pyramid'> = 
+      ['circle', 'square', 'triangle', 'donut', 'cube', 'pyramid'];
+    
+    // Brighter colors within brand palette
     const colors = [
-      'rgba(255, 77, 0, 0.3)', // primary
-      'rgba(232, 96, 0, 0.25)', // primary-light
-      'rgba(255, 77, 0, 0.1)', // primary lighter
-      'rgba(255, 255, 255, 0.1)', // white
-      'rgba(0, 0, 0, 0.05)', // black
+      'rgba(255, 77, 0, 0.5)',         // primary - brighter
+      'rgba(255, 115, 64, 0.45)',      // primary-light - brighter
+      'rgba(232, 96, 0, 0.6)',         // primary variant - brighter
+      'rgba(255, 177, 0, 0.4)',        // orange-yellow - brighter
+      'rgba(255, 255, 255, 0.15)',     // white
+      'rgba(0, 0, 0, 0.1)',            // black
     ];
     
     // Create fixed number of shapes
     const newShapes: Shape[] = [];
     for (let i = 0; i < MAX_SHAPES; i++) {
+      const sizeValue = Math.random() * 200 + 80; // Slightly larger shapes
+      const shapeType = types[Math.floor(Math.random() * types.length)];
+      
+      // Determine if we should use a gradient
+      const useGradient = Math.random() > 0.5;
+      
       newShapes.push({
         id: i,
         x: `${Math.random() * 100}%`,
         y: `${Math.random() * 100}%`,
-        size: `${Math.random() * 200 + 50}px`,
+        size: `${sizeValue}px`,
         rotate: Math.random() * 360,
-        opacity: Math.random() * 0.5 + 0.1,
-        blur: `${Math.random() * 20 + 5}px`,
-        type: types[Math.floor(Math.random() * types.length)],
-        color: colors[Math.floor(Math.random() * colors.length)]
+        opacity: Math.random() * 0.4 + 0.2, // Slightly higher base opacity
+        blur: `${Math.random() * 15 + 5}px`,
+        depth: Math.random() * 5 + 2, // For 3D effects
+        type: shapeType,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        gradient: useGradient
       });
     }
     setShapes(newShapes);
@@ -128,40 +142,189 @@ export default function ScrollBackground() {
       <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
       
       {/* Floating shapes */}
-      {shapes.map((shape, index) => (
-        <motion.div
-          key={shape.id}
-          className="absolute rounded-full"
-          style={{
-            left: shape.x,
-            top: shape.y,
-            width: shape.size,
-            height: shape.size,
-            backgroundColor: shape.type === 'circle' || shape.type === 'square' ? shape.color : 'transparent',
-            borderRadius: shape.type === 'circle' || shape.type === 'donut' ? '50%' : shape.type === 'square' ? '15%' : '0',
-            border: shape.type === 'donut' ? `5px solid ${shape.color}` : 'none',
-            filter: `blur(${shape.blur})`,
-            opacity: opacityValues[index]?.get() || shape.opacity,
-            y: yMovements[index]?.get() || 0,
-            x: xMovements[index]?.get() || 0,
-            rotate: rotations[index]?.get() || 0,
-            transformOrigin: 'center',
-          }}
-        >
-          {shape.type === 'triangle' && (
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                backgroundColor: 'transparent',
-                borderLeft: `${parseInt(shape.size) / 2}px solid transparent`,
-                borderRight: `${parseInt(shape.size) / 2}px solid transparent`,
-                borderBottom: `${parseInt(shape.size)}px solid ${shape.color}`,
-              }}
-            />
-          )}
-        </motion.div>
-      ))}
+      {shapes.map((shape, index) => {
+        // Determine if this is a 3D shape
+        const is3DShape = shape.type === 'cube' || shape.type === 'pyramid';
+        
+        // For 3D shapes, we need to add perspective and transform-style properties
+        const perspective = is3DShape ? '800px' : 'none';
+        const transformStyle = is3DShape ? 'preserve-3d' : 'flat';
+        
+        // Create gradient background for shapes with gradient flag
+        const gradientBg = shape.gradient 
+          ? `linear-gradient(135deg, ${shape.color}, rgba(255, 77, 0, 0.3))` 
+          : undefined;
+        
+        return (
+          <motion.div
+            key={shape.id}
+            className="absolute"
+            style={{
+              left: shape.x,
+              top: shape.y,
+              width: shape.size,
+              height: shape.size,
+              filter: `blur(${shape.blur})`,
+              opacity: opacityValues[index]?.get() || shape.opacity,
+              y: yMovements[index]?.get() || 0,
+              x: xMovements[index]?.get() || 0,
+              rotate: rotations[index]?.get() || 0,
+              transformOrigin: 'center',
+              perspective: perspective,
+              transformStyle: transformStyle as any,
+            }}
+          >
+            {/* Render appropriate shape based on type */}
+            {shape.type === 'circle' && (
+              <div 
+                className="w-full h-full rounded-full"
+                style={{
+                  background: gradientBg || shape.color,
+                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                }}
+              />
+            )}
+            
+            {shape.type === 'square' && (
+              <div 
+                className="w-full h-full rounded-lg"
+                style={{
+                  background: gradientBg || shape.color,
+                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                }}
+              />
+            )}
+            
+            {shape.type === 'triangle' && (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'transparent',
+                  borderLeft: `${parseInt(shape.size) / 2}px solid transparent`,
+                  borderRight: `${parseInt(shape.size) / 2}px solid transparent`,
+                  borderBottom: `${parseInt(shape.size)}px solid ${shape.color}`,
+                  filter: `drop-shadow(0 ${shape.depth}px ${shape.depth}px rgba(0,0,0,0.15))`,
+                }}
+              />
+            )}
+            
+            {shape.type === 'donut' && (
+              <div 
+                className="w-full h-full rounded-full" 
+                style={{
+                  border: `${parseInt(shape.size) / 12}px solid ${shape.color}`,
+                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                }}
+              />
+            )}
+            
+            {/* 3D Cube */}
+            {shape.type === 'cube' && (
+              <div className="relative w-full h-full transform-style-3d">
+                {/* Front face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateZ(${parseInt(shape.size) / 4}px)`,
+                    boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                  }}
+                />
+                {/* Back face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateZ(-${parseInt(shape.size) / 4}px)`,
+                  }}
+                />
+                {/* Left face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateX(-${parseInt(shape.size) / 4}px) rotateY(90deg)`,
+                  }}
+                />
+                {/* Right face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateX(${parseInt(shape.size) / 4}px) rotateY(-90deg)`,
+                  }}
+                />
+                {/* Top face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateY(-${parseInt(shape.size) / 4}px) rotateX(90deg)`,
+                  }}
+                />
+                {/* Bottom face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateY(${parseInt(shape.size) / 4}px) rotateX(-90deg)`,
+                  }}
+                />
+              </div>
+            )}
+            
+            {/* 3D Pyramid */}
+            {shape.type === 'pyramid' && (
+              <div className="relative w-full h-full transform-style-3d">
+                {/* Base */}
+                <div 
+                  className="absolute bottom-0 left-0 right-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: '4px',
+                    width: '100%',
+                    transform: `translateY(${parseInt(shape.size) / 2}px) rotateX(-90deg)`,
+                  }}
+                />
+                {/* Front face */}
+                <div 
+                  className="absolute left-0 right-0 bottom-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: `${parseInt(shape.size) / 2}px`,
+                    width: '100%',
+                    transform: 'rotateX(30deg)',
+                    transformOrigin: 'bottom',
+                  }}
+                />
+                {/* Left face */}
+                <div 
+                  className="absolute left-0 bottom-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: `${parseInt(shape.size) / 2}px`,
+                    width: `${parseInt(shape.size) / 2}px`,
+                    transform: 'rotateY(-30deg) rotateX(30deg)',
+                    transformOrigin: 'bottom right',
+                  }}
+                />
+                {/* Right face */}
+                <div 
+                  className="absolute right-0 bottom-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: `${parseInt(shape.size) / 2}px`,
+                    width: `${parseInt(shape.size) / 2}px`,
+                    transform: 'rotateY(30deg) rotateX(30deg)',
+                    transformOrigin: 'bottom left',
+                  }}
+                />
+              </div>
+            )}
+          </motion.div>
+        );
+      })}
       
       {/* Gradient overlays for depth */}
       <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
@@ -171,6 +334,13 @@ export default function ScrollBackground() {
       
       {/* Noise texture overlay for subtle grain effect */}
       <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] bg-noise"></div>
+      
+      {/* Add some CSS classes for 3D transforms */}
+      <style jsx global>{`
+        .transform-style-3d {
+          transform-style: preserve-3d;
+        }
+      `}</style>
     </div>
   );
 } 

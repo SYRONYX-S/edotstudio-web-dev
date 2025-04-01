@@ -89,7 +89,7 @@ export default function Navigation() {
                 {isActive && (
                   <motion.div
                     layoutId="activeNavItem"
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1.5 w-1.5 bg-primary-light rounded-full"
+                    className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary-light opacity-80 rounded-full"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -192,7 +192,7 @@ export default function Navigation() {
                         {isActive && (
                           <motion.div
                             layoutId="activeMobileNavItem"
-                            className="ml-2 h-1.5 w-1.5 bg-primary-light rounded-full"
+                            className="ml-2 w-2 h-0.5 bg-primary-light rounded-full"
                             transition={{ type: "spring", stiffness: 380, damping: 30 }}
                           />
                         )}

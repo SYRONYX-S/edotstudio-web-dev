@@ -95,60 +95,26 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     return () => window.removeEventListener('scroll', updateProgressBar);
   }, [pathname]);
 
-  // Intercept navigation actions
-  useEffect(() => {
-    const handleLinkClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const linkElement = target.closest('a');
-      
-      if (linkElement && 
-          linkElement.href && 
-          linkElement.href.startsWith(window.location.origin) && 
-          !linkElement.target && 
-          !linkElement.hasAttribute('download') &&
-          !e.ctrlKey && 
-          !e.metaKey) {
-        e.preventDefault();
-        setIsNavigating(true);
-        
-        // Extract the pathname
-        const url = new URL(linkElement.href);
-        
-        // Wait for animation out to finish
-        setTimeout(() => {
-          router.push(url.pathname);
-        }, 300);
-      }
-    };
-
-    document.addEventListener('click', handleLinkClick);
-    return () => document.removeEventListener('click', handleLinkClick);
-  }, [router]);
-
   // Reset navigation state after page change
   useEffect(() => {
     setIsNavigating(false);
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  // Page transition variants
+  // Simple page transition that doesn't intercept navigation
   const variants = {
-    hidden: { opacity: 0, x: isNavigating ? -100 : 100 },
+    hidden: { opacity: 0 },
     enter: { 
-      opacity: 1, 
-      x: 0,
+      opacity: 1,
       transition: {
-        type: "spring", 
-        stiffness: 300, 
-        damping: 30,
-        duration: 0.5 
+        duration: 0.3,
+        ease: "easeInOut"
       }
     },
     exit: { 
-      opacity: 0, 
-      x: isNavigating ? 100 : -100,
+      opacity: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: "easeInOut"
       }
     },

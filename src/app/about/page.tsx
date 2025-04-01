@@ -12,10 +12,10 @@ import { AbstractBackground } from '@/components/AbstractBackground';
 
 export default function About() {
   const achievements = [
-    { number: '50+', label: 'Projects Completed', icon: <RiRocketLine className="text-3xl text-primary-light" /> },
-    { number: '12+', label: 'Active Projects', icon: <RiCodeSLine className="text-3xl text-primary-light" /> },
-    { number: '5+', label: 'Years Experience', icon: <RiLightbulbLine className="text-3xl text-primary-light" /> },
-    { number: '100%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" /> },
+    { number: '15+', label: 'Projects Completed', icon: <RiRocketLine className="text-3xl text-primary-light" /> },
+    { number: '8+', label: 'Active Projects', icon: <RiCodeSLine className="text-3xl text-primary-light" /> },
+    { number: '3+', label: 'Years Experience', icon: <RiLightbulbLine className="text-3xl text-primary-light" /> },
+    { number: '90%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" /> },
   ];
 
   const technologies = [
@@ -39,27 +39,21 @@ export default function About() {
   const team = [
     {
       name: "Alex Johnson",
-      role: "Founder & CEO",
+      role: "Founder & Developer",
       image: "/images/team/team1.jpg",
-      bio: "Visionary leader with 10+ years in digital solutions and a passion for innovative technologies."
+      bio: "Creative technologist with expertise in modern web development and a passion for user-centered design."
     },
     {
       name: "Sarah Chen",
-      role: "Creative Director",
+      role: "Design Lead",
       image: "/images/team/team2.jpg",
-      bio: "Award-winning designer focused on creating memorable brand experiences that drive engagement."
+      bio: "UI/UX specialist who transforms complex problems into intuitive digital experiences."
     },
     {
       name: "Michael Rivera",
-      role: "Technical Lead",
+      role: "Technical Consultant",
       image: "/images/team/team3.jpg",
-      bio: "Full-stack developer with expertise in scalable architecture and performance optimization."
-    },
-    {
-      name: "Emma Wilson",
-      role: "Marketing Strategist",
-      image: "/images/team/team4.jpg",
-      bio: "Digital marketing expert who combines data-driven insights with creative storytelling."
+      bio: "Full-stack developer who ensures our solutions are scalable, performant and future-proof."
     }
   ];
 
@@ -110,13 +104,13 @@ export default function About() {
                 <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Creative Vision, Technical Excellence</h2>
                 <div className="space-y-4 text-gray-700 dark:text-gray-300 font-pilcrow">
                   <p>
-                    Founded with a singular vision to bridge technical innovation with creative design, EdotStudio has evolved into a full-spectrum digital powerhouse. Our journey began with crafting exceptional websites and applications, and has expanded to encompass comprehensive brand experiences.
+                    Founded in February 2022, EdotStudio began with a singular vision to bridge technical innovation with creative design. Our journey started with crafting exceptional websites and applications, and has expanded to encompass comprehensive brand experiences.
                   </p>
                   <p>
-                    Today, we partner with ambitious businesses to create digital products that stand apart through their technical excellence, visual distinction, and strategic insight. Every project we undertake is approached as an opportunity to push boundaries and deliver work that exceeds expectations.
+                    Today, our small but mighty team partners with ambitious businesses to create digital products that stand apart through their technical excellence, visual distinction, and strategic insight. Every project we undertake is approached as an opportunity to push boundaries and deliver work that exceeds expectations.
                   </p>
                   <p>
-                    Our team combines decades of collective experience with a relentless drive to remain at the forefront of digital trends and technologies. This unique blend of expertise and exploration allows us to create solutions that are not just current—they're ahead of the curve.
+                    With three years of collective experience and a relentless drive to remain at the forefront of digital trends and technologies, we create solutions that are not just current—they're ahead of the curve.
                   </p>
                 </div>
               </motion.div>
