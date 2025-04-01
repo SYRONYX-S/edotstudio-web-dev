@@ -544,7 +544,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us - New Section */}
-      <section className="py-20 bg-white dark:bg-dark-200">
+      <section className="py-20 bg-transparent dark:bg-transparent">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -626,7 +626,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-white dark:bg-dark-200 animated-gradient">
+      <section className="py-20 bg-transparent dark:bg-transparent animated-gradient">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -695,7 +695,7 @@ export default function Home() {
       <FAQ />
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary dark:bg-primary text-white">
+      <section className="py-20 bg-primary-light dark:bg-primary-light text-white">
         <div className="container mx-auto px-4 text-center">
           <div className="frosted-container py-12 px-6">
             <AnimatedTitle 
