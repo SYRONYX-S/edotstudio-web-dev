@@ -78,14 +78,26 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           ? (scrollPosition / totalScrollableDistance) * 100 
           : 0;
           
-      progressBarRef.current.style.width = `${scrollPercentage}%`;
+      progressBarRef.current.style.transform = `translateX(${scrollPercentage - 100}%)`;
     };
 
-    window.addEventListener('scroll', updateProgressBar);
+    // Use requestAnimationFrame for smoother updates
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateProgressBar();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     // Initial update
     updateProgressBar();
     
-    return () => window.removeEventListener('scroll', updateProgressBar);
+    return () => window.removeEventListener('scroll', onScroll);
   }, [pathname]);
 
   // Reset navigation state after page change
@@ -100,15 +112,15 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     enter: { 
       opacity: 1,
       transition: {
-        duration: 0.3,
-        ease: "easeInOut"
+        duration: 0.2,
+        ease: "linear"
       }
     },
     exit: { 
       opacity: 0,
       transition: {
-        duration: 0.2,
-        ease: "easeInOut"
+        duration: 0.15,
+        ease: "linear"
       }
     },
   };
@@ -119,10 +131,11 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       <FixedCursor />
       
       {/* Progress Bar - Fixed at top */}
-      <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60]">
+      <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60] overflow-hidden">
         <div 
           ref={progressBarRef}
-          className="h-full bg-primary-light transition-all ease-out duration-200"
+          className="h-full w-full bg-primary-light transform -translate-x-full will-change-transform"
+          style={{ transition: 'transform 0.1s linear' }}
         />
       </div>
       
@@ -136,6 +149,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           exit="exit"
           variants={variants}
           className="min-h-screen"
+          style={{ willChange: 'opacity' }}
         >
           {pageContent}
         </motion.div>

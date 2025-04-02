@@ -11,24 +11,36 @@ interface FAQItem {
 
 const faqData: FAQItem[] = [
   {
-    question: "What services do you offer?",
-    answer: "We offer comprehensive digital solutions including web development, app development, UI/UX design, and digital marketing services through our strategic partnerships."
+    question: "What services does EdotStudio offer?",
+    answer: "EdotStudio offers a comprehensive suite of digital solutions including custom web development, mobile app development, UI/UX design, e-commerce solutions, and digital transformation consulting. Through our strategic partnerships, we also provide integrated digital marketing and branding services to ensure a complete digital presence for your business."
   },
   {
-    question: "How do you handle project collaboration?",
-    answer: "We follow an agile methodology with regular client communication. Our process includes discovery, planning, development, testing, and post-launch support phases to ensure project success."
+    question: "How does your development process work?",
+    answer: "Our development process follows an agile methodology with five key phases: 1) Discovery & Planning - understanding your needs and creating a roadmap, 2) Design & Prototyping - creating wireframes and visual designs, 3) Development - building your solution with regular updates, 4) Testing & QA - ensuring everything works perfectly, and 5) Launch & Support - deploying your solution and providing ongoing maintenance."
   },
   {
-    question: "What technologies do you work with?",
-    answer: "We work with modern technologies including React, Next.js, Node.js, and various other frameworks. Our tech stack is chosen based on project requirements to deliver optimal performance."
+    question: "What technologies and platforms do you specialize in?",
+    answer: "We specialize in modern web technologies including React, Next.js, Node.js, TypeScript, and various other frameworks. For e-commerce, we work with platforms like Shopify and WooCommerce. Our mobile development stack includes React Native and Flutter. We choose technologies based on your specific needs to ensure optimal performance and scalability."
   },
   {
-    question: "How do you ensure project quality?",
-    answer: "We implement rigorous quality assurance processes, including code reviews, automated testing, and thorough manual testing before deployment to ensure high-quality deliverables."
+    question: "How do you handle project pricing and timelines?",
+    answer: "Project pricing and timelines are customized based on your specific requirements. We provide detailed proposals that break down costs and timelines by project phase. For most projects, we offer flexible payment terms and maintain complete transparency throughout the development process. We can work with both fixed-price and time-and-materials models."
   },
   {
-    question: "What is your typical project timeline?",
-    answer: "Project timelines vary based on scope and complexity. We provide detailed project plans with clear milestones and regular updates to keep you informed throughout the development process."
+    question: "What makes EdotStudio different from other agencies?",
+    answer: "EdotStudio stands out through our commitment to excellence, innovative approach, and focus on delivering measurable business value. We combine technical expertise with strategic thinking, ensuring your digital solutions not only look great but also drive real business results. Our partnership model also means you get access to a full range of digital services under one roof."
+  },
+  {
+    question: "Do you provide ongoing support and maintenance?",
+    answer: "Yes, we offer comprehensive support and maintenance packages to ensure your digital solutions remain up-to-date and perform optimally. This includes regular updates, security patches, performance monitoring, and technical support. We also provide training and documentation to help your team manage the solution effectively."
+  },
+  {
+    question: "Can you work with existing systems and integrate with third-party tools?",
+    answer: "Absolutely! We have extensive experience in integrating with existing systems and third-party tools. Whether it's CRM systems, payment gateways, analytics tools, or custom APIs, we ensure seamless integration while maintaining security and performance standards."
+  },
+  {
+    question: "How do you ensure the security of digital solutions?",
+    answer: "Security is a top priority in all our projects. We implement industry best practices for secure coding, use encryption for sensitive data, conduct regular security audits, and ensure compliance with relevant data protection regulations. We also provide recommendations for ongoing security maintenance and updates."
   }
 ];
 

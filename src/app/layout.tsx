@@ -3,7 +3,6 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import { Inter } from 'next/font/google';
 import ClientLayout from "@/components/ClientLayout";
-import { ThemeProvider } from "next-themes";
 
 // Load local fonts
 const roundo = localFont({
@@ -148,14 +147,18 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/PilcrowRounded-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Technor-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/Roundo-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="renderer" content="webkit" />
+        <meta name="force-rendering" content="webkit" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
       </head>
-      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} font-roundo antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
-        </ThemeProvider>
+      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} font-roundo antialiased overscroll-none`}>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   )
