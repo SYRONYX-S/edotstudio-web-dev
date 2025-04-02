@@ -7,6 +7,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Lenis from 'lenis';
 
+// Import custom cursor component
+import FixedCursor from './FixedCursor';
+
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -122,6 +125,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
   return (
     <>
+      {/* Custom Cursor - Only shown on non-touch devices */}
+      <FixedCursor />
+      
       {/* Progress Bar - Fixed at top */}
       <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60]">
         <div 

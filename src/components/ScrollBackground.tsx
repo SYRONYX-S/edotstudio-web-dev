@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState, useMemo } from "react";
-import { motion, useScroll, MotionValue } from "framer-motion";
+import React, { useEffect, useState, useMemo, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 interface Shape {
   id: number;
@@ -15,73 +15,97 @@ interface Shape {
   type: 'circle' | 'square' | 'triangle' | 'donut' | 'cube' | 'pyramid';
   color: string;
   gradient?: boolean;
+  initialDelay?: number;
+  animationDuration?: number;
+  moveDistance?: number;
+  direction: {
+    x: number;
+    y: number;
+    rotate: number;
+  };
 }
 
-// Create a fixed number of transform values - this is key to avoiding the hooks error
-// We're pre-creating these hooks with fixed indices
+// Create a fixed number of transform values - keep user's custom value
 const MAX_SHAPES = 24;
+
+// Scroll animation speed multiplier - controls how much scroll affects animation speed
+const SCROLL_SPEED_MULTIPLIER = 120;
 
 export default function ScrollBackground() {
   const [shapes, setShapes] = useState<Shape[]>([]);
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   
-  // Generate all the transform values upfront, not inside the render method
-  // These hooks must be called at the top level, not inside conditional statements or loops
-  const yMovements = useMemo(() => {
-    const movements: MotionValue<number>[] = [];
-    for (let i = 0; i < MAX_SHAPES; i++) {
-      const isEven = i % 2 === 0;
-      // Create separate hooks for each shape with fixed parameters
-      const transform = scrollY.get(); // Just to have a value, will be updated in useEffect
-      movements.push({ get: () => {
-        const scrollValue = scrollY.get();
-        return scrollValue <= 0 ? 0 : (scrollValue / 1000) * (isEven ? -100 : 100);
-      } } as MotionValue<number>);
-    }
-    return movements;
-  }, [scrollY]);
+  // Use a spring for smooth scrolling effect
+  const smoothScrollY = useSpring(scrollY, { damping: 50, stiffness: 400 });
   
-  const xMovements = useMemo(() => {
-    const movements: MotionValue<number>[] = [];
-    for (let i = 0; i < MAX_SHAPES; i++) {
-      const isDivisibleByThree = i % 3 === 0;
-      const transform = scrollY.get(); // Just to have a value, will be updated in useEffect
-      movements.push({ get: () => {
-        const scrollValue = scrollY.get();
-        return scrollValue <= 0 ? 0 : (scrollValue / 2000) * (isDivisibleByThree ? 50 : -50);
-      } } as MotionValue<number>);
-    }
-    return movements;
-  }, [scrollY]);
+  // Track scroll velocity for animation speed modulation
+  const [scrollVelocity, setScrollVelocity] = useState(0);
+  const prevScrollY = useRef(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
-  const rotations = useMemo(() => {
-    const rotations: MotionValue<number>[] = [];
-    for (let i = 0; i < MAX_SHAPES; i++) {
-      const isEven = i % 2 === 0;
-      const transform = scrollY.get(); // Just to have a value, will be updated in useEffect
-      rotations.push({ get: () => {
-        const scrollValue = scrollY.get();
-        return scrollValue <= 0 ? 0 : (scrollValue / 3000) * (isEven ? 180 : -180);
-      } } as MotionValue<number>);
-    }
-    return rotations;
-  }, [scrollY]);
+  // Track viewport dimensions
+  const [viewport, setViewport] = useState({ width: 0, height: 0 });
   
-  const opacityValues = useMemo(() => {
-    const opacities: MotionValue<number>[] = [];
-    for (let i = 0; i < MAX_SHAPES; i++) {
-      const transform = scrollY.get(); // Just to have a value, will be updated in useEffect
-      opacities.push({ get: () => {
-        const scrollValue = scrollY.get();
-        const baseOpacity = 0.2 + (i % 5) * 0.1; // Varied base opacity
-        if (scrollValue <= 0) return baseOpacity;
-        if (scrollValue < 500) return baseOpacity + (scrollValue / 500) * 0.5 * baseOpacity;
-        if (scrollValue < 1500) return baseOpacity * 1.5;
-        return baseOpacity * 1.5 - ((scrollValue - 1500) / 1500) * 0.5 * baseOpacity;
-      } } as MotionValue<number>);
-    }
-    return opacities;
-  }, [scrollY]);
+  // Animation speed factor (1 = normal, >1 = faster)
+  const [speedFactor, setSpeedFactor] = useState(1);
+  
+  // Update viewport dimensions
+  useEffect(() => {
+    const updateViewportSize = () => {
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    
+    // Initialize
+    updateViewportSize();
+    
+    // Listen for resize
+    window.addEventListener('resize', updateViewportSize);
+    
+    return () => {
+      window.removeEventListener('resize', updateViewportSize);
+    };
+  }, []);
+  
+  // Calculate scroll velocity and adjust animation speed
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const delta = Math.abs(currentScrollY - prevScrollY.current);
+      
+      // More sensitive velocity calculation
+      const newVelocity = Math.min(delta * 0.25, 2); // Increase sensitivity but cap at 10
+      setScrollVelocity(newVelocity);
+      
+      // More dramatic speed factor
+      const newSpeedFactor = Math.min(1 + (newVelocity * SCROLL_SPEED_MULTIPLIER * 0.01), 12);
+      setSpeedFactor(newSpeedFactor);
+      
+      // Update previous scroll position
+      prevScrollY.current = currentScrollY;
+      
+      // Reset speed factor after scrolling stops
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
+      scrollTimeoutRef.current = setTimeout(() => {
+        setSpeedFactor(1); // Reset to normal speed
+        setScrollVelocity(0);
+      }, 150);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
   
   useEffect(() => {
     // Generate shapes only once on component mount
@@ -98,19 +122,40 @@ export default function ScrollBackground() {
       'rgba(0, 0, 0, 0.1)',            // black
     ];
     
-    // Create fixed number of shapes
+    // Create shapes with better distribution from center
     const newShapes: Shape[] = [];
     for (let i = 0; i < MAX_SHAPES; i++) {
-      const sizeValue = Math.random() * 200 + 80; // Slightly larger shapes
+      const sizeValue = Math.random() * 180 + 80; // Slightly larger shapes
       const shapeType = types[Math.floor(Math.random() * types.length)];
       
       // Determine if we should use a gradient
       const useGradient = Math.random() > 0.5;
       
+      // Improved positioning - center weighted with spread
+      // Generate positions around the center of the screen with some variation
+      const angle = Math.random() * Math.PI * 2; // Random angle around center
+      const distance = Math.random() * 40 + 10;  // Random distance from center (10-50%)
+      
+      // Convert polar coordinates to cartesian (centered at 50%, 50%)
+      const x = 50 + Math.cos(angle) * distance;
+      const y = 50 + Math.sin(angle) * distance;
+      
+      // Animation parameters - keep user's custom values
+      const initialDelay = Math.random() * 1; // Random delay between 0-1s
+      const animationDuration = Math.random() * 8 + 6; // Random duration between 7-15s
+      const moveDistance = Math.random() * 80 + 80; // Random movement distance between 80-160px
+      
+      // Random movement directions for consistent animation
+      const direction = {
+        x: Math.random() > 0.5 ? 1 : -1,
+        y: Math.random() > 0.5 ? 1 : -1,
+        rotate: Math.random() > 0.5 ? 1 : -1
+      };
+      
       newShapes.push({
         id: i,
-        x: `${Math.random() * 100}%`,
-        y: `${Math.random() * 100}%`,
+        x: `${x}%`,
+        y: `${y}%`,
         size: `${sizeValue}px`,
         rotate: Math.random() * 360,
         opacity: Math.random() * 0.4 + 0.2, // Slightly higher base opacity
@@ -118,21 +163,15 @@ export default function ScrollBackground() {
         depth: Math.random() * 5 + 2, // For 3D effects
         type: shapeType,
         color: colors[Math.floor(Math.random() * colors.length)],
-        gradient: useGradient
+        gradient: useGradient,
+        initialDelay,
+        animationDuration,
+        moveDistance,
+        direction
       });
     }
     setShapes(newShapes);
   }, []);
-  
-  // Update all motion values when scroll changes
-  useEffect(() => {
-    const unsubscribe = scrollY.on("change", () => {
-      // Force a re-render when scroll changes
-      setShapes(prev => [...prev]);
-    });
-    
-    return () => unsubscribe();
-  }, [scrollY]);
   
   return (
     <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
@@ -142,7 +181,7 @@ export default function ScrollBackground() {
       <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
       
       {/* Floating shapes */}
-      {shapes.map((shape, index) => {
+      {shapes.map((shape) => {
         // Determine if this is a 3D shape
         const is3DShape = shape.type === 'cube' || shape.type === 'pyramid';
         
@@ -155,6 +194,14 @@ export default function ScrollBackground() {
           ? `linear-gradient(135deg, ${shape.color}, rgba(255, 77, 0, 0.3))` 
           : undefined;
         
+        // Calculate transition duration - speeds up during scroll
+        const duration = (shape.animationDuration || 10) / speedFactor;
+        
+        // Movement values based on shape.direction
+        const xMovement = (shape.moveDistance || 80) * shape.direction.x;
+        const yMovement = (shape.moveDistance || 80) * shape.direction.y;
+        const rotateMovement = 25 * shape.direction.rotate;
+        
         return (
           <motion.div
             key={shape.id}
@@ -165,13 +212,23 @@ export default function ScrollBackground() {
               width: shape.size,
               height: shape.size,
               filter: `blur(${shape.blur})`,
-              opacity: opacityValues[index]?.get() || shape.opacity,
-              y: yMovements[index]?.get() || 0,
-              x: xMovements[index]?.get() || 0,
-              rotate: rotations[index]?.get() || 0,
+              opacity: shape.opacity,
               transformOrigin: 'center',
               perspective: perspective,
               transformStyle: transformStyle as any,
+            }}
+            animate={{
+              x: [0, xMovement],
+              y: [0, yMovement],
+              rotate: [0, rotateMovement],
+              scale: [1, shape.direction.y > 0 ? 1.1 : 0.9]
+            }}
+            transition={{
+              duration: duration,
+              repeat: Infinity,
+              repeatType: "reverse" as const,
+              ease: "easeInOut",
+              delay: shape.initialDelay || 0,
             }}
           >
             {/* Render appropriate shape based on type */}
