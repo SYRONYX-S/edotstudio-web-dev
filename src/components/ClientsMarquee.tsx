@@ -27,6 +27,7 @@ const ClientsMarquee = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [animationOffset, setAnimationOffset] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const clients: Client[] = [
     { 
@@ -159,13 +160,26 @@ const ClientsMarquee = () => {
   const allClients = [...clients, ...clients, ...clients];
 
   useEffect(() => {
+    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+  }, []);
+
+  useEffect(() => {
     if (marqueeRef.current) {
       setWidth(marqueeRef.current.scrollWidth / 3);
     }
   }, []);
 
-  // This approach uses a single animation with dynamic controls
-  // instead of switching between variants that cause jumping
+  // Optimize animation for mobile
+  const animationConfig = {
+    x: {
+      repeat: Infinity,
+      repeatType: "loop" as const,
+      duration: isMobile ? 45 : 30, // Slower on mobile
+      ease: "linear",
+      repeatDelay: 0,
+    }
+  };
+
   return (
     <section className="py-20 bg-transparent relative">
       <div className="container mx-auto px-4 mb-12">
@@ -183,8 +197,8 @@ const ClientsMarquee = () => {
       <div 
         ref={containerRef} 
         className="relative w-full overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseEnter={() => !isMobile && setIsPaused(true)}
+        onMouseLeave={() => !isMobile && setIsPaused(false)}
       >
         <motion.div
           ref={marqueeRef}
@@ -192,17 +206,15 @@ const ClientsMarquee = () => {
           animate={{ 
             x: [-width, -width * 2]
           }}
-          transition={{ 
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 30,
-              ease: "linear",
-              repeatDelay: 0,
-            }
+          transition={animationConfig}
+          style={{ 
+            animationPlayState: isPaused ? 'paused' : 'running',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            transform: 'translate3d(0,0,0)',
+            WebkitTransform: 'translate3d(0,0,0)',
+            WebkitBackfaceVisibility: 'hidden',
           }}
-          // This is the key fix - we're pausing the animation in place
-          style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
         >
           {allClients.map((client, index) => (
             <a
@@ -214,7 +226,12 @@ const ClientsMarquee = () => {
               style={{
                 padding: client.padding ? 
                   `${client.padding.top || 0}px ${client.padding.right || 0}px ${client.padding.bottom || 0}px ${client.padding.left || 0}px` 
-                  : '0px'
+                  : '0px',
+                willChange: 'transform',
+                backfaceVisibility: 'hidden',
+                transform: 'translate3d(0,0,0)',
+                WebkitTransform: 'translate3d(0,0,0)',
+                WebkitBackfaceVisibility: 'hidden',
               }}
             >
               <Image
@@ -222,7 +239,9 @@ const ClientsMarquee = () => {
                 alt={client.name}
                 width={client.width || 180}
                 height={client.height || 60}
-                className={`object-contain group-hover:scale-110 transition duration-500`}
+                className={`object-contain transition duration-500 ${!isMobile ? 'group-hover:scale-110' : ''}`}
+                priority={index < 4} // Prioritize loading first 4 images
+                loading={index < 4 ? 'eager' : 'lazy'}
               />
             </a>
           ))}

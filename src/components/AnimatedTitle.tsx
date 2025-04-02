@@ -24,8 +24,18 @@ export default function AnimatedTitle({ title, className = '' }: Props) {
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ display: 'inline-block', willChange: 'transform' }}
+          transition={{ 
+            duration: 0.5,
+            ease: [0.2, 0.65, 0.3, 0.9],
+          }}
+          style={{ 
+            display: 'inline-block',
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            transform: 'translate3d(0,0,0)',
+            WebkitTransform: 'translate3d(0,0,0)',
+            WebkitBackfaceVisibility: 'hidden',
+          }}
         >
           {title}
         </motion.span>
@@ -48,7 +58,11 @@ export default function AnimatedTitle({ title, className = '' }: Props) {
           style={{
             display: 'inline-block',
             marginRight: '0.25em',
-            willChange: 'transform'
+            willChange: 'transform',
+            backfaceVisibility: 'hidden',
+            transform: 'translate3d(0,0,0)',
+            WebkitTransform: 'translate3d(0,0,0)',
+            WebkitBackfaceVisibility: 'hidden',
           }}
         >
           {word}
