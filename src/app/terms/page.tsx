@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Clock, Shield, DollarSign, AlertCircle, FileCheck, Scale, Users, Settings, Briefcase } from 'lucide-react';
+import { FileText, Clock, Shield, DollarSign, AlertCircle, FileCheck } from 'lucide-react';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -10,20 +10,6 @@ import { AbstractBackground } from '@/components/AbstractBackground';
 
 export default function Terms() {
   const sections = [
-    {
-      icon: <Briefcase className="w-6 h-6 text-primary" />,
-      title: "Our Services",
-      content: [
-        "Web development and design services",
-        "Mobile application development",
-        "Software development and solutions",
-        "Project-based development work",
-        "Outsourced development services",
-        "Freelance collaboration opportunities",
-        "Agency partnerships and white-label services",
-        "Maintenance and support services"
-      ]
-    },
     {
       icon: <FileText className="w-6 h-6 text-primary" />,
       title: "Project Workflow",
@@ -44,14 +30,12 @@ export default function Terms() {
       icon: <Clock className="w-6 h-6 text-primary" />,
       title: "Timeline & Delivery",
       content: [
-        "Project timelines established in initial proposal",
-        "Milestones set with specific deliverables",
+        "Project timelines are established in the initial proposal",
+        "Milestones are set with specific deliverables",
         "Regular progress updates and check-ins",
-        "Client feedback periods included in timeline",
+        "Client feedback periods are included in timeline",
         "Revisions within scope are accommodated",
-        "Additional time for change requests may be required",
-        "Delays caused by client may affect timeline",
-        "Force majeure considerations"
+        "Additional time for change requests may be required"
       ]
     },
     {
@@ -62,10 +46,8 @@ export default function Terms() {
         "Remaining payment due upon project completion",
         "Additional features charged separately",
         "Maintenance fees billed monthly/annually",
-        "Late payment fees apply after 7 days",
-        "Service suspension for payments over 30 days late",
-        "All prices in USD unless specified",
-        "Taxes and fees are client responsibility"
+        "Late payment fees may apply",
+        "All prices are in USD unless specified"
       ]
     },
     {
@@ -76,10 +58,7 @@ export default function Terms() {
         "EdotStudio maintains rights to development tools",
         "Custom code ownership transfers upon full payment",
         "Third-party licenses remain with respective owners",
-        "Portfolio rights reserved for EdotStudio",
-        "Coding techniques and methodologies remain our IP",
-        "Client must have rights to provided content",
-        "Brand guidelines must be followed by partners"
+        "Portfolio rights reserved for EdotStudio"
       ]
     },
     {
@@ -91,37 +70,7 @@ export default function Terms() {
         "Maintain regular communication",
         "Review and approve deliverables",
         "Adhere to payment schedule",
-        "Respect intellectual property rights",
-        "Ensure content rights and permissions",
-        "Follow agreed communication channels"
-      ]
-    },
-    {
-      icon: <Users className="w-6 h-6 text-primary" />,
-      title: "Freelancer & Agency Terms",
-      content: [
-        "Must follow EdotStudio brand guidelines",
-        "No external branding on completed projects",
-        "Portfolio display rights granted",
-        "Confidentiality agreement required",
-        "Quality standards must be maintained",
-        "Direct client contact prohibited",
-        "Payment terms as per agreement",
-        "Compliance with delivery schedules"
-      ]
-    },
-    {
-      icon: <Scale className="w-6 h-6 text-primary" />,
-      title: "Liability & Legal",
-      content: [
-        "Not liable for third-party service failures",
-        "Force majeure clause applicable",
-        "Governed by Indian law",
-        "Jurisdiction in relevant courts",
-        "Limited liability to project value",
-        "No consequential damages liability",
-        "Insurance requirements",
-        "Indemnification terms"
+        "Respect intellectual property rights"
       ]
     },
     {
@@ -132,24 +81,7 @@ export default function Terms() {
         "Partial refunds based on work completed",
         "No refunds on completed milestones",
         "Termination fees may apply",
-        "Project files provided upon settlement",
-        "EdotStudio may terminate for violations",
-        "Immediate termination for breach",
-        "Data handling post-termination"
-      ]
-    },
-    {
-      icon: <Settings className="w-6 h-6 text-primary" />,
-      title: "Modifications & Updates",
-      content: [
-        "Terms may be updated as needed",
-        "Notice provided for major changes",
-        "Continued use implies acceptance",
-        "Individual term modifications possible",
-        "Changes effective immediately",
-        "Previous versions available on request",
-        "Regular review recommended",
-        "Client notification process"
+        "Project files provided upon settlement"
       ]
     }
   ];
@@ -177,7 +109,7 @@ export default function Terms() {
               Our Terms & Conditions
             </h1>
             <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-lg font-pilcrow">
-              Please read these terms carefully before engaging our services. These terms outline our working relationship, mutual responsibilities, and legal obligations.
+              Please read these terms carefully before engaging our services. These terms outline our working relationship and mutual responsibilities.
             </p>
           </motion.div>
         </div>
@@ -240,7 +172,7 @@ export default function Terms() {
                   These terms of service are subject to change without notice. We recommend reviewing these terms periodically to stay informed about any updates.
                 </p>
                 <p className="text-white/80 font-pilcrow">
-                  By engaging our services, you agree to these terms and conditions. For any questions or concerns regarding these terms, please contact us at legal@edotstudio.com
+                  By engaging our services, you agree to these terms and conditions. If you have any questions, please contact us at contact@edotstudio.com
                 </p>
                 <p className="text-white/80 font-pilcrow">
                   Last updated: 8 April 2025

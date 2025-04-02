@@ -5,53 +5,80 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
-interface PreloaderProps {
-  onLoadingComplete: () => void;
-  images: string[];
-}
-
-export default function Preloader({ onLoadingComplete, images }: PreloaderProps) {
+export default function Preloader() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const { theme } = useTheme();
 
   useEffect(() => {
-    let loadedImages = 0;
-    const totalImages = images.length;
+    let loadTimeout: NodeJS.Timeout;
 
-    const updateProgress = () => {
-      loadedImages++;
-      const newProgress = (loadedImages / totalImages) * 100;
-      setProgress(newProgress);
+    // Preload all images and assets
+    const preloadAssets = async () => {
+      const images = [
+        '/logo-dark.svg',
+        '/logo-light.svg',
+        '/images/hero/hero-graphic.svg',
+        '/images/clients/Al-Khuloud.png',
+        '/images/clients/Brandlifte.png',
+        '/images/clients/Ayamon-polymers.png',
+        '/images/clients/carbon.png',
+        '/images/clients/Celecca.png',
+        '/images/clients/Dplus.png',
+        '/images/clients/DU-website.png',
+        '/images/clients/Greenvior.png',
+        '/images/clients/Hikeins.png',
+        '/images/clients/Indigo-tmt.png',
+        '/images/clients/Minar-TMT.png',
+        '/images/clients/nadancamp.png',
+        '/images/clients/Shazzam.png',
+      ];
 
-      if (loadedImages === totalImages) {
-        setTimeout(() => {
-          onLoadingComplete();
-        }, 500);
-      }
-    };
+      const totalAssets = images.length + 1; // +1 for fonts
+      let loadedAssets = 0;
 
-    const loadImage = (src: string) => {
-      return new Promise((resolve, reject) => {
-        const img = document.createElement('img') as HTMLImageElement;
-        img.src = src;
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-      });
-    };
+      const updateProgress = () => {
+        loadedAssets += 1;
+        setProgress((loadedAssets / totalAssets) * 100);
+      };
 
-    const preloadImages = async () => {
       try {
-        const imagePromises = images.map(src => loadImage(src));
-        await Promise.all(imagePromises);
+        // Preload all images
+        await Promise.all(
+          images.map(src => {
+            return new Promise<void>((resolve, reject) => {
+              const img = new window.Image();
+              img.src = src;
+              img.onload = () => {
+                updateProgress();
+                resolve();
+              };
+              img.onerror = reject;
+            });
+          })
+        );
+
+        // Wait for fonts to load
+        await document.fonts.ready;
+        updateProgress();
+
+        // Set progress to 100% and hide preloader after a short delay
+        loadTimeout = setTimeout(() => {
+          setLoading(false);
+        }, 500);
       } catch (error) {
-        console.error('Error preloading images:', error);
-        onLoadingComplete(); // Continue even if some images fail to load
+        console.error('Error preloading assets:', error);
+        // Still hide preloader even if some assets fail to load
+        setLoading(false);
       }
     };
 
-    preloadImages();
-  }, [images, onLoadingComplete]);
+    preloadAssets();
+
+    return () => {
+      clearTimeout(loadTimeout);
+    };
+  }, []);
 
   return (
     <AnimatePresence>
@@ -62,36 +89,87 @@ export default function Preloader({ onLoadingComplete, images }: PreloaderProps)
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-background dark:bg-background-dark"
         >
-          <div className="relative w-full max-w-md">
-            <div className="mx-auto mb-8 w-32 h-32">
+          <div className="relative flex flex-col items-center justify-center">
+            {/* Animated Circles */}
+            <motion.div
+              animate={{
+                rotate: 360,
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+              className="absolute"
+            >
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full border border-primary"
+                  initial={{ opacity: 0.2, scale: 0.8 }}
+                  animate={{
+                    opacity: [0.2, 0.8, 0.2],
+                    scale: [0.8, 1.2, 0.8],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.3,
+                  }}
+                  style={{
+                    width: `${(i + 1) * 100}px`,
+                    height: `${(i + 1) * 100}px`,
+                    left: `-${((i + 1) * 100) / 2}px`,
+                    top: `-${((i + 1) * 100) / 2}px`,
+                    borderWidth: '1.5px',
+                  }}
+                />
+              ))}
+            </motion.div>
+
+            {/* Logo */}
+            <motion.div
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ 
+                scale: 1, 
+                opacity: 1,
+              }}
+              transition={{ 
+                duration: 0.5,
+                ease: "easeOut"
+              }}
+              className="relative w-32 h-8 mb-8"
+            >
               <Image
                 src="/logo-dark.svg"
-                alt="Logo"
-                width={128}
-                height={128}
-                className="w-full h-full object-contain block dark:hidden"
+                alt="EdotStudio Logo"
+                fill
+                className="block dark:hidden"
                 priority
               />
               <Image
                 src="/logo-light.svg"
-                alt="Logo"
-                width={128}
-                height={128}
-                className="w-full h-full object-contain hidden dark:block"
+                alt="EdotStudio Logo"
+                fill
+                className="hidden dark:block"
                 priority
               />
-            </div>
-            <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            </motion.div>
+
+            {/* Progress Bar */}
+            <div className="w-48 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-primary-light"
+                className="h-full bg-primary"
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.3 }}
               />
             </div>
-            <p className="text-center text-gray-600 dark:text-gray-400 mt-4">
-              Loading... {Math.round(progress)}%
-            </p>
+            <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              Loading... {progress}%
+            </div>
           </div>
         </motion.div>
       )}
