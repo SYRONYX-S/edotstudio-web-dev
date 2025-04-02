@@ -288,6 +288,19 @@ export default function Contact() {
                 </p>
               </div>
             </div>
+            
+            <div className="bg-primary/10 dark:bg-primary/20 backdrop-blur-xl rounded-2xl p-8 border border-primary/30 dark:border-primary/30">
+              <h2 className="text-2xl font-technor mb-4 text-black dark:text-white">Partner With Us</h2>
+              <p className="text-gray-700 dark:text-gray-300 mb-4 font-pilcrow">
+                Are you an agency owner or freelancer? Join our partner program to earn competitive commissions by referring clients or expand your service offerings through our white-label solutions.
+              </p>
+              <Button 
+                href="/partner" 
+                className="bg-primary-light text-white hover:bg-primary w-full md:w-auto"
+              >
+                Explore Partnership Opportunities
+              </Button>
+            </div>
           </motion.div>
         </div>
         

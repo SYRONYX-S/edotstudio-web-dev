@@ -277,6 +277,64 @@ export default function Services() {
         </section>
       ))}
 
+      {/* Partner With Us Section */}
+      <section className="py-20 bg-white/5 dark:bg-white/5 backdrop-blur-sm">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white/10 dark:bg-black/20 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/20 dark:border-white/5"
+            >
+              <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow">
+                FOR AGENCIES & FREELANCERS
+              </div>
+              <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white mb-6">
+                Partner With Us
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
+                Are you an agency owner or freelancer looking to expand your service offerings? Partner with EdotStudio to provide top-tier development services to your clients without increasing overhead. We offer competitive referral commissions and white-label partnerships.
+              </p>
+              <Button 
+                href="/partner" 
+                className="bg-primary-light text-white hover:bg-primary"
+              >
+                Explore Partnership Opportunities
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
+                <h3 className="text-xl font-technor text-black dark:text-white mb-3">For Design Agencies</h3>
+                <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                  Focus on design while we handle development. We'll work as your white-label development team to deliver exceptional results for your clients.
+                </p>
+              </div>
+              
+              <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
+                <h3 className="text-xl font-technor text-black dark:text-white mb-3">For Marketing Agencies</h3>
+                <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                  Complement your marketing strategies with high-performance websites and applications that convert visitors into customers.
+                </p>
+              </div>
+              
+              <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
+                <h3 className="text-xl font-technor text-black dark:text-white mb-3">For Individual Referrals</h3>
+                <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                  Earn competitive commissions by connecting us with businesses that need our expertise. Commissions are issued once the client completes full payment.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 bg-primary text-white">
         <div className="container mx-auto px-4 text-center">

@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { RiRocketLine, RiCodeSLine, RiTeamLine, RiLightbulbLine, RiShieldLine, RiComputerLine } from 'react-icons/ri';
+import { Users } from 'lucide-react';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -263,6 +264,49 @@ export default function About() {
                 </div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partner With Us Section */}
+      <section className="py-20 relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                  PARTNER PROGRAM
+                </div>
+                <AnimatedTitle
+                  title="Grow Together With Us"
+                  className="text-3xl md:text-4xl mb-6 font-technor text-black dark:text-white"
+                />
+                <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
+                  Join our network of partners and earn competitive commissions by referring clients to our services. We believe in creating mutually beneficial relationships that help your business grow alongside ours.
+                </p>
+                <Button
+                  href="/partner"
+                  className="bg-primary-light text-white hover:bg-primary-light/90 font-technor transition-all duration-300"
+                  icon={<Users className="w-5 h-5 mr-2" />}
+                >
+                  Become a Partner
+                </Button>
+              </div>
+              <div className="space-y-6">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/10">
+                  <h3 className="text-xl font-technor text-black dark:text-white mb-3">Referral Program</h3>
+                  <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                    Earn competitive commissions for each successful client referral. Commissions are issued once the client completes full payment.
+                  </p>
+                </div>
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/10">
+                  <h3 className="text-xl font-technor text-black dark:text-white mb-3">Agency Partnership</h3>
+                  <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                    Expand your agency's service offerings without increasing overhead. We work as your white-label development team to deliver exceptional results.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

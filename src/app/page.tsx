@@ -625,6 +625,63 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Partner With Us Section */}
+      <section className="py-20 bg-transparent dark:bg-transparent">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+              <div>
+                <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                  Partner Program
+                </div>
+                <AnimatedTitle 
+                  title="Grow Your Business With Us"
+                  className="text-2xl md:text-4xl mb-6 font-technor"
+                />
+                <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
+                  Join our network of partners and earn competitive commissions by referring clients to our services. Whether you're an individual or an agency, our partnership programs are designed to create mutually beneficial relationships.
+                </p>
+                
+                <div className="flex flex-wrap gap-4">
+                  <Button 
+                    href="/partner" 
+                    className="bg-primary-light text-white hover:bg-primary"
+                    icon={<Users className="w-5 h-5" />}
+                  >
+                    Become a Partner
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-start glass-card p-5 mb-4 border-l-4 border-primary">
+                  <div>
+                    <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Referral Program</h3>
+                    <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Earn competitive commissions by referring clients. Commission issued once client completes full payment.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start glass-card p-5 mb-4 border-l-4 border-primary">
+                  <div>
+                    <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Agency Partnership</h3>
+                    <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Expand your service offerings without increasing overhead. We work as your white-label development team.</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start glass-card p-5 border-l-4 border-primary">
+                  <div>
+                    <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Special Offer</h3>
+                    <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Partners who bring in 3+ projects annually receive upgraded commission rates and exclusive resources.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-20 bg-transparent dark:bg-transparent animated-gradient">
         <div className="animated-bg-shapes">
@@ -722,6 +779,15 @@ export default function Home() {
                 className="border-white text-white hover:bg-white/10"
               >
                 View Our Work
+              </Button>
+              <Button 
+                href="/partner" 
+                variant="outline"
+                size="lg"
+                className="border-white text-white hover:bg-white/10"
+                icon={<Users className="w-5 h-5" />}
+              >
+                Partner With Us
               </Button>
             </div>
           </div>
