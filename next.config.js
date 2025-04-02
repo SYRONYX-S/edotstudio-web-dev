@@ -4,7 +4,6 @@ const nextConfig = {
   images: {
     domains: ['edotstudio.com'],
   },
-  output: 'standalone',
   webpack: (config) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
