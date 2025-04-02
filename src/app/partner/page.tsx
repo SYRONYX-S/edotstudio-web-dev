@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Check, ArrowRight, Users, Award, Coins, TrendingUp, Gift, Code, FileCode, Globe, Shield } from 'lucide-react';
+import { hapticFeedback } from '@/utils/haptics';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -59,6 +60,58 @@ const reasons = [
 ];
 
 export default function Partner() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    partnerType: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    hapticFeedback.light();
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    hapticFeedback.medium();
+    
+    try {
+      // Send form data to the API endpoint
+      const response = await fetch('/api/submit-partner', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        hapticFeedback.success();
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          partnerType: '',
+          message: ''
+        });
+      } else {
+        hapticFeedback.error();
+        throw new Error(result.message || 'Failed to submit application');
+      }
+    } catch (error) {
+      console.error('Error submitting application:', error);
+    }
+  };
+
   return (
     <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
       {/* Abstract Background */}
@@ -450,7 +503,7 @@ export default function Partner() {
               </div>
               
               <div>
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-pilcrow">
                       Your Name
@@ -460,6 +513,8 @@ export default function Partner() {
                       name="name"
                       type="text"
                       required
+                      value={formData.name}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
                       placeholder="John Doe"
                     />
@@ -474,6 +529,8 @@ export default function Partner() {
                       name="email"
                       type="email"
                       required
+                      value={formData.email}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
                       placeholder="john@example.com"
                     />
@@ -487,6 +544,8 @@ export default function Partner() {
                       id="company"
                       name="company"
                       type="text"
+                      value={formData.company}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
                       placeholder="Your Company"
                     />
@@ -500,6 +559,8 @@ export default function Partner() {
                       id="partnerType"
                       name="partnerType"
                       required
+                      value={formData.partnerType}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
                     >
                       <option value="">Select partnership type</option>
@@ -517,6 +578,8 @@ export default function Partner() {
                       id="message"
                       name="message"
                       rows={4}
+                      value={formData.message}
+                      onChange={handleInputChange}
                       className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
                       placeholder="Tell us a bit about yourself and what you're looking for in a partnership..."
                     ></textarea>

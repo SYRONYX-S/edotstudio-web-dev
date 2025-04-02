@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { hapticFeedback } from '@/utils/haptics';
 import { cn } from '@/lib/utils';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -15,6 +17,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, href, variant = 'default', size = 'md', icon, children, ...props }, ref) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
+      hapticFeedback.light();
+      if (props.onClick) {
+        props.onClick(e as React.MouseEvent<HTMLButtonElement>);
+      }
+    };
+
     const baseStyles = "relative inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 overflow-hidden";
     
     const variants = {
@@ -40,7 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (href) {
       return (
-        <Link href={href} className={classes}>
+        <Link href={href} className={classes} onClick={handleClick}>
           {content}
         </Link>
       );
@@ -50,6 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         className={classes}
         ref={ref}
+        onClick={handleClick}
         {...props}
       >
         {content}

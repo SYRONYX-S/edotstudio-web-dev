@@ -8,6 +8,7 @@ import { Check, ArrowRight, Briefcase, Code, FileSpreadsheet, DollarSign, Globe,
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import { AbstractBackground } from '@/components/AbstractBackground';
+import { hapticFeedback } from '@/utils/haptics';
 
 // Skills options for the form
 const skillOptions = [
@@ -81,6 +82,7 @@ export default function Careers() {
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    hapticFeedback.light();
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -92,11 +94,13 @@ export default function Careers() {
     
     setFormData(prev => {
       if (checked) {
+        hapticFeedback.light();
         return {
           ...prev,
           [category]: [...prev[category], value]
         };
       } else {
+        hapticFeedback.light();
         return {
           ...prev,
           [category]: prev[category].filter(item => item !== value)
@@ -124,6 +128,7 @@ export default function Careers() {
       const result = await response.json();
       
       if (result.success) {
+        hapticFeedback.success();
         setSubmitSuccess(true);
         // Reset form
         setFormData({
@@ -139,6 +144,7 @@ export default function Careers() {
           notes: ''
         });
       } else {
+        hapticFeedback.error();
         throw new Error(result.message || 'Failed to submit application');
       }
     } catch (error) {
