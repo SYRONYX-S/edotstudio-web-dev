@@ -1,31 +1,48 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
-interface Props {
+interface AbstractBackgroundProps {
   className?: string;
 }
 
-export function AbstractBackground({ className = '' }: Props) {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, -150]);
-  const y2 = useTransform(scrollY, [0, 1000], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.2]);
+export function AbstractBackground({ className = '' }: AbstractBackgroundProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+  }, []);
 
   return (
-    <div className={`absolute inset-0 pointer-events-none ${className}`}>
-      {/* Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] opacity-20" />
-      
-      {/* Shapes */}
-      <motion.div 
-        style={{ y: y1, opacity }} 
-        className="absolute top-20 left-[15%] w-[30rem] h-[30rem] bg-[radial-gradient(circle_at_center,#FF4D0025,transparent_70%)] blur-xl"
-      />
-      <motion.div 
-        style={{ y: y2, opacity }} 
-        className="absolute top-40 right-[15%] w-[25rem] h-[25rem] bg-[radial-gradient(circle_at_center,#FF4D0020,transparent_70%)] blur-xl"
-      />
+    <div className={`absolute inset-0 overflow-hidden ${className}`}>
+      {/* Reduce number of elements and simplify animations on mobile */}
+      <div className="absolute inset-0">
+        <motion.div
+          className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-100px,#FF4D0015,transparent)]"
+          animate={isMobile ? {} : {
+            opacity: [0.5, 0.8, 0.5],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 bg-[radial-gradient(circle_600px_at_70%_50%,#FF4D0010,transparent)]"
+          animate={isMobile ? {} : {
+            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.05, 1],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      </div>
     </div>
   );
 } 

@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import { Inter } from 'next/font/google';
 import ClientLayout from "@/components/ClientLayout";
+import { ThemeProvider } from "next-themes";
 
 // Load local fonts
 const roundo = localFont({
@@ -18,7 +19,7 @@ const roundo = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/Roundo-SemiBold.woff2',
+      path: '../../public/fonts/Roundo-Semibold.woff2',
       weight: '600',
       style: 'normal',
     },
@@ -29,6 +30,7 @@ const roundo = localFont({
     }
   ],
   variable: '--font-roundo',
+  display: 'swap',
 });
 
 const pilcrow = localFont({
@@ -137,14 +139,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
-        <ClientLayout>{children}</ClientLayout>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preload" href="/fonts/PilcrowRounded-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Technor-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/Roundo-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      </head>
+      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} font-roundo antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

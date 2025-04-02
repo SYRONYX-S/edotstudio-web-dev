@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['edotstudio.com'],
+    domains: ['edotstudio.com', 'vercel.app', 'vercel.com'],
   },
   webpack: (config) => {
     config.resolve.fallback = {
