@@ -33,43 +33,27 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
   // Initialize smooth scrolling
   useEffect(() => {
-    let lenis: Lenis | null = null;
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false
+    });
 
-    // Only initialize Lenis on the client side
-    if (typeof window !== 'undefined') {
-      // Give a small delay to ensure everything is loaded
-      const timer = setTimeout(() => {
-        lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-          smooth: true,
-          smoothTouch: false,
-          touchMultiplier: 2,
-        });
-
-        function raf(time: number) {
-          if (lenis) {
-            lenis.raf(time);
-          }
-          requestAnimationFrame(raf);
-        }
-        
-        requestAnimationFrame(raf);
-      }, 100);
-
-      // Cleanup
-      return () => {
-        clearTimeout(timer);
-        if (lenis) {
-          lenis.destroy();
-        }
-      };
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     }
-    
-    return undefined;
-  }, [pathname]);
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   // Setup scroll progress bar
   useEffect(() => {

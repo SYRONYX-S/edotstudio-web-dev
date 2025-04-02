@@ -1,12 +1,13 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { RiArrowLeftLine } from 'react-icons/ri';
-import { getProjectBySlug } from '../utils';
+import { getProjectBySlug, type Project } from '../utils';
 import { AbstractBackground } from '@/components/AbstractBackground';
-import { AnimatedTitle } from '@/components/AnimatedTitle';
+import AnimatedTitle from '@/components/AnimatedTitle';
 
 interface Props {
   params: {
@@ -14,155 +15,109 @@ interface Props {
   };
 }
 
-export default function CaseStudy({ params }: Props) {
+export default function ProjectPage({ params }: Props) {
   const project = getProjectBySlug(params.slug);
 
+  if (!project) {
+    return <div>Project not found</div>;
+  }
+
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Abstract Background */}
-      <AbstractBackground className="fixed inset-0 z-0" />
-      
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Hero Section */}
-        <section className="pt-20 pb-12 px-4 md:px-8">
-          <div className="container mx-auto">
-            <Link 
-              href="/portfolio" 
-              className="inline-flex items-center text-neutral-400 hover:text-white transition-colors mb-12 group"
-            >
-              <RiArrowLeftLine className="mr-2 transform group-hover:-translate-x-1 transition-transform" />
-              Back to Portfolio
-            </Link>
-
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-              <div>
-                <AnimatedTitle
-                  label={project.category.toUpperCase()}
-                  title={project.title}
-                  description={project.description}
-                />
-                
-                <div className="mt-8 grid grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-sm text-neutral-400 mb-2">Client</h4>
-                    <p className="font-medium">{project.client}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm text-neutral-400 mb-2">Year</h4>
-                    <p className="font-medium">{project.year}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-sm text-neutral-400 mb-2">Services</h4>
-                    <div className="space-y-1">
-                      {project.services.map((service, index) => (
-                        <p key={index} className="font-medium">{service}</p>
-                      ))}
-                    </div>
-                  </div>
-                  {project.partnership && (
-                    <div>
-                      <h4 className="text-sm text-neutral-400 mb-2">Partnership</h4>
-                      <p className="font-medium">{project.partnership}</p>
-                    </div>
-                  )}
-                </div>
+    <main className="min-h-screen relative dark:bg-transparent">
+      <section className="relative pt-32 pb-20">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <AnimatedTitle
+                title={project.title}
+                className="text-4xl md:text-5xl font-technor mb-4"
+              />
+              <div className="text-primary text-sm font-medium mb-4 uppercase">
+                {project.category}
               </div>
+              <p className="text-gray-600 dark:text-gray-300 mb-8">
+                {project.description}
+              </p>
 
-              <div className="relative aspect-video rounded-2xl overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                />
+              <div className="mt-8 grid grid-cols-2 gap-6">
+                <div>
+                  <h4 className="text-sm text-neutral-400 mb-2">Technologies</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                {project.partnership && (
+                  <div>
+                    <h4 className="text-sm text-neutral-400 mb-2">Partnership</h4>
+                    <a
+                      href={project.partnership.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium hover:text-primary transition-colors"
+                    >
+                      {project.partnership.name}
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Main Content */}
-        <section className="py-20 px-4 md:px-8">
-          <div className="container mx-auto max-w-4xl">
-            {/* The Challenge */}
-            {project.challenge && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="mb-20"
-              >
-                <h2 className="text-3xl font-semibold mb-6">The Challenge</h2>
-                <div className="prose prose-invert max-w-none">
-                  {project.challenge.split('\n').map((paragraph, index) => (
-                    <p key={index} className="text-neutral-300">{paragraph.trim()}</p>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* The Solution */}
-            {project.solution && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="mb-20"
-              >
-                <h2 className="text-3xl font-semibold mb-6">Our Solution</h2>
-                <div className="prose prose-invert max-w-none">
-                  {project.solution.split('\n').map((paragraph, index) => (
-                    <p key={index} className="text-neutral-300">{paragraph.trim()}</p>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-
-            {/* The Results */}
-            {project.results && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <h2 className="text-3xl font-semibold mb-6">The Results</h2>
-                <div className="prose prose-invert max-w-none">
-                  {project.results.split('\n').map((paragraph, index) => (
-                    <p key={index} className="text-neutral-300">{paragraph.trim()}</p>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </div>
-        </section>
-
-        {/* Project Images */}
-        {project.images && project.images.length > 0 && (
-          <section className="py-20 px-4 md:px-8 bg-neutral-900/50 backdrop-blur-lg">
-            <div className="container mx-auto">
-              <h2 className="text-3xl font-semibold mb-12 text-center">Project Gallery</h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                {project.images.map((image, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 * index }}
-                    className="relative aspect-video rounded-2xl overflow-hidden"
-                  >
-                    <Image
-                      src={image.src}
-                      alt={image.alt}
-                      fill
-                      className="object-cover"
-                    />
-                  </motion.div>
-                ))}
-              </div>
+            
+            <div className="relative h-[500px] rounded-xl overflow-hidden">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                style={{ objectFit: 'cover' }}
+                className="rounded-xl"
+              />
             </div>
-          </section>
-        )}
-      </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-white/5 dark:bg-black/20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-technor text-primary mb-12">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {project.features.map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white/10 dark:bg-black/30 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5"
+              >
+                <p className="text-gray-700 dark:text-gray-300">{feature}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-technor text-primary mb-12">Results & Impact</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {project.results.map((result, index) => (
+              <div
+                key={index}
+                className="flex items-start"
+              >
+                <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-medium mr-4">
+                  {index + 1}
+                </div>
+                <p className="text-gray-700 dark:text-gray-300">{result}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   );
 } 

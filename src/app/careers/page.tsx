@@ -62,19 +62,34 @@ const howItWorks = [
   }
 ];
 
+interface FormData {
+  name: string;
+  email: string;
+  location: string;
+  portfolioLink: string;
+  skills: string[];
+  projectTypes: string[];
+  experienceLevel: string;
+  availability: string;
+  paymentTerms: string;
+  notes: string;
+}
+
+const initialFormData: FormData = {
+  name: '',
+  email: '',
+  location: '',
+  portfolioLink: '',
+  skills: [],
+  projectTypes: [],
+  experienceLevel: '',
+  availability: '',
+  paymentTerms: '',
+  notes: ''
+};
+
 export default function Careers() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    location: '',
-    portfolioLink: '',
-    skills: [],
-    projectTypes: [],
-    experienceLevel: '',
-    availability: '',
-    paymentTerms: '',
-    notes: ''
-  });
+  const [formData, setFormData] = useState<FormData>(initialFormData);
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -131,18 +146,7 @@ export default function Careers() {
         hapticFeedback.success();
         setSubmitSuccess(true);
         // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          location: '',
-          portfolioLink: '',
-          skills: [],
-          projectTypes: [],
-          experienceLevel: '',
-          availability: '',
-          paymentTerms: '',
-          notes: ''
-        });
+        setFormData(initialFormData);
       } else {
         hapticFeedback.error();
         throw new Error(result.message || 'Failed to submit application');

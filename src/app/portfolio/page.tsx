@@ -8,18 +8,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { RiArrowRightLine, RiArrowRightUpLine } from 'react-icons/ri';
 import { AbstractBackground } from '@/components/AbstractBackground';
 import { projects } from './data';
-
-interface Project {
-  title: string;
-  description: string;
-  image: string;
-  category: string;
-  link: string;
-  client: string;
-  services: string[];
-  year: string;
-  partnership?: { name: string; url: string };
-}
+import { Project } from './utils';
 
 const categories = ['All', 'Software Development', 'Web Development', 'Branding', 'Marketing', 'Posters'];
 
@@ -32,9 +21,10 @@ export default function Portfolio() {
   const y2 = useTransform(scrollY, [0, 1000], [0, 150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0.2]);
 
+  const projectList = Object.values(projects);
   const filteredProjects = selectedCategory === 'All'
-    ? projects
-    : projects.filter(project => project.category === selectedCategory);
+    ? projectList
+    : projectList.filter(project => project.category === selectedCategory);
 
   return (
     <main className="min-h-screen relative bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
@@ -88,71 +78,61 @@ export default function Portfolio() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative"
-              >
-                <Link href={project.link}>
-                  <div className="relative overflow-hidden rounded-2xl dark:bg-black/20 backdrop-blur-sm border dark:border-white/10 hover:border-primary/50 transition-all duration-500 group-hover:shadow-glow-lg">
-                    <div className="aspect-[16/9] relative">
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-                      {project.partnership && (
-                        <Link 
-                          href={project.partnership.url}
-                          target="_blank"
-                          rel="noopener noreferrer" 
-                          className="absolute top-4 right-4 bg-black/30 dark:bg-black/40 border dark:border-white/20 text-white px-4 py-1.5 rounded-full text-sm backdrop-blur-sm hover:bg-primary/20 hover:border-primary/50 transition-all duration-300"
-                        >
-                          With {project.partnership.name}
-                        </Link>
-                      )}
-                    </div>
-                    <div className="p-8">
-                      <div className="flex justify-between items-start mb-4">
-                        <div>
-                          <p className="text-sm font-medium text-primary -mb-2">
-                            {project.category}
-                          </p>
-                          <h3 className="text-2xl font-technor mb-0 text-primary-light dark:text-primary transition-colors duration-300">
-                            {project.title}
-                          </h3>
+            {filteredProjects.map((project, index) => {
+              const projectSlug = Object.keys(projects).find(key => projects[key] === project);
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative"
+                >
+                  <Link href={`/portfolio/${projectSlug}`}>
+                    <div className="relative overflow-hidden rounded-2xl dark:bg-black/20 backdrop-blur-sm border dark:border-white/10 hover:border-primary/50 transition-all duration-500 group-hover:shadow-glow-lg">
+                      <div className="aspect-[16/9] relative">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+                      </div>
+                      <div className="p-8">
+                        <div className="flex justify-between items-start mb-4">
+                          <div>
+                            <p className="text-sm font-medium text-primary -mb-2">
+                              {project.category}
+                            </p>
+                            <h3 className="text-2xl font-technor mb-0 text-primary-light dark:text-primary transition-colors duration-300">
+                              {project.title}
+                            </h3>
+                          </div>
                         </div>
-                        <span className="dark:text-white/60 text-sm border dark:border-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
-                          {project.year}
-                        </span>
-                      </div>
-                      <p className="dark:text-white/70 mb-6 font-pilcrow">
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.services.map((service, idx) => (
-                          <span
-                            key={idx}
-                            className="dark:bg-white/5 dark:text-white/70 px-4 py-1.5 rounded-full text-sm border dark:border-white/10 backdrop-blur-sm font-pilcrow"
-                          >
-                            {service}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="font-pilcrow flex items-center text-primary group/link">
-                        <span className="mr-2 group-hover/link:mr-4 transition-all duration-300">View Case Study</span>
-                        <RiArrowRightLine className="transform group-hover/link:translate-x-1 transition-all duration-300" />
+                        <p className="dark:text-white/70 mb-6 font-pilcrow">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {project.technologies.map((tech, idx) => (
+                            <span
+                              key={idx}
+                              className="dark:bg-white/5 dark:text-white/70 px-4 py-1.5 rounded-full text-sm border dark:border-white/10 backdrop-blur-sm font-pilcrow"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="font-pilcrow flex items-center text-primary group/link">
+                          <span className="mr-2 group-hover/link:mr-4 transition-all duration-300">View Case Study</span>
+                          <RiArrowRightLine className="transform group-hover/link:translate-x-1 transition-all duration-300" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>

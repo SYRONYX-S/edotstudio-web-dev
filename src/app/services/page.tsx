@@ -9,6 +9,7 @@ import { RiArrowRightLine, RiCheckLine } from 'react-icons/ri';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
+import { AbstractBackground } from '@/components/AbstractBackground';
 
 // Data
 import { services } from '@/data';
@@ -16,25 +17,25 @@ import { services } from '@/data';
 // Service detail data
 const serviceDetails = [
   {
-    id: 'branding',
-    title: 'Branding',
-    subtitle: 'Building memorable brand identities',
-    description: 'We create compelling brand identities that resonate with your audience and distinguish your business in the market. Our branding services help you establish a strong visual presence and communicate your values effectively.',
-    image: '/images/services/branding.jpg',
+    id: "branding",
+    title: "Branding",
+    subtitle: "Building memorable brand identities",
+    description: "We create compelling brand identities that resonate with your audience and distinguish your business in the market. Our branding services help you establish a strong visual presence and communicate your values effectively.",
+    image: "/images/services/branding.jpg",
     features: [
-      'Brand Strategy Development',
-      'Logo & Visual Identity Design',
-      'Brand Guidelines',
-      'Brand Positioning',
-      'Brand Messaging',
-      'Rebranding Services',
+      "Brand Strategy Development",
+      "Logo & Visual Identity Design",
+      "Brand Guidelines",
+      "Brand Positioning",
+      "Brand Messaging",
+      "Rebranding Services"
     ],
     process: [
-      { step: 1, title: 'Research', description: 'In-depth market and competitor analysis to understand your positioning.' },
-      { step: 2, title: 'Strategy', description: 'Define your brand\'s unique value proposition and target audience.' },
-      { step: 3, title: 'Design', description: 'Create visual elements that embody your brand identity.' },
-      { step: 4, title: 'Implementation', description: 'Roll out your brand identity across all channels and touchpoints.' },
-    ],
+      { step: 1, title: "Research", description: "In-depth market and competitor analysis to understand your positioning" },
+      { step: 2, title: "Strategy", description: "Define your brand's unique value proposition and target audience" },
+      { step: 3, title: "Design", description: "Create visual elements that embody your brand identity" },
+      { step: 4, title: "Implementation", description: "Roll out your brand identity across all channels and touchpoints" }
+    ]
   },
   {
     id: 'web-development',
@@ -133,7 +134,7 @@ export default function Services() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end start"]
   });
   
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
