@@ -38,6 +38,10 @@ export default function ScrollBackground() {
   // Use a spring for smooth scrolling effect
   const smoothScrollY = useSpring(scrollY, { damping: 50, stiffness: 400 });
   
+  // Desktop optimized background with animations
+  const y = useTransform(scrollY, [0, 1000], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 500], [0.5, 0.8]);
+  
   // Track scroll velocity for animation speed modulation
   const [scrollVelocity, setScrollVelocity] = useState(0);
   const prevScrollY = useRef(0);
@@ -173,12 +177,56 @@ export default function ScrollBackground() {
     setShapes(newShapes);
   }, []);
   
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 991);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Mobile optimized background
+  if (isMobile) {
+    return (
+      <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black"></div>
+        
+        {/* Simplified grid overlay for mobile */}
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
+        
+        {/* Basic gradient overlays for mobile */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
+        
+        {/* Simplified noise texture for mobile */}
+        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] bg-noise"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
+    <motion.div
+      style={{ y, opacity }}
+      className="fixed inset-0 overflow-hidden -z-10 pointer-events-none"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black"></div>
       
       {/* Grid overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
+      
+      {/* Gradient overlays for depth */}
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent opacity-20 dark:from-black"></div>
+      <div className="absolute inset-0 bg-gradient-to-l from-white via-transparent to-transparent opacity-20 dark:from-black"></div>
+      
+      {/* Noise texture overlay for subtle grain effect */}
+      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] bg-noise"></div>
       
       {/* Floating shapes */}
       {shapes.map((shape) => {
@@ -383,21 +431,12 @@ export default function ScrollBackground() {
         );
       })}
       
-      {/* Gradient overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent opacity-20 dark:from-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-l from-white via-transparent to-transparent opacity-20 dark:from-black"></div>
-      
-      {/* Noise texture overlay for subtle grain effect */}
-      <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] bg-noise"></div>
-      
       {/* Add some CSS classes for 3D transforms */}
       <style jsx global>{`
         .transform-style-3d {
           transform-style: preserve-3d;
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 } 
