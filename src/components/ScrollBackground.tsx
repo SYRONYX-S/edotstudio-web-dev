@@ -34,7 +34,6 @@ const SCROLL_SPEED_MULTIPLIER = 120;
 export default function ScrollBackground() {
   const [shapes, setShapes] = useState<Shape[]>([]);
   const { scrollY, scrollYProgress } = useScroll();
-  const [isMobile, setIsMobile] = useState(false);
   
   // Use a spring for smooth scrolling effect
   const smoothScrollY = useSpring(scrollY, { damping: 50, stiffness: 400 });
@@ -50,11 +49,6 @@ export default function ScrollBackground() {
   // Animation speed factor (1 = normal, >1 = faster)
   const [speedFactor, setSpeedFactor] = useState(1);
   
-  // Detect mobile device
-  useEffect(() => {
-    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
-  }, []);
-  
   // Update viewport dimensions
   useEffect(() => {
     const updateViewportSize = () => {
@@ -67,18 +61,11 @@ export default function ScrollBackground() {
     // Initialize
     updateViewportSize();
     
-    // Listen for resize with debounce
-    let resizeTimeout: NodeJS.Timeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(updateViewportSize, 100);
-    };
-    
-    window.addEventListener('resize', handleResize, { passive: true });
+    // Listen for resize
+    window.addEventListener('resize', updateViewportSize);
     
     return () => {
-      window.removeEventListener('resize', handleResize);
-      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', updateViewportSize);
     };
   }, []);
   
@@ -89,7 +76,7 @@ export default function ScrollBackground() {
       const delta = Math.abs(currentScrollY - prevScrollY.current);
       
       // More sensitive velocity calculation
-      const newVelocity = Math.min(delta * 0.25, 2);
+      const newVelocity = Math.min(delta * 0.25, 2); // Increase sensitivity but cap at 10
       setScrollVelocity(newVelocity);
       
       // More dramatic speed factor
@@ -105,7 +92,7 @@ export default function ScrollBackground() {
       }
       
       scrollTimeoutRef.current = setTimeout(() => {
-        setSpeedFactor(1);
+        setSpeedFactor(1); // Reset to normal speed
         setScrollVelocity(0);
       }, 150);
     };
@@ -127,40 +114,38 @@ export default function ScrollBackground() {
     
     // Brighter colors within brand palette
     const colors = [
-      'rgba(255, 77, 0, 0.5)',
-      'rgba(255, 115, 64, 0.45)',
-      'rgba(232, 96, 0, 0.6)',
-      'rgba(255, 177, 0, 0.4)',
-      'rgba(255, 255, 255, 0.15)',
-      'rgba(0, 0, 0, 0.1)',
+      'rgba(255, 77, 0, 0.5)',         // primary - brighter
+      'rgba(255, 115, 64, 0.45)',      // primary-light - brighter
+      'rgba(232, 96, 0, 0.6)',         // primary variant - brighter
+      'rgba(255, 177, 0, 0.4)',        // orange-yellow - brighter
+      'rgba(255, 255, 255, 0.15)',     // white
+      'rgba(0, 0, 0, 0.1)',            // black
     ];
     
     // Create shapes with better distribution from center
     const newShapes: Shape[] = [];
-    // Reduce number of shapes on mobile
-    const shapeCount = isMobile ? Math.floor(MAX_SHAPES / 2) : MAX_SHAPES;
-    
-    for (let i = 0; i < shapeCount; i++) {
-      const sizeValue = Math.random() * 180 + 80;
+    for (let i = 0; i < MAX_SHAPES; i++) {
+      const sizeValue = Math.random() * 180 + 80; // Slightly larger shapes
       const shapeType = types[Math.floor(Math.random() * types.length)];
+      
+      // Determine if we should use a gradient
       const useGradient = Math.random() > 0.5;
       
       // Improved positioning - center weighted with spread
-      const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * 40 + 10;
+      // Generate positions around the center of the screen with some variation
+      const angle = Math.random() * Math.PI * 2; // Random angle around center
+      const distance = Math.random() * 40 + 10;  // Random distance from center (10-50%)
       
+      // Convert polar coordinates to cartesian (centered at 50%, 50%)
       const x = 50 + Math.cos(angle) * distance;
       const y = 50 + Math.sin(angle) * distance;
       
-      // Reduce animation complexity on mobile
-      const initialDelay = isMobile ? Math.random() * 0.5 : Math.random() * 1;
-      const animationDuration = isMobile ? 
-        Math.random() * 4 + 3 : // 3-7s on mobile
-        Math.random() * 8 + 6;  // 6-14s on desktop
-      const moveDistance = isMobile ? 
-        Math.random() * 40 + 40 : // 40-80px on mobile
-        Math.random() * 80 + 80;  // 80-160px on desktop
+      // Animation parameters - keep user's custom values
+      const initialDelay = Math.random() * 1; // Random delay between 0-1s
+      const animationDuration = Math.random() * 8 + 6; // Random duration between 7-15s
+      const moveDistance = Math.random() * 80 + 80; // Random movement distance between 80-160px
       
+      // Random movement directions for consistent animation
       const direction = {
         x: Math.random() > 0.5 ? 1 : -1,
         y: Math.random() > 0.5 ? 1 : -1,
@@ -173,9 +158,9 @@ export default function ScrollBackground() {
         y: `${y}%`,
         size: `${sizeValue}px`,
         rotate: Math.random() * 360,
-        opacity: Math.random() * 0.4 + 0.2,
+        opacity: Math.random() * 0.4 + 0.2, // Slightly higher base opacity
         blur: `${Math.random() * 15 + 5}px`,
-        depth: Math.random() * 5 + 2,
+        depth: Math.random() * 5 + 2, // For 3D effects
         type: shapeType,
         color: colors[Math.floor(Math.random() * colors.length)],
         gradient: useGradient,
@@ -186,22 +171,25 @@ export default function ScrollBackground() {
       });
     }
     setShapes(newShapes);
-  }, [isMobile]);
+  }, []);
   
   return (
     <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
       <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black"></div>
       
-      {/* Grid overlay - disable on mobile */}
-      {!isMobile && (
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
-      )}
+      {/* Grid overlay */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
       
       {/* Floating shapes */}
       {shapes.map((shape) => {
+        // Determine if this is a 3D shape
         const is3DShape = shape.type === 'cube' || shape.type === 'pyramid';
+        
+        // For 3D shapes, we need to add perspective and transform-style properties
         const perspective = is3DShape ? '800px' : 'none';
         const transformStyle = is3DShape ? 'preserve-3d' : 'flat';
+        
+        // Create gradient background for shapes with gradient flag
         const gradientBg = shape.gradient 
           ? `linear-gradient(135deg, ${shape.color}, rgba(255, 77, 0, 0.3))` 
           : undefined;
@@ -212,7 +200,7 @@ export default function ScrollBackground() {
         // Movement values based on shape.direction
         const xMovement = (shape.moveDistance || 80) * shape.direction.x;
         const yMovement = (shape.moveDistance || 80) * shape.direction.y;
-        const rotateMovement = isMobile ? 15 * shape.direction.rotate : 25 * shape.direction.rotate;
+        const rotateMovement = 25 * shape.direction.rotate;
         
         return (
           <motion.div
@@ -228,9 +216,6 @@ export default function ScrollBackground() {
               transformOrigin: 'center',
               perspective: perspective,
               transformStyle: transformStyle as any,
-              willChange: 'transform',
-              backfaceVisibility: 'hidden',
-              transform: 'translate3d(0,0,0)',
             }}
             animate={{
               x: [0, xMovement],
@@ -253,8 +238,6 @@ export default function ScrollBackground() {
                 style={{
                   background: gradientBg || shape.color,
                   boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
-                  willChange: 'transform',
-                  backfaceVisibility: 'hidden',
                 }}
               />
             )}
@@ -265,8 +248,6 @@ export default function ScrollBackground() {
                 style={{
                   background: gradientBg || shape.color,
                   boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
-                  willChange: 'transform',
-                  backfaceVisibility: 'hidden',
                 }}
               />
             )}

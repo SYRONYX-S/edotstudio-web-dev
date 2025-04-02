@@ -26,7 +26,6 @@ const ClientsMarquee = () => {
   const [width, setWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const [animationOffset, setAnimationOffset] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   const clients: Client[] = [
@@ -160,26 +159,80 @@ const ClientsMarquee = () => {
   const allClients = [...clients, ...clients, ...clients];
 
   useEffect(() => {
-    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
-  }, []);
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 991);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
 
-  useEffect(() => {
     if (marqueeRef.current) {
       setWidth(marqueeRef.current.scrollWidth / 3);
     }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
-  // Optimize animation for mobile
-  const animationConfig = {
-    x: {
-      repeat: Infinity,
-      repeatType: "loop" as const,
-      duration: isMobile ? 45 : 30, // Slower on mobile
-      ease: "linear",
-      repeatDelay: 0,
-    }
-  };
+  // For mobile, use CSS animation instead of Framer Motion
+  if (isMobile) {
+    return (
+      <section className="py-20 bg-transparent relative">
+        <div className="container mx-auto px-4 mb-12">
+          <div className="text-center">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+              BRANDS COLLABORATIONS
+            </div>
+            <AnimatedTitle 
+              title="Brands that trust us"
+              className="text-2xl md:text-4xl mb-4 font-technor text-white"
+            />
+          </div>
+        </div>
 
+        <div className="relative w-full overflow-hidden">
+          <div 
+            ref={marqueeRef}
+            className="flex gap-8 animate-marquee"
+            style={{
+              willChange: 'transform',
+              transform: 'translate3d(0,0,0)',
+              backfaceVisibility: 'hidden',
+            }}
+          >
+            {allClients.map((client, index) => (
+              <a
+                key={`${client.name}-${index}`}
+                href={client.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative min-w-[240px] h-24 group bg-[#1A1A1A]/10 hover:bg-white opacity-90 hover:opacity-100 dark:bg-white/80 dark:opacity-50 dark:hover:opacity-100 hover:dark:bg-white/100 rounded-2xl flex items-center justify-center transition-all duration-500"
+                style={{
+                  padding: client.padding ? 
+                    `${client.padding.top || 0}px ${client.padding.right || 0}px ${client.padding.bottom || 0}px ${client.padding.left || 0}px` 
+                    : '0px'
+                }}
+              >
+                <Image
+                  src={client.logo}
+                  alt={client.name}
+                  width={client.width || 180}
+                  height={client.height || 60}
+                  className={`object-contain group-hover:scale-110 transition duration-500`}
+                  loading="eager"
+                  priority={index < 6}
+                />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop version with Framer Motion
   return (
     <section className="py-20 bg-transparent relative">
       <div className="container mx-auto px-4 mb-12">
@@ -197,8 +250,8 @@ const ClientsMarquee = () => {
       <div 
         ref={containerRef} 
         className="relative w-full overflow-hidden"
-        onMouseEnter={() => !isMobile && setIsPaused(true)}
-        onMouseLeave={() => !isMobile && setIsPaused(false)}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
       >
         <motion.div
           ref={marqueeRef}
@@ -206,14 +259,20 @@ const ClientsMarquee = () => {
           animate={{ 
             x: [-width, -width * 2]
           }}
-          transition={animationConfig}
+          transition={{ 
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 30,
+              ease: "linear",
+              repeatDelay: 0,
+            }
+          }}
           style={{ 
-            animationPlayState: isPaused ? 'paused' : 'running',
             willChange: 'transform',
-            backfaceVisibility: 'hidden',
             transform: 'translate3d(0,0,0)',
-            WebkitTransform: 'translate3d(0,0,0)',
-            WebkitBackfaceVisibility: 'hidden',
+            backfaceVisibility: 'hidden',
+            animationPlayState: isPaused ? 'paused' : 'running'
           }}
         >
           {allClients.map((client, index) => (
@@ -226,12 +285,7 @@ const ClientsMarquee = () => {
               style={{
                 padding: client.padding ? 
                   `${client.padding.top || 0}px ${client.padding.right || 0}px ${client.padding.bottom || 0}px ${client.padding.left || 0}px` 
-                  : '0px',
-                willChange: 'transform',
-                backfaceVisibility: 'hidden',
-                transform: 'translate3d(0,0,0)',
-                WebkitTransform: 'translate3d(0,0,0)',
-                WebkitBackfaceVisibility: 'hidden',
+                  : '0px'
               }}
             >
               <Image
@@ -239,9 +293,9 @@ const ClientsMarquee = () => {
                 alt={client.name}
                 width={client.width || 180}
                 height={client.height || 60}
-                className={`object-contain transition duration-500 ${!isMobile ? 'group-hover:scale-110' : ''}`}
-                priority={index < 4} // Prioritize loading first 4 images
-                loading={index < 4 ? 'eager' : 'lazy'}
+                className={`object-contain group-hover:scale-110 transition duration-500`}
+                loading="eager"
+                priority={index < 6}
               />
             </a>
           ))}

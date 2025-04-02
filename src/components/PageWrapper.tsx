@@ -25,79 +25,87 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isNavigating, setIsNavigating] = useState(false);
   const [pageContent, setPageContent] = useState<ReactNode>(children);
+  const [isMobile, setIsMobile] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
 
   // Capture the initial children on mount and when path changes
   useEffect(() => {
     setPageContent(children);
   }, [children, pathname]);
 
-  // Initialize smooth scrolling
+  // Check if device is mobile
   useEffect(() => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 991);
+    };
     
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Initialize smooth scrolling only on desktop
+  useEffect(() => {
+    if (isMobile) return;
+
     const lenis = new Lenis({
-      duration: isMobile ? 1 : 1.2,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      wheelMultiplier: isMobile ? 0.8 : 1,
-      touchMultiplier: 1,
-      infinite: false,
-      smoothWheel: !isMobile, // Disable smooth scrolling for touch devices
-      smoothTouch: false // Disable smooth touch scrolling
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false
     });
 
-    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
+      requestAnimationFrame(raf);
     }
 
     requestAnimationFrame(raf);
 
     return () => {
-      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, []);
+  }, [isMobile]);
 
-  // Setup scroll progress bar
+  // Setup scroll progress bar with debouncing
   useEffect(() => {
     if (!progressBarRef.current) return;
 
     const updateProgressBar = () => {
-      if (!progressBarRef.current) return;
-      
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const totalScrollableDistance = documentHeight - windowHeight;
-      
-      const scrollPercentage = 
-        totalScrollableDistance > 0 
-          ? (scrollPosition / totalScrollableDistance) * 100 
-          : 0;
-          
-      progressBarRef.current.style.transform = `translateX(${scrollPercentage - 100}%)`;
-    };
-
-    // Use requestAnimationFrame for smoother updates
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateProgressBar();
-          ticking = false;
-        });
-        ticking = true;
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (!progressBarRef.current) return;
+        
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const totalScrollableDistance = documentHeight - windowHeight;
+        
+        const scrollPercentage = 
+          totalScrollableDistance > 0 
+            ? (scrollPosition / totalScrollableDistance) * 100 
+            : 0;
+            
+        progressBarRef.current.style.width = `${scrollPercentage}%`;
+      }, 10); // Debounce scroll events
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', updateProgressBar, { passive: true });
     // Initial update
     updateProgressBar();
     
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', updateProgressBar);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, [pathname]);
 
   // Reset navigation state after page change
@@ -112,15 +120,15 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     enter: { 
       opacity: 1,
       transition: {
-        duration: 0.2,
-        ease: "linear"
+        duration: 0.3,
+        ease: "easeInOut"
       }
     },
     exit: { 
       opacity: 0,
       transition: {
-        duration: 0.15,
-        ease: "linear"
+        duration: 0.2,
+        ease: "easeInOut"
       }
     },
   };
@@ -128,28 +136,35 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   return (
     <>
       {/* Custom Cursor - Only shown on non-touch devices */}
-      <FixedCursor />
+      {!isMobile && <FixedCursor />}
       
       {/* Progress Bar - Fixed at top */}
-      <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60] overflow-hidden">
+      <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60]">
         <div 
           ref={progressBarRef}
-          className="h-full w-full bg-primary-light transform -translate-x-full will-change-transform"
-          style={{ transition: 'transform 0.1s linear' }}
+          className="h-full bg-primary-light transition-all ease-out duration-200"
+          style={{
+            willChange: 'width',
+            transform: 'translate3d(0,0,0)',
+            backfaceVisibility: 'hidden'
+          }}
         />
       </div>
       
       {/* Page Content with Transition */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={pathname}
           ref={pageRef}
           initial="hidden"
           animate="enter"
           exit="exit"
           variants={variants}
           className="min-h-screen"
-          style={{ willChange: 'opacity' }}
+          style={{
+            willChange: 'opacity',
+            transform: 'translate3d(0,0,0)',
+            backfaceVisibility: 'hidden'
+          }}
         >
           {pageContent}
         </motion.div>

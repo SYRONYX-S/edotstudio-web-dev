@@ -7,15 +7,76 @@ import { useTheme } from 'next-themes';
 
 export default function Preloader() {
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
   const { theme } = useTheme();
 
   useEffect(() => {
-    // Simulate loading time (you can remove this in production)
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    let progressInterval: NodeJS.Timeout;
+    let loadTimeout: NodeJS.Timeout;
 
-    return () => clearTimeout(timer);
+    // Simulate progress for better UX
+    progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 90) return prev;
+        return prev + 10;
+      });
+    }, 200);
+
+    // Preload all images and assets
+    const preloadAssets = async () => {
+      const images = [
+        '/logo-dark.svg',
+        '/logo-light.svg',
+        '/images/hero/hero-graphic.svg',
+        '/images/clients/Al-Khuloud.png',
+        '/images/clients/Brandlifte.png',
+        '/images/clients/Ayamon-polymers.png',
+        '/images/clients/carbon.png',
+        '/images/clients/Celecca.png',
+        '/images/clients/Dplus.png',
+        '/images/clients/DU-website.png',
+        '/images/clients/Greenvior.png',
+        '/images/clients/Hikeins.png',
+        '/images/clients/Indigo-tmt.png',
+        '/images/clients/Minar-TMT.png',
+        '/images/clients/nadancamp.png',
+        '/images/clients/Shazzam.png',
+      ];
+
+      try {
+        // Preload all images
+        await Promise.all(
+          images.map(src => {
+            return new Promise((resolve, reject) => {
+              const img = new Image();
+              img.src = src;
+              img.onload = resolve;
+              img.onerror = reject;
+            });
+          })
+        );
+
+        // Wait for fonts to load
+        await document.fonts.ready;
+
+        // Set progress to 100% and hide preloader after a short delay
+        setProgress(100);
+        loadTimeout = setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      } catch (error) {
+        console.error('Error preloading assets:', error);
+        // Still hide preloader even if some assets fail to load
+        setLoading(false);
+      }
+    };
+
+    preloadAssets();
+
+    return () => {
+      clearInterval(progressInterval);
+      clearTimeout(loadTimeout);
+    };
   }, []);
 
   return (
@@ -27,7 +88,7 @@ export default function Preloader() {
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-background dark:bg-background-dark"
         >
-          <div className="relative flex items-center justify-center">
+          <div className="relative flex flex-col items-center justify-center">
             {/* Animated Circles */}
             <motion.div
               animate={{
@@ -78,7 +139,7 @@ export default function Preloader() {
                 duration: 0.5,
                 ease: "easeOut"
               }}
-              className="relative w-32 h-8"
+              className="relative w-32 h-8 mb-8"
             >
               <Image
                 src="/logo-dark.svg"
@@ -95,6 +156,19 @@ export default function Preloader() {
                 priority
               />
             </motion.div>
+
+            {/* Progress Bar */}
+            <div className="w-48 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-primary"
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+            <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
+              Loading... {progress}%
+            </div>
           </div>
         </motion.div>
       )}

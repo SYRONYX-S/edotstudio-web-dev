@@ -1,73 +1,148 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
-interface Props {
+interface AnimatedTitleProps {
   title: string;
   className?: string;
+  delay?: number;
+  type?: 'staggered' | 'reveal';
+  color?: 'primary' | 'secondary' | 'light';
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 }
 
-export default function AnimatedTitle({ title, className = '' }: Props) {
-  const [isMobile, setIsMobile] = useState(false);
+const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
+  title,
+  className = '',
+  delay = 0.2,
+  type = 'staggered',
+  color = 'primary',
+  as = 'h2'
+}) => {
+  // Define color classes
+  const colorClasses = {
+    primary: 'text-primary',
+    secondary: 'text-secondary',
+    light: 'text-white',
+  };
 
-  useEffect(() => {
-    setIsMobile(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
-  }, []);
-
+  // Split text by space for word animation
   const words = title.split(' ');
 
-  // Simpler animation for mobile
-  if (isMobile) {
-    return (
-      <h1 className={className}>
-        <motion.span
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ 
-            duration: 0.5,
-            ease: [0.2, 0.65, 0.3, 0.9],
-          }}
-          style={{ 
-            display: 'inline-block',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            transform: 'translate3d(0,0,0)',
-            WebkitTransform: 'translate3d(0,0,0)',
-            WebkitBackfaceVisibility: 'hidden',
-          }}
-        >
-          {title}
-        </motion.span>
-      </h1>
-    );
-  }
+  // Animation variants for staggered words
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: delay * i }
+    })
+  };
 
-  return (
-    <h1 className={className}>
-      {words.map((word, i) => (
+  const staggerChild = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        damping: 12,
+        stiffness: 100
+      }
+    }
+  };
+
+  // Animation variants for text reveal
+  const revealContainer = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: delay
+      }
+    }
+  };
+
+  const revealChild = {
+    hidden: { y: "100%", opacity: 0 },
+    visible: { 
+      y: 0,
+      opacity: 1,
+      transition: { 
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  // Render the appropriate HTML tag
+  const renderTitle = () => {
+    const baseClasses = `${colorClasses[color]} ${className}`;
+
+    switch (as) {
+      case 'h1':
+        return <h1 className={baseClasses}>{renderContent()}</h1>;
+      case 'h2':
+        return <h2 className={baseClasses}>{renderContent()}</h2>;
+      case 'h3':
+        return <h3 className={baseClasses}>{renderContent()}</h3>;
+      case 'h4':
+        return <h4 className={baseClasses}>{renderContent()}</h4>;
+      case 'h5':
+        return <h5 className={baseClasses}>{renderContent()}</h5>;
+      case 'h6':
+        return <h6 className={baseClasses}>{renderContent()}</h6>;
+      default:
+        return <h2 className={baseClasses}>{renderContent()}</h2>;
+    }
+  };
+
+  // Render animation based on type
+  const renderContent = () => {
+    if (type === 'staggered') {
+      // Staggered word animation
+      return (
         <motion.span
-          key={i}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.5,
-            delay: i * 0.1,
-            ease: [0.2, 0.65, 0.3, 0.9],
-          }}
-          style={{
-            display: 'inline-block',
-            marginRight: '0.25em',
-            willChange: 'transform',
-            backfaceVisibility: 'hidden',
-            transform: 'translate3d(0,0,0)',
-            WebkitTransform: 'translate3d(0,0,0)',
-            WebkitBackfaceVisibility: 'hidden',
-          }}
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="inline-block"
         >
-          {word}
+          {words.map((word, index) => (
+            <motion.span
+              variants={staggerChild}
+              key={index}
+              className="inline-block mr-2"
+            >
+              {word}
+            </motion.span>
+          ))}
         </motion.span>
-      ))}
-    </h1>
-  );
-} 
+      );
+    } else {
+      // Text reveal animation
+      return (
+        <motion.div
+          variants={revealContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="overflow-hidden"
+        >
+          <motion.div variants={revealChild}>
+            {title}
+          </motion.div>
+        </motion.div>
+      );
+    }
+  };
+
+  return renderTitle();
+};
+
+export default AnimatedTitle; 

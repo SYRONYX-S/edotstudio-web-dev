@@ -18,7 +18,7 @@ const roundo = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/Roundo-Semibold.woff2',
+      path: '../../public/fonts/Roundo-SemiBold.woff2',
       weight: '600',
       style: 'normal',
     },
@@ -29,7 +29,6 @@ const roundo = localFont({
     }
   ],
   variable: '--font-roundo',
-  display: 'swap',
 });
 
 const pilcrow = localFont({
@@ -138,28 +137,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preload" href="/fonts/PilcrowRounded-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/Technor-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/Roundo-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="renderer" content="webkit" />
-        <meta name="force-rendering" content="webkit" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-      </head>
-      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} font-roundo antialiased overscroll-none`}>
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
-  )
+  );
 }

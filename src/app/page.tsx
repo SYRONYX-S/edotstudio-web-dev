@@ -169,7 +169,10 @@ export default function Home() {
             >
               <AnimatedTitle 
                 title="Creating Digital Experiences That Captivate"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl !font-technor text-primary"
+                as="h1"
+                type="staggered"
+                color="primary"
+                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl !font-technor"
               />
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -245,7 +248,8 @@ export default function Home() {
             </div>
             <AnimatedTitle 
               title="Comprehensive Digital Solutions"
-              className="text-2xl md:text-4xl mb-0 font-technor text-primary"
+              type="reveal"
+              className="text-2xl md:text-4xl mb-0 font-technor"
             />
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
               We combine creativity and technology to deliver exceptional digital solutions that drive results for your business.
@@ -292,7 +296,8 @@ export default function Home() {
               </div>
               <AnimatedTitle 
                 title="Featured Works"
-                className="text-2xl md:text-4xl mb-0 font-technor text-primary"
+                color="primary"
+                className="text-2xl md:text-4xl mb-0 font-technor"
               />
               <p className="text-gray-600 dark:text-gray-400 max-w-xl font-pilcrow">
                 Explore our selected projects that showcase our expertise and creativity.
@@ -690,7 +695,7 @@ export default function Home() {
             </div>
             <AnimatedTitle 
               title="What Our Clients Say"
-              className="text-2xl md:text-4xl mb-0 font-technor text-primary"
+              className="text-2xl md:text-4xl mb-0 font-technor"
             />
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
               Don't just take our word for it. Hear what our clients have to say about working with us.
