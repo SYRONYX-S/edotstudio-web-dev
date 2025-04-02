@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight, Users, Award, Coins, TrendingUp, Gift, Code, FileCode, Globe } from 'lucide-react';
+import { Check, ArrowRight, Users, Award, Coins, TrendingUp, Gift, Code, FileCode, Globe, Shield } from 'lucide-react';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -294,6 +294,122 @@ export default function Partner() {
               </p>
             </motion.div>
           </div>
+        </div>
+      </section>
+      
+      {/* Partner Policy Section */}
+      <section className="relative z-10 mt-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-black/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/10 dark:border-white/5 relative overflow-hidden"
+          >
+            <div className="absolute inset-0 overflow-hidden opacity-10">
+              <svg className="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 text-primary-light" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M48.8,-52.2C61.9,-37.4,71,-18.7,72.1,1.1C73.3,20.9,66.6,41.8,53.5,57.2C40.3,72.6,20.1,82.5,-0.9,83.4C-21.9,84.4,-43.8,76.5,-59.3,61.2C-74.9,45.9,-84.1,23,-81.8,2.2C-79.5,-18.5,-65.8,-37,-49.9,-51.7C-33.9,-66.4,-17,-77.2,1.2,-78.4C19.3,-79.7,38.6,-71.3,48.8,-52.2Z" transform="translate(100 100)"></path>
+              </svg>
+            </div>
+            <div className="relative z-10">
+              <div className="flex items-center mb-6">
+                <Shield className="w-8 h-8 text-primary-light mr-4" />
+                <h2 className="text-2xl font-technor text-white">Partner Policy</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-technor text-white mb-4">Eligibility & Participation</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Only verified individuals and agencies can participate.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Partners must provide genuine outsourcing requests.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-technor text-white mb-4">Project Requirements</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Clear project scope and requirements must be provided.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Timeline and deliverables must be clearly defined.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Quality standards must be mutually agreed upon.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-technor text-white mb-4">Behavior & Ethics</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">No misrepresentation of services or false claims.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Transparency required in project requirements.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Clear communication channels must be maintained.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-technor text-white mb-4">Project Ownership & Branding</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Projects delivered under our brand unless agreed otherwise.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Agencies can have work done under their branding.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Unauthorized branding or reselling prohibited.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-technor text-white mb-4">Bonus & Reward Criteria</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Free website reward requires meeting minimum revenue criteria.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Rewards non-transferable to other parties.</span>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-technor text-white mb-4">Termination & Violations</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Immediate termination for system exploitation.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-3"></div>
+                      <span className="text-white/80 font-pilcrow">Program modifications reserved at our discretion.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
       
