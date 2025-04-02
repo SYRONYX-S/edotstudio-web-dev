@@ -27,21 +27,29 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   const [pageContent, setPageContent] = useState<ReactNode>(children);
   const [isMobile, setIsMobile] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const rafRef = useRef<number>();
+  const lastScrollY = useRef(0);
 
   // Capture the initial children on mount and when path changes
   useEffect(() => {
     setPageContent(children);
   }, [children, pathname]);
 
-  // Check if device is mobile
+  // Check if device is mobile with debounce
   useEffect(() => {
+    let resizeTimeout: NodeJS.Timeout;
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 991);
+      resizeTimeout = setTimeout(() => {
+        setIsMobile(window.innerWidth < 991);
+      }, 100);
     };
     
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      clearTimeout(resizeTimeout);
+    };
   }, []);
 
   // Initialize smooth scrolling only on desktop
@@ -60,53 +68,57 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafRef.current = requestAnimationFrame(raf);
 
     return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
       lenis.destroy();
     };
   }, [isMobile]);
 
-  // Setup scroll progress bar with debouncing
+  // Optimized scroll progress bar with RAF
   useEffect(() => {
-    if (!progressBarRef.current) return;
+    if (!progressBarRef.current || isMobile) return;
 
+    let ticking = false;
     const updateProgressBar = () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      scrollTimeoutRef.current = setTimeout(() => {
-        if (!progressBarRef.current) return;
-        
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const totalScrollableDistance = documentHeight - windowHeight;
-        
-        const scrollPercentage = 
-          totalScrollableDistance > 0 
-            ? (scrollPosition / totalScrollableDistance) * 100 
-            : 0;
-            
-        progressBarRef.current.style.width = `${scrollPercentage}%`;
-      }, 10); // Debounce scroll events
+      if (!progressBarRef.current) return;
+      
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const totalScrollableDistance = documentHeight - windowHeight;
+      
+      const scrollPercentage = 
+        totalScrollableDistance > 0 
+          ? (scrollPosition / totalScrollableDistance) * 100 
+          : 0;
+          
+      progressBarRef.current.style.width = `${scrollPercentage}%`;
     };
 
-    window.addEventListener('scroll', updateProgressBar, { passive: true });
-    // Initial update
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateProgressBar();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     updateProgressBar();
     
     return () => {
-      window.removeEventListener('scroll', updateProgressBar);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
+      window.removeEventListener('scroll', onScroll);
     };
-  }, [pathname]);
+  }, [pathname, isMobile]);
 
   // Reset navigation state after page change
   useEffect(() => {
@@ -114,20 +126,20 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  // Simple page transition that doesn't intercept navigation
+  // Optimized page transition for mobile
   const variants = {
     hidden: { opacity: 0 },
     enter: { 
       opacity: 1,
       transition: {
-        duration: 0.3,
+        duration: isMobile ? 0.1 : 0.3,
         ease: "easeInOut"
       }
     },
     exit: { 
       opacity: 0,
       transition: {
-        duration: 0.2,
+        duration: isMobile ? 0.1 : 0.2,
         ease: "easeInOut"
       }
     },
@@ -163,7 +175,10 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           style={{
             willChange: 'opacity',
             transform: 'translate3d(0,0,0)',
-            backfaceVisibility: 'hidden'
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            WebkitTransformStyle: 'preserve-3d',
+            WebkitPerspective: 1000
           }}
         >
           {pageContent}

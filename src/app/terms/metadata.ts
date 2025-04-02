@@ -38,4 +38,4 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://edotstudio.com/terms'
   }
-}; 
+};

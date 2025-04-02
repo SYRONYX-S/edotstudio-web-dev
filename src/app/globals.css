@@ -1118,56 +1118,147 @@ section {
 
 /* Mobile Optimizations */
 @media (max-width: 991px) {
-  /* Reduce animation complexity on mobile */
-  .animate-float {
-    animation: none;
-    transform: translateY(0);
-  }
-
-  /* Optimize backdrop filters on mobile */
-  .backdrop-blur-sm {
-    backdrop-filter: none;
-    background-color: rgba(255, 255, 255, 0.9);
-  }
-
-  .dark .backdrop-blur-sm {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
-
-  /* Optimize shadows on mobile */
-  .shadow-lg {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Disable complex animations on mobile */
+  body::before,
+  body::after,
+  .animated-gradient::before,
+  .animated-bg-shapes,
+  .dust-particles,
+  .dust-particle {
+    display: none !important;
   }
 
   /* Optimize transitions */
   * {
+    transition-property: none !important;
+    animation: none !important;
+  }
+
+  /* Only keep essential transitions */
+  a, button, input, select, textarea {
+    transition-property: background-color, color, border-color !important;
     transition-duration: 0.2s !important;
+  }
+
+  /* Optimize backdrop filters */
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .dark .backdrop-blur-sm,
+  .dark .backdrop-blur-md,
+  .dark .backdrop-blur-lg {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+  }
+
+  /* Optimize shadows */
+  .shadow-lg,
+  .shadow-xl {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
   }
 
   /* Optimize hover effects */
   .hover\:scale-110:hover {
-    transform: scale(1.05);
+    transform: none !important;
   }
 
-  /* Optimize animations */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
+  /* Optimize glass effects */
+  .glass,
+  .glass-card,
+  .frosted-container {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
-  /* Optimize body animations */
-  body::before,
-  body::after {
-    animation: none;
-    transform: none;
+  .dark .glass,
+  .dark .glass-card,
+  .dark .frosted-container {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+  }
+
+  /* Optimize scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px !important;
+  }
+
+  /* Optimize image loading */
+  img {
+    content-visibility: auto !important;
+    loading: lazy !important;
+  }
+
+  /* Optimize transform animations */
+  .parallax,
+  .hover-tilt,
+  .animate-float {
+    transform: none !important;
+  }
+
+  /* Optimize gradient animations */
+  .animated-gradient::before {
+    animation: none !important;
+  }
+
+  /* Optimize glow effects */
+  .glow-primary,
+  .text-shadow-glow,
+  .shadow-glow-sm {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Optimize navbar */
+  .navbar-island {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .dark .navbar-island {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+  }
+
+  /* Optimize CTA button */
+  .cta-button::before {
+    display: none !important;
+  }
+
+  /* Optimize theme transitions */
+  .theme-toggle-btn,
+  .theme-icon {
+    transition: none !important;
+  }
+
+  /* Optimize section backgrounds */
+  section {
+    background-color: transparent !important;
+  }
+
+  /* Optimize container transitions */
+  .container {
+    transition: none !important;
+  }
+
+  /* Optimize focus styles */
+  *:focus-visible {
+    outline: none !important;
+  }
+
+  /* Optimize font loading */
+  .font-technor,
+  .font-supreme,
+  .font-roundo,
+  .font-pilcrow {
+    font-display: swap !important;
   }
 }
 
-/* Mobile Marquee Animation */
+/* Optimize mobile marquee */
 @media (max-width: 991px) {
   @keyframes marquee {
     0% {
@@ -1183,20 +1274,64 @@ section {
     will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    -webkit-perspective: 1000;
   }
 
-  /* Optimize image loading */
+  /* Optimize mobile scroll behavior */
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  /* Optimize mobile touch events */
+  * {
+    touch-action: manipulation !important;
+  }
+}
+
+/* Optimize mobile performance */
+@media (max-width: 991px) {
+  /* Reduce paint operations */
+  * {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+  }
+
+  /* Optimize layout calculations */
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Optimize image rendering */
   img {
-    content-visibility: auto;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 
-  /* Reduce motion on mobile */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
+  /* Optimize text rendering */
+  * {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Optimize scrolling */
+  body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Optimize touch targets */
+  a, button, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
