@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight, Users, Award, Coins, TrendingUp } from 'lucide-react';
+import { Check, ArrowRight, Users, Award, Coins, TrendingUp, Gift, Code, FileCode, Globe } from 'lucide-react';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -148,19 +148,49 @@ export default function Partner() {
             viewport={{ once: true }}
             className="bg-primary/10 dark:bg-primary/5 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden"
           >
+            {/* Background decorative elements */}
             <div className="absolute top-0 right-0 w-60 h-60 bg-primary/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary/10 rounded-full filter blur-2xl translate-y-1/2 -translate-x-1/4"></div>
             
-            <div className="relative z-10 text-center md:text-left md:max-w-2xl">
-              <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white mb-6">
-                Special Offer for Active Partners
-              </h2>
-              <p className="text-gray-700 dark:text-gray-300 text-lg mb-8">
-                Partners who bring in 5 web/app/software projects or generate above 1 lakh INR in revenue (minimum 2 projects) receive a free website worth 40k INR. This is in addition to your regular commission or preferential rates.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                <Button href="#contact" variant="default">
-                  Get Started Today
-                </Button>
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+              <div className="md:col-span-2">
+                <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                  EXCLUSIVE OFFER
+                </div>
+                <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white mb-6">
+                  Special Offer for Active Partners
+                </h2>
+                <p className="text-gray-700 dark:text-gray-300 text-lg mb-6">
+                  Partners who bring in 5 web/app/software projects or generate above 1 lakh INR in revenue (minimum 2 projects) receive a free website worth 40k INR. This is in addition to your regular commission or preferential rates.
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button href="#contact" variant="default" className="bg-primary-light">
+                    Get Started Today <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/10">
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 rounded-full bg-primary/15 flex items-center justify-center">
+                    <Gift className="w-8 h-8 text-primary" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-technor text-center text-black dark:text-white mb-4">What You Get</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-primary mt-1 mr-2 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">Free website worth 40k INR</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-primary mt-1 mr-2 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">Priority project scheduling</span>
+                  </li>
+                  <li className="flex items-start">
+                    <Check className="w-5 h-5 text-primary mt-1 mr-2 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">Enhanced B2B pricing for agencies</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </motion.div>
@@ -195,6 +225,74 @@ export default function Partner() {
                 <p className="text-gray-700 dark:text-gray-300">{reason.description}</p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* Types of Projects Section - New SEO-focused section */}
+      <section className="py-16 relative z-10">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+              OUR EXPERTISE
+            </div>
+            <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white mb-6">
+              Projects We Specialize In
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-lg font-pilcrow">
+              We excel in these areas, providing top-tier solutions that your clients will love.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                <Globe className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-technor text-black dark:text-white mb-4">Web Development</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                Custom websites, e-commerce solutions, and web applications built with modern technologies and best practices.
+              </p>
+              <p className="text-primary font-medium">Our primary specialization</p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                <FileCode className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-technor text-black dark:text-white mb-4">App Development</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                Mobile applications for iOS and Android platforms, built with native or cross-platform technologies.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 hover:shadow-lg transition-all duration-300"
+            >
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                <Code className="w-7 h-7 text-primary" />
+              </div>
+              <h3 className="text-xl font-technor text-black dark:text-white mb-4">Software Solutions</h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                Custom software solutions, from simple automation tools to complex enterprise applications.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
