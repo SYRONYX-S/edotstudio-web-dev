@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { RiRocketLine, RiCodeSLine, RiTeamLine, RiLightbulbLine, RiShieldLine, RiComputerLine } from 'react-icons/ri';
+import { RiRocketLine, RiCodeSLine, RiTeamLine, RiLightbulbLine, RiShieldLine, RiComputerLine, RiDatabase2Line, RiSmartphoneLine, RiToolsLine } from 'react-icons/ri';
 import { Users } from 'lucide-react';
 
 // Components
@@ -21,40 +21,40 @@ export default function About() {
 
   const technologies = [
     {
-      category: 'Frontend',
-      icon: <RiCodeSLine className="text-3xl text-primary-light" />,
-      items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion']
+      category: 'Web Frontend',
+      icon: <RiCodeSLine className="text-4xl text-primary-light" />,
+      description: "Building responsive, interactive interfaces with cutting-edge web technologies",
+      items: ['React.js', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'HTML5/CSS3', 'Bootstrap', 'Material UI', 'Vue.js']
     },
     {
-      category: 'Backend',
-      icon: <RiTeamLine className="text-3xl text-primary-light" />,
-      items: ['Node.js', 'Python', 'MongoDB', 'PostgreSQL', 'Firebase']
+      category: 'Backend & API',
+      icon: <RiDatabase2Line className="text-4xl text-primary-light" />,
+      description: "Robust server-side solutions for scalable, secure applications",
+      items: ['Node.js', 'Express', 'Python', 'Django', 'GraphQL', 'REST API', 'MongoDB', 'PostgreSQL', 'Firebase', 'Serverless']
+    },
+    {
+      category: 'Mobile & App Dev',
+      icon: <RiSmartphoneLine className="text-4xl text-primary-light" />,
+      description: "Cross-platform mobile solutions for iOS and Android ecosystems",
+      items: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Expo', 'Firebase', 'App Store Optimization', 'Progressive Web Apps', 'Push Notifications']
+    },
+    {
+      category: 'Design & UX',
+      icon: <RiTeamLine className="text-4xl text-primary-light" />,
+      description: "Creative design processes that elevate user experiences",
+      items: ['UI/UX Design', 'Figma', 'Adobe XD', 'Wireframing', 'Prototyping', 'Animation', 'Design Systems', 'Accessibility', 'User Testing']
     },
     {
       category: 'Tools & AI',
-      icon: <RiComputerLine className="text-3xl text-primary-light" />,
-      items: ['GitHub Copilot', 'ChatGPT', 'Midjourney', 'Figma', 'AWS']
-    }
-  ];
-
-  const team = [
-    {
-      name: "Alex Johnson",
-      role: "Founder & Developer",
-      image: "/images/team/team1.jpg",
-      bio: "Creative technologist with expertise in modern web development and a passion for user-centered design."
+      icon: <RiToolsLine className="text-4xl text-primary-light" />,
+      description: "Leveraging AI tools to enhance development workflows and productivity",
+      items: ['GitHub Copilot', 'ChatGPT', 'Midjourney', 'Cursor IDE', 'Grok', 'DeepSeek', 'Claude', 'Vercel', 'GitHub Actions', 'AWS/GCP']
     },
     {
-      name: "Sarah Chen",
-      role: "Design Lead",
-      image: "/images/team/team2.jpg",
-      bio: "UI/UX specialist who transforms complex problems into intuitive digital experiences."
-    },
-    {
-      name: "Michael Rivera",
-      role: "Technical Consultant",
-      image: "/images/team/team3.jpg",
-      bio: "Full-stack developer who ensures our solutions are scalable, performant and future-proof."
+      category: 'DevOps & Deployment',
+      icon: <RiComputerLine className="text-4xl text-primary-light" />,
+      description: "Streamlined development operations for reliable delivery",
+      items: ['CI/CD', 'Docker', 'Kubernetes', 'AWS', 'Google Cloud', 'Vercel', 'Netlify', 'Monitoring', 'Performance Optimization']
     }
   ];
 
@@ -177,53 +177,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-              OUR TEAM
-            </div>
-            <AnimatedTitle
-              title="Meet the Experts"
-              className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white"
-            />
-            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
-              Our diverse team brings together expertise across technology, design, and strategy to deliver exceptional digital experiences.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group"
-              >
-                <div className="relative h-[300px] w-full rounded-2xl overflow-hidden mb-4 transition-all duration-300">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent z-10 group-hover:from-primary/70 transition-all duration-500"></div>
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    className="group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute bottom-6 left-6 right-6 z-20">
-                    <h3 className="text-white text-xl font-technor mb-1 group-hover:text-white transition-colors duration-300">{member.name}</h3>
-                    <p className="text-primary-light font-pilcrow text-sm font-semibold">{member.role}</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 dark:text-gray-300 font-pilcrow text-sm">{member.bio}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Technology Stack */}
       <section className="py-20 relative z-10">
         <div className="container mx-auto px-4">
@@ -240,7 +193,7 @@ export default function About() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {technologies.map((tech, index) => (
               <motion.div
                 key={tech.category}
@@ -248,15 +201,24 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white/5 backdrop-blur-md p-8 rounded-2xl border border-white/10 dark:border-white/5 hover:border-primary-light/20 transition-all duration-300 group"
+                className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 hover:border-primary-light/40 hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="mb-4">{tech.icon}</div>
-                <h3 className="text-xl font-technor text-primary-light mb-4 group-hover:translate-x-2 transition-transform duration-300">{tech.category}</h3>
+                <div className="flex items-center mb-6">
+                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mr-4">
+                    {tech.icon}
+                  </div>
+                  <h3 className="text-xl font-technor text-black dark:text-white group-hover:text-primary-light transition-colors duration-300">{tech.category}</h3>
+                </div>
+                
+                <p className="text-gray-700 dark:text-gray-300 mb-6 font-pilcrow">
+                  {tech.description}
+                </p>
+                
                 <div className="flex flex-wrap gap-2">
                   {tech.items.map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1 bg-black/5 dark:bg-white/5 rounded-full text-sm font-pilcrow transition-colors duration-300 hover:bg-primary-light/20 hover:text-black dark:hover:text-white"
+                      className="px-3 py-1.5 bg-gradient-to-br from-black/5 to-black/10 dark:from-white/5 dark:to-white/10 rounded-full text-sm font-pilcrow transition-all duration-300 hover:bg-primary-light/20 hover:text-black dark:hover:text-white transform hover:-translate-y-1 backdrop-blur-md"
                     >
                       {item}
                     </span>
