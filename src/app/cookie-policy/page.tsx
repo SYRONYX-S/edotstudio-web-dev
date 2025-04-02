@@ -2,85 +2,80 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Clock, DollarSign, Shield, Scale, Building2, Mail, AlertCircle } from 'lucide-react';
+import { Cookie, Shield, Settings, Info, AlertCircle } from 'lucide-react';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
 import { AbstractBackground } from '@/components/AbstractBackground';
 
-export default function Terms() {
+export default function CookiePolicy() {
   const sections = [
     {
-      icon: <FileText className="w-6 h-6 text-primary" />,
-      title: "Services Overview",
+      icon: <Cookie className="w-6 h-6 text-primary" />,
+      title: "What Are Cookies",
       content: [
-        "Project-based Development: Custom web, app, and software solutions.",
-        "Outsourced Development: Dedicated development teams and resources.",
-        "Freelance Collaboration: Partnering with skilled professionals.",
-        "Design Services: UI/UX, graphic design, and branding solutions.",
-        "Marketing Services: Digital marketing and SEO optimization."
-      ]
-    },
-    {
-      icon: <Clock className="w-6 h-6 text-primary" />,
-      title: "Project Workflow",
-      content: [
-        "Initial consultation and requirement gathering.",
-        "Detailed proposal with timeline and cost breakdown.",
-        "Maintenance contract review and approval.",
-        "Project kickoff upon contract approval and advance payment.",
-        "Regular progress updates and client feedback.",
-        "Final delivery and post-launch support.",
-        "Project closure and documentation handover.",
-        "Invoice generation and payment processing."
-      ]
-    },
-    {
-      icon: <DollarSign className="w-6 h-6 text-primary" />,
-      title: "Payment Terms",
-      content: [
-        "50% advance payment for project initiation.",
-        "30% payment upon project milestone completion.",
-        "20% payment upon final delivery.",
-        "Late payment may result in service suspension.",
-        "All prices are exclusive of applicable taxes.",
-        "Payment methods: Bank transfer, credit card, or digital wallets."
+        "Cookies are small text files stored on your device when you visit our website.",
+        "They help us provide a better user experience and analyze website traffic.",
+        "Cookies can be essential for website functionality or used for analytics and preferences.",
+        "You can control cookie settings through your browser preferences."
       ]
     },
     {
       icon: <Shield className="w-6 h-6 text-primary" />,
-      title: "Intellectual Property",
+      title: "Types of Cookies We Use",
       content: [
-        "Clients retain rights to their provided content.",
-        "EdotStudio retains rights to coding techniques and methodologies.",
-        "Branding elements remain client property.",
-        "Portfolio display rights for completed projects.",
-        "No external branding in delivered projects.",
-        "Source code ownership upon full payment."
+        "Essential Cookies: Required for basic website functionality.",
+        "Analytics Cookies: Help us understand how visitors use our site.",
+        "Preference Cookies: Remember your settings and preferences.",
+        "Marketing Cookies: Track your online activity for targeted advertising.",
+        "Session Cookies: Temporary cookies that expire when you close your browser.",
+        "Persistent Cookies: Remain on your device until you delete them."
       ]
     },
     {
-      icon: <Scale className="w-6 h-6 text-primary" />,
-      title: "Client Responsibilities",
+      icon: <Settings className="w-6 h-6 text-primary" />,
+      title: "Cookie Management",
       content: [
-        "Provide accurate project requirements.",
-        "Timely content and asset delivery.",
-        "Review and feedback within agreed timelines.",
-        "Maximum 3 revision rounds per deliverable.",
-        "Maintain communication channels.",
-        "Provide necessary access and credentials."
+        "You can accept or decline cookies through our cookie consent banner.",
+        "Browser settings allow you to control cookie preferences.",
+        "Disabling certain cookies may affect website functionality.",
+        "You can clear cookies from your browser at any time.",
+        "Third-party cookies are subject to their respective privacy policies."
       ]
     },
     {
-      icon: <Building2 className="w-6 h-6 text-primary" />,
-      title: "Legal Framework",
+      icon: <Info className="w-6 h-6 text-primary" />,
+      title: "How We Use Cookies",
       content: [
-        "Governed by Indian law and jurisdiction.",
-        "Disputes subject to local courts.",
-        "Force majeure provisions apply.",
-        "Liability limited to service fees.",
-        "No responsibility for third-party services.",
-        "Confidentiality obligations apply."
+        "Improve website performance and user experience.",
+        "Analyze website traffic and user behavior.",
+        "Remember your preferences and settings.",
+        "Provide personalized content and recommendations.",
+        "Track marketing campaign effectiveness.",
+        "Ensure secure and reliable service delivery."
+      ]
+    },
+    {
+      icon: <Shield className="w-6 h-6 text-primary" />,
+      title: "Third-Party Cookies",
+      content: [
+        "Google Analytics: Website traffic analysis.",
+        "Social Media: Integration with social platforms.",
+        "Payment Processors: Secure payment processing.",
+        "Marketing Tools: Campaign tracking and optimization.",
+        "Content Delivery Networks: Faster content loading.",
+        "Each third-party has its own privacy policy."
+      ]
+    },
+    {
+      icon: <AlertCircle className="w-6 h-6 text-primary" />,
+      title: "Updates & Changes",
+      content: [
+        "We may update our cookie policy periodically.",
+        "Changes will be reflected on this page.",
+        "Significant changes will be notified via website notice.",
+        "Continued use of our website implies acceptance of changes.",
+        "Last updated: 8 April 2025"
       ]
     }
   ];
@@ -102,19 +97,19 @@ export default function Terms() {
             className="text-center"
           >
             <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-              TERMS OF SERVICE
+              COOKIE POLICY
             </div>
             <h1 className="text-4xl md:text-6xl font-technor mb-6 text-black dark:text-white">
-              Our Terms & Conditions
+              Our Cookie Usage
             </h1>
             <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-lg font-pilcrow">
-              Please read these terms carefully before engaging our services. By working with us, you agree to these terms and conditions.
+              Learn about how we use cookies to enhance your browsing experience and improve our website's functionality.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Terms Sections */}
+      {/* Policy Sections */}
       <section className="relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -147,7 +142,7 @@ export default function Terms() {
         </div>
       </section>
 
-      {/* Important Notices Section */}
+      {/* Additional Information Section */}
       <section className="relative z-10 mt-20">
         <div className="container mx-auto px-4">
           <motion.div
@@ -163,18 +158,15 @@ export default function Terms() {
             </div>
             <div className="relative z-10">
               <div className="flex items-center mb-6">
-                <AlertCircle className="w-8 h-8 text-primary-light mr-4" />
-                <h2 className="text-2xl font-technor text-white">Important Notices</h2>
+                <Info className="w-8 h-8 text-primary-light mr-4" />
+                <h2 className="text-2xl font-technor text-white">Additional Information</h2>
               </div>
               <div className="space-y-4">
                 <p className="text-white/80 font-pilcrow">
-                  These terms may be updated periodically. Continued use of our services after changes constitutes acceptance of the new terms.
+                  For more information about cookies and how to manage them, please visit our Privacy Policy page or contact us at contact@edotstudio.com
                 </p>
                 <p className="text-white/80 font-pilcrow">
-                  For any questions about these terms, please contact us at contact@edotstudio.com
-                </p>
-                <p className="text-white/80 font-pilcrow">
-                  Last updated: 8 April 2025
+                  By using our website, you consent to the use of cookies as described in this policy.
                 </p>
               </div>
             </div>
