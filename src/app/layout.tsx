@@ -44,7 +44,7 @@ const pilcrow = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/PilcrowRounded-SemiBold.woff2',
+      path: '../../public/fonts/PilcrowRounded-Semibold.woff2',
       weight: '600',
       style: 'normal',
     },
