@@ -169,13 +169,9 @@ export default function Services() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <motion.div
+              <div
                 key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 glass-card"
+                className="p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 glass-card backdrop-blur-none md:backdrop-blur-lg"
               >
                 <div className="text-4xl text-primary mb-6">
                   <service.icon />
@@ -189,7 +185,7 @@ export default function Services() {
                 >
                   Learn More
                 </Button>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -205,25 +201,21 @@ export default function Services() {
           }`}
         >
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Service Content */}
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+              <div
                 className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} font-supreme`}
               >
                 <div className="mb-2 inline-block py-1 px-3 bg-primary/10 rounded-full -left-1 relative">
                   <span className="text-primary text-sm font-medium font-pilcrow uppercase">{service.subtitle}</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-roundo uppercase font-semibold text-primary-light dark:text-primary mb-6">{service.title}</h2>
+                <h2 className="text-3xl md:text-4xl font-roundo uppercase font-semibold text-primary-light dark:text-primary mb-6 break-words">{service.title}</h2>
                 <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">{service.description}</p>
                 
                 {/* Features */}
                 <div className="mb-8">
                   <h3 className="text-xl font-technor mb-4">What We Offer</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
                     {service.features.map((feature) => (
                       <div key={feature} className="flex items-start">
                         <RiCheckLine className="text-primary mt-1 mr-2 flex-shrink-0" />
@@ -252,26 +244,21 @@ export default function Services() {
                     ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
               
               {/* Service Image */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}
+              <div
+                className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-xl overflow-hidden group shadow-lg`}
               >
-                <div className="relative h-[400px] rounded-xl overflow-hidden">
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    className="rounded-xl"
-                  />
-                </div>
-              </motion.div>
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                  style={{ objectFit: 'cover' }}
+                  className="group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -281,10 +268,7 @@ export default function Services() {
       <section className="py-20 bg-white/5 dark:bg-white/5 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+            <div
               className="bg-white/10 dark:bg-black/20 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/20 dark:border-white/5"
             >
               <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow">
@@ -302,12 +286,9 @@ export default function Services() {
               >
                 Explore Partnership Opportunities
               </Button>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+            <div
               className="space-y-6"
             >
               <div className="bg-white/10 dark:bg-black/20 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
@@ -330,7 +311,7 @@ export default function Services() {
                   Earn competitive commissions by connecting us with businesses that need our expertise. Commissions are issued once the client completes full payment.
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

@@ -112,7 +112,7 @@ export default function Partner() {
   };
 
   return (
-    <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
+    <main className="min-h-screen relative">
       {/* Hero Section */}
       <section className="relative mb-20">
         <div className="container mx-auto px-4 relative z-10">

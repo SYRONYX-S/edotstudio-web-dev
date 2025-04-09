@@ -161,14 +161,14 @@ export default function Careers() {
   };
 
   return (
-    <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
+    <main className="min-h-screen relative">
       {/* Abstract Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {/* <AbstractBackground /> */}
       </div>
       
       {/* Hero Section */}
-      <section className="relative mb-20">
+      <section className="relative pt-32 pb-20">
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

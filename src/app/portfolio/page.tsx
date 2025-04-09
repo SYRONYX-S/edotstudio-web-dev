@@ -26,7 +26,7 @@ export default function Portfolio() {
     : projectList.filter(project => project.category === selectedCategory);
 
   return (
-    <main className="min-h-screen relative bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
+    <main className="min-h-screen relative backdrop-blur-sm">
       {/* Abstract Background */}
       {/* <AbstractBackground className="!fixed" /> */}
 
@@ -58,10 +58,10 @@ export default function Portfolio() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-technor font-medium transition-all duration-300 ${
+                  className={`px-6 py-2.5 rounded-full text-sm font-technor font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm ${
                     selectedCategory === category
                       ? 'bg-primary dark:bg-primary text-white shadow-glow'
-                      : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white backdrop-blur-sm'
+                      : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white'
                   }`}
                 >
                   {category}
@@ -71,24 +71,18 @@ export default function Portfolio() {
           </motion.div>
 
           {/* Projects Grid */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <div
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
             {filteredProjects.map((project, index) => {
               const projectSlug = Object.keys(projects).find(key => projects[key] === project);
               return (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group relative"
                 >
                   <Link href={`/portfolio/${projectSlug}`}>
-                    <div className="relative overflow-hidden rounded-2xl dark:bg-black/20 backdrop-blur-sm border dark:border-white/10 hover:border-primary/50 transition-all duration-500 group-hover:shadow-glow-lg">
+                    <div className="relative overflow-hidden rounded-2xl dark:bg-black/20 backdrop-blur-none md:backdrop-blur-sm border dark:border-white/10 hover:border-primary/50 transition-all duration-500 group-hover:shadow-glow-lg">
                       <div className="aspect-[16/9] relative">
                         <Image
                           src={project.image}
@@ -98,25 +92,25 @@ export default function Portfolio() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
                       </div>
-                      <div className="p-8">
+                      <div className="p-6 md:p-8">
                         <div className="flex justify-between items-start mb-4">
                           <div>
                             <p className="text-sm font-medium text-primary -mb-2">
                               {project.category}
                             </p>
-                            <h3 className="text-2xl font-technor mb-0 text-primary-light dark:text-primary transition-colors duration-300">
+                            <h3 className="text-2xl font-technor mb-0 text-primary-light dark:text-primary transition-colors duration-300 break-words">
                               {project.title}
                             </h3>
                           </div>
                         </div>
-                        <p className="dark:text-white/70 mb-6 font-pilcrow">
+                        <p className="dark:text-white/70 mb-6 font-pilcrow break-words">
                           {project.description}
                         </p>
                         <div className="flex flex-wrap gap-2 mb-6">
                           {project.technologies.map((tech, idx) => (
                             <span
                               key={idx}
-                              className="dark:bg-white/5 dark:text-white/70 px-4 py-1.5 rounded-full text-sm border dark:border-white/10 backdrop-blur-sm font-pilcrow"
+                              className="dark:bg-white/5 dark:text-white/70 px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm border dark:border-white/10 backdrop-blur-none md:backdrop-blur-sm font-pilcrow"
                             >
                               {tech}
                             </span>
@@ -129,10 +123,10 @@ export default function Portfolio() {
                       </div>
                     </div>
                   </Link>
-                </motion.div>
+                </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -147,11 +141,7 @@ export default function Portfolio() {
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+            <div
               className="text-center mb-16"
             >
               <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow">
@@ -161,7 +151,7 @@ export default function Portfolio() {
               <p className="dark:text-white/70 text-lg max-w-3xl mx-auto font-pilcrow">
                 While we excel in web, app, and software development in-house, we partner with specialized agencies to ensure the highest quality deliverables for our clients.
               </p>
-            </motion.div>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               {[
@@ -184,19 +174,15 @@ export default function Portfolio() {
                   icon: '🤝'
                 }
               ].map((section, sectionIndex) => (
-                <motion.div
+                <div
                   key={section.title}
-                  initial={{ opacity: 0, x: sectionIndex === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 + (sectionIndex * 0.2) }}
-                  viewport={{ once: true }}
                   className="group relative"
                 >
                   {/* Glow Effect */}
                   <div className={`absolute inset-0 bg-gradient-${section.gradient} from-primary/20 to-transparent rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-0 group-hover:opacity-100`} />
                   
                   {/* Card */}
-                  <div className="relative overflow-hidden rounded-2xl dark:bg-black/20 backdrop-blur-sm border dark:border-white/10 transition-all duration-500 group-hover:shadow-glow-lg">
+                  <div className="relative overflow-hidden rounded-2xl dark:bg-black/20 backdrop-blur-none md:backdrop-blur-sm border dark:border-white/10 transition-all duration-500 group-hover:shadow-glow-lg">
                     {/* Hover Gradient */}
                     <div className={`absolute inset-0 bg-gradient-${section.gradient} from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500`} />
                     
@@ -213,12 +199,8 @@ export default function Portfolio() {
                       
                       <ul className="space-y-4 relative">
                         {(Array.isArray(section.items) ? section.items : []).map((item, index) => (
-                          <motion.li
+                          <li
                             key={typeof item === 'string' ? item : item.text}
-                            initial={{ opacity: 0, x: sectionIndex === 0 ? -20 : 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.1 }}
-                            viewport={{ once: true }}
                             className="flex items-center group/item"
                           >
                             <span className="w-2 h-2 rounded-full bg-primary mr-3 group-hover/item:scale-150 transition-transform duration-300" />
@@ -241,12 +223,12 @@ export default function Portfolio() {
                                 </Link>
                               </div>
                             )}
-                          </motion.li>
+                          </li>
                         ))}
                       </ul>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -263,11 +245,7 @@ export default function Portfolio() {
         />
         
         <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+          <div
             className="max-w-5xl mx-auto text-center"
           >
             <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-6 font-pilcrow">
@@ -291,7 +269,7 @@ export default function Portfolio() {
               </Link>
               <Link
                 href="/about"
-                className="group flex items-center gap-2 bg-black/5 dark:bg-white/5 hover:dark:bg-white/10 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-sm"
+                className="group flex items-center gap-2 bg-black/5 dark:bg-white/5 hover:dark:bg-white/10 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm"
               >
                 Learn More About Us
                 <RiArrowRightLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1" />
@@ -299,11 +277,7 @@ export default function Portfolio() {
             </div>
 
             {/* Stats */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
+            <div 
               className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-20 border-t dark:border-white/10"
             >
               {[
@@ -312,20 +286,16 @@ export default function Portfolio() {
                 { number: '10+', label: 'Years Experience' },
                 { number: '25+', label: 'Team Members' }
               ].map((stat, index) => (
-                <motion.div
+                <div
                   key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 * index }}
-                  viewport={{ once: true }}
                   className="text-center"
                 >
                   <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.number}</div>
                   <div className="text-sm dark:text-white/70">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
