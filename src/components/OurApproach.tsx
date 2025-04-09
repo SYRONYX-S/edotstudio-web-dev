@@ -70,7 +70,7 @@ export default function OurApproach() {
               className="group relative"
             >
               {/* Card */}
-              <div className="relative overflow-hidden rounded-2xl bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-1">
+              <div className="relative overflow-hidden rounded-2xl p-1 glass-card">
                 {/* Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${approach.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out`} />
 

@@ -7,7 +7,6 @@ import { Check, ArrowRight, Briefcase, Code, FileSpreadsheet, DollarSign, Globe,
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
-import { AbstractBackground } from '@/components/AbstractBackground';
 import { hapticFeedback } from '@/utils/haptics';
 
 // Skills options for the form
@@ -165,7 +164,7 @@ export default function Careers() {
     <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
       {/* Abstract Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <AbstractBackground />
+        {/* <AbstractBackground /> */}
       </div>
       
       {/* Hero Section */}

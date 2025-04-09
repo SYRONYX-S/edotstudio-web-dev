@@ -40,15 +40,6 @@ const ClientsMarquee = () => {
       grayscaleDark: false,
     },
     { 
-      name: 'Brandlifte', 
-      logo: '/images/clients/Brandlifte.png', 
-      website: 'https://brandlifte.com',
-      width: 160,
-      height: 60,
-      grayscaleLight: false,
-      grayscaleDark: false,
-    },
-    { 
       name: 'Ayamon Polymers', 
       logo: '/images/clients/Ayamon-polymers.png', 
       website: 'https://dunes.com',
@@ -233,7 +224,7 @@ const ClientsMarquee = () => {
 
   // Desktop version with Framer Motion
   return (
-    <section className="py-20 bg-transparent relative">
+    <section className="py-20 bg-transparent relative dark:bg-black/10 ">
       <div className="container mx-auto px-4 mb-12">
         <div className="text-center">
           <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">

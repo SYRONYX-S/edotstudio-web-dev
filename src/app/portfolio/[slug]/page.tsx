@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { RiArrowLeftLine } from 'react-icons/ri';
 import { getProjectBySlug, type Project } from '../utils';
-import { AbstractBackground } from '@/components/AbstractBackground';
 import AnimatedTitle from '@/components/AnimatedTitle';
 
 interface Props {

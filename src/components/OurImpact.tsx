@@ -72,7 +72,7 @@ export default function OurImpact() {
               className="group relative transition-all duration-500 ease-out"
             >
               {/* Card */}
-              <div className="h-full relative rounded-2xl bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-500 ease-out hover:shadow-xl group-hover:border-primary/30">
+              <div className="h-full relative rounded-2xl p-6 overflow-hidden transition-all duration-500 ease-out hover:shadow-xl group-hover:border-primary/30 glass-card">
                 {/* Stat Display */}
                 <div className="absolute top-6 right-6">
                   <div className="text-right">

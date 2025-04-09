@@ -28,7 +28,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className={cn(
-        'group relative bg-background/50 dark:bg-background-dark/50 backdrop-blur-sm rounded-2xl p-6 overflow-hidden',
+        'group relative rounded-2xl p-6 overflow-hidden glass-card',
         className
       )}
     >

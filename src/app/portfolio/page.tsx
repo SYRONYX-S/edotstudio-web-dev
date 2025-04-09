@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { RiArrowRightLine, RiArrowRightUpLine } from 'react-icons/ri';
-import { AbstractBackground } from '@/components/AbstractBackground';
 import { projects } from './data';
 import { Project } from './utils';
 
@@ -29,7 +28,7 @@ export default function Portfolio() {
   return (
     <main className="min-h-screen relative bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
       {/* Abstract Background */}
-      <AbstractBackground className="!fixed" />
+      {/* <AbstractBackground className="!fixed" /> */}
 
       {/* Background Elements */}
 

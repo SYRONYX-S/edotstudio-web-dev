@@ -17,12 +17,12 @@ export default function ImpactCard({ title, description, icon, stats, index }: I
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-2xl bg-white/30 dark:bg-gray-900/30 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 hover:border-primary/50 dark:hover:border-primary/50 transition-colors duration-300"
+      className="group relative overflow-hidden rounded-2xl hover:border-primary/50 dark:hover:border-primary/50 transition-colors duration-300 glass-card p-6"
     >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[radial-gradient(circle_at_1px_1px,_var(--primary)_1px,_transparent_0)] bg-[length:20px_20px] transition-opacity duration-500 group-hover:opacity-[0.08] dark:group-hover:opacity-[0.1]" />
       
-      <div className="relative p-6">
+      <div className="relative z-10">
         {/* Stats with highlight */}
         <div className="absolute top-4 right-4">
           <div className="relative">

@@ -7,7 +7,8 @@ import CursorFollower from "./CursorFollower";
 import FloatingButtons from "./FloatingButtons";
 import Preloader from "./Preloader";
 import Providers from "../app/providers";
-import ScrollBackground from "./ScrollBackground";
+// import ScrollBackground from "./ScrollBackground"; // Old background
+import ParticleBackground from "./ParticleBackground"; // New background
 import PageWrapper from "./PageWrapper";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
@@ -16,9 +17,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <Preloader />
       
       {/* Background layer */}
-      <div className="fixed inset-0 z-[-1]">
-        <ScrollBackground />
-      </div>
+      <ParticleBackground />
       
       <div className="relative z-10">
         <a href="#main-content" className="skip-to-content">

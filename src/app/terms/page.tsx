@@ -6,7 +6,6 @@ import { FileText, Clock, Shield, DollarSign, AlertCircle, FileCheck } from 'luc
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
-import { AbstractBackground } from '@/components/AbstractBackground';
 
 export default function Terms() {
   const sections = [
@@ -88,13 +87,8 @@ export default function Terms() {
 
   return (
     <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
-      {/* Abstract Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <AbstractBackground />
-      </div>
-
       {/* Hero Section */}
-      <section className="relative mb-20">
+      <section className="relative py-16">
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

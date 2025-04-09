@@ -38,7 +38,7 @@ const FAQItem = ({ question, answer }: FAQItem) => {
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
-    hapticFeedback.impactLight();
+    hapticFeedback.selection();
   };
 
   return (
@@ -84,7 +84,7 @@ const FAQItem = ({ question, answer }: FAQItem) => {
 
 const FAQ = () => {
   return (
-    <section className="py-20">
+    <section className="py-20 dark:bg-black/10 ">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">

@@ -40,7 +40,10 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section ref={targetRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white-200 dark:bg-dark-200 backdrop-blur-sm">
+      <section 
+        ref={targetRef} 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
         {/* Enhanced animated circles */}
         <div className="absolute inset-0 overflow-hidden z-0">
           <motion.div 
@@ -208,7 +211,7 @@ export default function Home() {
             </motion.div>
             
             {/* Hero badges */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 0.8 }}
@@ -230,13 +233,13 @@ export default function Home() {
                 <RiTeamLine className="text-primary-500 mr-2" />
                 <span className="text-sm font-medium font-pilcrow">50+ Team Members</span>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
         </div>
       </section>
 
       {/* Services Section - Original Design */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden dark:bg-black/10 ">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -283,7 +286,7 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden dark:bg-black/10 ">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -334,7 +337,7 @@ export default function Home() {
       <ClientsMarquee />
 
       {/* Our Approach Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden dark:bg-black/10 ">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-grid-gray-900/[0.02] dark:bg-grid-white/[0.02] -z-10" />
         <div className="absolute inset-0 flex items-center justify-center -z-10">
@@ -437,7 +440,7 @@ export default function Home() {
       </section>
 
       {/* Our Impact Section */}
-      <section className="py-20 relative">
+      <section className="py-20 relative dark:bg-black/10 ">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -544,7 +547,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us - New Section */}
-      <section className="py-20 bg-transparent dark:bg-transparent">
+      <section className="py-20 bg-transparent dark:bg-black/10 ">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -626,7 +629,7 @@ export default function Home() {
       </section>
 
       {/* Partner With Us Section */}
-      <section className="py-20 bg-transparent dark:bg-transparent">
+      <section className="py-20 bg-transparent dark:bg-black/10 ">
         <div className="container mx-auto px-4 relative z-10">
           <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -683,7 +686,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-transparent dark:bg-transparent animated-gradient">
+      <section className="py-20 bg-transparent dark:bg-black/10  animated-gradient">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>

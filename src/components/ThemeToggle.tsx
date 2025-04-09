@@ -23,7 +23,7 @@ export default function ThemeToggle() {
     setTheme(newTheme);
     // Apply theme immediately for instant visual feedback
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    hapticFeedback.impactLight(); // Haptic feedback for theme toggle
+    hapticFeedback.selection(); // Use selection
   };
 
   if (!mounted) {

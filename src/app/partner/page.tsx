@@ -9,7 +9,6 @@ import { hapticFeedback } from '@/utils/haptics';
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
-import { AbstractBackground } from '@/components/AbstractBackground';
 
 // Partner programs data
 const partnerPrograms = [
@@ -114,11 +113,6 @@ export default function Partner() {
 
   return (
     <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
-      {/* Abstract Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <AbstractBackground />
-      </div>
-      
       {/* Hero Section */}
       <section className="relative mb-20">
         <div className="container mx-auto px-4 relative z-10">

@@ -9,7 +9,6 @@ import { RiArrowRightLine, RiCheckLine } from 'react-icons/ri';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
-import { AbstractBackground } from '@/components/AbstractBackground';
 
 // Data
 import { services } from '@/data';
@@ -176,7 +175,7 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white dark:bg-dark-300 p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 glass-card"
               >
                 <div className="text-4xl text-primary mb-6">
                   <service.icon />

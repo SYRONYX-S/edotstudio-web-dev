@@ -44,16 +44,18 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Initialize smooth scrolling with adjusted touch sensitivity
+  // Initialize smooth scrolling with adjusted touch sensitivity and damping
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.2, 
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5, // Increased touch sensitivity
-      smoothWheel: !isMobile, // Disable smooth wheel on mobile
+      wheelMultiplier: 1, 
+      touchMultiplier: 0.8, // Keep touch distance slightly reduced
+      smoothWheel: !isMobile, 
+      // Higher lerp = more smoothing/damping (slower response)
+      lerp: isMobile ? 0.2 : 0.1, // Significantly increase lerp on mobile
       infinite: false
     });
 
@@ -64,14 +66,29 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
     requestAnimationFrame(raf);
 
-    // Update Lenis options on mobile state change
-    lenis.options.smoothWheel = !isMobile;
-    lenis.options.touchMultiplier = isMobile ? 1.5 : 2; // Keep default (or higher) for desktop, adjust for mobile
+    // Dynamically update options 
+    const updateLenisOptions = () => {
+      lenis.options.smoothWheel = !isMobile;
+      lenis.options.touchMultiplier = isMobile ? 0.8 : 1; 
+      lenis.options.lerp = isMobile ? 0.2 : 0.1; // Update lerp dynamically too
+    };
+    updateLenisOptions(); 
+    
+    // Add resize listener to update options if isMobile state changes
+    const handleResize = () => {
+      const mobileCheck = window.innerWidth < 991;
+      if (mobileCheck !== isMobile) {
+        setIsMobile(mobileCheck); // Assuming setIsMobile is available from parent or context if needed
+        updateLenisOptions();
+      }
+    };
+    window.addEventListener('resize', handleResize);
 
     return () => {
       lenis.destroy();
+      window.removeEventListener('resize', handleResize);
     };
-  }, [isMobile]);
+  }, [isMobile]); // Rerun effect if isMobile state changes
 
   // Setup scroll progress bar with RAF for smoother updates
   useEffect(() => {

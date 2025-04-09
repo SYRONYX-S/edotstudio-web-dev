@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RiMailLine, RiPhoneLine, RiMapPinLine, RiSendPlane2Line, RiArrowRightLine } from 'react-icons/ri';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
-import { AbstractBackground } from '@/components/AbstractBackground';
 import { hapticFeedback } from '@/utils/haptics';
 
 // Components
@@ -123,12 +122,7 @@ export default function Contact() {
   ];
 
   return (
-    <main className="min-h-screen relative dark:bg-black pt-32 pb-20">
-      {/* Abstract Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <AbstractBackground />
-      </div>
-      
+    <section className="relative py-16">
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
@@ -342,6 +336,6 @@ export default function Contact() {
           <div className="absolute inset-0 pointer-events-none border border-white/20 dark:border-white/10 rounded-2xl"></div>
         </motion.div>
       </div>
-    </main>
+    </section>
   );
 } 

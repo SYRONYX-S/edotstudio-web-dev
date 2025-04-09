@@ -16,7 +16,7 @@ export default function ApproachCard({ title, description, icon, index }: Approa
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-white/50 to-white/30 dark:from-gray-900/50 dark:to-gray-900/30 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-1"
+      className="group relative overflow-hidden rounded-2xl p-1 glass-card"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 dark:from-primary/0 dark:to-primary/10 transform group-hover:scale-105 transition-transform duration-500 ease-out" />
       
