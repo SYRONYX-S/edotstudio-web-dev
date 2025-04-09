@@ -86,82 +86,37 @@ export default function Home() {
           />
         </div>
         
-        {/* Dust particles */}
-        <div className="dust-particles absolute inset-0 z-1">
-          <motion.div 
-            className="particle" 
-            style={{top: '10%', left: '15%'}}
-            animate={{ 
-              x: [0, -30, 0], 
-              y: [0, 30, 0],
-              opacity: [0, 1, 0]
-            }}
-            transition={{ 
-              duration: 30, 
-              repeat: Infinity,
-              ease: "linear" 
-            }}
-          />
-          <motion.div 
-            className="particle" 
-            style={{top: '35%', left: '80%'}}
-            animate={{ 
-              x: [0, -20, 0], 
-              y: [0, 20, 0],
-              opacity: [0, 1, 0]
-            }}
-            transition={{ 
-              duration: 25, 
-              repeat: Infinity,
-              ease: "linear" 
-            }}
-          />
-          <motion.div 
-            className="particle" 
-            style={{top: '70%', left: '35%'}}
-            animate={{ 
-              x: [0, -25, 0], 
-              y: [0, 25, 0],
-              opacity: [0, 1, 0]
-            }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity,
-              ease: "linear" 
-            }}
-          />
-          <motion.div 
-            className="particle" 
-            style={{top: '20%', left: '55%'}}
-            animate={{ 
-              x: [0, -15, 0], 
-              y: [0, 15, 0],
-              opacity: [0, 1, 0]
-            }}
-            transition={{ 
-              duration: 35, 
-              repeat: Infinity,
-              ease: "linear" 
-            }}
-          />
-          <motion.div 
-            className="particle" 
-            style={{top: '85%', left: '25%'}}
-            animate={{ 
-              x: [0, -22, 0], 
-              y: [0, 22, 0],
-              opacity: [0, 1, 0]
-            }}
-            transition={{ 
-              duration: 28, 
-              repeat: Infinity,
-              ease: "linear" 
-            }}
-          />
+        {/* Subtle Dust particles - Temporarily Commented Out for Performance Testing */}
+        {/*
+        <div className="absolute inset-0 z-1 pointer-events-none">
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-primary/10 dark:bg-primary/20"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                width: `${Math.random() * 2 + 1}px`,
+                height: `${Math.random() * 2 + 1}px`,
+              }}
+              animate={{
+                x: [0, (Math.random() - 0.5) * 30, 0],
+                y: [0, (Math.random() - 0.5) * 30, 0],
+                opacity: [0, 0.4, 0],
+              }}
+              transition={{
+                duration: Math.random() * 25 + 20,
+                repeat: Infinity,
+                ease: "linear",
+                delay: Math.random() * 8,
+              }}
+            />
+          ))}
         </div>
+        */}
         
         {/* Frosted glass overlay */}
-        <div className="absolute inset-0 bg-white/5 dark:bg-black/10 backdrop-blur-[5px] z-1"></div>
+        <div className="absolute inset-0 bg-white/5 dark:bg-black/10 backdrop-blur-[5px] z-2"></div>
         
         {/* Content */}
         <div className="container mx-auto px-4 z-10">
