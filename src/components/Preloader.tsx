@@ -11,7 +11,16 @@ export default function Preloader() {
   const { theme } = useTheme();
 
   useEffect(() => {
+    let progressInterval: NodeJS.Timeout;
     let loadTimeout: NodeJS.Timeout;
+
+    // Simulate progress for better UX
+    progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 90) return prev;
+        return prev + 10;
+      });
+    }, 200);
 
     // Preload all images and assets
     const preloadAssets = async () => {
@@ -34,25 +43,14 @@ export default function Preloader() {
         '/images/clients/Shazzam.png',
       ];
 
-      const totalAssets = images.length + 1; // +1 for fonts
-      let loadedAssets = 0;
-
-      const updateProgress = () => {
-        loadedAssets += 1;
-        setProgress((loadedAssets / totalAssets) * 100);
-      };
-
       try {
         // Preload all images
         await Promise.all(
           images.map(src => {
-            return new Promise<void>((resolve, reject) => {
+            return new Promise((resolve, reject) => {
               const img = new window.Image();
               img.src = src;
-              img.onload = () => {
-                updateProgress();
-                resolve();
-              };
+              img.onload = resolve;
               img.onerror = reject;
             });
           })
@@ -60,9 +58,9 @@ export default function Preloader() {
 
         // Wait for fonts to load
         await document.fonts.ready;
-        updateProgress();
 
         // Set progress to 100% and hide preloader after a short delay
+        setProgress(100);
         loadTimeout = setTimeout(() => {
           setLoading(false);
         }, 500);
@@ -76,6 +74,7 @@ export default function Preloader() {
     preloadAssets();
 
     return () => {
+      clearInterval(progressInterval);
       clearTimeout(loadTimeout);
     };
   }, []);
@@ -119,6 +118,7 @@ export default function Preloader() {
                     delay: i * 0.3,
                   }}
                   style={{
+                    transform: 'translateZ(0)',
                     width: `${(i + 1) * 100}px`,
                     height: `${(i + 1) * 100}px`,
                     left: `-${((i + 1) * 100) / 2}px`,

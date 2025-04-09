@@ -198,8 +198,7 @@ const ClientsMarquee = () => {
             className="flex gap-8 animate-marquee"
             style={{
               willChange: 'transform',
-              transform: 'translate3d(0,0,0)',
-              backfaceVisibility: 'hidden',
+              transform: 'translateZ(0)',
             }}
           >
             {allClients.map((client, index) => (
@@ -270,8 +269,7 @@ const ClientsMarquee = () => {
           }}
           style={{ 
             willChange: 'transform',
-            transform: 'translate3d(0,0,0)',
-            backfaceVisibility: 'hidden',
+            transform: 'translateZ(0)',
             animationPlayState: isPaused ? 'paused' : 'running'
           }}
         >

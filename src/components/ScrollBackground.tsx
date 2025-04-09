@@ -69,41 +69,36 @@ export default function ScrollBackground() {
     };
   }, []);
   
-  const debounce = (func: (...args: any[]) => void, wait: number) => {
-    let timeout: NodeJS.Timeout;
-    return function executedFunction(...args: any[]) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  };
-
-  // Adjust MAX_SHAPES based on viewport width
-  const MAX_SHAPES = viewport.width < 991 ? 12 : 24;
-
-  // Debounce the scroll event listener
+  // Calculate scroll velocity and adjust animation speed
   useEffect(() => {
-    const handleScroll = debounce(() => {
+    const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const delta = Math.abs(currentScrollY - prevScrollY.current);
-      const newVelocity = Math.min(delta * 0.25, 2);
+      
+      // More sensitive velocity calculation
+      const newVelocity = Math.min(delta * 0.25, 2); // Increase sensitivity but cap at 10
       setScrollVelocity(newVelocity);
+      
+      // More dramatic speed factor
       const newSpeedFactor = Math.min(1 + (newVelocity * SCROLL_SPEED_MULTIPLIER * 0.01), 12);
       setSpeedFactor(newSpeedFactor);
+      
+      // Update previous scroll position
       prevScrollY.current = currentScrollY;
+      
+      // Reset speed factor after scrolling stops
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
+      
       scrollTimeoutRef.current = setTimeout(() => {
-        setSpeedFactor(1);
+        setSpeedFactor(1); // Reset to normal speed
         setScrollVelocity(0);
       }, 150);
-    }, 100);
-
+    };
+    
     window.addEventListener('scroll', handleScroll, { passive: true });
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (scrollTimeoutRef.current) {
@@ -178,12 +173,6 @@ export default function ScrollBackground() {
     setShapes(newShapes);
   }, []);
   
-  // Apply hardware acceleration to animated elements
-  const shapeStyle = {
-    transform: 'translate3d(0,0,0)',
-    backfaceVisibility: 'hidden' as 'hidden',
-  };
-  
   return (
     <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
       <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black"></div>
@@ -216,20 +205,183 @@ export default function ScrollBackground() {
         return (
           <motion.div
             key={shape.id}
+            className="absolute"
             style={{
-              ...shapeStyle,
-              position: 'absolute',
-              top: shape.y,
               left: shape.x,
+              top: shape.y,
               width: shape.size,
               height: shape.size,
-              backgroundColor: shape.color,
               filter: `blur(${shape.blur})`,
-              transform: `translate3d(0,0,0) rotate(${shape.rotate}deg)`,
               opacity: shape.opacity,
+              transformOrigin: 'center',
+              perspective: perspective,
+              transformStyle: transformStyle as any,
+              transform: 'translateZ(0)',
               transition: `transform ${duration}s linear`,
             }}
-          />
+            animate={{
+              x: [0, xMovement],
+              y: [0, yMovement],
+              rotate: [0, rotateMovement],
+              scale: [1, shape.direction.y > 0 ? 1.1 : 0.9]
+            }}
+            transition={{
+              duration: duration,
+              repeat: Infinity,
+              repeatType: "reverse" as const,
+              ease: "easeInOut",
+              delay: shape.initialDelay || 0,
+            }}
+          >
+            {/* Render appropriate shape based on type */}
+            {shape.type === 'circle' && (
+              <div 
+                className="w-full h-full rounded-full"
+                style={{
+                  background: gradientBg || shape.color,
+                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                }}
+              />
+            )}
+            
+            {shape.type === 'square' && (
+              <div 
+                className="w-full h-full rounded-lg"
+                style={{
+                  background: gradientBg || shape.color,
+                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                }}
+              />
+            )}
+            
+            {shape.type === 'triangle' && (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'transparent',
+                  borderLeft: `${parseInt(shape.size) / 2}px solid transparent`,
+                  borderRight: `${parseInt(shape.size) / 2}px solid transparent`,
+                  borderBottom: `${parseInt(shape.size)}px solid ${shape.color}`,
+                  filter: `drop-shadow(0 ${shape.depth}px ${shape.depth}px rgba(0,0,0,0.15))`,
+                }}
+              />
+            )}
+            
+            {shape.type === 'donut' && (
+              <div 
+                className="w-full h-full rounded-full" 
+                style={{
+                  border: `${parseInt(shape.size) / 12}px solid ${shape.color}`,
+                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                }}
+              />
+            )}
+            
+            {/* 3D Cube */}
+            {shape.type === 'cube' && (
+              <div className="relative w-full h-full transform-style-3d">
+                {/* Front face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateZ(${parseInt(shape.size) / 4}px)`,
+                    boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
+                  }}
+                />
+                {/* Back face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateZ(-${parseInt(shape.size) / 4}px)`,
+                  }}
+                />
+                {/* Left face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateX(-${parseInt(shape.size) / 4}px) rotateY(90deg)`,
+                  }}
+                />
+                {/* Right face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateX(${parseInt(shape.size) / 4}px) rotateY(-90deg)`,
+                  }}
+                />
+                {/* Top face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateY(-${parseInt(shape.size) / 4}px) rotateX(90deg)`,
+                  }}
+                />
+                {/* Bottom face */}
+                <div 
+                  className="absolute inset-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    transform: `translateY(${parseInt(shape.size) / 4}px) rotateX(-90deg)`,
+                  }}
+                />
+              </div>
+            )}
+            
+            {/* 3D Pyramid */}
+            {shape.type === 'pyramid' && (
+              <div className="relative w-full h-full transform-style-3d">
+                {/* Base */}
+                <div 
+                  className="absolute bottom-0 left-0 right-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: '4px',
+                    width: '100%',
+                    transform: `translateY(${parseInt(shape.size) / 2}px) rotateX(-90deg)`,
+                  }}
+                />
+                {/* Front face */}
+                <div 
+                  className="absolute left-0 right-0 bottom-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: `${parseInt(shape.size) / 2}px`,
+                    width: '100%',
+                    transform: 'rotateX(30deg)',
+                    transformOrigin: 'bottom',
+                  }}
+                />
+                {/* Left face */}
+                <div 
+                  className="absolute left-0 bottom-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: `${parseInt(shape.size) / 2}px`,
+                    width: `${parseInt(shape.size) / 2}px`,
+                    transform: 'rotateY(-30deg) rotateX(30deg)',
+                    transformOrigin: 'bottom right',
+                  }}
+                />
+                {/* Right face */}
+                <div 
+                  className="absolute right-0 bottom-0 bg-opacity-80" 
+                  style={{
+                    background: gradientBg || shape.color,
+                    height: `${parseInt(shape.size) / 2}px`,
+                    width: `${parseInt(shape.size) / 2}px`,
+                    transform: 'rotateY(30deg) rotateX(30deg)',
+                    transformOrigin: 'bottom left',
+                  }}
+                />
+              </div>
+            )}
+          </motion.div>
         );
       })}
       
