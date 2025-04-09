@@ -70,7 +70,7 @@ export default function Partner() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    hapticFeedback.light();
+    hapticFeedback.selection();
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -79,10 +79,9 @@ export default function Partner() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    hapticFeedback.medium();
+    hapticFeedback.impactMedium();
     
     try {
-      // Send form data to the API endpoint
       const response = await fetch('/api/submit-partner', {
         method: 'POST',
         headers: {
@@ -94,7 +93,7 @@ export default function Partner() {
       const result = await response.json();
       
       if (result.success) {
-        hapticFeedback.success();
+        hapticFeedback.notificationSuccess();
         // Reset form
         setFormData({
           name: '',
@@ -104,11 +103,12 @@ export default function Partner() {
           message: ''
         });
       } else {
-        hapticFeedback.error();
+        hapticFeedback.notificationError();
         throw new Error(result.message || 'Failed to submit application');
       }
     } catch (error) {
       console.error('Error submitting application:', error);
+      hapticFeedback.notificationError();
     }
   };
 

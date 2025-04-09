@@ -17,8 +17,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, href, variant = 'default', size = 'md', icon, children, ...props }, ref) => {
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) => {
-      hapticFeedback.light();
+    const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+      hapticFeedback.impactLight();
       if (props.onClick) {
         props.onClick(e as React.MouseEvent<HTMLButtonElement>);
       }

@@ -44,17 +44,16 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Initialize smooth scrolling only on desktop
+  // Initialize smooth scrolling with adjusted touch sensitivity
   useEffect(() => {
-    if (isMobile) return;
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1.5, // Increased touch sensitivity
+      smoothWheel: !isMobile, // Disable smooth wheel on mobile
       infinite: false
     });
 
@@ -65,46 +64,63 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
     requestAnimationFrame(raf);
 
+    // Update Lenis options on mobile state change
+    lenis.options.smoothWheel = !isMobile;
+    lenis.options.touchMultiplier = isMobile ? 1.5 : 2; // Keep default (or higher) for desktop, adjust for mobile
+
     return () => {
       lenis.destroy();
     };
   }, [isMobile]);
 
-  // Setup scroll progress bar with debouncing
+  // Setup scroll progress bar with RAF for smoother updates
   useEffect(() => {
     if (!progressBarRef.current) return;
+    
+    let ticking = false;
+    let scrollPercentage = 0;
+    let animationFrame: number;
 
     const updateProgressBar = () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      scrollTimeoutRef.current = setTimeout(() => {
-        if (!progressBarRef.current) return;
-        
-        const scrollPosition = window.scrollY;
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const totalScrollableDistance = documentHeight - windowHeight;
-        
-        const scrollPercentage = 
-          totalScrollableDistance > 0 
-            ? (scrollPosition / totalScrollableDistance) * 100 
-            : 0;
-            
-        progressBarRef.current.style.width = `${scrollPercentage}%`;
-      }, 10); // Debounce scroll events
+      if (!progressBarRef.current) return;
+      
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const totalScrollableDistance = documentHeight - windowHeight;
+      
+      scrollPercentage = 
+        totalScrollableDistance > 0 
+          ? (scrollPosition / totalScrollableDistance) * 100 
+          : 0;
+          
+      // Use GSAP for smoother animation
+      gsap.to(progressBarRef.current, {
+        width: `${scrollPercentage}%`,
+        duration: 0.1,
+        ease: "power1.out",
+        overwrite: true
+      });
     };
 
-    window.addEventListener('scroll', updateProgressBar, { passive: true });
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        animationFrame = requestAnimationFrame(() => {
+          updateProgressBar();
+          ticking = false;
+        });
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
     // Initial update
     updateProgressBar();
     
     return () => {
-      window.removeEventListener('scroll', updateProgressBar);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(animationFrame);
     };
   }, [pathname]);
 

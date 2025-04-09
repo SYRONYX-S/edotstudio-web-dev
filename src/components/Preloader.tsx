@@ -28,9 +28,8 @@ export default function Preloader() {
         '/logo-dark.svg',
         '/logo-light.svg',
         '/images/hero/hero-graphic.svg',
+        // Only include images that are confirmed to exist
         '/images/clients/Al-Khuloud.png',
-        '/images/clients/Brandlifte.png',
-        '/images/clients/Ayamon-polymers.png',
         '/images/clients/carbon.png',
         '/images/clients/Celecca.png',
         '/images/clients/Dplus.png',
@@ -39,7 +38,6 @@ export default function Preloader() {
         '/images/clients/Hikeins.png',
         '/images/clients/Indigo-tmt.png',
         '/images/clients/Minar-TMT.png',
-        '/images/clients/nadancamp.png',
         '/images/clients/Shazzam.png',
       ];
 
@@ -47,11 +45,11 @@ export default function Preloader() {
         // Preload all images
         await Promise.all(
           images.map(src => {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
               const img = new window.Image();
               img.src = src;
               img.onload = resolve;
-              img.onerror = reject;
+              img.onerror = resolve; // Resolve even if image fails to load
             });
           })
         );
@@ -100,6 +98,9 @@ export default function Preloader() {
                 ease: "linear"
               }}
               className="absolute"
+              style={{
+                transform: 'translateZ(0)'
+              }}
             >
               {[...Array(3)].map((_, i) => (
                 <motion.div
@@ -140,7 +141,10 @@ export default function Preloader() {
                 duration: 0.5,
                 ease: "easeOut"
               }}
-              className="relative w-32 h-8 mb-8"
+              className="relative w-32 h-8"
+              style={{
+                transform: 'translateZ(0)'
+              }}
             >
               <Image
                 src="/logo-dark.svg"
@@ -157,19 +161,6 @@ export default function Preloader() {
                 priority
               />
             </motion.div>
-
-            {/* Progress Bar */}
-            <div className="w-48 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-primary"
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-            <div className="mt-4 text-sm text-gray-600 dark:text-gray-400">
-              Loading... {progress}%
-            </div>
           </div>
         </motion.div>
       )}

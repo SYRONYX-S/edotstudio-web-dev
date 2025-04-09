@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { RiMailLine, RiPhoneLine, RiMapPinLine, RiSendPlane2Line, RiArrowRightLine } from 'react-icons/ri';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import { AbstractBackground } from '@/components/AbstractBackground';
+import { hapticFeedback } from '@/utils/haptics';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -53,6 +54,7 @@ export default function Contact() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    hapticFeedback.selection();
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -61,22 +63,38 @@ export default function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    hapticFeedback.impactMedium();
     setIsSubmitting(true);
     setSubmitSuccess(false);
     setSubmitError(false);
     
-    // Simulate form submission
     try {
-      // In a real application, you would submit the form data to your backend or a form service
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+      const response = await fetch('/api/submit-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+
+      const result = await response.json();
+
+      if (result.success) {
+        hapticFeedback.notificationSuccess();
+        setSubmitSuccess(true);
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        hapticFeedback.notificationError();
+        setSubmitError(true);
+      }
     } catch (error) {
+      console.error('Error submitting contact form:', error);
+      hapticFeedback.notificationError();
       setSubmitError(true);
     } finally {
       setIsSubmitting(false);

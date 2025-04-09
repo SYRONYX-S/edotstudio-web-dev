@@ -10,6 +10,7 @@ import { usePathname } from 'next/navigation';
 
 // Components
 import Button from './Button';
+import { hapticFeedback } from '@/utils/haptics';
 
 const navLinks = [
   { name: 'HOME', href: '/' },
@@ -106,7 +107,12 @@ export default function Navigation() {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            onClick={() => {
+              const newTheme = theme === 'dark' ? 'light' : 'dark';
+              setTheme(newTheme);
+              document.documentElement.classList.toggle('dark', newTheme === 'dark');
+              hapticFeedback.impactLight();
+            }}
             className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -147,7 +153,10 @@ export default function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={() => {
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+              hapticFeedback.impactLight();
+            }}
             className="md:hidden p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
           >
             {isMobileMenuOpen ? (
@@ -187,7 +196,10 @@ export default function Navigation() {
                           ? 'text-primary-light' 
                           : 'hover:text-primary'
                       }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        hapticFeedback.selection();
+                      }}
                     >
                       <div className="flex items-center">
                         {link.name}

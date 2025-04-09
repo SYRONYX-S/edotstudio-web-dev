@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
+import { hapticFeedback } from '@/utils/haptics';
 
 interface FAQItem {
   question: string;
@@ -35,6 +36,11 @@ const faqData: FAQItem[] = [
 const FAQItem = ({ question, answer }: FAQItem) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    hapticFeedback.impactLight();
+  };
+
   return (
     <motion.div
       initial={false}
@@ -42,7 +48,7 @@ const FAQItem = ({ question, answer }: FAQItem) => {
     >
       <button
         className="w-full py-6 flex items-center justify-between text-left"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
       >
         <span className="text-lg font-medium text-gray-900 dark:text-gray-100">
           {question}

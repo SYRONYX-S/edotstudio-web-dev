@@ -1,405 +1,155 @@
 'use client';
 
-import React, { useEffect, useState, useMemo, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
 
-interface Shape {
+// Number of gradient spots to create
+const GRADIENT_SPOTS = 8;
+
+// Define the type for a gradient spot
+interface Spot {
   id: number;
-  x: string;
-  y: string;
   size: string;
-  rotate: number;
-  opacity: number;
-  blur: string;
-  depth: number;
-  type: 'circle' | 'square' | 'triangle' | 'donut' | 'cube' | 'pyramid';
+  left: string;
+  top: string;
   color: string;
-  gradient?: boolean;
-  initialDelay?: number;
-  animationDuration?: number;
-  moveDistance?: number;
-  direction: {
-    x: number;
-    y: number;
-    rotate: number;
-  };
+  blur: string;
+  parallaxAmount: number;
+  opacity: number;
 }
 
-// Create a fixed number of transform values - keep user's custom value
-const MAX_SHAPES = 24;
+// Sub-component for rendering a single gradient spot
+interface GradientSpotProps {
+  spot: Spot;
+  smoothScrollY: MotionValue<number>;
+  smoothScrollProgress: MotionValue<number>;
+}
 
-// Scroll animation speed multiplier - controls how much scroll affects animation speed
-const SCROLL_SPEED_MULTIPLIER = 120;
+function GradientSpot({ spot, smoothScrollY, smoothScrollProgress }: GradientSpotProps) {
+  // Create scroll-linked transform values inside the component
+  const y = useTransform(smoothScrollY, [0, 2000], [0, spot.parallaxAmount]);
+  const scale = useTransform(
+    smoothScrollProgress,
+    [0, 1],
+    [1, spot.parallaxAmount > 0 ? 1.1 : 0.9]
+  );
+
+  return (
+    <motion.div
+      key={spot.id}
+      className="absolute rounded-full"
+      style={{
+        width: spot.size,
+        height: spot.size,
+        left: spot.left,
+        top: spot.top,
+        y, // Use the transform value directly
+        scale, // Use the transform value directly
+        opacity: spot.opacity,
+        background: `radial-gradient(circle at center, ${spot.color}, transparent 70%)`,
+        filter: `blur(${spot.blur})`,
+        willChange: 'transform',
+        transform: 'translateZ(0)', // Ensure GPU acceleration
+        backfaceVisibility: 'hidden'
+      }}
+    />
+  );
+}
+
 
 export default function ScrollBackground() {
-  const [shapes, setShapes] = useState<Shape[]>([]);
+  const [spots, setSpots] = useState<Spot[]>([]);
   const { scrollY, scrollYProgress } = useScroll();
+  const [isMobile, setIsMobile] = useState(false);
   
-  // Use a spring for smooth scrolling effect
-  const smoothScrollY = useSpring(scrollY, { damping: 50, stiffness: 400 });
-  
-  // Track scroll velocity for animation speed modulation
-  const [scrollVelocity, setScrollVelocity] = useState(0);
-  const prevScrollY = useRef(0);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // Smoothed scroll values for better performance
+  const smoothScrollY = useSpring(scrollY, { damping: 30, stiffness: 200 });
+  const smoothScrollProgress = useSpring(scrollYProgress, { damping: 30, stiffness: 200 });
   
   // Track viewport dimensions
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
   
-  // Animation speed factor (1 = normal, >1 = faster)
-  const [speedFactor, setSpeedFactor] = useState(1);
-  
-  // Update viewport dimensions
+  // Update viewport dimensions and check if mobile
   useEffect(() => {
     const updateViewportSize = () => {
       setViewport({
         width: window.innerWidth,
         height: window.innerHeight
       });
+      setIsMobile(window.innerWidth < 991);
     };
     
-    // Initialize
     updateViewportSize();
-    
-    // Listen for resize
     window.addEventListener('resize', updateViewportSize);
-    
-    return () => {
-      window.removeEventListener('resize', updateViewportSize);
-    };
+    return () => window.removeEventListener('resize', updateViewportSize);
   }, []);
   
-  // Calculate scroll velocity and adjust animation speed
+  // Generate gradient spots (only once on mount)
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const delta = Math.abs(currentScrollY - prevScrollY.current);
-      
-      // More sensitive velocity calculation
-      const newVelocity = Math.min(delta * 0.25, 2); // Increase sensitivity but cap at 10
-      setScrollVelocity(newVelocity);
-      
-      // More dramatic speed factor
-      const newSpeedFactor = Math.min(1 + (newVelocity * SCROLL_SPEED_MULTIPLIER * 0.01), 12);
-      setSpeedFactor(newSpeedFactor);
-      
-      // Update previous scroll position
-      prevScrollY.current = currentScrollY;
-      
-      // Reset speed factor after scrolling stops
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      
-      scrollTimeoutRef.current = setTimeout(() => {
-        setSpeedFactor(1); // Reset to normal speed
-        setScrollVelocity(0);
-      }, 150);
-    };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
-  
-  useEffect(() => {
-    // Generate shapes only once on component mount
-    const types: Array<'circle' | 'square' | 'triangle' | 'donut' | 'cube' | 'pyramid'> = 
-      ['circle', 'square', 'triangle', 'donut', 'cube', 'pyramid'];
-    
-    // Brighter colors within brand palette
-    const colors = [
-      'rgba(255, 77, 0, 0.5)',         // primary - brighter
-      'rgba(255, 115, 64, 0.45)',      // primary-light - brighter
-      'rgba(232, 96, 0, 0.6)',         // primary variant - brighter
-      'rgba(255, 177, 0, 0.4)',        // orange-yellow - brighter
-      'rgba(255, 255, 255, 0.15)',     // white
-      'rgba(0, 0, 0, 0.1)',            // black
+    // BRAND COLORS ONLY
+    const colorsLight = [
+      'rgba(255, 77, 0, 0.3)',    // Primary (Opacity: 0.3)
+      'rgba(255, 115, 64, 0.35)', // Primary light (Opacity: 0.35)
+      'rgba(232, 96, 0, 0.3)',    // Primary variant (Opacity: 0.3)
+      'rgba(255, 177, 0, 0.25)', // Orange-yellow (Opacity: 0.25)
+    ];
+    // Dark mode - Use same brand colors, just reduce alpha slightly
+    const colorsDark = [
+      'rgba(255, 77, 0, 0.2)',    // Primary (Opacity: 0.2)
+      'rgba(255, 115, 64, 0.25)', // Primary light (Opacity: 0.25)
+      'rgba(232, 96, 0, 0.2)',    // Primary variant (Opacity: 0.2)
+      'rgba(255, 177, 0, 0.15)', // Orange-yellow (Opacity: 0.15)
     ];
     
-    // Create shapes with better distribution from center
-    const newShapes: Shape[] = [];
-    for (let i = 0; i < MAX_SHAPES; i++) {
-      const sizeValue = Math.random() * 180 + 80; // Slightly larger shapes
-      const shapeType = types[Math.floor(Math.random() * types.length)];
+    const isDark = document.documentElement.classList.contains('dark');
+    const currentColors = isDark ? colorsDark : colorsLight;
+
+    const newSpots: Spot[] = [];
+    for (let i = 0; i < GRADIENT_SPOTS; i++) {
+      const size = Math.floor(Math.random() * 400) + 300; // 300-700px
+      const xPos = (i % 4) * 25 + Math.random() * 15; 
+      const yPosRow = Math.floor(i / 4);
+      const yPos = yPosRow * 50 + Math.random() * 30;
+      const color = currentColors[Math.floor(Math.random() * currentColors.length)];
+      const parallaxAmount = Math.random() * 250 + 100; // 100-350px parallax
+      const parallaxDirection = Math.random() > 0.5 ? 1 : -1;
+      const parallaxValue = parallaxAmount * parallaxDirection;
       
-      // Determine if we should use a gradient
-      const useGradient = Math.random() > 0.5;
-      
-      // Improved positioning - center weighted with spread
-      // Generate positions around the center of the screen with some variation
-      const angle = Math.random() * Math.PI * 2; // Random angle around center
-      const distance = Math.random() * 40 + 10;  // Random distance from center (10-50%)
-      
-      // Convert polar coordinates to cartesian (centered at 50%, 50%)
-      const x = 50 + Math.cos(angle) * distance;
-      const y = 50 + Math.sin(angle) * distance;
-      
-      // Animation parameters - keep user's custom values
-      const initialDelay = Math.random() * 1; // Random delay between 0-1s
-      const animationDuration = Math.random() * 8 + 6; // Random duration between 7-15s
-      const moveDistance = Math.random() * 80 + 80; // Random movement distance between 80-160px
-      
-      // Random movement directions for consistent animation
-      const direction = {
-        x: Math.random() > 0.5 ? 1 : -1,
-        y: Math.random() > 0.5 ? 1 : -1,
-        rotate: Math.random() > 0.5 ? 1 : -1
-      };
-      
-      newShapes.push({
+      newSpots.push({
         id: i,
-        x: `${x}%`,
-        y: `${y}%`,
-        size: `${sizeValue}px`,
-        rotate: Math.random() * 360,
-        opacity: Math.random() * 0.4 + 0.2, // Slightly higher base opacity
-        blur: `${Math.random() * 15 + 5}px`,
-        depth: Math.random() * 5 + 2, // For 3D effects
-        type: shapeType,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        gradient: useGradient,
-        initialDelay,
-        animationDuration,
-        moveDistance,
-        direction
+        size: `${size}px`,
+        left: `${xPos}%`,
+        top: `${yPos}%`,
+        color, // Use theme-appropriate brand color
+        blur: `${Math.floor(Math.random() * 40) + 70}px`, // 70-110px blur
+        parallaxAmount: parallaxValue,
+        opacity: Math.random() * 0.4 + 0.4 // Increased base opacity: 0.4-0.8
       });
     }
-    setShapes(newShapes);
-  }, []);
+    
+    setSpots(newSpots);
+  }, []); // Run only once
   
   return (
     <div className="fixed inset-0 overflow-hidden -z-10 pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black"></div>
+      {/* Base background gradient (Theme Aware) - Adjusted dark colors */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-100 dark:from-gray-950 dark:to-[#0a0a0a] transition-colors duration-300"></div>
       
-      {/* Grid overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
+      {/* Grid overlay (Theme Aware) - Slightly reduced opacity */}
+      <div className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.01)_1px,transparent_1px)] [background-size:20px_20px] opacity-50 dark:opacity-30"></div>
       
-      {/* Floating shapes */}
-      {shapes.map((shape) => {
-        // Determine if this is a 3D shape
-        const is3DShape = shape.type === 'cube' || shape.type === 'pyramid';
-        
-        // For 3D shapes, we need to add perspective and transform-style properties
-        const perspective = is3DShape ? '800px' : 'none';
-        const transformStyle = is3DShape ? 'preserve-3d' : 'flat';
-        
-        // Create gradient background for shapes with gradient flag
-        const gradientBg = shape.gradient 
-          ? `linear-gradient(135deg, ${shape.color}, rgba(255, 77, 0, 0.3))` 
-          : undefined;
-        
-        // Calculate transition duration - speeds up during scroll
-        const duration = (shape.animationDuration || 10) / speedFactor;
-        
-        // Movement values based on shape.direction
-        const xMovement = (shape.moveDistance || 80) * shape.direction.x;
-        const yMovement = (shape.moveDistance || 80) * shape.direction.y;
-        const rotateMovement = 25 * shape.direction.rotate;
-        
-        return (
-          <motion.div
-            key={shape.id}
-            className="absolute"
-            style={{
-              left: shape.x,
-              top: shape.y,
-              width: shape.size,
-              height: shape.size,
-              filter: `blur(${shape.blur})`,
-              opacity: shape.opacity,
-              transformOrigin: 'center',
-              perspective: perspective,
-              transformStyle: transformStyle as any,
-              transform: 'translateZ(0)',
-              transition: `transform ${duration}s linear`,
-            }}
-            animate={{
-              x: [0, xMovement],
-              y: [0, yMovement],
-              rotate: [0, rotateMovement],
-              scale: [1, shape.direction.y > 0 ? 1.1 : 0.9]
-            }}
-            transition={{
-              duration: duration,
-              repeat: Infinity,
-              repeatType: "reverse" as const,
-              ease: "easeInOut",
-              delay: shape.initialDelay || 0,
-            }}
-          >
-            {/* Render appropriate shape based on type */}
-            {shape.type === 'circle' && (
-              <div 
-                className="w-full h-full rounded-full"
-                style={{
-                  background: gradientBg || shape.color,
-                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
-                }}
-              />
-            )}
-            
-            {shape.type === 'square' && (
-              <div 
-                className="w-full h-full rounded-lg"
-                style={{
-                  background: gradientBg || shape.color,
-                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
-                }}
-              />
-            )}
-            
-            {shape.type === 'triangle' && (
-              <div
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: 'transparent',
-                  borderLeft: `${parseInt(shape.size) / 2}px solid transparent`,
-                  borderRight: `${parseInt(shape.size) / 2}px solid transparent`,
-                  borderBottom: `${parseInt(shape.size)}px solid ${shape.color}`,
-                  filter: `drop-shadow(0 ${shape.depth}px ${shape.depth}px rgba(0,0,0,0.15))`,
-                }}
-              />
-            )}
-            
-            {shape.type === 'donut' && (
-              <div 
-                className="w-full h-full rounded-full" 
-                style={{
-                  border: `${parseInt(shape.size) / 12}px solid ${shape.color}`,
-                  boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
-                }}
-              />
-            )}
-            
-            {/* 3D Cube */}
-            {shape.type === 'cube' && (
-              <div className="relative w-full h-full transform-style-3d">
-                {/* Front face */}
-                <div 
-                  className="absolute inset-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    transform: `translateZ(${parseInt(shape.size) / 4}px)`,
-                    boxShadow: `0 ${shape.depth}px ${shape.depth * 2}px rgba(0,0,0,0.1)`,
-                  }}
-                />
-                {/* Back face */}
-                <div 
-                  className="absolute inset-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    transform: `translateZ(-${parseInt(shape.size) / 4}px)`,
-                  }}
-                />
-                {/* Left face */}
-                <div 
-                  className="absolute inset-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    transform: `translateX(-${parseInt(shape.size) / 4}px) rotateY(90deg)`,
-                  }}
-                />
-                {/* Right face */}
-                <div 
-                  className="absolute inset-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    transform: `translateX(${parseInt(shape.size) / 4}px) rotateY(-90deg)`,
-                  }}
-                />
-                {/* Top face */}
-                <div 
-                  className="absolute inset-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    transform: `translateY(-${parseInt(shape.size) / 4}px) rotateX(90deg)`,
-                  }}
-                />
-                {/* Bottom face */}
-                <div 
-                  className="absolute inset-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    transform: `translateY(${parseInt(shape.size) / 4}px) rotateX(-90deg)`,
-                  }}
-                />
-              </div>
-            )}
-            
-            {/* 3D Pyramid */}
-            {shape.type === 'pyramid' && (
-              <div className="relative w-full h-full transform-style-3d">
-                {/* Base */}
-                <div 
-                  className="absolute bottom-0 left-0 right-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    height: '4px',
-                    width: '100%',
-                    transform: `translateY(${parseInt(shape.size) / 2}px) rotateX(-90deg)`,
-                  }}
-                />
-                {/* Front face */}
-                <div 
-                  className="absolute left-0 right-0 bottom-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    height: `${parseInt(shape.size) / 2}px`,
-                    width: '100%',
-                    transform: 'rotateX(30deg)',
-                    transformOrigin: 'bottom',
-                  }}
-                />
-                {/* Left face */}
-                <div 
-                  className="absolute left-0 bottom-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    height: `${parseInt(shape.size) / 2}px`,
-                    width: `${parseInt(shape.size) / 2}px`,
-                    transform: 'rotateY(-30deg) rotateX(30deg)',
-                    transformOrigin: 'bottom right',
-                  }}
-                />
-                {/* Right face */}
-                <div 
-                  className="absolute right-0 bottom-0 bg-opacity-80" 
-                  style={{
-                    background: gradientBg || shape.color,
-                    height: `${parseInt(shape.size) / 2}px`,
-                    width: `${parseInt(shape.size) / 2}px`,
-                    transform: 'rotateY(30deg) rotateX(30deg)',
-                    transformOrigin: 'bottom left',
-                  }}
-                />
-              </div>
-            )}
-          </motion.div>
-        );
-      })}
+      {/* Gradient spots using brand colors */}
+      {spots.map((spot) => (
+        <GradientSpot 
+          key={spot.id} 
+          spot={spot} 
+          smoothScrollY={smoothScrollY} 
+          smoothScrollProgress={smoothScrollProgress} 
+        />
+      ))}
       
-      {/* Gradient overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-30 dark:from-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent opacity-20 dark:from-black"></div>
-      <div className="absolute inset-0 bg-gradient-to-l from-white via-transparent to-transparent opacity-20 dark:from-black"></div>
-      
-      {/* Noise texture overlay for subtle grain effect */}
+      {/* Subtle noise texture overlay */}
       <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.03] bg-noise"></div>
-      
-      {/* Add some CSS classes for 3D transforms */}
-      <style jsx global>{`
-        .transform-style-3d {
-          transform-style: preserve-3d;
-        }
-      `}</style>
     </div>
   );
-} 
+}

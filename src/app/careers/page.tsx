@@ -97,28 +97,29 @@ export default function Careers() {
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    hapticFeedback.light();
+    hapticFeedback.selection();
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
   
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, category: 'skills' | 'projectTypes') => {
-    const { value, checked } = e.target;
-    
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked } = e.target;
+    const category = name as keyof typeof formData;
+
     setFormData(prev => {
       if (checked) {
-        hapticFeedback.light();
+        hapticFeedback.selection();
         return {
           ...prev,
-          [category]: [...prev[category], value]
+          [category]: [...(prev[category] as string[]), value]
         };
       } else {
-        hapticFeedback.light();
+        hapticFeedback.selection();
         return {
           ...prev,
-          [category]: prev[category].filter(item => item !== value)
+          [category]: (prev[category] as string[]).filter(item => item !== value)
         };
       }
     });
@@ -143,16 +144,17 @@ export default function Careers() {
       const result = await response.json();
       
       if (result.success) {
-        hapticFeedback.success();
+        hapticFeedback.notificationSuccess();
         setSubmitSuccess(true);
         // Reset form
         setFormData(initialFormData);
       } else {
-        hapticFeedback.error();
+        hapticFeedback.notificationError();
         throw new Error(result.message || 'Failed to submit application');
       }
     } catch (error) {
       console.error('Error submitting application:', error);
+      hapticFeedback.notificationError();
       setSubmitError(true);
     } finally {
       setIsSubmitting(false);
@@ -408,7 +410,7 @@ export default function Careers() {
                               name="skills"
                               value={skill}
                               checked={formData.skills.includes(skill)}
-                              onChange={(e) => handleCheckboxChange(e, 'skills')}
+                              onChange={handleCheckboxChange}
                               className="w-4 h-4 opacity-0 absolute"
                             />
                             <div className={`w-5 h-5 flex items-center justify-center border ${formData.skills.includes(skill) ? 'bg-[#FF4D00] border-[#FF4D00]' : 'border-gray-300 dark:border-gray-600 bg-white/5 dark:bg-black/30'} rounded transition-colors duration-200`}>
@@ -444,7 +446,7 @@ export default function Careers() {
                               name="projectTypes"
                               value={type}
                               checked={formData.projectTypes.includes(type)}
-                              onChange={(e) => handleCheckboxChange(e, 'projectTypes')}
+                              onChange={handleCheckboxChange}
                               className="w-4 h-4 opacity-0 absolute"
                             />
                             <div className={`w-5 h-5 flex items-center justify-center border ${formData.projectTypes.includes(type) ? 'bg-[#FF4D00] border-[#FF4D00]' : 'border-gray-300 dark:border-gray-600 bg-white/5 dark:bg-black/30'} rounded transition-colors duration-200`}>
