@@ -188,19 +188,19 @@ export default function Home() {
                   className="relative z-10"
                 >
                   <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-black dark:text-white mb-2">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF4D00] via-[#FF6B00] to-[#FF4D00]/70">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF3800] via-[#FF5500] to-[#FF6B00]/90">
                       Creating
                     </span>
                   </h2>
-                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight mb-2">
+                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight mb-2 text-gray-800 dark:text-gray-100">
                     Digital
                   </h2>
                   <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-black dark:text-white">
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF4D00] via-[#FF6B00] to-[#FF4D00]/70">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF3800] via-[#FF5500] to-[#FF6B00]/90">
                       Experiences
                     </span>
                   </h2>
-                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-black dark:text-white">
+                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-gray-900 dark:text-gray-50">
                     That Captivate
                   </h2>
                 </motion.div>
@@ -224,7 +224,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
-                className="text-base md:text-lg text-gray-600 dark:text-gray-300 font-pilcrow leading-relaxed mb-10 max-w-md"
+                className="text-base md:text-lg text-gray-700 dark:text-gray-200 font-pilcrow leading-relaxed mb-10 max-w-md"
               >
                 Top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
               </motion.p>
@@ -241,7 +241,7 @@ export default function Home() {
                   size="lg"
                   className='bg-[#FF4D00] dark:bg-[#FF4D00] text-white dark:text-white hover:bg-[#FF6B00] dark:hover:bg-[#FF6B00] font-pilcrow relative overflow-hidden group'
                 >
-                  <span className="relative z-10">Start a Project</span>
+                  <span className="relative z-10">Start Your Digital Transformation</span>
                   <motion.span 
                     className="absolute inset-0 bg-[#FF6B00] dark:bg-[#FF6B00] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
                   />
@@ -250,9 +250,9 @@ export default function Home() {
                   href="/services" 
                   variant="outline"
                   size="lg"
-                  className="border-[#FF4D00]/40 dark:border-[#FF4D00]/40 text-[#FF4D00] dark:text-[#FF4D00] hover:border-[#FF4D00] hover:text-white dark:hover:text-white hover:bg-[#FF4D00] dark:hover:bg-[#FF4D00]"
+                  className="border-[#FF4D00]/40 dark:border-[#FF4D00]/40 text-black dark:text-white hover:border-[#FF4D00] hover:text-white dark:hover:text-white hover:bg-[#FF4D00] dark:hover:bg-[#FF4D00]"
                 >
-                  Our Services
+                  Discover What We Can Do
                 </Button>
               </motion.div>
             </motion.div>
@@ -292,7 +292,7 @@ export default function Home() {
             </motion.div>
           </div>
             
-          {/* Auto-sliding carousel for services preview - Improved for seamless loop */}
+          {/* Auto-sliding carousel for services preview - Simplified for seamless loop only */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -301,55 +301,15 @@ export default function Home() {
           >
             <div className="carousel-container relative">
               {/* Fade-out effects at edges */}
-              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent dark:from-background-dark dark:to-transparent z-10"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent dark:from-background-dark dark:to-transparent z-10"></div>
+              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent dark:from-[#060606] dark:to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent dark:from-[#060606] dark:to-transparent z-10"></div>
               
-              <motion.div
+              <div
                 className="flex gap-4 service-carousel"
                 id="service-carousel"
-                drag="x"
-                dragConstraints={{ left: -2000, right: 0 }}
-                dragElastic={0.1}
-                dragTransition={{ 
-                  bounceStiffness: 300, 
-                  bounceDamping: 40,
-                  power: 0.3
-                }}
-                onDragStart={() => {
-                  // Pause the animation when dragging starts
-                  const carousel = document.getElementById('service-carousel');
-                  if (carousel) {
-                    carousel.style.animationPlayState = 'paused';
-                  }
-                }}
-                onDragEnd={(e, info) => {
-                  // Smoothly resume the animation when dragging ends
-                  const carousel = document.getElementById('service-carousel');
-                  if (carousel) {
-                    // Get the current transform value
-                    const computedStyle = window.getComputedStyle(carousel);
-                    const transform = computedStyle.getPropertyValue('transform');
-                    
-                    // Apply the current transform as an inline style
-                    carousel.style.transform = transform;
-                    
-                    // Force a reflow
-                    carousel.offsetHeight;
-                    
-                    // Remove inline transform and restart animation
-                    setTimeout(() => {
-                      carousel.style.transition = 'none';
-                      carousel.style.transform = '';
-                      carousel.style.animation = 'carouselScroll 40s linear infinite';
-                      carousel.style.animationPlayState = 'running';
-                    }, 50);
-                  }
-                }}
                 style={{
                   width: "200%", // Double width for seamless looping
-                  willChange: "transform",
                   animation: "carouselScroll 40s linear infinite",
-                  touchAction: "pan-y"
                 }}
               >
                 {/* Triple the cards to create a seamless loop */}
@@ -370,7 +330,7 @@ export default function Home() {
                     <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow">{service.description.split(' ').slice(0, 10).join(' ')}...</p>
                   </motion.div>
                 ))}
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>

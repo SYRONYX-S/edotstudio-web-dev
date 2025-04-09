@@ -807,10 +807,10 @@ button, a, input, select, textarea {
   scrollbar-color: var(--primary-light) transparent;
 }
 
-/* Container responsive padding */
+/* Container width override */
 .container {
+  max-width: 100%;
   width: 100%;
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1rem;
@@ -819,15 +819,31 @@ button, a, input, select, textarea {
 
 @media (min-width: 640px) {
   .container {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1400px;
   }
 }
 
@@ -1254,17 +1270,9 @@ a, button, input, select, textarea {
 /* Service Carousel Styles */
 .service-carousel {
   will-change: transform;
-  touch-action: pan-y;
-  cursor: grab;
+  cursor: default;
   user-select: none;
-}
-
-.service-carousel:active {
-  cursor: grabbing;
-}
-
-.service-carousel:hover {
-  animation-play-state: running !important;
+  animation: carouselScroll 40s linear infinite;
 }
 
 /* Seamless carousel animation */
@@ -1273,7 +1281,7 @@ a, button, input, select, textarea {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%); /* Move exactly half way to create seamless loop */
+    transform: translateX(calc(-50% - 1rem)); /* Adjust for gap */
   }
 }
 
