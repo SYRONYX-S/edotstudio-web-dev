@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from 'next/font/local';
 import "./globals.css";
 import { Inter } from 'next/font/google';
@@ -96,43 +96,98 @@ const supreme = localFont({
 
 const inter = Inter({ subsets: ['latin'] });
 
+// Enhanced SEO metadata
 export const metadata: Metadata = {
-  title: "EdotStudio | Top-Tier Digital Solutions Agency",
-  description: "EdotStudio is a leading digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
-  keywords: ["digital agency", "web development", "app development", "branding", "graphic design", "marketing"],
-  authors: [{ name: "EdotStudio Team" }],
-  creator: "EdotStudio",
-  metadataBase: new URL("https://edotstudio.com"),
+  title: {
+    template: '%s | EdotStudio - Custom Web & App Development Agency',
+    default: 'EdotStudio - Premium Web Development & Digital Solutions Agency',
+  },
+  description: 'EdotStudio is a premier website development agency specializing in custom web design, responsive development, app creation, branding & digital strategy. Our expert team builds conversion-focused websites that drive business growth.',
+  keywords: [
+    'website development',
+    'professional web design',
+    'custom website development',
+    'responsive web design',
+    'premium web development',
+    'app development',
+    'mobile applications',
+    'website design services',
+    'digital agency',
+    'branding services',
+    'UI/UX design',
+    'EdotStudio',
+    'enterprise web solutions',
+    'digital transformation',
+    'e-commerce websites',
+  ],
+  authors: [{ name: 'EdotStudio Team' }],
+  metadataBase: new URL('https://edotstudio.com'),
+  applicationName: 'EdotStudio',
+  creator: 'EdotStudio',
+  publisher: 'EdotStudio',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-video-preview': -1,
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
-    type: "website",
-    title: "EdotStudio | Top-Tier Digital Solutions Agency",
-    description: "EdotStudio is a leading digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
-    url: "https://edotstudio.com",
-    siteName: "EdotStudio",
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://edotstudio.com/',
+    title: 'EdotStudio - Premium Web & App Development Agency',
+    description: 'EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.',
+    siteName: 'EdotStudio',
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: "EdotStudio - Digital Solutions Agency",
+        alt: 'EdotStudio Preview',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "EdotStudio | Top-Tier Digital Solutions Agency",
-    description: "EdotStudio is a leading digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
-    images: ["/images/og-image.jpg"],
+    card: 'summary_large_image',
+    title: 'EdotStudio - Premium Web & App Development Agency',
+    description: 'EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.',
+    images: ['/images/twitter-image.jpg'],
+    creator: '@edotstudio',
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: { url: "/apple-touch-icon.png", sizes: "180x180" },
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/safari-pinned-tab.svg',
+        color: '#FF4D00',
+      },
+    ],
   },
-  manifest: "/site.webmanifest",
+  manifest: '/site.webmanifest',
+};
+
+// Viewport and theme color configuration
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#0A0A0A' },
+  ],
 };
 
 export default function RootLayout({
@@ -141,7 +196,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="canonical" href="https://edotstudio.com" />
+      </head>
       <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
         <ClientLayout>{children}</ClientLayout>
       </body>

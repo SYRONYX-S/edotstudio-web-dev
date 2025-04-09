@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { RiArrowRightLine, RiArrowRightUpLine } from 'react-icons/ri';
 import { projects } from './data';
 import { Project } from './utils';
+import PageHero from '@/components/PageHero';
 
 const categories = ['All', 'Software Development', 'Web Development', 'Branding', 'Marketing', 'Posters'];
 
@@ -32,43 +33,30 @@ export default function Portfolio() {
 
       {/* Background Elements */}
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20">
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
-              FEATURED WORK
-            </div>
-            <AnimatedTitle
+      <PageHero
+        badge="Featured Work"
               title="Our Portfolio"
-              className="text-4xl md:text-7xl mb-6 font-technor text-foreground dark:text-white"
+        description="Discover how we've helped businesses transform their digital presence through innovative solutions and strategic partnerships."
             />
-            <p className="font-pilcrow text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
-              Discover how we've helped businesses transform their digital presence through innovative solutions and strategic partnerships.
-            </p>
 
             {/* Category Filter */}
+      <section className="pb-20 -mt-4">
+        <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center gap-3 mb-20">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2.5 rounded-full text-sm font-technor font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm ${
+                className={`px-6 py-2.5 rounded-full text-sm font-technor font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm ${
                     selectedCategory === category
                       ? 'bg-primary dark:bg-primary text-white shadow-glow'
-                      : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white'
+                    : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white'
                   }`}
                 >
                   {category}
                 </button>
               ))}
             </div>
-          </motion.div>
 
           {/* Projects Grid */}
           <div

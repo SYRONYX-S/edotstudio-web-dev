@@ -30,6 +30,7 @@ export default function Preloader() {
         '/images/hero/hero-graphic.svg',
         // Only include images that are confirmed to exist
         '/images/clients/Al-Khuloud.png',
+        '/images/clients/brandlifte.png',
         '/images/clients/carbon.png',
         '/images/clients/Celecca.png',
         '/images/clients/Dplus.png',
@@ -84,7 +85,7 @@ export default function Preloader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-background dark:bg-background-dark"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-background dark:bg-[#000000]"
         >
           <div className="relative flex flex-col items-center justify-center">
             {/* Animated Circles */}

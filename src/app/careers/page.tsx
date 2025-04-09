@@ -106,7 +106,7 @@ export default function Careers() {
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target;
     const category = name as keyof typeof formData;
-
+    
     setFormData(prev => {
       if (checked) {
         hapticFeedback.selection();

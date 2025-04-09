@@ -9,6 +9,7 @@ import { RiArrowRightLine, RiCheckLine } from 'react-icons/ri';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
+import PageHero from '@/components/PageHero';
 
 // Data
 import { services } from '@/data';
@@ -141,28 +142,11 @@ export default function Services() {
   
   return (
     <main className="min-h-screen relative dark:bg-transparent">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20">
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-4">
-              OUR SERVICES
-            </div>
-            <AnimatedTitle
-              title="What We Do"
-              className="text-4xl md:text-7xl mb-6 font-technor text-foreground dark:text-white"
-            />
-            <p className="text-muted-foreground dark:text-white/70 max-w-2xl mx-auto text-lg mb-12">
-              From web development to digital marketing, we offer comprehensive solutions to help your business thrive in the digital world.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        badge="Our Services"
+        title="What We Do"
+        description="From web development to digital marketing, we offer comprehensive solutions to help your business thrive in the digital world."
+      />
 
       {/* Services Overview */}
       <section className="py-20 bg-white dark:bg-dark-200">

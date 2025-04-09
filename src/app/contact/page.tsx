@@ -9,6 +9,7 @@ import { hapticFeedback } from '@/utils/haptics';
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
+import PageHero from '@/components/PageHero';
 
 // FAQ data
 const faqs = [
@@ -80,13 +81,13 @@ export default function Contact() {
 
       if (result.success) {
         hapticFeedback.notificationSuccess();
-        setSubmitSuccess(true);
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
+      setSubmitSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
       } else {
         hapticFeedback.notificationError();
         setSubmitError(true);
@@ -122,20 +123,15 @@ export default function Contact() {
   ];
 
   return (
-    <section className="relative py-16">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-            CONTACT US
-          </div>
-          <h1 className="text-4xl md:text-6xl font-technor mb-6 text-black dark:text-white">
-            Let's Work Together
-          </h1>
-          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-lg font-pilcrow">
-            Have a project in mind? We'd love to hear about it. Reach out to discuss how we can help bring your vision to life.
-          </p>
-        </div>
+    <main className="relative">
+      <PageHero
+        badge="Contact Us"
+        title="Let's Work Together"
+        description="Have a project in mind? We'd love to hear about it. Reach out to discuss how we can help bring your vision to life."
+      />
 
+      <section className="pb-20 -mt-4">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
           {/* Contact Form */}
           <motion.div 
@@ -336,6 +332,7 @@ export default function Contact() {
           <div className="absolute inset-0 pointer-events-none border border-white/20 dark:border-white/10 rounded-2xl"></div>
         </motion.div>
       </div>
-    </section>
+      </section>
+    </main>
   );
 } 

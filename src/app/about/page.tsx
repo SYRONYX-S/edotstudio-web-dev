@@ -9,289 +9,342 @@ import { Users } from 'lucide-react';
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
+import StructuredData from '@/components/StructuredData';
+
+// Structured data for the about page
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About EdotStudio",
+  "description": "Learn about EdotStudio, our creative vision, technical excellence, and the talented team behind our premium digital solutions agency.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "EdotStudio",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://edotstudio.com/logo-dark.svg"
+    }
+  },
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "EdotStudio",
+    "description": "Founded in February 2022, EdotStudio is a digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
+    "foundingDate": "2022-02",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "value": "10+"
+    },
+    "image": "https://edotstudio.com/images/hero/about-hero.jpg",
+    "award": "90% Client Satisfaction Rate"
+  }
+};
 
 export default function About() {
   const achievements = [
-    { number: '15+', label: 'Projects Completed', icon: <RiRocketLine className="text-3xl text-primary-light" /> },
-    { number: '8+', label: 'Active Projects', icon: <RiCodeSLine className="text-3xl text-primary-light" /> },
-    { number: '3+', label: 'Years Experience', icon: <RiLightbulbLine className="text-3xl text-primary-light" /> },
-    { number: '90%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" /> },
+    { number: '15+', label: 'Projects Completed', icon: <RiRocketLine className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '8+', label: 'Active Projects', icon: <RiCodeSLine className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '3+', label: 'Years Experience', icon: <RiLightbulbLine className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '90%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" aria-hidden="true" /> },
   ];
 
   const technologies = [
     {
       category: 'Web Frontend',
-      icon: <RiCodeSLine className="text-4xl text-primary-light" />,
+      icon: <RiCodeSLine className="text-4xl text-primary-light" aria-hidden="true" />,
       description: "Building responsive, interactive interfaces with cutting-edge web technologies",
       items: ['React.js', 'Next.js', 'TypeScript', 'JavaScript', 'Tailwind CSS', 'Framer Motion', 'HTML5/CSS3', 'Bootstrap', 'Material UI', 'Vue.js']
     },
     {
       category: 'Backend & API',
-      icon: <RiDatabase2Line className="text-4xl text-primary-light" />,
+      icon: <RiDatabase2Line className="text-4xl text-primary-light" aria-hidden="true" />,
       description: "Robust server-side solutions for scalable, secure applications",
       items: ['Node.js', 'Express', 'Python', 'Django', 'GraphQL', 'REST API', 'MongoDB', 'PostgreSQL', 'Firebase', 'Serverless']
     },
     {
       category: 'Mobile & App Dev',
-      icon: <RiSmartphoneLine className="text-4xl text-primary-light" />,
+      icon: <RiSmartphoneLine className="text-4xl text-primary-light" aria-hidden="true" />,
       description: "Cross-platform mobile solutions for iOS and Android ecosystems",
       items: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Expo', 'Firebase', 'App Store Optimization', 'Progressive Web Apps', 'Push Notifications']
     },
     {
       category: 'Design & UX',
-      icon: <RiTeamLine className="text-4xl text-primary-light" />,
+      icon: <RiTeamLine className="text-4xl text-primary-light" aria-hidden="true" />,
       description: "Creative design processes that elevate user experiences",
       items: ['UI/UX Design', 'Figma', 'Adobe XD', 'Wireframing', 'Prototyping', 'Animation', 'Design Systems', 'Accessibility', 'User Testing']
     },
     {
       category: 'Tools & AI',
-      icon: <RiToolsLine className="text-4xl text-primary-light" />,
+      icon: <RiToolsLine className="text-4xl text-primary-light" aria-hidden="true" />,
       description: "Leveraging AI tools to enhance development workflows and productivity",
       items: ['GitHub Copilot', 'ChatGPT', 'Midjourney', 'Cursor IDE', 'Grok', 'DeepSeek', 'Claude', 'Vercel', 'GitHub Actions', 'AWS/GCP']
     },
     {
       category: 'DevOps & Deployment',
-      icon: <RiComputerLine className="text-4xl text-primary-light" />,
+      icon: <RiComputerLine className="text-4xl text-primary-light" aria-hidden="true" />,
       description: "Streamlined development operations for reliable delivery",
       items: ['CI/CD', 'Docker', 'Kubernetes', 'AWS', 'Google Cloud', 'Vercel', 'Netlify', 'Monitoring', 'Performance Optimization']
     }
   ];
 
   return (
-    <main className="min-h-screen relative">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 z-10">
-        <div className="container mx-auto px-4 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-              ABOUT US
-            </div>
-            <AnimatedTitle
-              title="Our Story of Innovation"
-              className="text-4xl md:text-7xl mb-6 font-technor text-black dark:text-white"
-            />
-            <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-lg mb-12 font-pilcrow">
-              From ambitious beginnings to industry leadership, we're on a mission to transform digital experiences with creativity, technology, and strategic insight.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <>
+      <StructuredData data={structuredData} />
+    
+      <main className="min-h-screen relative">
+        {/* Hero Section */}
+        <section className="relative pt-32 pb-20 z-10">
+          <div className="container mx-auto px-4 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center"
+            >
+              <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                ABOUT US
+              </div>
+              <h1 className="text-4xl md:text-7xl mb-6 font-technor text-black dark:text-white">
+                Our Story of Innovation
+              </h1>
+              <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-lg mb-12 font-pilcrow">
+                From ambitious beginnings to industry leadership, we're on a mission to transform digital experiences with creativity, technology, and strategic insight.
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
-      {/* Journey Section */}
-      <section className="py-20 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/20 dark:border-white/10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-6"
-              >
-                <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-                  OUR JOURNEY
-                </div>
-                <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Creative Vision, Technical Excellence</h2>
-                <div className="space-y-4 text-gray-700 dark:text-gray-300 font-pilcrow">
-                  <p>
-                    Founded in February 2022, EdotStudio began with a singular vision to bridge technical innovation with creative design. Our journey started with crafting exceptional websites and applications, and has expanded to encompass comprehensive brand experiences.
-                  </p>
-                  <p>
-                    Today, our small but mighty team partners with ambitious businesses to create digital products that stand apart through their technical excellence, visual distinction, and strategic insight. Every project we undertake is approached as an opportunity to push boundaries and deliver work that exceeds expectations.
-                  </p>
-                  <p>
-                    With three years of collective experience and a relentless drive to remain at the forefront of digital trends and technologies, we create solutions that are not just current—they're ahead of the curve.
-                  </p>
-                </div>
-              </motion.div>
-              <div className="relative rounded-xl overflow-hidden">
+        {/* Journey Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-12 border border-white/20 dark:border-white/10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="relative h-[500px] w-full rounded-xl overflow-hidden group"
+                  className="space-y-6"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
-                  <Image
-                    src="/images/hero/about-hero.jpg"
-                    alt="EdotStudio Journey"
-                    fill
-                    priority
-                    style={{ objectFit: 'cover' }}
-                    className="rounded-xl group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute bottom-8 left-8 z-20">
-                    <h3 className="text-white text-2xl font-technor mb-2">10+ Years Combined Experience</h3>
-                    <p className="text-white/80 font-pilcrow">Building digital excellence</p>
+                  <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                    OUR JOURNEY
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Creative Vision, Technical Excellence</h2>
+                  <div className="space-y-4 text-gray-700 dark:text-gray-300 font-pilcrow">
+                    <p>
+                      Founded in February 2022, EdotStudio began with a singular vision to bridge technical innovation with creative design. Our journey started with crafting exceptional websites and applications, and has expanded to encompass comprehensive brand experiences.
+                    </p>
+                    <p>
+                      Today, our small but mighty team partners with ambitious businesses to create digital products that stand apart through their technical excellence, visual distinction, and strategic insight. Every project we undertake is approached as an opportunity to push boundaries and deliver work that exceeds expectations.
+                    </p>
+                    <p>
+                      With three years of collective experience and a relentless drive to remain at the forefront of digital trends and technologies, we create solutions that are not just current—they're ahead of the curve.
+                    </p>
+                  </div>
+                </motion.div>
+                <div className="relative rounded-xl overflow-hidden">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="relative h-[500px] w-full rounded-xl overflow-hidden group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
+                    <Image
+                      src="/images/hero/about-hero.jpg"
+                      alt="EdotStudio team working on digital solutions, showcasing our collaborative approach"
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                      style={{ objectFit: 'cover' }}
+                      className="rounded-xl group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute bottom-8 left-8 z-20">
+                      <h3 className="text-white text-2xl font-technor mb-2">10+ Years Combined Experience</h3>
+                      <p className="text-white/80 font-pilcrow">Building digital excellence</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <header className="text-center mb-16">
+              <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                OUR IMPACT
+              </div>
+              <h2 className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white">
+                Numbers That Define Us
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
+                Behind every statistic is a success story—a digital experience that exceeded expectations and delivered measurable results.
+              </p>
+            </header>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {achievements.map((achievement, index) => (
+                <motion.article
+                  key={achievement.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 dark:border-white/5 hover:border-primary-light/20 transition-all duration-300 group"
+                >
+                  <div className="mb-4">{achievement.icon}</div>
+                  <h3 className="text-4xl md:text-5xl font-technor text-primary-light mb-2 group-hover:scale-110 origin-left transition-transform duration-300">{achievement.number}</h3>
+                  <p className="text-gray-700 dark:text-gray-300 font-pilcrow">{achievement.label}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Technology Stack */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <header className="text-center mb-16">
+              <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                OUR TECH STACK
+              </div>
+              <h2 className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white">
+                Powered by Innovation
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
+                We leverage cutting-edge technologies and forward-thinking methodologies to create future-proof digital experiences.
+              </p>
+            </header>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {technologies.map((tech, index) => (
+                <motion.article
+                  key={tech.category}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 hover:border-primary-light/40 hover:shadow-xl transition-all duration-300 group"
+                >
+                  <div className="flex items-center mb-6">
+                    <div className="mr-4 p-3 bg-white/10 dark:bg-black/20 rounded-lg group-hover:bg-primary/10 transition-colors duration-300">
+                      {tech.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-technor text-black dark:text-white">{tech.category}</h3>
+                      <p className="text-gray-600 dark:text-gray-400 text-sm font-pilcrow">{tech.description}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {tech.items.map((item) => (
+                      <span 
+                        key={item}
+                        className="bg-white/10 dark:bg-black/20 px-3 py-1.5 rounded-full text-sm text-gray-700 dark:text-gray-300 font-pilcrow"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Partner With Us Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <div className="absolute -top-10 -left-10 w-60 h-60 bg-primary/10 rounded-full blur-3xl"></div>
+                  <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl"></div>
+                  
+                  <div className="relative">
+                    <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow">
+                      PARTNER WITH US
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-technor text-primary-light mb-6">
+                      Let's Create Something Amazing Together
+                    </h2>
+                    <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
+                      We're always looking for ambitious businesses to partner with. Whether you need a complete digital transformation or have a specific project in mind, we'd love to hear from you.
+                    </p>
+                    <Button
+                      href="/partner"
+                      className="bg-primary-light hover:bg-primary-light/90 text-white font-pilcrow"
+                    >
+                      Explore Partnership Opportunities
+                    </Button>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="space-y-6"
+                >
+                  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
+                    <h3 className="text-xl font-technor text-primary-light mb-2">Collaborative Approach</h3>
+                    <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                      We believe in close collaboration with our clients. Your insight combined with our expertise leads to the best results.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
+                    <h3 className="text-xl font-technor text-primary-light mb-2">Transparent Process</h3>
+                    <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                      Clear communication, regular updates, and no surprises. You'll always know where your project stands.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
+                    <h3 className="text-xl font-technor text-primary-light mb-2">Continued Support</h3>
+                    <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
+                      Our relationship doesn't end at launch. We offer ongoing support to ensure your digital products continue to thrive.
+                    </p>
                   </div>
                 </motion.div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Stats Section */}
-      <section className="py-20 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-              OUR IMPACT
-            </div>
-            <AnimatedTitle
-              title="Numbers That Define Us"
-              className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white"
-            />
-            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
-              Behind every statistic is a success story—a digital experience that exceeded expectations and delivered measurable results.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={achievement.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 dark:border-white/5 hover:border-primary-light/20 transition-all duration-300 group"
-              >
-                <div className="mb-4">{achievement.icon}</div>
-                <h3 className="text-4xl md:text-5xl font-technor text-primary-light mb-2 group-hover:scale-110 origin-left transition-transform duration-300">{achievement.number}</h3>
-                <p className="text-gray-700 dark:text-gray-300 font-pilcrow">{achievement.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Stack */}
-      <section className="py-20 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-              OUR TECH STACK
-            </div>
-            <AnimatedTitle
-              title="Powered by Innovation"
-              className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white"
-            />
-            <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
-              We leverage cutting-edge technologies and forward-thinking methodologies to create future-proof digital experiences.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={tech.category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 hover:border-primary-light/40 hover:shadow-xl transition-all duration-300 group"
-              >
-                <div className="flex items-center mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mr-4">
-                    {tech.icon}
-                  </div>
-                  <h3 className="text-xl font-technor text-black dark:text-white group-hover:text-primary-light transition-colors duration-300">{tech.category}</h3>
-                </div>
-                
-                <p className="text-gray-700 dark:text-gray-300 mb-6 font-pilcrow">
-                  {tech.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2">
-                  {tech.items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1.5 bg-gradient-to-br from-black/5 to-black/10 dark:from-white/5 dark:to-white/10 rounded-full text-sm font-pilcrow transition-all duration-300 hover:bg-primary-light/20 hover:text-black dark:hover:text-white transform hover:-translate-y-1 backdrop-blur-md"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Partner With Us Section */}
-      <section className="py-20 relative z-10">
-        <div className="container mx-auto px-4">
-          <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-                  PARTNER PROGRAM
-                </div>
-                <AnimatedTitle
-                  title="Grow Together With Us"
-                  className="text-3xl md:text-4xl mb-6 font-technor text-black dark:text-white"
-                />
-                <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
-                  Join our network of partners and earn competitive commissions by referring clients to our services. We believe in creating mutually beneficial relationships that help your business grow alongside ours.
+        {/* CTA Section */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4 text-center">
+            <div className="bg-black/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-16 border border-white/10 dark:border-white/5 relative overflow-hidden">
+              <div className="absolute inset-0 overflow-hidden opacity-10">
+                <div className="absolute -bottom-1/2 -right-1/2 w-[800px] h-[800px] rounded-full border border-primary/30"></div>
+                <div className="absolute -top-1/4 -left-1/4 w-[400px] h-[400px] rounded-full border border-primary/30"></div>
+              </div>
+              
+              <div className="relative max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-5xl font-technor text-white mb-6">
+                  Ready to Transform Your Digital Presence?
+                </h2>
+                <p className="text-white/70 text-lg mb-8 font-pilcrow">
+                  Get in touch today and let's discuss how we can help you achieve your goals.
                 </p>
                 <Button
-                  href="/partner"
-                  className="bg-primary-light text-white hover:bg-primary-light/90 font-technor transition-all duration-300"
-                  icon={<Users className="w-5 h-5 mr-2" />}
+                  href="/contact"
+                  className="bg-primary-light hover:bg-primary-light/90 text-white font-pilcrow"
+                  size="lg"
                 >
-                  Become a Partner
+                  Contact Us
                 </Button>
               </div>
-              <div className="space-y-6">
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/10">
-                  <h3 className="text-xl font-technor text-black dark:text-white mb-3">Referral Program</h3>
-                  <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
-                    Earn competitive commissions for each successful client referral. Commissions are issued once the client completes full payment.
-                  </p>
-                </div>
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/10">
-                  <h3 className="text-xl font-technor text-black dark:text-white mb-3">Agency Partnership</h3>
-                  <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
-                    Expand your agency's service offerings without increasing overhead. We work as your white-label development team to deliver exceptional results.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-          <div className="bg-black/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-16 border border-white/10 dark:border-white/5 relative overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden opacity-10">
-              <svg className="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 text-primary-light" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M48.8,-52.2C61.9,-37.4,71,-18.7,72.1,1.1C73.3,20.9,66.6,41.8,53.5,57.2C40.3,72.6,20.1,82.5,-0.9,83.4C-21.9,84.4,-43.8,76.5,-59.3,61.2C-74.9,45.9,-84.1,23,-81.8,2.2C-79.5,-18.5,-65.8,-37,-49.9,-51.7C-33.9,-66.4,-17,-77.2,1.2,-78.4C19.3,-79.7,38.6,-71.3,48.8,-52.2Z" transform="translate(100 100)"></path>
-              </svg>
-            </div>
-            <AnimatedTitle
-              title="Ready to Transform Your Digital Presence?"
-              className="text-3xl md:text-5xl mb-6 font-technor text-white"
-            />
-            <p className="text-white/80 max-w-2xl mx-auto mb-8 font-pilcrow">
-              Let's collaborate to bring your vision to life with innovative solutions that drive engagement, growth, and lasting impact.
-            </p>
-            <Button
-              href="/contact"
-              className="bg-primary-light text-white hover:bg-primary-light/90 font-technor transition-all duration-300 hover:shadow-glow-lg"
-            >
-              Start Your Project
-            </Button>
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 } 

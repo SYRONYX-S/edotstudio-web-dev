@@ -18,9 +18,74 @@ import TestimonialSlider from '@/components/TestimonialSlider';
 import PortfolioItem from '@/components/PortfolioItem';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import FAQ from '@/components/FAQ';
+import StructuredData from '@/components/StructuredData';
 
 // Data
 import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
+
+// Structured data for the agency
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "EdotStudio",
+  "description": "EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
+  "image": "https://edotstudio.com/images/og-image.jpg",
+  "url": "https://edotstudio.com",
+  "telephone": "+1-123-456-7890",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "City",
+    "addressRegion": "Region",
+    "postalCode": "Postal Code",
+    "addressCountry": "Country"
+  },
+  "priceRange": "$$",
+  "openingHours": "Mo-Fr 09:00-17:00",
+  "sameAs": [
+    "https://twitter.com/edotstudio",
+    "https://www.facebook.com/edotstudio",
+    "https://www.linkedin.com/company/edotstudio"
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "0",
+      "longitude": "0"
+    },
+    "geoRadius": "Global"
+  },
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Web Development"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "App Development"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Branding"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Marketing"
+      }
+    }
+  ]
+};
 
 // Use a placeholder for missing images
 const fallbackImage = '/images/hero/hero-graphic.svg';
@@ -39,6 +104,8 @@ export default function Home() {
 
   return (
     <>
+      <StructuredData data={structuredData} />
+      
       {/* Hero Section */}
       <section 
         ref={targetRef} 
@@ -86,110 +153,226 @@ export default function Home() {
           />
         </div>
         
-        {/* Subtle Dust particles - Temporarily Commented Out for Performance Testing */}
-        {/*
-        <div className="absolute inset-0 z-1 pointer-events-none">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full bg-primary/10 dark:bg-primary/20"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 2 + 1}px`,
-                height: `${Math.random() * 2 + 1}px`,
-              }}
-              animate={{
-                x: [0, (Math.random() - 0.5) * 30, 0],
-                y: [0, (Math.random() - 0.5) * 30, 0],
-                opacity: [0, 0.4, 0],
-              }}
-              transition={{
-                duration: Math.random() * 25 + 20,
-                repeat: Infinity,
-                ease: "linear",
-                delay: Math.random() * 8,
-              }}
-            />
-          ))}
-        </div>
-        */}
-        
         {/* Frosted glass overlay */}
         <div className="absolute inset-0 bg-white/5 dark:bg-black/10 backdrop-blur-[5px] z-2"></div>
         
         {/* Content */}
         <div className="container mx-auto px-4 z-10">
-          <div className="flex flex-col items-center text-center">
+          {/* Framer-inspired design for all screen sizes */}
+          <div className="flex flex-col md:flex-row items-start text-left pt-0 max-w-[100%] justify-between">
+            {/* Left content column */}
             <motion.div 
               style={{ y, opacity }}
-              className="mb-8"
+              className="relative w-full max-w-full md:max-w-[50%] flex-shrink-0 flex flex-col justify-center align-middle self-center"
             >
-              <AnimatedTitle 
-                title="Creating Digital Experiences That Captivate"
-                as="h1"
-                type="staggered"
-                color="primary"
-                className="text-3xl md:text-5xl lg:text-6xl mb-6 max-w-5xl !font-technor"
-              />
+              <h1 className="sr-only">EdotStudio - Premium Web & App Development Agency</h1>
+              
+              {/* Badge positioned toward the top left */}
+              <div className="mb-0">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="inline-block bg-[#FF4D00] dark:bg-[#FF4D00] text-white dark:text-white px-4 py-1.5 rounded-full text-xs font-medium mb-5 tracking-wider"
+                >
+                  DESIGN × DEVELOPMENT
+                </motion.div>
+              </div>
+              
+              {/* Large headline with split design */}
+              <div className="mb-8 relative">
+                <motion.div 
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="relative z-10"
+                >
+                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-black dark:text-white mb-2">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF4D00] via-[#FF6B00] to-[#FF4D00]/70">
+                      Creating
+                    </span>
+                  </h2>
+                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight mb-2">
+                    Digital
+                  </h2>
+                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-black dark:text-white">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FF4D00] via-[#FF6B00] to-[#FF4D00]/70">
+                      Experiences
+                    </span>
+                  </h2>
+                  <h2 className="text-[2.8rem] md:text-[3.8rem] leading-[0.95] font-medium font-technor tracking-tight text-black dark:text-white">
+                    That Captivate
+                  </h2>
+                </motion.div>
+                
+                {/* Decorative elements */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 0.8, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="absolute -top-8 -right-4 w-32 h-32 bg-[#FF4D00]/10 rounded-full blur-3xl"
+                />
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.7 }}
+                  animate={{ opacity: 0.8, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="absolute -bottom-8 left-12 w-40 h-40 bg-gradient-to-r from-[#FF4D00]/20 to-[#FF6B00]/20 rounded-full blur-3xl"
+                />
+              </div>
+              
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8 font-pilcrow"
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="text-base md:text-lg text-gray-600 dark:text-gray-300 font-pilcrow leading-relaxed mb-10 max-w-md"
               >
-                EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
+                Top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
               </motion.p>
               
+              {/* Buttons with modern styling */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1, duration: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
+                transition={{ delay: 0.8, duration: 0.6 }}
+                className="flex flex-row flex-wrap gap-3 mb-0"
               >
                 <Button 
                   href="/contact" 
                   size="lg"
-                  className='bg-primary-light text-white dark:text-white hover:bg-primary-light font-pilcrow'
-                  icon={<RiArrowRightLine />}
+                  className='bg-[#FF4D00] dark:bg-[#FF4D00] text-white dark:text-white hover:bg-[#FF6B00] dark:hover:bg-[#FF6B00] font-pilcrow relative overflow-hidden group'
                 >
-                  Start Your Digital Transformation
+                  <span className="relative z-10">Start a Project</span>
+                  <motion.span 
+                    className="absolute inset-0 bg-[#FF6B00] dark:bg-[#FF6B00] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                  />
                 </Button>
                 <Button 
                   href="/services" 
                   variant="outline"
                   size="lg"
+                  className="border-[#FF4D00]/40 dark:border-[#FF4D00]/40 text-[#FF4D00] dark:text-[#FF4D00] hover:border-[#FF4D00] hover:text-white dark:hover:text-white hover:bg-[#FF4D00] dark:hover:bg-[#FF4D00]"
                 >
-                  Discover What We Can Do
+                  Our Services
                 </Button>
               </motion.div>
             </motion.div>
-            
-            {/* Hero badges */}
-            {/* <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="flex flex-wrap justify-center gap-4 mt-8"
+
+            {/* Right side visual element - visible only on larger screens */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="hidden md:flex relative w-full md:max-w-[45%] items-center justify-center"
+              style={{ minHeight: '500px' }}
             >
-              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
-                <RiCheckboxCircleLine className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-pilcrow">Award-winning Design</span>
+              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-transparent to-transparent dark:from-transparent dark:to-transparent p-10 w-full h-full flex items-center justify-center" style={{ minHeight: '550px' }}>
+                {/* Theme-responsive logo with orange glow */}
+                <div className="relative flex items-center justify-center w-full h-full">
+                  <div className="absolute w-full h-full bg-[#FF4D00]/5 rounded-full filter blur-[80px]"></div>
+                  <Image
+                    src="/logo-dark.svg"
+                    width={300}
+                    height={300}
+                    alt="EdotStudio Logo" 
+                    className="w-4/5 max-w-[350px] h-auto object-contain block dark:hidden z-10"
+                  />
+                  <Image
+                    src="/logo-light.svg"
+                    width={300}
+                    height={300}
+                    alt="EdotStudio Logo" 
+                    className="w-4/5 max-w-[350px] h-auto object-contain hidden dark:block z-10"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#FF4D00]/10 dark:to-[#FF4D00]/15"></div>
+                
+                {/* Add subtle animated effect */}
+                <div className="absolute inset-0 bg-grid-white/[0.02] mask-radial-gradient opacity-30"></div>
               </div>
-              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
-                <RiBriefcase4Line className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-pilcrow">200+ Projects Delivered</span>
-              </div>
-              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
-                <RiTimeLine className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-pilcrow">10+ Years Experience</span>
-              </div>
-              <div className="glass dark:glass-dark rounded-full px-5 py-2 flex items-center">
-                <RiTeamLine className="text-primary-500 mr-2" />
-                <span className="text-sm font-medium font-pilcrow">50+ Team Members</span>
-              </div>
-            </motion.div> */}
+            </motion.div>
           </div>
+            
+          {/* Auto-sliding carousel for services preview - Improved for seamless loop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="w-full mt-10 overflow-hidden"
+          >
+            <div className="carousel-container relative">
+              {/* Fade-out effects at edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-background to-transparent dark:from-background-dark dark:to-transparent z-10"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-background to-transparent dark:from-background-dark dark:to-transparent z-10"></div>
+              
+              <motion.div
+                className="flex gap-4 service-carousel"
+                id="service-carousel"
+                drag="x"
+                dragConstraints={{ left: -2000, right: 0 }}
+                dragElastic={0.1}
+                dragTransition={{ 
+                  bounceStiffness: 300, 
+                  bounceDamping: 40,
+                  power: 0.3
+                }}
+                onDragStart={() => {
+                  // Pause the animation when dragging starts
+                  const carousel = document.getElementById('service-carousel');
+                  if (carousel) {
+                    carousel.style.animationPlayState = 'paused';
+                  }
+                }}
+                onDragEnd={(e, info) => {
+                  // Smoothly resume the animation when dragging ends
+                  const carousel = document.getElementById('service-carousel');
+                  if (carousel) {
+                    // Get the current transform value
+                    const computedStyle = window.getComputedStyle(carousel);
+                    const transform = computedStyle.getPropertyValue('transform');
+                    
+                    // Apply the current transform as an inline style
+                    carousel.style.transform = transform;
+                    
+                    // Force a reflow
+                    carousel.offsetHeight;
+                    
+                    // Remove inline transform and restart animation
+                    setTimeout(() => {
+                      carousel.style.transition = 'none';
+                      carousel.style.transform = '';
+                      carousel.style.animation = 'carouselScroll 40s linear infinite';
+                      carousel.style.animationPlayState = 'running';
+                    }, 50);
+                  }
+                }}
+                style={{
+                  width: "200%", // Double width for seamless looping
+                  willChange: "transform",
+                  animation: "carouselScroll 40s linear infinite",
+                  touchAction: "pan-y"
+                }}
+              >
+                {/* Triple the cards to create a seamless loop */}
+                {[...services, ...services, ...services].map((service, index) => (
+                  <motion.div
+                    key={`${service.id}-${index}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: Math.min(1 + (index % 4) * 0.1, 1.4), duration: 0.5 }}
+                    className="min-w-[260px] w-[260px] p-5 rounded-xl bg-white/70 dark:bg-black/40 border border-[#FF4D00]/10 dark:border-[#FF4D00]/20 flex flex-col justify-between"
+                    style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.05)" }}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <div className="mb-4 w-12 h-12 rounded-lg bg-[#FF4D00]/10 flex items-center justify-center">
+                      <service.icon className="w-6 h-6 text-[#FF4D00]" />
+                    </div>
+                    <h3 className="font-technor font-medium text-lg mb-2">{service.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow">{service.description.split(' ').slice(0, 10).join(' ')}...</p>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
