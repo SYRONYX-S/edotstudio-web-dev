@@ -1272,7 +1272,14 @@ a, button, input, select, textarea {
   will-change: transform;
   cursor: default;
   user-select: none;
-  animation: carouselScroll 40s linear infinite;
+  animation: carouselScroll 30s linear infinite;
+}
+
+/* Different speeds for different device types */
+@media (max-width: 768px) {
+  .service-carousel {
+    animation: carouselScroll 20s linear infinite;
+  }
 }
 
 /* Seamless carousel animation */

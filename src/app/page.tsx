@@ -98,7 +98,7 @@ export default function Home() {
     offset: ["start start", "end start"],
   });
   
-  // Parallax effects for the hero section
+  // Parallax effects for the hero section - use default transform without additional options
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
@@ -163,7 +163,11 @@ export default function Home() {
             {/* Left content column */}
             <motion.div 
               style={{ y, opacity }}
-              className="relative w-full max-w-full md:max-w-[50%] flex-shrink-0 flex flex-col justify-center align-middle self-center"
+              className="relative w-full max-w-full md:max-w-[50%] flex-shrink-0"
+              initial={{ translateZ: 0 }} 
+              transition={{ 
+                translateY: { type: "spring", damping: 15 }
+              }}
             >
               <h1 className="sr-only">EdotStudio - Premium Web & App Development Agency</h1>
               
