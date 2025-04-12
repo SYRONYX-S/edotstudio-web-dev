@@ -3,16 +3,16 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { RiArrowRightLine, RiCheckLine } from 'react-icons/ri';
+import { RiArrowRightLine, RiCheckLine, RiCodeSLine, RiSmartphoneLine, RiPaletteLine, RiMegaphoneLine, RiTeamLine } from 'react-icons/ri';
+import { Users } from 'lucide-react';
+import { IconType } from 'react-icons';
+import { FaCode, FaPaintBrush, FaMegaport, FaDesktop, FaMobileAlt, FaCloud, FaCogs, FaPalette, FaBalanceScale, FaShieldAlt, FaChartLine } from 'react-icons/fa';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
 import PageHero from '@/components/PageHero';
-
-// Data
-import { services } from '@/data';
 
 // Service detail data
 const serviceDetails = [
@@ -28,7 +28,9 @@ const serviceDetails = [
       "Brand Guidelines",
       "Brand Positioning",
       "Brand Messaging",
-      "Rebranding Services"
+      "Rebranding Services",
+      "Brand Voice & Tone",
+      "Visual Identity Systems"
     ],
     process: [
       { step: 1, title: "Research", description: "In-depth market and competitor analysis to understand your positioning" },
@@ -50,6 +52,10 @@ const serviceDetails = [
       'Web Applications',
       'Progressive Web Apps',
       'Website Optimization & Maintenance',
+      'API Development & Integration',
+      'Custom WordPress Development',
+      'Headless CMS Solutions',
+      'Web Performance Optimization'
     ],
     process: [
       { step: 1, title: 'Discovery', description: 'Understand your goals, target audience, and technical requirements.' },
@@ -73,6 +79,10 @@ const serviceDetails = [
       'App Strategy & Consulting',
       'App Maintenance & Updates',
       'App Store Optimization',
+      'Push Notification Integration',
+      'Offline Functionality',
+      'Analytics & Tracking',
+      'App Security & Testing'
     ],
     process: [
       { step: 1, title: 'Strategy', description: 'Define your app\'s purpose, features, and target platform.' },
@@ -96,6 +106,10 @@ const serviceDetails = [
       'Illustration',
       'Infographics',
       'Print Design',
+      'Brand Style Guides',
+      'Visual Identity Systems',
+      'Motion Graphics',
+      '3D Design & Rendering'
     ],
     process: [
       { step: 1, title: 'Brief', description: 'Understand your design needs, goals, and target audience.' },
@@ -118,6 +132,10 @@ const serviceDetails = [
       'Content Marketing',
       'Email Marketing',
       'Pay-Per-Click Advertising',
+      'Conversion Rate Optimization',
+      'Marketing Analytics & Reporting',
+      'Influencer Marketing',
+      'Video Marketing'
     ],
     process: [
       { step: 1, title: 'Analysis', description: 'Evaluate your current marketing efforts and identify opportunities.' },
@@ -128,6 +146,168 @@ const serviceDetails = [
       { step: 6, title: 'Reporting', description: 'Provide transparent reports on results and ROI.' },
     ],
   },
+  {
+    id: 'software-solutions',
+    title: 'Software Solutions',
+    subtitle: 'Custom enterprise software development',
+    description: 'We develop robust, scalable software solutions tailored to your business needs. Our enterprise software development services help streamline operations, improve efficiency, and drive innovation across your organization.',
+    image: '/images/services/software.jpg',
+    features: [
+      'Custom Software Development',
+      'Enterprise Resource Planning (ERP)',
+      'Customer Relationship Management (CRM)',
+      'Business Intelligence Solutions',
+      'Cloud Migration Services',
+      'Legacy System Modernization',
+      'API Development & Integration',
+      'Database Design & Optimization',
+      'Workflow Automation',
+      'Security Implementation'
+    ],
+    process: [
+      { step: 1, title: 'Requirements Analysis', description: 'Gather and analyze business requirements and technical specifications.' },
+      { step: 2, title: 'Architecture Design', description: 'Design scalable and secure software architecture.' },
+      { step: 3, title: 'Development', description: 'Build the software using best practices and modern technologies.' },
+      { step: 4, title: 'Testing', description: 'Conduct comprehensive testing to ensure quality and reliability.' },
+      { step: 5, title: 'Deployment', description: 'Deploy the solution with minimal disruption to operations.' },
+      { step: 6, title: 'Support', description: 'Provide ongoing maintenance and support services.' },
+    ],
+  },
+  {
+    id: 'ui-ux-design',
+    title: 'UI/UX Design',
+    subtitle: 'Creating intuitive user experiences',
+    description: 'Our UI/UX design services focus on creating beautiful, intuitive interfaces that enhance user engagement and satisfaction. We combine aesthetic excellence with functional design to deliver experiences that users love.',
+    image: '/images/services/ui-ux.jpg',
+    features: [
+      'User Research & Analysis',
+      'Wireframing & Prototyping',
+      'User Interface Design',
+      'User Experience Design',
+      'Interaction Design',
+      'Usability Testing',
+      'Design Systems',
+      'Responsive Design',
+      'Accessibility Compliance',
+      'Design Handoff'
+    ],
+    process: [
+      { step: 1, title: 'Research', description: 'Understand user needs, behaviors, and pain points.' },
+      { step: 2, title: 'Wireframing', description: 'Create low-fidelity wireframes to outline structure and flow.' },
+      { step: 3, title: 'Design', description: 'Develop high-fidelity designs with attention to detail.' },
+      { step: 4, title: 'Prototyping', description: 'Build interactive prototypes for testing and validation.' },
+      { step: 5, title: 'Testing', description: 'Conduct usability testing and gather feedback.' },
+      { step: 6, title: 'Refinement', description: 'Refine designs based on testing results and feedback.' },
+    ],
+  },
+  {
+    id: 'cloud-solutions',
+    title: 'Cloud Solutions',
+    subtitle: 'Scalable cloud infrastructure and services',
+    description: 'We help businesses leverage the power of cloud computing to improve scalability, reliability, and cost-efficiency. Our cloud solutions enable organizations to focus on innovation while we handle the technical infrastructure.',
+    image: '/images/services/cloud.jpg',
+    features: [
+      'Cloud Strategy & Consulting',
+      'Cloud Migration Services',
+      'Infrastructure as a Service (IaaS)',
+      'Platform as a Service (PaaS)',
+      'Serverless Architecture',
+      'Cloud Security',
+      'DevOps Implementation',
+      'Containerization',
+      'Cloud Cost Optimization',
+      'Disaster Recovery Planning'
+    ],
+    process: [
+      { step: 1, title: 'Assessment', description: 'Evaluate current infrastructure and identify migration opportunities.' },
+      { step: 2, title: 'Strategy', description: 'Develop a cloud migration and implementation strategy.' },
+      { step: 3, title: 'Migration', description: 'Migrate applications and data to the cloud with minimal disruption.' },
+      { step: 4, title: 'Optimization', description: 'Optimize cloud resources for performance and cost-efficiency.' },
+      { step: 5, title: 'Security', description: 'Implement robust security measures to protect cloud resources.' },
+      { step: 6, title: 'Management', description: 'Provide ongoing cloud management and support services.' },
+    ],
+  }
+];
+
+// Service overview data
+const services = [
+  {
+    id: 'web-development',
+    title: 'Web Development',
+    description: 'We build modern, responsive websites and web applications that deliver exceptional user experiences.',
+    icon: FaCode,
+    link: '#web-development'
+  },
+  {
+    id: 'app-development',
+    title: 'App Development',
+    description: 'Create powerful mobile solutions for iOS and Android with intuitive user experiences.',
+    icon: FaMobileAlt,
+    link: '#app-development'
+  },
+  {
+    id: 'branding',
+    title: 'Branding',
+    description: 'Build a memorable brand identity that resonates with your audience and stands out in the market.',
+    icon: FaPaintBrush,
+    link: '#branding'
+  },
+  {
+    id: 'graphic-design',
+    title: 'Graphic Design',
+    description: 'Deliver stunning visuals that effectively communicate your message across all platforms.',
+    icon: RiPaletteLine,
+    link: '#graphic-design'
+  },
+  {
+    id: 'marketing',
+    title: 'Marketing',
+    description: 'Drive growth through strategic digital marketing campaigns that deliver measurable results.',
+    icon: RiMegaphoneLine,
+    link: '#marketing'
+  },
+  {
+    id: 'software-solutions',
+    title: 'Software Solutions',
+    description: 'Custom enterprise software development to streamline operations and drive innovation.',
+    icon: FaCogs,
+    link: '#software-solutions'
+  },
+  {
+    id: 'ui-ux-design',
+    title: 'UI/UX Design',
+    description: 'Create intuitive, engaging user experiences that delight your customers and drive conversions.',
+    icon: FaPalette,
+    link: '#ui-ux-design'
+  },
+  {
+    id: 'cloud-solutions',
+    title: 'Cloud Solutions',
+    description: 'Leverage cloud computing for improved scalability, reliability, and cost-efficiency.',
+    icon: FaCloud,
+    link: '#cloud-solutions'
+  },
+  {
+    id: 'legal-solutions',
+    title: 'Legal Solutions',
+    description: 'Comprehensive legal setup and compliance services for your digital business.',
+    icon: FaBalanceScale,
+    link: '#legal-solutions'
+  },
+  {
+    id: 'cybersecurity',
+    title: 'Cybersecurity',
+    description: 'Protect your digital assets with advanced security solutions and protocols.',
+    icon: FaShieldAlt,
+    link: '#cybersecurity'
+  },
+  {
+    id: 'data-analytics',
+    title: 'Data Analytics',
+    description: 'Transform your data into actionable insights with advanced analytics solutions.',
+    icon: FaChartLine,
+    link: '#data-analytics'
+  }
 ];
 
 export default function Services() {
@@ -151,26 +331,30 @@ export default function Services() {
       {/* Services Overview */}
       <section className="py-20 bg-white dark:bg-dark-200">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={service.id}
-                className="p-8 rounded-xl hover:shadow-xl transition-shadow duration-300 glass-card backdrop-blur-none md:backdrop-blur-lg"
-              >
-                <div className="text-4xl text-primary mb-6">
-                  <service.icon />
-                </div>
-                <h3 className="text-2xl font-technor text-primary mb-4">{service.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 font-supreme">{service.description}</p>
-                <Button 
-                  href={`#${service.link.split('#')[1]}`}
-                  icon={<RiArrowRightLine />}
-                  variant="outline"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {services.map((service, index) => {
+              const IconComponent = service.icon;
+              return (
+                <div
+                  key={service.id}
+                  className="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 glass-card backdrop-blur-none md:backdrop-blur-lg"
                 >
-                  Learn More
-                </Button>
-              </div>
-            ))}
+                  <div className="text-3xl text-primary mb-4">
+                    <IconComponent />
+                  </div>
+                  <h3 className="text-xl font-technor text-primary mb-3">{service.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 font-supreme text-sm">{service.description}</p>
+                  <Button 
+                    href={service.link}
+                    icon={<RiArrowRightLine />}
+                    variant="outline"
+                    className="text-sm"
+                  >
+                    Learn More
+                  </Button>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -213,16 +397,16 @@ export default function Services() {
                 <div>
                   <h3 className="text-xl font-technor mb-4">Our Process</h3>
                   <div className="space-y-4">
-                    {service.process.map((step) => (
-                      <div key={step.step} className="flex">
+                    {service.process?.map((item, index) => (
+                      <div key={index} className="flex">
                         <div className="mr-4 flex-shrink-0">
                           <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary text-white flex items-center justify-center font-medium">
-                            {step.step}
+                            {item.step}
                           </div>
                         </div>
                         <div>
-                          <h4 className="text-lg font-medium text-primary mb-1 font-pilcrow">{step.title}</h4>
-                          <p className="text-gray-600 dark:text-gray-400 font-pilcrow">{step.description}</p>
+                          <h3 className="text-lg font-technor text-primary mb-1">{item.title}</h3>
+                          <p className="text-gray-600 dark:text-gray-400 font-pilcrow">{item.description}</p>
                         </div>
                       </div>
                     ))}

@@ -1270,55 +1270,135 @@ a, button, input, select, textarea {
 /* Service Carousel Styles */
 .service-carousel {
   will-change: transform;
-  cursor: default;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0);
+  touch-action: pan-x;
+  cursor: grab;
   user-select: none;
   animation: carouselScroll 30s linear infinite;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Different speeds for different device types */
-@media (max-width: 768px) {
-  .service-carousel {
-    animation: carouselScroll 20s linear infinite;
-  }
+.service-carousel:active {
+  cursor: grabbing;
+  animation-play-state: paused;
 }
 
-/* Seamless carousel animation */
+.service-carousel:hover {
+  animation-play-state: running !important;
+}
+
 @keyframes carouselScroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-50% - 1rem)); /* Adjust for gap */
+    transform: translateX(calc(-100% / 3));
   }
 }
 
-.carousel-container {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  margin: 0 -4px;
-  padding: 0 4px;
+/* Client Carousel Styles */
+.client-carousel {
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0);
+  touch-action: pan-x;
+  cursor: grab;
+  user-select: none;
+  animation: clientScroll 30s linear infinite;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Ensure smooth drag transitions */
-.service-carousel .motion-div {
-  transition: transform 0.1s ease-out;
+.client-carousel:active {
+  cursor: grabbing;
+  animation-play-state: paused;
 }
 
-/* Fix for carousel jump when stopping drag */
-@media (hover: hover) and (pointer: fine) {
-  .service-carousel:hover {
-    animation-play-state: running;
+.client-carousel:hover {
+  animation-play-state: running !important;
+}
+
+@keyframes clientScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
   }
 }
 
-/* Improved handling for touch devices */
-@media (hover: none) and (pointer: coarse) {
-  .service-carousel {
-    touch-action: pan-y;
+/* Glass Card Styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  transition: all 0.3s ease;
+}
+
+.dark .glass-card {
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .service-carousel, .client-carousel {
+    animation-duration: 20s;
   }
   
-  .service-carousel:active {
+  .glass-card {
+    width: 260px !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) {
+  .service-carousel, .client-carousel {
+    touch-action: pan-x;
+  }
+  
+  .service-carousel:active, .client-carousel:active {
     animation-play-state: paused;
   }
+}
+
+/* Dark mode background */
+.dark body {
+  background-color: rgb(5, 5, 5) !important;
+}
+
+/* Dark mode gradient overlays */
+.dark .absolute.inset-y-0.left-0.w-32.bg-gradient-to-r,
+.dark .absolute.inset-y-0.right-0.w-32.bg-gradient-to-l {
+  background: linear-gradient(to right, rgb(5, 5, 5) 0%, rgba(5, 5, 5, 0) 100%);
+}
+
+/* Animation utilities */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
 }

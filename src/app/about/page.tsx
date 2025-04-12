@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { RiRocketLine, RiCodeSLine, RiTeamLine, RiLightbulbLine, RiShieldLine, RiComputerLine, RiDatabase2Line, RiSmartphoneLine, RiToolsLine } from 'react-icons/ri';
+import { RiRocketLine, RiCodeSLine, RiTeamLine, RiLightbulbLine, RiShieldLine, RiComputerLine, RiDatabase2Line, RiSmartphoneLine, RiToolsLine, RiCheckLine } from 'react-icons/ri';
 import { Users } from 'lucide-react';
 
 // Components
@@ -16,7 +16,7 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   "name": "About EdotStudio",
-  "description": "Learn about EdotStudio, our creative vision, technical excellence, and the talented team behind our premium digital solutions agency.",
+  "description": "Learn about EdotStudio's unique approach combining in-house technical excellence with a curated network of specialized agency partners.",
   "publisher": {
     "@type": "Organization",
     "name": "EdotStudio",
@@ -28,23 +28,23 @@ const structuredData = {
   "mainEntity": {
     "@type": "Organization",
     "name": "EdotStudio",
-    "description": "Founded in February 2022, EdotStudio is a digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
+    "description": "EdotStudio is a digital solutions hub that combines in-house technical expertise with a curated network of specialized agency partners to deliver comprehensive business solutions.",
     "foundingDate": "2022-02",
     "numberOfEmployees": {
       "@type": "QuantitativeValue",
       "value": "10+"
     },
     "image": "https://edotstudio.com/images/hero/about-hero.jpg",
-    "award": "90% Client Satisfaction Rate"
+    "award": "95% Client Satisfaction Rate"
   }
 };
 
 export default function About() {
   const achievements = [
-    { number: '15+', label: 'Projects Completed', icon: <RiRocketLine className="text-3xl text-primary-light" aria-hidden="true" /> },
-    { number: '8+', label: 'Active Projects', icon: <RiCodeSLine className="text-3xl text-primary-light" aria-hidden="true" /> },
-    { number: '3+', label: 'Years Experience', icon: <RiLightbulbLine className="text-3xl text-primary-light" aria-hidden="true" /> },
-    { number: '90%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '100+', label: 'Technical Projects', icon: <RiRocketLine className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '15+', label: 'Partner Agencies', icon: <Users className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '95%', label: 'Client Satisfaction', icon: <RiShieldLine className="text-3xl text-primary-light" aria-hidden="true" /> },
+    { number: '10+', label: 'Countries Served', icon: <RiLightbulbLine className="text-3xl text-primary-light" aria-hidden="true" /> },
   ];
 
   const technologies = [
@@ -104,10 +104,10 @@ export default function About() {
                 ABOUT US
               </div>
               <h1 className="text-4xl md:text-7xl mb-6 font-technor text-black dark:text-white">
-                Our Story of Innovation
+                Redefining Digital Solutions
               </h1>
               <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-lg mb-12 font-pilcrow">
-                From ambitious beginnings to industry leadership, we're on a mission to transform digital experiences with creativity, technology, and strategic insight.
+                We're pioneering a new approach to digital services by combining our core technical expertise with a carefully curated network of specialized agency partners.
               </p>
             </motion.div>
           </div>
@@ -125,18 +125,18 @@ export default function About() {
                   className="space-y-6"
                 >
                   <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-                    OUR JOURNEY
+                    OUR STORY
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Creative Vision, Technical Excellence</h2>
+                  <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Innovation Through Integration</h2>
                   <div className="space-y-4 text-gray-700 dark:text-gray-300 font-pilcrow">
                     <p>
-                      Founded in February 2022, EdotStudio began with a singular vision to bridge technical innovation with creative design. Our journey started with crafting exceptional websites and applications, and has expanded to encompass comprehensive brand experiences.
+                      Founded in February 2022, EdotStudio began with a vision to revolutionize how businesses access digital services. We recognized that while specialized expertise is crucial, businesses need comprehensive solutions without the complexity of managing multiple vendors.
                     </p>
                     <p>
-                      Today, our small but mighty team partners with ambitious businesses to create digital products that stand apart through their technical excellence, visual distinction, and strategic insight. Every project we undertake is approached as an opportunity to push boundaries and deliver work that exceeds expectations.
+                      Today, we've built a unique model that combines our core technical excellence in web, app, and software development with a carefully vetted network of specialized agency partners. This approach allows us to deliver both depth and breadth in digital solutions.
                     </p>
                     <p>
-                      With three years of collective experience and a relentless drive to remain at the forefront of digital trends and technologies, we create solutions that are not just current—they're ahead of the curve.
+                      Our in-house team focuses on what we do best - delivering exceptional technical solutions - while our partner network provides specialized services in their respective domains, all managed seamlessly through a single point of contact.
                     </p>
                   </div>
                 </motion.div>
@@ -151,7 +151,7 @@ export default function About() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
                     <Image
                       src="/images/hero/about-hero.jpg"
-                      alt="EdotStudio team working on digital solutions, showcasing our collaborative approach"
+                      alt="EdotStudio's innovative approach to digital solutions"
                       fill
                       priority
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
@@ -159,11 +159,84 @@ export default function About() {
                       className="rounded-xl group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute bottom-8 left-8 z-20">
-                      <h3 className="text-white text-2xl font-technor mb-2">10+ Years Combined Experience</h3>
-                      <p className="text-white/80 font-pilcrow">Building digital excellence</p>
+                      <h3 className="text-white text-2xl font-technor mb-2">Transforming Digital Services</h3>
+                      <p className="text-white/80 font-pilcrow">Through strategic partnerships</p>
                     </div>
                   </motion.div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Model Section - New */}
+        <section className="py-20 relative z-10">
+          <div className="container mx-auto px-4">
+            <header className="text-center mb-16">
+              <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                OUR MODEL
+              </div>
+              <h2 className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white">
+                How We Work
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
+                Our unique approach combines in-house expertise with strategic partnerships to deliver comprehensive solutions under one roof.
+              </p>
+            </header>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* In-House Expertise */}
+              <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00]">
+                    <RiCodeSLine className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-2xl font-technor">Core Technical Team</h3>
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 mb-6 font-pilcrow">
+                  Our in-house development team specializes in:
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Custom Web Development</span>
+                  </li>
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Mobile App Development</span>
+                  </li>
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Software Solutions</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Partner Network */}
+              <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00]">
+                    <Users className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-2xl font-technor">Partner Network</h3>
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 mb-6 font-pilcrow">
+                  Our vetted agency partners provide:
+                </p>
+                <ul className="space-y-4">
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">UI/UX Design Excellence</span>
+                  </li>
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Digital Marketing Expertise</span>
+                  </li>
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Business Services</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -177,10 +250,10 @@ export default function About() {
                 OUR IMPACT
               </div>
               <h2 className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white">
-                Numbers That Define Us
+                The Power of Partnership
               </h2>
               <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
-                Behind every statistic is a success story—a digital experience that exceeded expectations and delivered measurable results.
+                Our unique model has enabled us to deliver exceptional results for businesses worldwide.
               </p>
             </header>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -202,7 +275,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* Technology Stack */}
+        {/* Technology Stack - Updated to focus on core technical expertise */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <header className="text-center mb-16">
@@ -210,10 +283,10 @@ export default function About() {
                 OUR TECH STACK
               </div>
               <h2 className="text-3xl md:text-5xl mb-6 font-technor text-black dark:text-white">
-                Powered by Innovation
+                Technical Excellence
               </h2>
               <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-pilcrow">
-                We leverage cutting-edge technologies and forward-thinking methodologies to create future-proof digital experiences.
+                Our in-house team leverages cutting-edge technologies to deliver robust technical solutions.
               </p>
             </header>
 
@@ -252,7 +325,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* Partner With Us Section */}
+        {/* Partner Network Section - New */}
         <section className="py-20 relative z-10">
           <div className="container mx-auto px-4">
             <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
@@ -268,20 +341,14 @@ export default function About() {
                   
                   <div className="relative">
                     <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow">
-                      PARTNER WITH US
+                      PARTNER NETWORK
                     </div>
                     <h2 className="text-3xl md:text-4xl font-technor text-primary-light mb-6">
-                      Let's Create Something Amazing Together
+                      Excellence Through Collaboration
                     </h2>
                     <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
-                      We're always looking for ambitious businesses to partner with. Whether you need a complete digital transformation or have a specific project in mind, we'd love to hear from you.
+                      Our partner network consists of carefully vetted agencies, each bringing specialized expertise in their domain. This collaborative approach allows us to deliver comprehensive solutions while maintaining the highest standards of quality.
                     </p>
-                    <Button
-                      href="/partner"
-                      className="bg-primary-light hover:bg-primary-light/90 text-white font-pilcrow"
-                    >
-                      Explore Partnership Opportunities
-                    </Button>
                   </div>
                 </motion.div>
                 
@@ -292,23 +359,23 @@ export default function About() {
                   className="space-y-6"
                 >
                   <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
-                    <h3 className="text-xl font-technor text-primary-light mb-2">Collaborative Approach</h3>
+                    <h3 className="text-xl font-technor text-primary-light mb-2">Rigorous Vetting</h3>
                     <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
-                      We believe in close collaboration with our clients. Your insight combined with our expertise leads to the best results.
+                      Partners are selected based on their track record, expertise, and alignment with our quality standards.
                     </p>
                   </div>
                   
                   <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
-                    <h3 className="text-xl font-technor text-primary-light mb-2">Transparent Process</h3>
+                    <h3 className="text-xl font-technor text-primary-light mb-2">Seamless Integration</h3>
                     <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
-                      Clear communication, regular updates, and no surprises. You'll always know where your project stands.
+                      We manage all partner services, ensuring smooth collaboration and consistent quality across your project.
                     </p>
                   </div>
                   
                   <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/20 dark:border-white/5">
-                    <h3 className="text-xl font-technor text-primary-light mb-2">Continued Support</h3>
+                    <h3 className="text-xl font-technor text-primary-light mb-2">Quality Assurance</h3>
                     <p className="text-gray-700 dark:text-gray-300 font-pilcrow">
-                      Our relationship doesn't end at launch. We offer ongoing support to ensure your digital products continue to thrive.
+                      Every deliverable goes through our quality control process to ensure it meets our high standards.
                     </p>
                   </div>
                 </motion.div>
@@ -328,17 +395,17 @@ export default function About() {
               
               <div className="relative max-w-3xl mx-auto">
                 <h2 className="text-3xl md:text-5xl font-technor text-white mb-6">
-                  Ready to Transform Your Digital Presence?
+                  Experience the Power of Partnership
                 </h2>
                 <p className="text-white/70 text-lg mb-8 font-pilcrow">
-                  Get in touch today and let's discuss how we can help you achieve your goals.
+                  Let's discuss how our unique approach can transform your business.
                 </p>
                 <Button
                   href="/contact"
                   className="bg-primary-light hover:bg-primary-light/90 text-white font-pilcrow"
                   size="lg"
                 >
-                  Contact Us
+                  Start Your Journey
                 </Button>
               </div>
             </div>
