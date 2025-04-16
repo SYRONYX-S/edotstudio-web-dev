@@ -232,7 +232,7 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                   className="inline-block bg-[#FF4D00] dark:bg-[#FF4D00] text-white dark:text-white px-4 py-1.5 rounded-full text-xs font-medium mb-5 tracking-wider"
                 >
-                  ONE-STOP BUSINESS SOLUTION
+                  1 ONE-STOP BUSINESS SOLUTION
                 </motion.div>
               </div>
               

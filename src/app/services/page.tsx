@@ -7,6 +7,7 @@ import { RiArrowRightLine, RiCheckLine, RiCodeSLine, RiSmartphoneLine, RiPalette
 import { Users } from 'lucide-react';
 import { IconType } from 'react-icons';
 import { FaCode, FaPaintBrush, FaMegaport, FaDesktop, FaMobileAlt, FaCloud, FaCogs, FaPalette, FaBalanceScale, FaShieldAlt, FaChartLine } from 'react-icons/fa';
+import { AnimatePresence } from 'framer-motion';
 
 // Components
 import AnimatedTitle from '@/components/AnimatedTitle';
@@ -321,11 +322,11 @@ export default function Services() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   
   return (
-    <main className="min-h-screen relative dark:bg-transparent">
+    <main className="relative services-page overflow-hidden">
       <PageHero
         badge="Our Services"
-        title="What We Do"
-        description="From web development to digital marketing, we offer comprehensive solutions to help your business thrive in the digital world."
+        title="Comprehensive Digital Solutions"
+        description="Explore our wide range of services designed to elevate your brand and drive business growth, from strategy to execution."
       />
 
       {/* Services Overview */}
@@ -360,77 +361,81 @@ export default function Services() {
       </section>
 
       {/* Detailed Service Sections */}
-      {serviceDetails.map((service, index) => (
-        <section
-          key={service.id}
-          id={service.id}
-          className={`py-20 ${
-            index % 2 === 0 ? 'bg-primary/5 dark:bg-black/20' : 'bg-white dark:bg-transparent'
-          }`}
-        >
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Service Content */}
-              <div
-                className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} font-supreme`}
+      <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4 overflow-hidden">
+          <AnimatePresence>
+            {serviceDetails.map((service, index) => (
+              <section
+                key={service.id}
+                id={service.id}
+                className={`py-20 ${
+                  index % 2 === 0 ? 'bg-primary/5 dark:bg-black/20' : 'bg-white dark:bg-transparent'
+                }`}
               >
-                <div className="mb-2 inline-block py-1 px-3 bg-primary/10 rounded-full -left-1 relative">
-                  <span className="text-primary text-sm font-medium font-pilcrow uppercase">{service.subtitle}</span>
-                </div>
-                <h2 className="text-3xl md:text-4xl font-roundo uppercase font-semibold text-primary-light dark:text-primary mb-6 break-words">{service.title}</h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">{service.description}</p>
-                
-                {/* Features */}
-                <div className="mb-8">
-                  <h3 className="text-xl font-technor mb-4">What We Offer</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
-                    {service.features.map((feature) => (
-                      <div key={feature} className="flex items-start">
-                        <RiCheckLine className="text-primary mt-1 mr-2 flex-shrink-0" />
-                        <span className="text-gray-700 dark:text-gray-300 font-pilcrow">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Process */}
-                <div>
-                  <h3 className="text-xl font-technor mb-4">Our Process</h3>
-                  <div className="space-y-4">
-                    {service.process?.map((item, index) => (
-                      <div key={index} className="flex">
-                        <div className="mr-4 flex-shrink-0">
-                          <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary text-white flex items-center justify-center font-medium">
-                            {item.step}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                  {/* Service Content */}
+                  <div
+                    className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'} font-supreme`}
+                  >
+                    <div className="mb-2 inline-block py-1 px-3 bg-primary/10 rounded-full -left-1 relative">
+                      <span className="text-primary text-sm font-medium font-pilcrow uppercase">{service.subtitle}</span>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-roundo uppercase font-semibold text-primary-light dark:text-primary mb-6 break-words">{service.title}</h2>
+                    <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">{service.description}</p>
+                    
+                    {/* Features */}
+                    <div className="mb-8">
+                      <h3 className="text-xl font-technor mb-4">What We Offer</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                        {service.features.map((feature) => (
+                          <div key={feature} className="flex items-start">
+                            <RiCheckLine className="text-primary mt-1 mr-2 flex-shrink-0" />
+                            <span className="text-gray-700 dark:text-gray-300 font-pilcrow">{feature}</span>
                           </div>
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-technor text-primary mb-1">{item.title}</h3>
-                          <p className="text-gray-600 dark:text-gray-400 font-pilcrow">{item.description}</p>
-                        </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    
+                    {/* Process */}
+                    <div>
+                      <h3 className="text-xl font-technor mb-4">Our Process</h3>
+                      <div className="space-y-4">
+                        {service.process?.map((item, index) => (
+                          <div key={index} className="flex">
+                            <div className="mr-4 flex-shrink-0">
+                              <div className="w-8 h-8 rounded-full bg-primary dark:bg-primary text-white flex items-center justify-center font-medium">
+                                {item.step}
+                              </div>
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-technor text-primary mb-1">{item.title}</h3>
+                              <p className="text-gray-600 dark:text-gray-400 font-pilcrow">{item.description}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Service Image */}
+                  <div
+                    className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-xl overflow-hidden group shadow-lg`}
+                  >
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                      style={{ objectFit: 'cover' }}
+                      className="group-hover:scale-105 transition-transform duration-700"
+                    />
                   </div>
                 </div>
-              </div>
-              
-              {/* Service Image */}
-              <div
-                className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-xl overflow-hidden group shadow-lg`}
-              >
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                  style={{ objectFit: 'cover' }}
-                  className="group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-      ))}
+              </section>
+            ))}
+          </AnimatePresence>
+        </div>
+      </section>
 
       {/* Partner With Us Section */}
       <section className="py-20 bg-white/5 dark:bg-white/5 backdrop-blur-sm">

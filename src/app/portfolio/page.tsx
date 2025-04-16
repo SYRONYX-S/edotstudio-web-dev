@@ -27,7 +27,7 @@ export default function Portfolio() {
     : projectList.filter(project => project.category === selectedCategory);
 
   return (
-    <main className="min-h-screen relative backdrop-blur-sm">
+    <main className="min-h-screen relative backdrop-blur-sm overflow-hidden">
       {/* Abstract Background */}
       {/* <AbstractBackground className="!fixed" /> */}
 
@@ -41,7 +41,7 @@ export default function Portfolio() {
 
             {/* Category Filter */}
       <section className="pb-20 -mt-4">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 overflow-hidden">
           <div className="flex flex-wrap justify-center gap-x-3 gap-y-4 mb-16 md:mb-20">
             {categories.map((category) => (
               <button
@@ -128,7 +128,7 @@ export default function Portfolio() {
             className="absolute inset-0 bg-[radial-gradient(circle_600px_at_70%_50%,#FF4D0010,transparent)]"
           />
         </div>
-        <div className="container mx-auto px-4 relative">
+        <div className="container mx-auto px-4 relative overflow-hidden">
           <div className="max-w-5xl mx-auto">
             <div
               className="text-center mb-16"
@@ -233,7 +233,7 @@ export default function Portfolio() {
           className="absolute inset-0"
         />
         
-        <div className="container mx-auto px-4 relative">
+        <div className="container mx-auto px-4 relative overflow-hidden">
           <div
             className="max-w-5xl mx-auto text-center"
           >
