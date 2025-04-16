@@ -861,67 +861,74 @@ export default function Home() {
       {/* Partner With Us Section */}
       <section className="py-20 bg-transparent dark:bg-black/10">
         <div className="container mx-auto px-4">
-          <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-              <div>
-                <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-                  Partner Program
-                </div>
-                <AnimatedTitle 
-                  title="Grow Your Business With Us"
-                  className="text-2xl md:text-4xl mb-6 font-technor"
-                />
-                <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
-                  Join our network of partners and earn competitive commissions by referring clients to our services. Whether you're an individual or an agency, our partnership programs are designed to create mutually beneficial relationships.
-                </p>
-                
-                <div className="flex flex-wrap gap-4">
-                  <Button 
-                    href="/partner" 
-                    className="bg-primary-light text-white hover:bg-primary"
-                    icon={<Users className="w-5 h-5" />}
-                  >
-                    Become a Partner
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="space-y-6">
-                <div className="flex items-start glass-card p-5 mb-4 border-l-4 border-primary">
-                  <div className="w-full">
-                    <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Referral Program</h3>
-                    <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Earn competitive commissions by referring clients. Commission issued once client completes full payment.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start glass-card p-5 mb-4 border-l-4 border-primary">
-                  <div className="w-full">
-                    <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Agency Partnership</h3>
-                    <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Expand your service offerings without increasing overhead. We work as your white-label development team.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start glass-card p-5 border-l-4 border-primary">
-                  <div className="w-full">
-                    <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Special Offer</h3>
-                    <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Partners who bring in 3+ projects annually receive upgraded commission rates and exclusive resources.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <motion.div 
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true, amount: 0.2 }}
+             transition={{ duration: 0.7, ease: "easeOut" }}
+             className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden"
+           >
+             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+             
+             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+               <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+               >
+                 <div>
+                   <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+                     Partner Program
+                   </div>
+                   <AnimatedTitle 
+                     title="Grow Your Business With Us"
+                     className="text-2xl md:text-4xl mb-6 font-technor"
+                   />
+                   <p className="text-gray-700 dark:text-gray-300 mb-8 font-pilcrow">
+                     Join our network of partners and earn competitive commissions by referring clients to our services. Whether you're an individual or an agency, our partnership programs are designed to create mutually beneficial relationships.
+                   </p>
+                   
+                   <div className="flex flex-wrap gap-4">
+                     <Button 
+                       href="/partner" 
+                       className="bg-primary-light text-white hover:bg-primary"
+                       icon={<Users className="w-5 h-5" />}
+                     >
+                       Become a Partner
+                     </Button>
+                   </div>
+                 </div>
+               </motion.div>
+               <div className="space-y-6">
+                 {[
+                    { title: "Referral Program", description: "Earn competitive commissions by referring clients. Commission issued once client completes full payment." },
+                    { title: "Agency Partnership", description: "Expand your service offerings without increasing overhead. We work as your white-label development team." },
+                    { title: "Special Offer", description: "Partners who bring in 3+ projects annually receive upgraded commission rates and exclusive resources." }
+                 ].map((card, index) => (
+                    <motion.div
+                       key={card.title}
+                       initial={{ opacity: 0, y: 20 }}
+                       whileInView={{ opacity: 1, y: 0 }}
+                       viewport={{ once: true, amount: 0.3 }}
+                       transition={{ duration: 0.5, delay: 0.1 + index * 0.15, ease: "easeOut" }}
+                       className="flex items-start glass-card p-5 border-l-4 border-primary"
+                     >
+                       <div className="w-full">
+                         <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">{card.title}</h3>
+                         <p className="text-gray-600 dark:text-gray-300 font-pilcrow">{card.description}</p>
+                       </div>
+                    </motion.div>
+                 ))}
+               </div>
+             </div>
+           </motion.div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-transparent dark:bg-black/10 animated-gradient w-full">
-        <div className="animated-bg-shapes">
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
-        <div className="container relative z-10">
+      <section className="py-20 bg-gradient-to-b from-transparent via-background-muted/20 to-transparent dark:via-black/20">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
               Testimonials
@@ -935,49 +942,14 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-            {[
-              {
-                name: "Sarah Johnson",
-                role: "CEO, TechVision Inc.",
-                content: "EdotStudio transformed our digital presence completely. Their team's attention to detail and innovative approach helped us achieve our goals faster than expected.",
-                image: "/testimonials/client1.jpg"
-              },
-              {
-                name: "Michael Chen",
-                role: "Marketing Director, GrowthWave",
-                content: "Working with EdotStudio and their partner Brandlifté was a game-changer. The combination of technical expertise and creative marketing strategies delivered exceptional results.",
-                image: "/testimonials/client2.jpg"
-              },
-              {
-                name: "Emma Williams",
-                role: "Founder, EcoStyle",
-                content: "The collaborative approach between EdotStudio and their agency partners ensured we got the best of both worlds - cutting-edge development and creative excellence.",
-                image: "/testimonials/client3.jpg"
-              }
-            ].map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative w-full"
-              >
-                <div className="h-full relative rounded-2xl bg-white/30 dark:bg-black/10 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-300 ease-in-out group-hover:border-primary/50 w-full">
-                  <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
-                      <span className="text-primary text-xl">❝</span>
-                    </div>
-                    <div>
-                      <h4 className="font-pilcrow text-xl -mb-0.5 font-semibold text-gray-900 dark:text-gray-100">{testimonial.name}</h4>
-                      <p className="text-sm text-primary-light dark:text-primary-light font-semibold font-pilcrow">{testimonial.role}</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-600 dark:text-white italic">"{testimonial.content}"</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <TestimonialSlider testimonials={testimonials} />
+          </motion.div>
         </div>
       </section>
 
@@ -987,7 +959,13 @@ export default function Home() {
       {/* CTA Section */}
       <section className="py-20 bg-primary-light dark:bg-primary-light text-white w-full">
         <div className="container text-center">
-          <div className="frosted-container py-12 px-6 w-full">
+          <motion.div
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true, amount: 0.2 }}
+             transition={{ duration: 0.8, ease: "easeOut" }}
+             className="frosted-container py-12 px-6"
+           >
             <AnimatedTitle 
               title="Let's Create the Future Together"
               color="light"
@@ -1023,8 +1001,8 @@ export default function Home() {
                 Partner With Us
               </Button>
             </div>
-          </div>
-    </div>
+          </motion.div>
+        </div>
       </section>
     </>
   );
