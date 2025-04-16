@@ -541,21 +541,25 @@ button, a, input, select, textarea {
 
 /* New Glass Effects */
 .glass-card {
-  @apply rounded-xl backdrop-blur-md border;
-  background-color: rgba(255, 255, 255, 0.65);
-  border-color: rgba(255, 255, 255, 0.18);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  @apply rounded-2xl border border-transparent 
+         transition-all duration-300 shadow-sm;
+  /* Light mode subtle background */
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
 }
 
 .dark .glass-card {
-  background-color: rgba(10, 10, 10, 0.75);
-  border-color: rgba(232, 96, 0, 0.2);
-  box-shadow: 0 4px 20px rgba(232, 96, 0, 0.08);
+  /* Dark mode - Neutral very dark grey, less blue */
+  background-color: rgba(15, 15, 15, 0.6); /* Changed from potential blue-tinted dark */
+  border-color: rgba(255, 255, 255, 0.08); /* Keep subtle border */
+  backdrop-filter: blur(10px);
+  /* Removed explicit box-shadow, relying on parent/hover */
+}
+
+.glass-card:hover {
+   @apply shadow-lg; /* Enhance shadow on hover */
+   border-color: rgba(255, 255, 255, 0.15); /* Slightly more visible border on hover */
 }
 
 /* Frosted container */
@@ -807,43 +811,113 @@ button, a, input, select, textarea {
   scrollbar-color: var(--primary-light) transparent;
 }
 
-/* Container width override */
+/* Container width settings */
 .container {
-  max-width: 100%;
   width: 100%;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-@media (min-width: 640px) {
+/* Below 575px - minimum 15px padding on sides */
+@media (max-width: 575px) {
   .container {
-    max-width: 640px;
+    width: calc(100% - 30px);
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 15px;
+    margin-right: 15px;
   }
 }
 
-@media (min-width: 768px) {
+/* Between 575px and 991px - 90% width */
+@media (min-width: 576px) and (max-width: 991px) {
   .container {
-    max-width: 768px;
+    width: 90%;
+    max-width: 90%;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
-@media (min-width: 1024px) {
+/* Above 991px - 80% width */
+@media (min-width: 992px) {
   .container {
-    max-width: 1024px;
+    width: 80%;
+    max-width: 1500px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
+/* Ensure sections fill full width */
+@media (max-width: 767px) {
+  section {
+    width: 100% !important;
   }
-}
-
-@media (min-width: 1400px) {
-  .container {
-    max-width: 1400px;
+  
+  /* Fix for partner program cards and expertise section */
+  .partner-cards-container,
+  .expertise-section {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  /* Force specific card fixes for problem areas */
+  .expertise-section .glass-card,
+  .partner-cards-container .glass-card,
+  .expertise-section .glass-card > div,
+  .partner-cards-container .glass-card > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Fix specific pages with responsiveness issues */
+  .contact-page .grid,
+  .portfolio-page .grid,
+  .services-page .grid,
+  [class*='services-section'],
+  [class*='contact-section'],
+  [class*='portfolio-section'] {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Fix grid item widths for these pages */
+  .contact-page .grid > div,
+  .portfolio-page .grid > div,
+  .services-page .grid > div,
+  [class*='services-section'] > div,
+  [class*='contact-section'] > div,
+  [class*='portfolio-section'] > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure proper padding for content */
+  .container > div > section {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  /* Force full width for grid containers on mobile */
+  .grid,
+  .grid-cols-1,
+  .md\:grid-cols-2,
+  .lg\:grid-cols-3 {
+    width: 100%;
   }
 }
 
@@ -1270,32 +1344,19 @@ a, button, input, select, textarea {
 /* Service Carousel Styles */
 .service-carousel {
   will-change: transform;
-  backface-visibility: hidden;
-  perspective: 1000px;
   transform: translateZ(0);
-  touch-action: pan-x;
-  cursor: grab;
-  user-select: none;
-  animation: carouselScroll 30s linear infinite;
-  -webkit-overflow-scrolling: touch;
 }
 
-.service-carousel:active {
-  cursor: grabbing;
-  animation-play-state: paused;
-}
+/* Remove the keyframes */
+/* @keyframes carouselScroll { ... } */
 
-.service-carousel:hover {
-  animation-play-state: running !important;
-}
+/* Remove pause on hover - Framer Motion handles pause on drag */
+/* @media (hover: hover) { ... } */
 
-@keyframes carouselScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-100% / 3));
-  }
+/* Optimize performance */
+.service-carousel > * {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Client Carousel Styles */
@@ -1350,7 +1411,16 @@ a, button, input, select, textarea {
   }
   
   .glass-card {
-    width: 260px !important;
+    width: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+  }
+  
+  /* Specific override for cards in expertise and partner sections */
+  .expertise-section .glass-card,
+  .partner-cards-container .glass-card {
+    width: 100% !important;
+    min-width: 100% !important;
   }
 }
 
@@ -1371,9 +1441,13 @@ a, button, input, select, textarea {
 }
 
 /* Dark mode gradient overlays */
-.dark .absolute.inset-y-0.left-0.w-32.bg-gradient-to-r,
-.dark .absolute.inset-y-0.right-0.w-32.bg-gradient-to-l {
-  background: linear-gradient(to right, rgb(5, 5, 5) 0%, rgba(5, 5, 5, 0) 100%);
+.dark .bg-gradient-to-r.from-background-dark {
+  background: linear-gradient(to right, rgb(5, 5, 5) 20%, rgba(5, 5, 5, 0) 100%);
+}
+
+/* Right overlay - Corrected direction */
+.dark .bg-gradient-to-l.from-background-dark {
+  background: linear-gradient(to left, rgb(5, 5, 5) 20%, rgba(5, 5, 5, 0) 100%);
 }
 
 /* Animation utilities */
@@ -1401,4 +1475,23 @@ a, button, input, select, textarea {
 
 .animate-pulse-slow {
   animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Input Field Styles */
+.input-base,
+.textarea-base,
+.contact-input {
+  @apply w-full px-4 py-2.5 rounded-lg border transition-all duration-300 
+         bg-white/10 dark:bg-black/30 
+         border-gray-300 dark:border-gray-700 
+         text-gray-800 dark:text-white 
+         placeholder-gray-400 dark:placeholder-gray-500 
+         focus:ring-2 focus:ring-primary focus:border-transparent 
+         focus:outline-none;
+}
+
+.textarea-base,
+.contact-input[type="textarea"] { 
+  /* Use specific selector if needed, otherwise handled by base */
+  @apply min-h-[120px]; /* Example: Set min height for textareas */
 }

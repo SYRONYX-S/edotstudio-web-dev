@@ -42,21 +42,22 @@ export default function Portfolio() {
             {/* Category Filter */}
       <section className="pb-20 -mt-4">
         <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-3 mb-20">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2.5 rounded-full text-sm font-technor font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm ${
-                    selectedCategory === category
-                      ? 'bg-primary dark:bg-primary text-white shadow-glow'
-                    : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-4 mb-16 md:mb-20">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={[
+                  "px-5 py-2 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-technor font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm",
+                  selectedCategory === category
+                    ? 'bg-primary dark:bg-primary text-white shadow-glow'
+                    : 'dark:bg-white/5 dark:hover:bg-white/10 dark:text-white/70 dark:hover:text-white bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900'
+                ].join(' ')}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
 
           {/* Projects Grid */}
           <div

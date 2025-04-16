@@ -21,6 +21,7 @@ import PortfolioItem from '@/components/PortfolioItem';
 import ClientsMarquee from '@/components/ClientsMarquee';
 import FAQ from '@/components/FAQ';
 import StructuredData from '@/components/StructuredData';
+import ServiceCarousel from '@/components/ServiceCarousel';
 
 // Data
 import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
@@ -140,16 +141,19 @@ const newServices: Service[] = [
 ];
 
 export default function Home() {
-  // Reference for scroll parallax effects
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
   });
   
-  // Parallax effects for the hero section - use default transform without additional options
-  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  // Parallax for left column
+  const yLeft = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacityLeft = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Parallax for right column (slightly different offset/factor for variation)
+  const yRight = useTransform(scrollYProgress, [0, 1], [0, 250]); // Scrolls slightly less
+  const opacityRight = useTransform(scrollYProgress, [0, 0.6], [1, 0]); // Fades slightly later
 
   return (
     <>
@@ -207,13 +211,13 @@ export default function Home() {
         
         {/* Content */}
         <div className="container mx-auto px-4 z-10">
-          {/* Framer-inspired design for all screen sizes */}
-          <div className="flex flex-col md:flex-row items-start text-left pt-0 max-w-[100%] justify-between">
+          {/* Flex container for left/right columns - added items-center */}
+          <div className="flex flex-col md:flex-row items-center text-left pt-0 max-w-[100%] justify-between">
             {/* Left content column */}
           <motion.div 
-              style={{ y, opacity }}
+              style={{ y: yLeft, opacity: opacityLeft }} 
               className="relative w-full max-w-full md:max-w-[50%] flex-shrink-0"
-              initial={{ translateZ: 0 }} 
+              initial={{ translateZ: 0 }}
             transition={{ 
                 translateY: { type: "spring", damping: 15 }
               }}
@@ -221,7 +225,7 @@ export default function Home() {
               <h1 className="sr-only">EdotStudio - Premium Web & App Development Agency</h1>
               
               {/* Badge positioned toward the top left */}
-              <div className="mb-0">
+              <div className="mb-0 mt-[44px]">
           <motion.div 
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -310,103 +314,39 @@ export default function Home() {
               </motion.div>
             </motion.div>
             
-            {/* Right side visual element - visible only on larger screens */}
+            {/* Right side visual element - Restoring specific gradient background */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              style={{ y: yRight, opacity: opacityRight, minHeight: '500px' }}
               className="hidden md:flex relative w-full md:max-w-[45%] items-center justify-center"
-              style={{ minHeight: '500px' }}
             >
-              <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-transparent to-transparent dark:from-transparent dark:to-transparent p-10 w-full h-full flex items-center justify-center" style={{ minHeight: '550px' }}>
-                {/* Theme-responsive logo with orange glow */}
-                <div className="relative flex items-center justify-center w-full h-full">
-                  <div className="absolute w-full h-full bg-[#FF4D00]/5 rounded-full filter blur-[80px]"></div>
-                  <Image
-                    src="/logo-dark.svg"
-                    width={300}
-                    height={300}
-                    alt="EdotStudio Logo" 
-                    className="w-4/5 max-w-[350px] h-auto object-contain block dark:hidden z-10"
-                  />
-                  <Image
-                    src="/logo-light.svg"
-                    width={300}
-                    height={300}
-                    alt="EdotStudio Logo" 
-                    className="w-4/5 max-w-[350px] h-auto object-contain hidden dark:block z-10"
-                  />
-              </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#FF4D00]/10 dark:to-[#FF4D00]/15"></div>
-                
-                {/* Add subtle animated effect */}
-                <div className="absolute inset-0 bg-grid-white/[0.02] mask-radial-gradient opacity-30"></div>
-              </div>
-            </motion.div>
-              </div>
-            
-          {/* Auto-sliding carousel for services preview - Simplified for seamless loop only */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            className="w-full mt-10 overflow-hidden"
-          >
-            <div className="relative w-full overflow-hidden">
-              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent dark:from-background-dark z-10" />
-              <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent dark:from-background-dark z-10" />
-              <motion.div
-                className="service-carousel flex gap-4"
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                onDragEnd={(event, info) => {
-                  const carousel = event.currentTarget as HTMLDivElement;
-                  const velocity = info.velocity.x;
-                  
-                  if (Math.abs(velocity) > 500) {
-                    const direction = velocity > 0 ? -1 : 1;
-                    const scrollAmount = direction * (carousel.offsetWidth / 2);
-                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                  }
-                  
-                  // Reset animation with current position
-                  requestAnimationFrame(() => {
-                    if (carousel) {
-                      carousel.style.animation = 'none';
-                      carousel.offsetHeight; // Force reflow
-                      carousel.style.animation = 'carouselScroll 30s linear infinite';
-                    }
-                  });
-                }}
+              {/* The logo container with the specific right-to-left orange gradient */}
+              <div 
+                className="relative rounded-2xl overflow-hidden p-6 w-full h-full flex items-center justify-center 
+                           bg-gradient-to-r from-transparent via-[#FF4D00]/5 to-[#FF4D00]/15 
+                           dark:from-transparent dark:via-[#FF4D00]/10 dark:to-[#FF4D00]/20"
+                style={{ minHeight: '500px' }}
               >
-                {[...newServices, ...newServices, ...newServices].map((service, index) => {
-                  const IconComponent: React.ComponentType<{ className?: string }> = service.icon;
-                  return (
-                    <motion.div
-                      key={`${service.title}-${index}`}
-                      className="glass-card flex-shrink-0 w-[280px] p-6"
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="p-3 rounded-lg bg-primary/10 text-primary">
-                          <IconComponent className="w-6 h-6" />
+                 {/* Theme-responsive logo with subtle internal glow (optional) */}
+                 <div className="relative flex items-center justify-center w-full h-full">
+                    {/* Optional internal glow */}
+                    {/* <div className="absolute w-full h-full bg-[#FF4D00]/5 rounded-full filter blur-[70px] opacity-50"></div> */}
+                    <Image src="/logo-dark.svg" width={350} height={350} alt="EdotStudio Logo Dark" className="relative w-4/5 max-w-[400px] h-auto object-contain block dark:hidden z-10" />
+                    <Image src="/logo-light.svg" width={350} height={350} alt="EdotStudio Logo Light" className="relative w-4/5 max-w-[400px] h-auto object-contain hidden dark:block z-10" />
+                  </div>
+                  {/* Subtle grid pattern can remain if desired */}
+                  {/* <div className="absolute inset-0 bg-grid-white/[0.02] mask-radial-gradient opacity-30"></div> */}
               </div>
-                        <h3 className="text-xl font-semibold">{service.title}</h3>
-                      </div>
-                      <p className="text-muted-foreground">{service.description}</p>
-                    </motion.div>
-                  );
-                })}
             </motion.div>
           </div>
-          </motion.div>
+            
+          {/* Auto-sliding carousel for services preview */}
+          <ServiceCarousel services={newServices} />
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20 relative overflow-hidden dark:bg-black/10">
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-20 relative overflow-hidden dark:bg-black/10 w-full expertise-section">
+        <div className="container relative z-10">
           <div className="text-center mb-16">
             <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Expertise
@@ -421,9 +361,9 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
             {/* In-House Services */}
-            <div className="glass-card p-8">
+            <div className="glass-card p-8 w-full">
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00]">
                   <Code className="w-6 h-6" />
@@ -433,13 +373,13 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-300 mb-6 font-pilcrow">
                 Our in-house development team specializes in delivering cutting-edge technical solutions with direct oversight and quality control.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-4 w-full">
                 {newServices.filter(service => service.inHouse).map((service, index) => (
-                  <div key={service.title} className="flex items-start p-4 bg-white/50 dark:bg-black/20 rounded-xl">
+                  <div key={service.title} className="flex items-start p-4 bg-white/50 dark:bg-black/20 rounded-xl w-full">
                     <div className="p-2 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00] mr-4">
                       <service.icon className="w-5 h-5" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h4 className="font-technor text-lg mb-1">{service.title}</h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300 font-pilcrow">{service.description}</p>
                     </div>
@@ -449,7 +389,7 @@ export default function Home() {
           </div>
           
             {/* Partner Services */}
-            <div className="glass-card p-8">
+            <div className="glass-card p-8 w-full">
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-3 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00]">
                   <Users className="w-6 h-6" />
@@ -459,13 +399,13 @@ export default function Home() {
               <p className="text-gray-600 dark:text-gray-300 mb-6 font-pilcrow">
                 Access our carefully curated network of industry-leading agencies, each vetted for excellence in their specialized domains.
               </p>
-              <div className="space-y-4">
+              <div className="space-y-4 w-full">
                 {newServices.filter(service => !service.inHouse).map((service, index) => (
-                  <div key={service.title} className="flex items-start p-4 bg-white/50 dark:bg-black/20 rounded-xl">
+                  <div key={service.title} className="flex items-start p-4 bg-white/50 dark:bg-black/20 rounded-xl w-full">
                     <div className="p-2 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00] mr-4">
                       <service.icon className="w-5 h-5" />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <h4 className="font-technor text-lg mb-1">{service.title}</h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300 font-pilcrow">{service.description}</p>
                     </div>
@@ -476,7 +416,7 @@ export default function Home() {
           </div>
 
           {/* Benefits Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 w-full">
             {[
               {
                 title: "Seamless Integration",
@@ -496,10 +436,11 @@ export default function Home() {
             ].map((benefit, index) => (
               <motion.div
                 key={benefit.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-6"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+                className="glass-card p-6 w-full h-full"
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="p-2 rounded-lg bg-[#FF4D00]/10 text-[#FF4D00]">
@@ -526,13 +467,13 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-20 relative overflow-hidden dark:bg-black/10 ">
+      <section className="py-20 relative overflow-hidden dark:bg-black/10 w-full">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12">
+        <div className="container relative z-10">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-12 w-full">
             <div>
               <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
                 Our Portfolio
@@ -557,7 +498,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {portfolioProjects.slice(0, 3).map((project, index) => (
               <PortfolioItem
                 key={project.id}
@@ -566,7 +507,7 @@ export default function Home() {
                 image={project.image}
                 href={project.href}
                 index={index}
-                className="frosted-container hover-tilt"
+                className="frosted-container hover-tilt w-full"
               />
             ))}
           </div>
@@ -574,12 +515,12 @@ export default function Home() {
       </section>
 
       {/* Clients Marquee Section */}
-      <section className="py-20 relative overflow-hidden dark:bg-black/10">
+      <section className="py-20 relative overflow-hidden dark:bg-black/10 w-full">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
               Our Partners
@@ -597,44 +538,34 @@ export default function Home() {
             <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent dark:from-background-dark z-10" />
             <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent dark:from-background-dark z-10" />
             <motion.div
-              className="client-carousel flex gap-8 items-center"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={(event, info) => {
-                const carousel = event.currentTarget as HTMLDivElement;
-                const velocity = info.velocity.x;
-                
-                if (Math.abs(velocity) > 500) {
-                  const direction = velocity > 0 ? -1 : 1;
-                  const scrollAmount = direction * (carousel.offsetWidth / 2);
-                  carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-                
-                // Reset animation with current position
-                requestAnimationFrame(() => {
-                  if (carousel) {
-                    carousel.style.animation = 'none';
-                    carousel.offsetHeight; // Force reflow
-                    carousel.style.animation = 'clientScroll 30s linear infinite';
-                  }
-                });
+              className="flex client-carousel items-center py-8 w-[calc(200%+100px)]"
+              initial={{ x: 0 }}
+              animate={{ x: "calc(-50% - 50px)" }}
+              transition={{
+                repeat: Infinity,
+                duration: 40,
+                ease: "linear",
               }}
             >
-              {[...clients, ...clients, ...clients].map((client, index) => (
-                <motion.div
-                  key={`${client.name}-${index}`}
-                  className="client-logo flex-shrink-0 w-[120px] h-[60px] flex items-center justify-center"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={120}
-                    height={60}
-                    className="max-h-full w-auto object-contain filter dark:brightness-0 dark:invert"
-                  />
-                </motion.div>
+              {[...Array(2)].map((_, arrayIndex) => (
+                <div key={arrayIndex} className="flex min-w-[50%] justify-around items-center">
+                  {clients.map((client, index) => (
+                    <div 
+                      key={index + (arrayIndex * clients.length)} 
+                      className="mx-4 md:mx-8 flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
+                    >
+                      <div className="h-12 md:h-16 w-auto">
+                        <Image
+                          src={client.logo}
+                          alt={`Partner Logo ${index + 1}`}
+                          width={120}
+                          height={60}
+                          className="h-full w-auto object-contain"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ))}
             </motion.div>
           </div>
@@ -928,8 +859,8 @@ export default function Home() {
       </section>
 
       {/* Partner With Us Section */}
-      <section className="py-20 bg-transparent dark:bg-black/10 ">
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-20 bg-transparent dark:bg-black/10">
+        <div className="container mx-auto px-4">
           <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-8 md:p-12 border border-primary/20 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl -translate-y-1/2 translate-x-1/2"></div>
             
@@ -959,21 +890,21 @@ export default function Home() {
               
               <div className="space-y-6">
                 <div className="flex items-start glass-card p-5 mb-4 border-l-4 border-primary">
-                  <div>
+                  <div className="w-full">
                     <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Referral Program</h3>
                     <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Earn competitive commissions by referring clients. Commission issued once client completes full payment.</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start glass-card p-5 mb-4 border-l-4 border-primary">
-                  <div>
+                  <div className="w-full">
                     <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Agency Partnership</h3>
                     <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Expand your service offerings without increasing overhead. We work as your white-label development team.</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start glass-card p-5 border-l-4 border-primary">
-                  <div>
+                  <div className="w-full">
                     <h3 className="font-technor text-lg text-gray-800 dark:text-white mb-2">Special Offer</h3>
                     <p className="text-gray-600 dark:text-gray-300 font-pilcrow">Partners who bring in 3+ projects annually receive upgraded commission rates and exclusive resources.</p>
                   </div>
@@ -985,12 +916,12 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-transparent dark:bg-black/10  animated-gradient">
+      <section className="py-20 bg-transparent dark:bg-black/10 animated-gradient w-full">
         <div className="animated-bg-shapes">
           <div className="shape"></div>
           <div className="shape"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10">
           <div className="text-center mb-12">
             <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
               Testimonials
@@ -1004,7 +935,7 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {[
               {
                 name: "Sarah Johnson",
@@ -1030,9 +961,9 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group relative"
+                className="group relative w-full"
               >
-                <div className="h-full relative rounded-2xl bg-white/30 dark:bg-black/10 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-300 ease-in-out group-hover:border-primary/50">
+                <div className="h-full relative rounded-2xl bg-white/30 dark:bg-black/10 backdrop-blur-sm border border-gray-200/50 dark:border-gray-800/50 p-6 overflow-hidden transition-all duration-300 ease-in-out group-hover:border-primary/50 w-full">
                   <div className="flex items-center mb-6">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mr-4">
                       <span className="text-primary text-xl">❝</span>
@@ -1054,9 +985,9 @@ export default function Home() {
       <FAQ />
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary-light dark:bg-primary-light text-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="frosted-container py-12 px-6">
+      <section className="py-20 bg-primary-light dark:bg-primary-light text-white w-full">
+        <div className="container text-center">
+          <div className="frosted-container py-12 px-6 w-full">
             <AnimatedTitle 
               title="Let's Create the Future Together"
               color="light"

@@ -1,64 +1,26 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { RiMailLine, RiPhoneLine, RiMapPinLine, RiSendPlane2Line, RiArrowRightLine } from 'react-icons/ri';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { MapPin, Phone, Mail, Send, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
 import { hapticFeedback } from '@/utils/haptics';
 
 // Components
-import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import PageHero from '@/components/PageHero';
-
-// FAQ data
-const faqs = [
-  {
-    question: 'What services does EdotStudio offer?',
-    answer: 'EdotStudio offers a comprehensive range of digital services including branding, web development, app development, graphic design, and digital marketing. We provide end-to-end solutions to help businesses establish a strong digital presence and achieve their goals.',
-  },
-  {
-    question: 'How much do your services cost?',
-    answer: 'Our pricing varies based on the specific requirements of each project. We provide customized quotes after understanding your needs and project scope. Contact us for a free consultation to discuss your project and get a tailored quote.',
-  },
-  {
-    question: 'How long does it take to complete a project?',
-    answer: "Project timelines depend on the complexity and scope of work. A simple website might take 4-6 weeks, while more complex projects like custom web applications or comprehensive branding packages can take 2-4 months. We'll provide a detailed timeline during our initial consultation.",
-  },
-  {
-    question: 'Do you work with clients internationally?',
-    answer: 'Yes, we work with clients worldwide. Our team is experienced in collaborating remotely, and we use efficient communication tools to ensure smooth project management regardless of geographical location.',
-  },
-  {
-    question: 'What is your design process like?',
-    answer: "Our design process typically involves discovery (understanding your needs and goals), research (analyzing your industry and competitors), concept development, design creation, revisions based on your feedback, and finalization. We ensure you're involved throughout the process.",
-  },
-  {
-    question: 'Do you provide ongoing support after project completion?',
-    answer: 'Yes, we offer ongoing support and maintenance services to keep your digital assets running smoothly. We provide various support packages to suit different needs and budgets.',
-  },
-];
+import StructuredData from '@/components/StructuredData';
+import FAQ from '@/components/FAQ';
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(false);
-  const [showFaq, setShowFaq] = useState<number | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     hapticFeedback.selection();
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -67,271 +29,178 @@ export default function Contact() {
     setIsSubmitting(true);
     setSubmitSuccess(false);
     setSubmitError(false);
-    
     try {
       const response = await fetch('/api/submit-contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
       const result = await response.json();
-
-      if (result.success) {
+      if (response.ok && result.success) {
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
         hapticFeedback.notificationSuccess();
-      setSubmitSuccess(true);
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
       } else {
-        hapticFeedback.notificationError();
-        setSubmitError(true);
+        throw new Error(result.message || 'Submission failed');
       }
     } catch (error) {
       console.error('Error submitting contact form:', error);
-      hapticFeedback.notificationError();
       setSubmitError(true);
+      hapticFeedback.notificationError();
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const contactInfo = [
-    {
-      icon: <Mail className="h-6 w-6 text-primary" />,
-      title: 'Email Us',
-      details: 'info@edotstudio.com',
-      link: 'mailto:info@edotstudio.com'
-    },
-    {
-      icon: <Phone className="h-6 w-6 text-primary" />,
-      title: 'Call Us',
-      details: '+1 (234) 567-890',
-      link: 'tel:+1234567890'
-    },
-    {
-      icon: <MapPin className="h-6 w-6 text-primary" />,
-      title: 'Location',
-      details: '123 Business Street, New York, NY 10001',
-      link: 'https://maps.google.com'
-    }
+    { icon: Mail, title: 'Email Us', details: 'info@edotstudio.com', link: 'mailto:info@edotstudio.com' },
+    { icon: Phone, title: 'Call Us', details: '+1 (234) 567-890', link: 'tel:+1234567890' },
+    { icon: MapPin, title: 'Find Us', details: '123 Business St, New York, NY', link: '#' }, // Link to map placeholder or actual map
   ];
 
+  const socialLinks = [
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Instagram, href: '#', label: 'Instagram' },
+  ];
+
+  const contactStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "url": "https://edotstudio.com/contact",
+    "name": "Contact EdotStudio",
+    "description": "Get in touch with EdotStudio for web development, app development, branding, and marketing services.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "EdotStudio",
+      "telephone": "+1-123-456-7890",
+      "email": "info@edotstudio.com"
+    }
+  };
+
   return (
-    <main className="relative">
+    <main className="relative contact-page overflow-hidden">
       <PageHero
-        badge="Contact Us"
-        title="Let's Work Together"
-        description="Have a project in mind? We'd love to hear about it. Reach out to discuss how we can help bring your vision to life."
+        badge="Get In Touch"
+        title="Let's Build Something Great Together"
+        description="Reach out to discuss your project, ask questions, or just say hello. We're here to help you succeed."
       />
 
-      <section className="pb-20 -mt-4">
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
-          {/* Contact Form */}
+      <section className="py-16 md:py-20 -mt-10 md:-mt-16 relative z-10">
+        <div className="container mx-auto px-4">
+          <StructuredData data={contactStructuredData} />
+
+          {/* Main Content Grid (Form Left, Info Right) */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 items-start mb-16 md:mb-24">
+            
+            {/* Left Column: Contact Form */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-2 glass-card p-6 sm:p-8 md:p-10 shadow-xl"
+            >
+              <h2 className="text-2xl md:text-3xl font-technor mb-2 text-gray-800 dark:text-white">Send Your Inquiry</h2>
+              <p className="text-gray-600 dark:text-gray-400 font-pilcrow mb-6">Fill out the form and we'll get back to you shortly.</p>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="name" className="sr-only">Name</label>
+                    <input type="text" id="name" name="name" required value={formData.name} onChange={handleInputChange} className="contact-input" placeholder="Your Name" />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="sr-only">Email</label>
+                    <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} className="contact-input" placeholder="Your Email" />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="subject" className="sr-only">Subject</label>
+                  <input type="text" id="subject" name="subject" required value={formData.subject} onChange={handleInputChange} className="contact-input" placeholder="Subject" />
+                </div>
+                <div>
+                  <label htmlFor="message" className="sr-only">Message</label>
+                  <textarea id="message" name="message" rows={5} required value={formData.message} onChange={handleInputChange} className="contact-input" placeholder="Your message..."></textarea>
+                </div>
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                  <Button type="submit" disabled={isSubmitting} size="lg" className="w-full sm:w-auto">
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {!isSubmitting && <Send className="w-5 h-5 ml-2" />}
+                  </Button>
+                  <div className="text-center sm:text-right mt-2 sm:mt-0 h-5"> {/* Status Message Area */}
+                    {submitSuccess && <p className="text-sm text-green-600 dark:text-green-500">Sent successfully!</p>}
+                    {submitError && <p className="text-sm text-red-600 dark:text-red-500">Submission error.</p>}
+                  </div>
+                </div>
+              </form>
+            </motion.div>
+
+            {/* Right Column: Contact Details & Socials */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8 glass-card p-6 sm:p-8 md:p-10 shadow-xl h-full"
+            >
+              <div>
+                <h3 className="text-xl font-semibold font-technor mb-4 text-gray-800 dark:text-white">Contact Details</h3>
+                <ul className="space-y-4">
+                  {contactInfo.map((item, index) => (
+                    <li key={index} className="flex items-start gap-3 group">
+                      <div className="flex-shrink-0 mt-1 text-primary">
+                        <item.icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-md font-semibold text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors">{item.title}</h4>
+                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 dark:text-gray-400 hover:underline font-pilcrow break-all">
+                          {item.details}
+                        </a>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <hr className="border-gray-200 dark:border-gray-700/50" />
+
+              <div>
+                 <h3 className="text-xl font-semibold font-technor mb-4 text-gray-800 dark:text-white">Follow Us</h3>
+                 <div className="flex items-center gap-4">
+                   {socialLinks.map((social) => (
+                    <a 
+                      key={social.label} 
+                      href={social.href} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label={social.label}
+                      className="p-2 rounded-full text-gray-500 dark:text-gray-400 bg-white/10 hover:bg-primary/10 hover:text-primary dark:bg-black/20 dark:hover:bg-primary/10 dark:hover:text-primary transition-colors duration-300"
+                    >
+                      <social.icon className="w-5 h-5" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Optional: Map Placeholder or Graphic */}
+              {/* <div className="mt-6 aspect-video bg-gray-200 dark:bg-gray-800/50 rounded-lg flex items-center justify-center text-gray-500">
+                Map Placeholder
+              </div> */}
+
+            </motion.div>
+          </div>
+
+          {/* FAQ Section - Full Width Below Grid */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-3 bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10"
+            transition={{ duration: 0.6, delay: 0.4 }} 
+            className="mt-16 md:mt-24 glass-card shadow-xl"
           >
-            <h2 className="text-2xl font-technor mb-6 text-black dark:text-white">Send a Message</h2>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-pilcrow">
-                    Your Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
-                    placeholder="John Doe"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-pilcrow">
-                    Email Address
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
-                    placeholder="john@example.com"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-pilcrow">
-                  Subject
-                </label>
-                <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  required
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
-                  placeholder="How can we help?"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 font-pilcrow">
-                  Your Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  required
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-white/5 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 dark:bg-black/30 dark:text-white"
-                  placeholder="Tell us about your project..."
-                />
-              </div>
-              
-              <div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full flex items-center justify-center px-6 py-3 bg-primary hover:bg-primary-light text-white font-medium rounded-lg transition-all duration-300 font-technor ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="mr-2 h-5 w-5" />
-                      Send Message
-                    </>
-                  )}
-                </button>
-                
-                {submitSuccess && (
-                  <div className="mt-4 p-3 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-lg text-sm font-pilcrow">
-                    Thank you! Your message has been sent successfully. We'll get back to you soon.
-                  </div>
-                )}
-                
-                {submitError && (
-                  <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200 rounded-lg text-sm font-pilcrow">
-                    Oops! Something went wrong. Please try again or contact us directly.
-                  </div>
-                )}
-              </div>
-            </form>
-          </motion.div>
-          
-          {/* Contact Info */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
-          >
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10">
-              <h2 className="text-2xl font-technor mb-6 text-black dark:text-white">Get in Touch</h2>
-              
-              <div className="space-y-6">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={info.title}
-                    href={info.link}
-                    target={info.title === 'Location' ? '_blank' : ''}
-                    rel={info.title === 'Location' ? 'noopener noreferrer' : ''}
-                    whileHover={{ x: 5 }}
-                    className="flex items-start group"
-                  >
-                    <div className="bg-white/10 dark:bg-black/20 p-3 rounded-full mr-4 group-hover:bg-primary/20 transition-all duration-300">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <p className="font-medium text-black dark:text-white font-technor">{info.title}</p>
-                      <p className="text-gray-600 dark:text-gray-400 font-pilcrow group-hover:text-primary transition-all duration-300">
-                        {info.details}
-                      </p>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-            
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10">
-              <h2 className="text-2xl font-technor mb-4 text-black dark:text-white">Business Hours</h2>
-              <div className="space-y-2 font-pilcrow">
-                <p className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Monday - Friday</span>
-                  <span className="font-medium text-black dark:text-white">9:00 AM - 6:00 PM</span>
-                </p>
-                <p className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Saturday</span>
-                  <span className="font-medium text-black dark:text-white">10:00 AM - 4:00 PM</span>
-                </p>
-                <p className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Sunday</span>
-                  <span className="font-medium text-black dark:text-white">Closed</span>
-                </p>
-              </div>
-            </div>
-            
-            <div className="bg-primary/10 dark:bg-primary/20 backdrop-blur-xl rounded-2xl p-8 border border-primary/30 dark:border-primary/30">
-              <h2 className="text-2xl font-technor mb-4 text-black dark:text-white">Partner With Us</h2>
-              <p className="text-gray-700 dark:text-gray-300 mb-4 font-pilcrow">
-                Are you an agency owner or freelancer? Join our partner program to earn competitive commissions by referring clients or expand your service offerings through our white-label solutions.
-              </p>
-              <Button 
-                href="/partner" 
-                className="bg-primary-light text-white hover:bg-primary w-full md:w-auto"
-              >
-                Explore Partnership Opportunities
-              </Button>
+            <div>
+              <FAQ /> 
             </div>
           </motion.div>
         </div>
-        
-        {/* Map Section (optional) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 rounded-2xl overflow-hidden h-[400px] relative"
-        >
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976397304605!3d40.69766374874431!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2s!4v1614352141742!5m2!1sen!2s" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }}
-            allowFullScreen 
-            loading="lazy"
-            title="Our Location"
-            className="grayscale hover:grayscale-0 transition-all duration-500"
-          ></iframe>
-          <div className="absolute inset-0 pointer-events-none border border-white/20 dark:border-white/10 rounded-2xl"></div>
-        </motion.div>
-      </div>
       </section>
     </main>
   );
