@@ -62,138 +62,121 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     const isMobileDevice = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     setIsMobile(isMobileDevice);
 
-    // Initialize smooth scrolling with LENIS
-    if (typeof window !== 'undefined' && !shouldReduceMotion && !lenisRef.current) {
+    // *** Disable Lenis entirely for mobile devices to use native scrolling ***
+    if (typeof window !== 'undefined' && !shouldReduceMotion && !isMobileDevice && !lenisRef.current) {
+      // Initialize smooth scrolling with LENIS ONLY FOR DESKTOP
       gsap.registerPlugin(ScrollTrigger);
 
-      // Adjust scroll configuration based on device
-      const duration = isMobileDevice ? 2.4 : 1.2;
-      const lerp = isMobileDevice ? 0.06 : 0.1; // Slightly increased base mobile lerp
-      const touchMultiplier = isMobileDevice ? 2.0 : 2; // Reduced base mobile touch multiplier
-      const wheelMultiplier = isMobileDevice ? 0.3 : 1;
+      // Adjust scroll configuration based on device (Desktop settings only now)
+      const duration = 1.2; // Desktop value
+      const lerp = 0.1;    // Desktop value
+      const touchMultiplier = 2; // Desktop value (less relevant now, but keep)
+      const wheelMultiplier = 1; // Desktop value
 
-      // Create a more native-like scroll experience on mobile
+      // Create scroll experience for Desktop
       lenisRef.current = new Lenis({
         duration: duration,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         wheelMultiplier: wheelMultiplier,
-        touchMultiplier: touchMultiplier,
-        smoothWheel: !isMobileDevice, // Disable smooth wheel on mobile for better performance
-        // Mobile-specific optimizations
+        touchMultiplier: touchMultiplier, // Keep for potential touchpads on desktop
+        smoothWheel: true, // Enable for desktop
         lerp: lerp,
         infinite: false,
-        syncTouch: isMobileDevice // Synchronize with native touch on mobile
+        syncTouch: false // No need to sync touch if only for desktop
       });
 
-      // Detect specific mobile browsers that need special handling
-      const isOperaOrChrome = /OPR|Chrome/.test(navigator.userAgent) && /Android/.test(navigator.userAgent);
-      const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
-      
-      if (isOperaOrChrome && isMobileDevice) {
-        // Add native scrolling on mobile Chrome/Opera
-        document.documentElement.style.overscrollBehavior = 'touch';
-        // Force more native-like behavior
-        if (lenisRef.current) {
-          lenisRef.current.destroy();
-          // Use almost-native scrolling for Opera and Chrome on Android
-          lenisRef.current = new Lenis({
-            duration: 2.2,        // Keep custom duration
-            lerp: 0.05,           // Slightly increased lerp for smoothing
-            touchMultiplier: 2.0, // Reduced touch multiplier
-            wheelMultiplier: 0.3, // Further reduced for mobile
-            smoothWheel: false,   // Disable smooth wheel completely
-            syncTouch: true       // Synchronize with native touch
-          });
-        }
-      }
-      
-      // iOS Safari specific optimizations
-      if (isSafari && isMobileDevice) {
-        if (lenisRef.current) {
-          lenisRef.current.destroy();
-          lenisRef.current = new Lenis({
-            duration: 2.3,        // Keep custom duration
-            lerp: 0.05,           // Slightly increased lerp for smoothing
-            touchMultiplier: 2.0, // Reduced touch multiplier
-            wheelMultiplier: 0.3,
-            smoothWheel: false,
-            syncTouch: true
-          });
-        }
-        // Improve iOS Safari performance with CSS properties
-        const htmlStyle = document.documentElement.style as any;
-        htmlStyle.webkitOverflowScrolling = 'touch';
-      }
+      // // --- Removed mobile-specific browser checks --- 
+      // const isOperaOrChrome = ...
+      // const isSafari = ...
+      // if (isOperaOrChrome && isMobileDevice) { ... }
+      // if (isSafari && isMobileDevice) { ... }
     }
 
+    // // --- RAF loop only needed if Lenis is active --- 
+    let rafId: number | null = null;
     function raf(time: number) {
-      if (lenisRef.current) {
-        lenisRef.current.raf(time);
-      }
-      requestAnimationFrame(raf);
+      lenisRef.current?.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    // Start RAF loop only if Lenis was initialized (i.e., on Desktop)
+    if (lenisRef.current) {
+        rafId = requestAnimationFrame(raf);
     }
 
-    const rafId = requestAnimationFrame(raf);
-
-    // Update ScrollTrigger when Lenis scrolls
+    // Update ScrollTrigger when Lenis scrolls (only if Lenis exists)
     lenisRef.current?.on('scroll', ScrollTrigger.update);
 
-    // Check for reduced motion preference - if enabled, use native scrolling
-    if (shouldReduceMotion) {
-      lenisRef.current?.destroy();
+    // Check for reduced motion preference - if enabled, destroy Lenis if it exists
+    if (shouldReduceMotion && lenisRef.current) {
+      lenisRef.current.destroy();
       lenisRef.current = null;
     }
 
     return () => {
-      cancelAnimationFrame(rafId);
+      // Cancel RAF only if it was started
+      if (rafId !== null) {
+           cancelAnimationFrame(rafId);
+      }
+      // Destroy Lenis instance only if it exists
       if (lenisRef.current) {
         lenisRef.current.destroy();
         lenisRef.current = null;
       }
-      document.documentElement.style.overscrollBehavior = '';
-      // Clean up Safari-specific styles
-      const htmlStyle = document.documentElement.style as any;
-      if (htmlStyle.webkitOverflowScrolling) {
-        htmlStyle.webkitOverflowScrolling = '';
-      }
+      // // --- Clean up mobile-specific styles (no longer needed as they weren't applied) --- 
+      // document.documentElement.style.overscrollBehavior = '';
+      // const htmlStyle = document.documentElement.style as any;
+      // if (htmlStyle.webkitOverflowScrolling) {
+      //   htmlStyle.webkitOverflowScrolling = '';
+      // }
     };
-  }, [shouldReduceMotion, isMobile]); // Re-initialize when motion preferences or mobile state changes
+  }, [shouldReduceMotion, isMobile]); // Keep dependency on isMobile to re-evaluate if needed
 
   // Setup scroll progress bar with optimized RAF
   useEffect(() => {
     if (!progressBarRef.current) return;
-    
+
     let ticking = false;
     let scrollPercentage = 0;
     let animationFrame: number;
 
     const updateProgressBar = () => {
       if (!progressBarRef.current) return;
-      
-      const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const totalScrollableDistance = documentHeight - windowHeight;
-      
-      // Corrected scroll percentage calculation (removed * 200)
-      scrollPercentage = 
-        totalScrollableDistance > 0 
-          ? (scrollPosition / totalScrollableDistance) * 100 
-          : 0;
-      
-      // Simplified update for mobile
-      if (isMobile) {
-        progressBarRef.current.style.width = `${scrollPercentage}%`;
+
+      let scrollPosition = 0;
+      let windowHeight = 0;
+      let documentHeight = 0;
+
+      if (lenisRef.current) {
+        // Use Lenis properties if available (Desktop)
+        scrollPosition = lenisRef.current.scroll;
+        windowHeight = lenisRef.current.dimensions.height;
+        documentHeight = lenisRef.current.dimensions.scrollHeight;
       } else {
-        // Use GSAP for smoother animation on desktop
+        // Use window properties (Mobile or reduced motion)
+        scrollPosition = window.scrollY;
+        windowHeight = window.innerHeight;
+        documentHeight = document.documentElement.scrollHeight;
+      }
+
+      const totalScrollableDistance = documentHeight - windowHeight;
+
+      scrollPercentage =
+        totalScrollableDistance > 0
+          ? (scrollPosition / totalScrollableDistance) * 100
+          : 0;
+
+      // Use GSAP only on Desktop (where Lenis exists), direct style for mobile
+      if (lenisRef.current) {
         gsap.to(progressBarRef.current, {
           width: `${scrollPercentage}%`,
           duration: 0.1,
           ease: "power1.out",
           overwrite: true
         });
+      } else {
+        progressBarRef.current.style.width = `${scrollPercentage}%`;
       }
     };
 
@@ -207,16 +190,29 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       }
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    
+    // Attach listener correctly based on whether Lenis is active
+    if (lenisRef.current) {
+      // Use Lenis event system
+      lenisRef.current.on('scroll', onScroll);
+    } else {
+      // Use native window event system
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
     // Initial update
     updateProgressBar();
-    
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      // Remove listener correctly
+      if (lenisRef.current) {
+        lenisRef.current.off('scroll', onScroll);
+      } else {
+        window.removeEventListener('scroll', onScroll);
+      }
       cancelAnimationFrame(animationFrame);
     };
-  }, [pathname, isMobile]);
+    // Depend on lenisRef.current to re-attach listeners if Lenis gets initialized/destroyed
+  }, [pathname, isMobile, lenisRef.current]); 
 
   // Reset navigation state after page change
   useEffect(() => {
