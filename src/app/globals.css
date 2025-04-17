@@ -3,11 +3,20 @@
 @tailwind utilities;
 
 @layer base {
+  /* Fix to prevent mobile viewport jumping and black area when address bar appears/disappears */
+  :root {
+    --app-height: 100%;
+  }
+  
   /* Explicitly set height for root elements */
   html,
   body {
     height: 100%;
-    min-height: 100%; /* Add min-height as well for safety */
+    min-height: 100%; 
+    /* Prevent iOS safari overscroll effects */
+    overscroll-behavior-y: none;
+    /* Prevent pull-to-refresh */
+    touch-action: pan-x pan-y;
   }
 
   :root {
@@ -82,12 +91,20 @@
   body::before {
     content: '';
     position: fixed;
-    inset: 0;
+    /* Extended coverage beyond viewport */
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
     background: radial-gradient(circle at 50% 50%, rgba(255, 122, 0, 0.4) 0%, transparent 70%);
     opacity: 0.05;
     pointer-events: none;
     z-index: -1;
     animation: pulse 15s ease-in-out infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   .dark body::before {
@@ -97,13 +114,13 @@
 
   @keyframes pulse {
     0%, 100% {
-      transform: scale(1) translate(0%, 0%);
+      transform: scale(1) translate3d(0%, 0%, 0);
     }
     33% {
-      transform: scale(1.1) translate(2%, -1%);
+      transform: scale(1.1) translate3d(2%, -1%, 0);
     }
     66% {
-      transform: scale(0.9) translate(-1%, 1%);
+      transform: scale(0.9) translate3d(-1%, 1%, 0);
     }
   }
 
@@ -111,7 +128,11 @@
   body::after {
     content: '';
     position: fixed;
-    inset: 0;
+    /* Extended coverage beyond viewport */
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
     background-image: 
       radial-gradient(circle at 20% 30%, var(--primary) 0%, transparent 8%),
       radial-gradient(circle at 80% 70%, var(--primary) 0%, transparent 8%),
@@ -121,6 +142,10 @@
     pointer-events: none;
     z-index: -1;
     animation: float 20s ease-in-out infinite;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 
   .dark body::after {
@@ -1254,6 +1279,22 @@ a, button, input, select, textarea {
 
 /* Mobile Optimizations */
 @media (max-width: 991px) {
+  /* Fix for viewport issues on iOS safari */
+  body {
+    /* Avoid using height: 100vh as it causes jumps with address bar */
+    min-height: var(--app-height);
+  }
+  
+  /* Ensure background elements are sized correctly */
+  body::before,
+  body::after {
+    /* Extend coverage to eliminate black areas */
+    top: -100px;
+    left: -100px;
+    right: -100px;
+    bottom: -100px;
+  }
+  
   /* Reduce animation complexity on mobile */
   .animate-float {
     animation: none;

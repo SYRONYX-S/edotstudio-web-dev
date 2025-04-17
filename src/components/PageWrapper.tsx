@@ -38,6 +38,38 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       gsap.registerPlugin(ScrollTrigger);
     }
     setPageContent(children);
+
+    // Fix for mobile viewport height issues with address bar
+    const setAppHeight = () => {
+      const doc = document.documentElement;
+      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+    };
+    
+    // Set initial height
+    setAppHeight();
+    
+    // Update height on resize and on page load
+    window.addEventListener('resize', setAppHeight);
+    window.addEventListener('orientationchange', setAppHeight);
+    
+    // Handle iOS safari's toolbar appearance/disappearance
+    let lastScrollPosition = window.scrollY;
+    const handleScroll = () => {
+      const currentScrollPosition = window.scrollY;
+      // If scrolled more than 100px, we can assume the toolbar might have changed
+      if (Math.abs(currentScrollPosition - lastScrollPosition) > 100) {
+        setAppHeight();
+        lastScrollPosition = currentScrollPosition;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('resize', setAppHeight);
+      window.removeEventListener('orientationchange', setAppHeight);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, [children]);
   
   // Update content when pathname changes
@@ -267,7 +299,8 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           exit="exit"
           className="relative" // Add relative positioning if needed, remove min-h-screen
           style={{
-            minHeight: '100dvh', // Use dynamic viewport height
+            // Use our custom viewport height variable on mobile, normal dvh on desktop
+            minHeight: isMobile ? 'var(--app-height)' : '100dvh',
             willChange: 'opacity',
             transform: 'translate3d(0,0,0)',
             backfaceVisibility: 'hidden'
