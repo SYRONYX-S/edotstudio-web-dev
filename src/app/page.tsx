@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { RiArrowRightLine, RiArrowRightUpLine, RiCheckboxCircleLine, RiBriefcase4Line, RiTimeLine, RiTeamLine } from 'react-icons/ri';
 import { Lightbulb, Code, Rocket, Shield, Users, Award, TrendingUp, Globe } from 'lucide-react';
-import { FaCode, FaPalette, FaMobileAlt, FaCloud, FaRobot, FaChartLine, FaBalanceScale, FaCogs } from 'react-icons/fa';
+import { FaCode, FaPalette, FaMobileAlt, FaCloud, FaRobot, FaChartLine, FaBalanceScale, FaCogs, FaShieldAlt } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 
 // Components
@@ -15,16 +15,16 @@ import Button from '@/components/Button';
 import CountUp from '@/components/CountUp';
 import ServiceCard from '@/components/ServiceCard';
 import ParallaxSection from '@/components/ParallaxSection';
-import MarqueeClients from '@/components/MarqueeClients';
 import TestimonialSlider from '@/components/TestimonialSlider';
 import PortfolioItem from '@/components/PortfolioItem';
-import ClientsMarquee from '@/components/ClientsMarquee';
 import FAQ from '@/components/FAQ';
 import StructuredData from '@/components/StructuredData';
 import ServiceCarousel from '@/components/ServiceCarousel';
+import { ClientLogoSlider } from '@/components/ClientLogoSlider';
+import { NewTestimonialsSection } from '@/components/NewTestimonialsSection';
 
 // Data
-import { services, stats, testimonials, clients, portfolioProjects } from '@/data';
+import { services, stats, testimonials, portfolioProjects } from '@/data';
 
 // Structured data for the agency
 const structuredData = {
@@ -140,6 +140,40 @@ const newServices: Service[] = [
   }
 ];
 
+// Define client data with single logo path
+const clients = [
+  { name: 'Brandlifté', logo: '/images/clients/brandlifte.png', url: 'https://brandlifte.com' }, 
+  { name: 'Al-Khuloud', logo: '/images/clients/Al-Khuloud.png', url: '#' }, 
+  { name: 'Ayamon Polymers', logo: '/images/clients/Ayamon-polymers.png', url: '#' },
+  { name: 'Ecoscape', logo: '/images/clients/carbon.png', url: '#' },
+  { name: 'Frostbite', logo: '/images/clients/Celecca.png', url: '#' },
+  { name: 'Glow', logo: '/images/clients/Dplus.png', url: '#' },
+  // ... Add other clients ...
+];
+
+// Define Testimonials Data (replace with your actual data)
+const testimonialsData = [
+  {
+    quote: "EdotStudio transformed our digital presence completely. Their team's attention to detail and innovative approach helped us achieve our goals faster than expected.",
+    author: "Sarah Johnson",
+    title: "CEO, TechVision Inc.",
+    avatarUrl: "/testimonials/client1.jpg"
+  },
+  {
+    quote: "Working with EdotStudio and their partner Brandlifté was a game-changer. The combination of technical expertise and creative marketing strategies delivered exceptional results.",
+    author: "Michael Chen",
+    title: "Marketing Director, GrowthWave",
+    avatarUrl: "/testimonials/client2.jpg"
+  },
+  {
+    quote: "The collaborative approach ensured we got the best of both worlds - cutting-edge development and creative excellence. Highly recommended!",
+    author: "Emma Williams",
+    title: "Founder, EcoStyle",
+    avatarUrl: "/testimonials/client3.jpg"
+  },
+  // Add more testimonials...
+];
+
 export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -232,7 +266,7 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                   className="inline-block bg-[#FF4D00] dark:bg-[#FF4D00] text-white dark:text-white px-4 py-1.5 rounded-full text-xs font-medium mb-5 tracking-wider"
                 >
-                  1 ONE-STOP BUSINESS SOLUTION
+                  ONE-STOP BUSINESS SOLUTION
                 </motion.div>
               </div>
               
@@ -514,62 +548,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clients Marquee Section */}
-      <section className="py-20 relative overflow-hidden dark:bg-black/10 w-full">
-        <div className="animated-bg-shapes">
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
-        <div className="container relative z-10">
-          <div className="text-center mb-12">
-            <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
-              Our Partners
+      {/* New Client Logo Slider Section */}
+      <section className="py-20 bg-gradient-to-b from-transparent via-background-muted/10 to-transparent dark:via-black/20">
+         <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
+                Trusted By
+              </div>
+              <AnimatedTitle 
+                title="Brands We've Collaborated With"
+                className="text-2xl md:text-4xl mb-0 font-technor"
+              />
             </div>
-            <AnimatedTitle 
-              title="Trusted by Industry Leaders"
-              className="text-2xl md:text-4xl mb-0 font-technor"
-            />
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
-              We collaborate with top agencies to provide comprehensive solutions for your business needs.
-            </p>
-          </div>
-          
-          <div className="relative w-full overflow-hidden">
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent dark:from-background-dark z-10" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent dark:from-background-dark z-10" />
-            <motion.div
-              className="flex client-carousel items-center py-8 w-[calc(200%+100px)]"
-              initial={{ x: 0 }}
-              animate={{ x: "calc(-50% - 50px)" }}
-              transition={{
-                repeat: Infinity,
-                duration: 40,
-                ease: "linear",
-              }}
-            >
-              {[...Array(2)].map((_, arrayIndex) => (
-                <div key={arrayIndex} className="flex min-w-[50%] justify-around items-center">
-                  {clients.map((client, index) => (
-                    <div 
-                      key={index + (arrayIndex * clients.length)} 
-                      className="mx-4 md:mx-8 flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
-                    >
-                      <div className="h-12 md:h-16 w-auto">
-                        <Image
-                          src={client.logo}
-                          alt={`Partner Logo ${index + 1}`}
-                          width={120}
-                          height={60}
-                          className="h-full w-auto object-contain"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
+            {/* Use the slider component */}
+            <div className="mt-16">
+               <ClientLogoSlider clients={clients} baseVelocity={50} />
+            </div>
+         </div>
       </section>
 
       {/* Our Approach Section */}
@@ -926,32 +921,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-b from-transparent via-background-muted/20 to-transparent dark:via-black/20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4 font-pilcrow uppercase">
-              Testimonials
-            </div>
-            <AnimatedTitle 
-              title="What Our Clients Say"
-              className="text-2xl md:text-4xl mb-0 font-technor"
-            />
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-supreme">
-              Don't just take our word for it. Hear what our clients have to say about working with us.
-            </p>
-          </div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
-            <TestimonialSlider testimonials={testimonials} />
-          </motion.div>
-        </div>
-      </section>
+      {/* Add New Testimonials Section */}
+      <NewTestimonialsSection testimonials={testimonialsData} />
 
       {/* FAQ Section - Moved to before CTA */}
       <FAQ />

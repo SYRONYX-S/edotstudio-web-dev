@@ -44,7 +44,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Initialize smooth scrolling - REMOVED isMobile conditional logic
+  // Initialize smooth scrolling - Reverted touchMultiplier to 1
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2, 
@@ -52,9 +52,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       wheelMultiplier: 1, 
-      touchMultiplier: 1, // Use same multiplier for touch
-      smoothWheel: true, // Always smooth
-      lerp: 0.1, // Use consistent lerp value
+      touchMultiplier: 1, // *** Reverted to 1 ***
+      smoothWheel: true, 
+      lerp: 0.1, 
       infinite: false
     });
 
@@ -67,9 +67,8 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
     return () => {
       lenis.destroy();
-      // No need to remove resize listener if it wasn't added for Lenis
     };
-  }, []); // Dependency array is now empty as isMobile is not used for Lenis init
+  }, []); // Empty dependency array
 
   // Setup scroll progress bar with RAF for smoother updates
   useEffect(() => {
