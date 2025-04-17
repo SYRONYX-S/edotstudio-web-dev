@@ -68,8 +68,8 @@ export default function PageWrapper({ children }: PageWrapperProps) {
 
       // Adjust scroll configuration based on device
       const duration = isMobileDevice ? 2.4 : 1.2;
-      const lerp = isMobileDevice ? 0.04 : 0.1;
-      const touchMultiplier = isMobileDevice ? 2.4 : 2;
+      const lerp = isMobileDevice ? 0.06 : 0.1; // Slightly increased base mobile lerp
+      const touchMultiplier = isMobileDevice ? 2.0 : 2; // Reduced base mobile touch multiplier
       const wheelMultiplier = isMobileDevice ? 0.3 : 1;
 
       // Create a more native-like scroll experience on mobile
@@ -99,9 +99,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           lenisRef.current.destroy();
           // Use almost-native scrolling for Opera and Chrome on Android
           lenisRef.current = new Lenis({
-            duration: 2.2,        // Very short duration
-            lerp: 0.01,           // Very responsive
-            touchMultiplier: 2.4, // Reduced to prevent overscrolling
+            duration: 2.2,        // Keep custom duration
+            lerp: 0.05,           // Slightly increased lerp for smoothing
+            touchMultiplier: 2.0, // Reduced touch multiplier
             wheelMultiplier: 0.3, // Further reduced for mobile
             smoothWheel: false,   // Disable smooth wheel completely
             syncTouch: true       // Synchronize with native touch
@@ -114,9 +114,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
         if (lenisRef.current) {
           lenisRef.current.destroy();
           lenisRef.current = new Lenis({
-            duration: 2.3,
-            lerp: 0.03,
-            touchMultiplier: 2.3,
+            duration: 2.3,        // Keep custom duration
+            lerp: 0.05,           // Slightly increased lerp for smoothing
+            touchMultiplier: 2.0, // Reduced touch multiplier
             wheelMultiplier: 0.3,
             smoothWheel: false,
             syncTouch: true
@@ -177,9 +177,10 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       const documentHeight = document.documentElement.scrollHeight;
       const totalScrollableDistance = documentHeight - windowHeight;
       
+      // Corrected scroll percentage calculation (removed * 200)
       scrollPercentage = 
         totalScrollableDistance > 0 
-          ? (scrollPosition / totalScrollableDistance) * 200 
+          ? (scrollPosition / totalScrollableDistance) * 100 
           : 0;
       
       // Simplified update for mobile
