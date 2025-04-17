@@ -24,7 +24,7 @@ import { ClientLogoSlider } from '@/components/ClientLogoSlider';
 import { NewTestimonialsSection } from '@/components/NewTestimonialsSection';
 
 // Data
-import { services, stats, testimonials, portfolioProjects } from '@/data';
+import {portfolioProjects } from '@/data';
 
 // Structured data for the agency
 const structuredData = {
@@ -143,11 +143,17 @@ const newServices: Service[] = [
 // Define client data with single logo path
 const clients = [
   { name: 'Brandlifté', logo: '/images/clients/brandlifte.png', url: 'https://brandlifte.com' }, 
+  { name: 'Minar TMT', logo: '/images/clients/Minar-TMT.png', url: '#' },
   { name: 'Al-Khuloud', logo: '/images/clients/Al-Khuloud.png', url: '#' }, 
+  { name: 'CallMeShazzam', logo: '/images/clients/Shazzam.png', url: '#' },
+  { name: 'Gurukulam', logo: '/images/clients/carbon.png', url: '#' },
+  { name: 'Celecca', logo: '/images/clients/Celecca.png', url: '#' },
+  { name: 'Hikeins', logo: '/images/clients/Hikeins.png', url: '#' },
+  { name: 'Indigo TMT', logo: '/images/clients/Indigo-TMT.png', url: '#' },
+  { name: 'Nadan Camp', logo: '/images/clients/nadancamp.png', url: '#' },
   { name: 'Ayamon Polymers', logo: '/images/clients/Ayamon-polymers.png', url: '#' },
-  { name: 'Ecoscape', logo: '/images/clients/carbon.png', url: '#' },
-  { name: 'Frostbite', logo: '/images/clients/Celecca.png', url: '#' },
-  { name: 'Glow', logo: '/images/clients/Dplus.png', url: '#' },
+  { name: 'Greenvior', logo: '/images/clients/Greenvior.png', url: '#' },
+  { name: 'MindfulKSA', logo: '/images/clients/mindful.png', url: '#' },
   // ... Add other clients ...
 ];
 
@@ -157,19 +163,19 @@ const testimonialsData = [
     quote: "EdotStudio transformed our digital presence completely. Their team's attention to detail and innovative approach helped us achieve our goals faster than expected.",
     author: "Sarah Johnson",
     title: "CEO, TechVision Inc.",
-    avatarUrl: "/testimonials/client1.jpg"
+    avatarUrl: "/images/testimonials/person.svg"
   },
   {
     quote: "Working with EdotStudio and their partner Brandlifté was a game-changer. The combination of technical expertise and creative marketing strategies delivered exceptional results.",
     author: "Michael Chen",
     title: "Marketing Director, GrowthWave",
-    avatarUrl: "/testimonials/client2.jpg"
+    avatarUrl: "/images/testimonials/person.svg"
   },
   {
     quote: "The collaborative approach ensured we got the best of both worlds - cutting-edge development and creative excellence. Highly recommended!",
     author: "Emma Williams",
     title: "Founder, EcoStyle",
-    avatarUrl: "/testimonials/client3.jpg"
+    avatarUrl: "/images/testimonials/person.svg"
   },
   // Add more testimonials...
 ];
@@ -556,7 +562,7 @@ export default function Home() {
                 Trusted By
               </div>
               <AnimatedTitle 
-                title="Brands We've Collaborated With"
+                title="Our Valued Clients"
                 className="text-2xl md:text-4xl mb-0 font-technor"
               />
             </div>
@@ -828,13 +834,13 @@ export default function Home() {
             >
               <div className="relative rounded-2xl overflow-hidden shadow-2xl frosted-container">
           <Image
-                  src={fallbackImage}
+                  src='/images/why-us.webp'
                   width={600}
                   height={700}
-                  alt="EdotStudio Team Working" 
+                  alt="EdotStudio" 
                   className="w-full h-auto object-cover rounded-2xl"
                 />
-                <div className="absolute inset-0 bg-primary-500/10 dark:bg-primary-900/30 backdrop-blur-[2px]"></div>
+                <div className="absolute inset-0 bg-primary-500/10 dark:bg-primary-900/30"></div>
                 
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-8">
                   <div className="text-white text-xl md:text-2xl font-technor mb-2">Ready to transform your business?</div>

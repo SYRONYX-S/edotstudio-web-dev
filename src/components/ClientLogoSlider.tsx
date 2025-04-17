@@ -128,8 +128,9 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
             aria-label={`Visit ${client.name}`}
             className={cn(
               "block flex-shrink-0 group rounded-xl transition-all duration-300",
-              "bg-slate-100/80 hover:bg-slate-200/90", // Light theme bg
-              "dark:bg-slate-800/60 dark:hover:bg-slate-700/70", // Dark theme bg
+              "bg-black/10 hover:bg-white", // Light theme bg
+              "dark:bg-white/60 dark:hover:bg-white/90", // Dark theme bg
+              "border border-black/0 hover:border-primary-light/30 dark:border-primary-light/0 dark:hover:border-primary-light/100",
               "pointer-events-auto" // Ensure links are clickable
             )}
             draggable="false" // Prevent default image drag
@@ -162,8 +163,6 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
                   }} 
                   className={cn(
                     LOGO_HEIGHT_CLASS, // Apply height class for layout spacing
-                    "opacity-70 group-hover:opacity-100 transition-opacity duration-300",
-                    "grayscale group-hover:grayscale-0", // Optional: Start grayscale, color on hover
                     "pointer-events-none" // Prevent default image drag
                   )}
                   unoptimized // Often needed for SVGs or external URLs

@@ -37,7 +37,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
       <Link href={href}>
         <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
           <Image
-            src={fallbackImage}
+            src={image}
             alt={title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -53,13 +53,13 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
-            className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300"
+            className="absolute bottom-0 left-0 right-0 p-6 pb-3 pt-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 bg-gradient-to-t from-black/80 via-black/50 to-transparent"
           >
-            <span className="block text-primary text-sm font-medium mb-1 font-supreme">{category}</span>
-            <h3 className="text-white text-xl md:text-2xl font-technor mb-2">{title}</h3>
+            <span className="block text-white bg-[#FF4D00]/20 px-3 py-1 rounded-lg -ml-1 w-max text-xs font-medium mb-0 font-technor uppercase">{category}</span>
+            <h3 className="text-white text-xl md:text-2xl font-technor mb-1">{title}</h3>
             
             <div className="flex items-center">
-              <span className="text-white/90 text-sm font-supreme inline-flex items-center">
+              <span className="text-white text-sm font-supreme inline-flex items-center">
                 View Project
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

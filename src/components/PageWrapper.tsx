@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
@@ -27,6 +27,8 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   const [pageContent, setPageContent] = useState<ReactNode>(children);
   const [isMobile, setIsMobile] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const lenisRef = useRef<Lenis | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Capture the initial children on mount and when path changes
   useEffect(() => {
@@ -44,33 +46,112 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Initialize smooth scrolling - Reverted touchMultiplier to 1
+  // Initialize smooth scrolling with device-specific settings
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2, 
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      wheelMultiplier: 1, 
-      touchMultiplier: 1, // *** Reverted to 1 ***
-      smoothWheel: true, 
-      lerp: 0.1, 
-      infinite: false
-    });
+    // detect if is mobile device
+    const isMobileDevice = typeof window !== 'undefined' && /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    setIsMobile(isMobileDevice);
+
+    // Initialize smooth scrolling with LENIS
+    if (typeof window !== 'undefined' && !shouldReduceMotion && !lenisRef.current) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Adjust scroll configuration based on device
+      const duration = isMobileDevice ? 0.4 : 1.2;
+      const lerp = isMobileDevice ? 0.04 : 0.1;
+      const touchMultiplier = isMobileDevice ? 0.8 : 2;
+      const wheelMultiplier = isMobileDevice ? 0.3 : 1;
+
+      // Create a more native-like scroll experience on mobile
+      lenisRef.current = new Lenis({
+        duration: duration,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        wheelMultiplier: wheelMultiplier,
+        touchMultiplier: touchMultiplier,
+        smoothWheel: !isMobileDevice, // Disable smooth wheel on mobile for better performance
+        // Mobile-specific optimizations
+        lerp: lerp,
+        infinite: false,
+        syncTouch: isMobileDevice // Synchronize with native touch on mobile
+      });
+
+      // Detect specific mobile browsers that need special handling
+      const isOperaOrChrome = /OPR|Chrome/.test(navigator.userAgent) && /Android/.test(navigator.userAgent);
+      const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+      
+      if (isOperaOrChrome && isMobileDevice) {
+        // Add native scrolling on mobile Chrome/Opera
+        document.documentElement.style.overscrollBehavior = 'touch';
+        // Force more native-like behavior
+        if (lenisRef.current) {
+          lenisRef.current.destroy();
+          // Use almost-native scrolling for Opera and Chrome on Android
+          lenisRef.current = new Lenis({
+            duration: 0.2,        // Very short duration
+            lerp: 0.01,           // Very responsive
+            touchMultiplier: 0.8, // Reduced to prevent overscrolling
+            wheelMultiplier: 0.3, // Further reduced for mobile
+            smoothWheel: false,   // Disable smooth wheel completely
+            syncTouch: true       // Synchronize with native touch
+          });
+        }
+      }
+      
+      // iOS Safari specific optimizations
+      if (isSafari && isMobileDevice) {
+        if (lenisRef.current) {
+          lenisRef.current.destroy();
+          lenisRef.current = new Lenis({
+            duration: 0.3,
+            lerp: 0.03,
+            touchMultiplier: 0.7,
+            wheelMultiplier: 0.3,
+            smoothWheel: false,
+            syncTouch: true
+          });
+        }
+        // Improve iOS Safari performance with CSS properties
+        const htmlStyle = document.documentElement.style as any;
+        htmlStyle.webkitOverflowScrolling = 'touch';
+      }
+    }
 
     function raf(time: number) {
-      lenis.raf(time);
+      if (lenisRef.current) {
+        lenisRef.current.raf(time);
+      }
       requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    const rafId = requestAnimationFrame(raf);
+
+    // Update ScrollTrigger when Lenis scrolls
+    lenisRef.current?.on('scroll', ScrollTrigger.update);
+
+    // Check for reduced motion preference - if enabled, use native scrolling
+    if (shouldReduceMotion) {
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
+    }
 
     return () => {
-      lenis.destroy();
+      cancelAnimationFrame(rafId);
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+        lenisRef.current = null;
+      }
+      document.documentElement.style.overscrollBehavior = '';
+      // Clean up Safari-specific styles
+      const htmlStyle = document.documentElement.style as any;
+      if (htmlStyle.webkitOverflowScrolling) {
+        htmlStyle.webkitOverflowScrolling = '';
+      }
     };
-  }, []); // Empty dependency array
+  }, [shouldReduceMotion, isMobile]); // Re-initialize when motion preferences or mobile state changes
 
-  // Setup scroll progress bar with RAF for smoother updates
+  // Setup scroll progress bar with optimized RAF
   useEffect(() => {
     if (!progressBarRef.current) return;
     
@@ -90,14 +171,19 @@ export default function PageWrapper({ children }: PageWrapperProps) {
         totalScrollableDistance > 0 
           ? (scrollPosition / totalScrollableDistance) * 100 
           : 0;
-          
-      // Use GSAP for smoother animation
-      gsap.to(progressBarRef.current, {
-        width: `${scrollPercentage}%`,
-        duration: 0.1,
-        ease: "power1.out",
-        overwrite: true
-      });
+      
+      // Simplified update for mobile
+      if (isMobile) {
+        progressBarRef.current.style.width = `${scrollPercentage}%`;
+      } else {
+        // Use GSAP for smoother animation on desktop
+        gsap.to(progressBarRef.current, {
+          width: `${scrollPercentage}%`,
+          duration: 0.1,
+          ease: "power1.out",
+          overwrite: true
+        });
+      }
     };
 
     const onScroll = () => {
@@ -119,7 +205,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       window.removeEventListener('scroll', onScroll);
       cancelAnimationFrame(animationFrame);
     };
-  }, [pathname]);
+  }, [pathname, isMobile]);
 
   // Reset navigation state after page change
   useEffect(() => {
@@ -127,20 +213,20 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  // Simple page transition that doesn't intercept navigation
+  // Simplified page transition for better performance
   const variants = {
     hidden: { opacity: 0 },
     enter: { 
       opacity: 1,
       transition: {
-        duration: 0.3,
+        duration: isMobile ? 0.2 : 0.3,
         ease: "easeInOut"
       }
     },
     exit: { 
       opacity: 0,
       transition: {
-        duration: 0.2,
+        duration: isMobile ? 0.15 : 0.2,
         ease: "easeInOut"
       }
     },
@@ -155,7 +241,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60]">
         <div 
           ref={progressBarRef}
-          className="h-full bg-primary-light transition-all ease-out duration-200"
+          className="h-full bg-primary-light"
           style={{
             willChange: 'width',
             transform: 'translate3d(0,0,0)',
