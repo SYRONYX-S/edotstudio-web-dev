@@ -10,9 +10,10 @@ import Lenis from 'lenis';
 // Import custom cursor component
 import FixedCursor from './FixedCursor';
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+// Move GSAP registration to useEffect to avoid server/client mismatch
+// if (typeof window !== 'undefined') {
+//   gsap.registerPlugin(ScrollTrigger);
+// }
 
 interface PageWrapperProps {
   children: ReactNode;
@@ -24,18 +25,27 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   const pageRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [isNavigating, setIsNavigating] = useState(false);
-  const [pageContent, setPageContent] = useState<ReactNode>(children);
+  const [pageContent, setPageContent] = useState<ReactNode>(null); // Initialize as null to avoid hydration mismatch
   const [isMobile, setIsMobile] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout>();
   const lenisRef = useRef<Lenis | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
-  // Capture the initial children on mount and when path changes
+  // Use useEffect to set initial content to avoid hydration errors
+  useEffect(() => {
+    // Register GSAP plugins only on client-side
+    if (typeof window !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+    }
+    setPageContent(children);
+  }, [children]);
+  
+  // Update content when pathname changes
   useEffect(() => {
     setPageContent(children);
   }, [children, pathname]);
 
-  // Check if device is mobile
+  // Check if device is mobile - client-side only
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 991);
@@ -59,7 +69,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       // Adjust scroll configuration based on device
       const duration = isMobileDevice ? 2.4 : 1.2;
       const lerp = isMobileDevice ? 0.04 : 0.1;
-      const touchMultiplier = isMobileDevice ? 1.8 : 2;
+      const touchMultiplier = isMobileDevice ? 2.4 : 2;
       const wheelMultiplier = isMobileDevice ? 0.3 : 1;
 
       // Create a more native-like scroll experience on mobile
@@ -91,7 +101,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           lenisRef.current = new Lenis({
             duration: 2.2,        // Very short duration
             lerp: 0.01,           // Very responsive
-            touchMultiplier: 1.8, // Reduced to prevent overscrolling
+            touchMultiplier: 2.4, // Reduced to prevent overscrolling
             wheelMultiplier: 0.3, // Further reduced for mobile
             smoothWheel: false,   // Disable smooth wheel completely
             syncTouch: true       // Synchronize with native touch
@@ -106,7 +116,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           lenisRef.current = new Lenis({
             duration: 2.3,
             lerp: 0.03,
-            touchMultiplier: 1.7,
+            touchMultiplier: 2.3,
             wheelMultiplier: 0.3,
             smoothWheel: false,
             syncTouch: true
@@ -235,7 +245,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   return (
     <>
       {/* Custom Cursor - Only shown on non-touch devices */}
-      {!isMobile && <FixedCursor />}
+      {typeof window !== 'undefined' && !isMobile && <FixedCursor />}
       
       {/* Progress Bar - Fixed at top */}
       <div className="fixed top-0 left-0 right-0 h-0.5 bg-black/10 dark:bg-white/10 z-[60]">
