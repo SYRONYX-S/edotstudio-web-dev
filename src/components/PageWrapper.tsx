@@ -265,8 +265,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           initial="hidden"
           animate="enter"
           exit="exit"
-          className="min-h-screen"
+          className="relative" // Add relative positioning if needed, remove min-h-screen
           style={{
+            minHeight: '100dvh', // Use dynamic viewport height
             willChange: 'opacity',
             transform: 'translate3d(0,0,0)',
             backfaceVisibility: 'hidden'
