@@ -57,9 +57,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       gsap.registerPlugin(ScrollTrigger);
 
       // Adjust scroll configuration based on device
-      const duration = isMobileDevice ? 0.4 : 1.2;
+      const duration = isMobileDevice ? 2.4 : 1.2;
       const lerp = isMobileDevice ? 0.04 : 0.1;
-      const touchMultiplier = isMobileDevice ? 0.8 : 2;
+      const touchMultiplier = isMobileDevice ? 1.8 : 2;
       const wheelMultiplier = isMobileDevice ? 0.3 : 1;
 
       // Create a more native-like scroll experience on mobile
@@ -89,9 +89,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           lenisRef.current.destroy();
           // Use almost-native scrolling for Opera and Chrome on Android
           lenisRef.current = new Lenis({
-            duration: 0.2,        // Very short duration
+            duration: 2.2,        // Very short duration
             lerp: 0.01,           // Very responsive
-            touchMultiplier: 0.8, // Reduced to prevent overscrolling
+            touchMultiplier: 1.8, // Reduced to prevent overscrolling
             wheelMultiplier: 0.3, // Further reduced for mobile
             smoothWheel: false,   // Disable smooth wheel completely
             syncTouch: true       // Synchronize with native touch
@@ -104,9 +104,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
         if (lenisRef.current) {
           lenisRef.current.destroy();
           lenisRef.current = new Lenis({
-            duration: 0.3,
+            duration: 2.3,
             lerp: 0.03,
-            touchMultiplier: 0.7,
+            touchMultiplier: 1.7,
             wheelMultiplier: 0.3,
             smoothWheel: false,
             syncTouch: true
@@ -169,7 +169,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       
       scrollPercentage = 
         totalScrollableDistance > 0 
-          ? (scrollPosition / totalScrollableDistance) * 100 
+          ? (scrollPosition / totalScrollableDistance) * 200 
           : 0;
       
       // Simplified update for mobile

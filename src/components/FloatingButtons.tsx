@@ -12,7 +12,7 @@ export default function FloatingButtons() {
   useEffect(() => {
     const handleScroll = () => {
       const heroHeight = window.innerHeight; // Hero section is typically 100vh
-      setShowButtons(window.scrollY > (heroHeight * 0.5)); // Show when scrolled past half of hero
+      setShowButtons(window.scrollY > (heroHeight * 0.05)); // Show when scrolled past half of hero
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -33,7 +33,7 @@ export default function FloatingButtons() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-8 right-8 z-50 flex flex-col gap-4"
+          className="fixed bottom-3 right-3 z-50 flex flex-col gap-3"
         >
           {/* WhatsApp Button */}
           <motion.a
