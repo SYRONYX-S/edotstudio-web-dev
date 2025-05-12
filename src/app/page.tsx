@@ -508,10 +508,6 @@ export default function Home() {
 
       {/* Portfolio Section */}
       <section className="py-20 relative overflow-hidden dark:bg-black/10 w-full">
-        <div className="animated-bg-shapes">
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
         <div className="container relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center mb-12 w-full">
             <div>

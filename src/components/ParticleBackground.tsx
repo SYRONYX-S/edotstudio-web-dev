@@ -12,7 +12,6 @@ export default function ParticleBackground() {
 
   // More particles, better distributed
   const dustParticleCount = 220;
-  const glowSpotCount = 8;
   
   // More varied shapes for particles
   const getRandomShape = () => {
@@ -28,11 +27,11 @@ export default function ParticleBackground() {
   };
   
   // Get distributed positions instead of random
-  const getDistributedPositions = (count: number, isSpot = false) => {
+  const getDistributedPositions = (count: number) => {
     const positions = [];
     // Create a grid effect but with some randomness
-    const cols = isSpot ? 4 : Math.floor(Math.sqrt(count));
-    const rows = isSpot ? 3 : Math.ceil(count / cols);
+    const cols = Math.floor(Math.sqrt(count));
+    const rows = Math.ceil(count / cols);
     
     for (let i = 0; i < count; i++) {
       const col = i % cols;
@@ -43,8 +42,8 @@ export default function ParticleBackground() {
       const baseY = (row / rows) * 100;
       
       // Add randomness within the cell
-      const randX = isSpot ? (Math.random() * 25 - 12.5) : (Math.random() * 15 - 7.5);
-      const randY = isSpot ? (Math.random() * 25 - 12.5) : (Math.random() * 15 - 7.5);
+      const randX = (Math.random() * 15 - 7.5);
+      const randY = (Math.random() * 15 - 7.5);
       
       positions.push({
         x: Math.max(0, Math.min(100, baseX + randX)),
@@ -56,7 +55,6 @@ export default function ParticleBackground() {
   
   // Distributed positions
   const dustPositions = getDistributedPositions(dustParticleCount);
-  const spotPositions = getDistributedPositions(glowSpotCount, true);
   
   const dustParticles = Array.from({ length: dustParticleCount }).map((_, i) => ({
     x: dustPositions[i].x,
@@ -66,17 +64,6 @@ export default function ParticleBackground() {
     duration: Math.random() * 60 + 60, // Slower animation for subtlety
     shape: getRandomShape(),
     rotate: Math.random() * 360,
-  }));
-  
-  const glowSpots = Array.from({ length: glowSpotCount }).map((_, i) => ({
-    x: spotPositions[i].x,
-    y: spotPositions[i].y,
-    size: Math.random() * 300 + 180, // Slightly larger (180-480px)
-    aspectRatio: 0.7 + Math.random() * 0.6, // More varied shapes (0.7-1.3)
-    opacity: Math.random() * 0.4 + 0.15, // Higher opacity range
-    intensity: Math.random() * 0.6 + 0.4, // Higher intensity 
-    rotate: Math.random() * 360,
-    skew: Math.random() * 15 - 7.5, // More dramatic skew
   }));
   
   useEffect(() => {
@@ -103,21 +90,7 @@ export default function ParticleBackground() {
       rafId = requestAnimationFrame(animate);
       
       if (containerRef.current) {
-        const glowElements = containerRef.current.querySelectorAll('.glow-spot');
         const dustElements = containerRef.current.querySelectorAll('.dust-particle');
-        
-        // Subtle glow movements
-        glowElements.forEach((el, index) => {
-          const spotEl = el as HTMLElement;
-          const speedFactor = 0.015 + (index % 4) * 0.005;
-          const xOffset = index % 2 === 0 ? 1 : -1;
-          
-          const scrollOffset = scrollY.current * speedFactor * (index % 3 === 0 ? -1 : 1);
-          const mouseXInfluence = (mousePosition.current.x / window.innerWidth - 0.5) * 10 * xOffset;
-          const mouseYInfluence = (mousePosition.current.y / window.innerHeight - 0.5) * 10;
-          
-          spotEl.style.transform = `translate(${mouseXInfluence}px, ${scrollOffset + mouseYInfluence}px)`;
-        });
         
         // Very subtle dust movements
         dustElements.forEach((el, index) => {
@@ -144,26 +117,6 @@ export default function ParticleBackground() {
       ref={containerRef}
       className="fixed inset-0 w-full h-full overflow-hidden z-0 pointer-events-none transition-colors duration-300"
     >
-      {/* Glow spots - more evenly distributed */}
-      {glowSpots.map((spot, i) => (
-        <div
-          key={`glow-${i}`}
-          className="glow-spot absolute"
-          style={{
-            left: `${spot.x}%`,
-            top: `${spot.y}%`,
-            width: `${spot.size}px`,
-            height: `${spot.size * spot.aspectRatio}px`,
-            background: `radial-gradient(ellipse at center, rgba(255, 122, 0, ${spot.opacity * spot.intensity}) 10%, rgba(255, 122, 0, ${spot.opacity * 0.4}) 40%, rgba(255, 122, 0, 0) 70%)`,
-            opacity: theme === 'dark' ? 0.4 : 0.3, // More visible in light mode
-            filter: `blur(${spot.size * 0.08}px)`,
-            transform: `rotate(${spot.rotate}deg)`,
-            willChange: 'transform',
-            transition: 'opacity 0.5s ease-in-out',
-          }}
-        />
-      ))}
-      
       {/* Dust particles - better distributed */}
       {dustParticles.map((particle, i) => (
         <motion.div

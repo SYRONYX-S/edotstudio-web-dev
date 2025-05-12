@@ -673,7 +673,9 @@ button, a, input, select, textarea {
     rgba(255, 107, 0, 0.03) 100%
   );
   z-index: -1;
-  animation: gradientAnimation 15s linear infinite;
+  /* Remove the animation to improve performance */
+  /* animation: gradientAnimation 15s linear infinite; */
+  transform: rotate(0deg);
 }
 
 .dark .animated-gradient::before {
@@ -687,6 +689,7 @@ button, a, input, select, textarea {
   );
 }
 
+/* Keep the keyframes definition for reference but it's not used anymore */
 @keyframes gradientAnimation {
   0% {
     transform: rotate(0deg);
@@ -709,7 +712,8 @@ button, a, input, select, textarea {
   filter: blur(60px);
   opacity: 0.1;
   z-index: -1;
-  animation: floatAnimation 20s infinite alternate ease-in-out;
+  /* Remove animation to improve performance */
+  /* animation: floatAnimation 20s infinite alternate ease-in-out; */
 }
 
 .dark .animated-bg-shapes .shape {
@@ -721,7 +725,7 @@ button, a, input, select, textarea {
   height: 500px;
   top: -250px;
   left: -100px;
-  animation-delay: 0s;
+  /* animation-delay: 0s; */
 }
 
 .animated-bg-shapes .shape:nth-child(2) {
@@ -729,7 +733,7 @@ button, a, input, select, textarea {
   height: 400px;
   bottom: -200px;
   right: -100px;
-  animation-delay: -5s;
+  /* animation-delay: -5s; */
 }
 
 .animated-bg-shapes .shape:nth-child(3) {
@@ -737,9 +741,10 @@ button, a, input, select, textarea {
   height: 300px;
   bottom: 30%;
   left: 20%;
-  animation-delay: -10s;
+  /* animation-delay: -10s; */
 }
 
+/* Keep the keyframes definition for reference but it's not used anymore */
 @keyframes floatAnimation {
   0% {
     transform: translate(0, 0) scale(1);

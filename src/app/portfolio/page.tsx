@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { RiArrowRightLine, RiArrowRightUpLine } from 'react-icons/ri';
 import { projects } from './data';
 import { Project } from './utils';
@@ -14,12 +13,6 @@ const categories = ['All', 'Software Development', 'Web Development', 'Branding'
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const { scrollY } = useScroll();
-
-  // Parallax effects
-  const y1 = useTransform(scrollY, [0, 1000], [0, -150]);
-  const y2 = useTransform(scrollY, [0, 1000], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0.2]);
 
   const projectList = Object.values(projects);
   const filteredProjects = selectedCategory === 'All'
@@ -123,8 +116,7 @@ export default function Portfolio() {
       <section className="relative py-32">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-100px,#FF4D0015,transparent)]" />
-          <motion.div 
-            style={{ y: y2 }}
+          <div 
             className="absolute inset-0 bg-[radial-gradient(circle_600px_at_70%_50%,#FF4D0010,transparent)]"
           />
         </div>
@@ -227,9 +219,8 @@ export default function Portfolio() {
       {/* CTA Section */}
       <section className="relative py-32 overflow-hidden">
         {/* Background Effects */}
-        <div className="absolute inset-0  " />
-        <motion.div
-          style={{ y: y2 }}
+        <div className="absolute inset-0" />
+        <div
           className="absolute inset-0"
         />
         
