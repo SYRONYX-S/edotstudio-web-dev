@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AnimatedTitle from '@/components/AnimatedTitle';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,6 +13,24 @@ const categories = ['All', 'Software Development', 'Web Development', 'Branding'
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile devices to optimize rendering
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const projectList = Object.values(projects);
   const filteredProjects = selectedCategory === 'All'
@@ -112,13 +130,19 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Partnership Section */}
+      {/* Partnership Section - Optimize gradients for mobile */}
       <section className="relative py-32">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-100px,#FF4D0015,transparent)]" />
-          <div 
-            className="absolute inset-0 bg-[radial-gradient(circle_600px_at_70%_50%,#FF4D0010,transparent)]"
-          />
+          {!isMobile && (
+            <>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_800px_at_50%_-100px,#FF4D0015,transparent)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_600px_at_70%_50%,#FF4D0010,transparent)]" />
+            </>
+          )}
+          {isMobile && (
+            // Simplified gradient for mobile - less resource intensive
+            <div className="absolute inset-0 bg-[#FF4D00]/[0.03]" />
+          )}
         </div>
         <div className="container mx-auto px-4 relative overflow-hidden">
           <div className="max-w-5xl mx-auto">

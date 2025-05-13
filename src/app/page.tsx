@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -182,18 +182,36 @@ const testimonialsData = [
 
 export default function Home() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const { scrollYProgress } = useScroll({
     target: targetRef,
     offset: ["start start", "end start"],
   });
   
-  // Parallax for left column
-  const yLeft = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacityLeft = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  // Only enable parallax effects on desktop
+  const yLeft = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 300]);
+  const opacityLeft = useTransform(scrollYProgress, [0, 0.5], [1, isMobile ? 1 : 0]);
 
   // Parallax for right column (slightly different offset/factor for variation)
-  const yRight = useTransform(scrollYProgress, [0, 1], [0, 250]); // Scrolls slightly less
-  const opacityRight = useTransform(scrollYProgress, [0, 0.6], [1, 0]); // Fades slightly later
+  const yRight = useTransform(scrollYProgress, [0, 1], [0, isMobile ? 0 : 250]); // Scrolls slightly less
+  const opacityRight = useTransform(scrollYProgress, [0, 0.6], [1, isMobile ? 1 : 0]); // Fades slightly later
+
+  // Check for mobile devices to disable animations
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   return (
     <>
@@ -272,7 +290,7 @@ export default function Home() {
                   transition={{ duration: 0.5 }}
                   className="inline-block bg-[#FF4D00] dark:bg-[#FF4D00] text-white dark:text-white px-4 py-1.5 rounded-full text-xs font-medium mb-5 tracking-wider"
                 >
-                  ONE-STOP BUSINESS SOLUTION
+                  1ONE-STOP BUSINESS SOLUTION
                 </motion.div>
               </div>
               

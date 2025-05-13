@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 
 export default function ParticleBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
-  const mousePosition = useRef({ x: 0, y: 0 });
-  const scrollY = useRef(0);
-
-  // More particles, better distributed
-  const dustParticleCount = 220;
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Reduce particle count, especially for mobile
+  const dustParticleCount = isMobile ? 80 : 150;
   
   // More varied shapes for particles
   const getRandomShape = () => {
@@ -53,64 +52,40 @@ export default function ParticleBackground() {
     return positions;
   };
   
-  // Distributed positions
-  const dustPositions = getDistributedPositions(dustParticleCount);
-  
-  const dustParticles = Array.from({ length: dustParticleCount }).map((_, i) => ({
-    x: dustPositions[i].x,
-    y: dustPositions[i].y,
-    size: Math.random() * 3 + 1.5, // Larger (1.5-4.5px)
-    opacity: Math.random() * 0.6 + 0.3, // Higher opacity (0.3-0.9)
-    duration: Math.random() * 60 + 60, // Slower animation for subtlety
-    shape: getRandomShape(),
-    rotate: Math.random() * 360,
-  }));
-  
   useEffect(() => {
-    let rafId: number;
-    
-    // Handle mouse movement
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePosition.current = {
-        x: e.clientX,
-        y: e.clientY
-      };
+    // Check if device is mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
     
-    // Handle scroll
-    const handleScroll = () => {
-      scrollY.current = window.scrollY;
-    };
+    // Initial check
+    checkMobile();
     
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-    
-    // Animation frame with subtle movements
-    const animate = () => {
-      rafId = requestAnimationFrame(animate);
-      
-      if (containerRef.current) {
-        const dustElements = containerRef.current.querySelectorAll('.dust-particle');
-        
-        // Very subtle dust movements
-        dustElements.forEach((el, index) => {
-          const dustEl = el as HTMLElement;
-          const speedFactor = 0.015 + (index % 5) * 0.004;
-          const scrollOffset = scrollY.current * speedFactor * (index % 2 === 0 ? -1 : 1);
-          
-          dustEl.style.transform = `translateY(${scrollOffset}px) rotate(${dustEl.dataset.rotate || 0}deg)`;
-        });
-      }
-    };
-    
-    rafId = requestAnimationFrame(animate);
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
     
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkMobile);
     };
   }, []);
+  
+  // Generate particles only once
+  const dustPositions = React.useMemo(() => getDistributedPositions(dustParticleCount), [dustParticleCount]);
+  
+  const dustParticles = React.useMemo(() => {
+    return Array.from({ length: dustParticleCount }).map((_, i) => ({
+      x: dustPositions[i].x,
+      y: dustPositions[i].y,
+      size: Math.random() * 3 + 1.5, // Larger (1.5-4.5px)
+      opacity: Math.random() * 0.6 + 0.3, // Higher opacity (0.3-0.9)
+      duration: Math.random() * 60 + 60, // Slower animation for subtlety
+      shape: getRandomShape(),
+      rotate: Math.random() * 360,
+    }));
+  }, [dustPositions, dustParticleCount]);
+  
+  // Remove the scroll and mouse movement animations completely
+  // These were causing the continuous refreshing and performance issues
 
   return (
     <div 
@@ -129,12 +104,12 @@ export default function ParticleBackground() {
             width: `${particle.size}px`,
             height: `${particle.size}px`,
             backgroundColor: i % 8 === 0 ? '#DCDCDC' : '#FF7A00',
-            opacity: theme === 'dark' ? particle.opacity * 0.8 : particle.opacity * 0.6, // Much more visible in light mode
+            opacity: theme === 'dark' ? particle.opacity * 0.8 : particle.opacity * 0.6,
             boxShadow: i % 8 === 0 
               ? `0 0 ${particle.size}px rgba(220, 220, 220, ${theme === 'dark' ? 0.4 : 0.7})` 
               : `0 0 ${particle.size}px rgba(255, 122, 0, ${theme === 'dark' ? 0.4 : 0.7})`,
             transform: `rotate(${particle.rotate}deg)`,
-            willChange: 'transform',
+            willChange: 'opacity',
             transition: 'opacity 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out',
           }}
           animate={{
@@ -153,11 +128,11 @@ export default function ParticleBackground() {
         />
       ))}
 
-      {/* Very subtle vignette */}
+      {/* Very subtle vignette - static, not animated */}
       <div 
         className="absolute inset-0 transition-opacity duration-500"
         style={{ 
-          opacity: theme === 'dark' ? 0.4 : 0.1, // Slight vignette even in light mode
+          opacity: theme === 'dark' ? 0.4 : 0.1,
           background: theme === 'dark'
             ? 'radial-gradient(circle at center, transparent 30%, rgba(31, 31, 31, 0.8) 100%)'
             : 'radial-gradient(circle at center, transparent 30%, rgba(220, 220, 220, 0.8) 100%)',

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 import CursorFollower from "./CursorFollower";
@@ -12,6 +12,26 @@ import ParticleBackground from "./ParticleBackground"; // New background
 import PageWrapper from "./PageWrapper";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
+  // Fix for mobile viewport height issues
+  useEffect(() => {
+    const setAppHeight = () => {
+      const doc = document.documentElement;
+      doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+    };
+
+    // Set initial height
+    setAppHeight();
+
+    // Update on resize and orientation change
+    window.addEventListener('resize', setAppHeight);
+    window.addEventListener('orientationchange', setAppHeight);
+
+    return () => {
+      window.removeEventListener('resize', setAppHeight);
+      window.removeEventListener('orientationchange', setAppHeight);
+    };
+  }, []);
+
   return (
     <Providers>
       <Preloader />
