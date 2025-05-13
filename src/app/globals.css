@@ -408,158 +408,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Glassmorphism */
 .glass {
-  @apply bg-white/80 dark:bg-secondary/80 backdrop-blur-sm shadow-lg;
-}
-
-/* Animations */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Preloader */
-.preloader {
-  @apply fixed inset-0 z-50 flex items-center justify-center bg-background;
-}
-
-.preloader-content {
-  @apply relative w-full max-w-md;
-}
-
-.preloader-logo {
-  @apply w-32 h-32 mx-auto mb-8;
-}
-
-.preloader-progress {
-  @apply h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden;
-}
-
-.preloader-progress-bar {
-  @apply h-full bg-primary transition-all duration-300;
-}
-
-.preloader-text {
-  @apply text-center text-gray-600 dark:text-gray-400 mt-4;
-}
-
-/* Dust Particles */
-.dust-particle {
-  @apply absolute w-1 h-1 bg-primary/20 rounded-full;
-}
-
-/* Base styling */
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
-  overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Navigation styling */
-.nav-logo-container {
-  margin-right: 10px;
-}
-
-.nav-links-container > div {
-  margin-right: 24px !important;
-}
-
-.nav-links-container > div:last-child {
-  margin-right: 0 !important;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-}
-
-/* Enhanced Theme transition */
-*, *::before, *::after {
-  transition: background-color var(--transition-duration) var(--transition-timing),
-              border-color var(--transition-duration) var(--transition-timing),
-              color var(--transition-duration) var(--transition-timing),
-              fill var(--transition-duration) var(--transition-timing),
-              stroke var(--transition-duration) var(--transition-timing),
-              opacity var(--transition-duration) var(--transition-timing),
-              box-shadow var(--transition-duration) var(--transition-timing),
-              transform var(--transition-duration) var(--transition-timing);
-}
-
-/* Specific transitions for different elements */
-body, main, section, div, nav, header, footer {
-  transition: background-color var(--transition-duration) var(--transition-timing),
-              border-color var(--transition-duration) var(--transition-timing),
-              color var(--transition-duration) var(--transition-timing);
-}
-
-/* Update button and interactive element transitions */
-button, a, input, select, textarea {
-  transition: all var(--transition-duration) var(--transition-timing);
-}
-
-/* Ensure background transitions are smooth */
-.bg-background,
-.bg-foreground,
-.bg-primary,
-.bg-secondary,
-.bg-muted,
-.bg-accent,
-.dark .bg-background,
-.dark .bg-foreground,
-.dark .bg-primary,
-.dark .bg-secondary,
-.dark .bg-muted,
-.dark .bg-accent {
-  transition: background-color var(--transition-duration) var(--transition-timing);
-}
-
-/* Text color transitions */
-.text-background,
-.text-foreground,
-.text-primary,
-.text-secondary,
-.text-muted,
-.text-accent,
-.dark .text-background,
-.dark .text-foreground,
-.dark .text-primary,
-.dark .text-secondary,
-.dark .text-muted,
-.dark .text-accent {
-  transition: color var(--transition-duration) var(--transition-timing);
-}
-
-/* Border color transitions */
-.border-background,
-.border-foreground,
-.border-primary,
-.border-secondary,
-.border-muted,
-.border-accent,
-.dark .border-background,
-.dark .border-foreground,
-.dark .border-primary,
-.dark .border-secondary,
-.dark .border-muted,
-.dark .border-accent {
-  transition: border-color var(--transition-duration) var(--transition-timing);
-}
-
-/* Enhanced Glassmorphism effect */
-.glass {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  transition: all 0.3s ease;
 }
 
 .glass-dark {
@@ -568,74 +422,89 @@ button, a, input, select, textarea {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s ease;
 }
 
 /* New Glass Effects */
 .glass-card {
-  @apply rounded-2xl border border-transparent 
-         transition-all duration-300 shadow-sm;
-  /* Light mode subtle background */
-  background-color: rgba(255, 255, 255, 0.6);
+  @apply rounded-2xl border transition-all duration-300;
+  /* Light mode refined glass effect */
+  background: rgba(255, 255, 255, 0.7);
   border-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease-out, 
+              box-shadow 0.3s ease-out, 
+              border-color 0.3s ease-out,
+              background-color 0.3s ease-out;
 }
 
 .dark .glass-card {
-  /* Dark mode - Neutral very dark grey, less blue */
-  background-color: rgba(15, 15, 15, 0.6); /* Changed from potential blue-tinted dark */
-  border-color: rgba(255, 255, 255, 0.08); /* Keep subtle border */
+  /* Dark mode - Enhanced glass effect */
+  background: rgba(15, 15, 15, 0.7);
+  border-color: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
-  /* Removed explicit box-shadow, relying on parent/hover */
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease-out, 
+              box-shadow 0.3s ease-out, 
+              border-color 0.3s ease-out,
+              background-color 0.3s ease-out;
 }
 
 .glass-card:hover {
-   @apply shadow-lg; /* Enhance shadow on hover */
-   border-color: rgba(255, 255, 255, 0.15); /* Slightly more visible border on hover */
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 
+              0 0 0 1px rgba(255, 255, 255, 0.9),
+              inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: rgba(255, 120, 0, 0.3); /* Primary color border */
+}
+
+.dark .glass-card:hover {
+  transform: translateY(-5px);
+  background: rgba(20, 20, 20, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 
+              0 0 0 1px rgba(255, 255, 255, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 120, 0, 0.5); /* Primary color border */
 }
 
 /* Frosted container */
 .frosted-container {
   @apply relative overflow-hidden rounded-xl;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05), 
               0 2px 6px rgba(0, 0, 0, 0.05), 
               inset 0 1px 1px rgba(255, 255, 255, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.dark .frosted-container {
+  background: rgba(20, 20, 20, 0.7);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
+              0 2px 6px rgba(0, 0, 0, 0.1), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .frosted-container:hover {
   transform: translateY(-5px);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.08), 
-              0 4px 12px rgba(0, 0, 0, 0.06), 
-              inset 0 1px 1px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 
+              0 0 0 1px rgba(255, 120, 0, 0.2);
+  border-color: rgba(255, 120, 0, 0.3);
 }
 
-.frosted-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, 
-                              rgba(255, 255, 255, 0) 20%, 
-                              rgba(255, 255, 255, 0.3) 50%, 
-                              rgba(255, 255, 255, 0) 80%);
-  opacity: 0.2;
-  transition: all 0.6s ease;
-}
-
-.frosted-container:hover::before {
-  transform: translateX(100%);
-  opacity: 0.5;
-}
-
-.dark .frosted-container {
-  background: rgba(10, 10, 10, 0.7);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 
-              0 2px 6px rgba(0, 0, 0, 0.1), 
-              inset 0 1px 1px rgba(232, 96, 0, 0.05);
-  border: 1px solid rgba(232, 96, 0, 0.08);
+.dark .frosted-container:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 
+              0 0 0 1px rgba(255, 120, 0, 0.3);
+  border-color: rgba(255, 120, 0, 0.5);
 }
 
 /* Custom cursor */
@@ -1360,16 +1229,19 @@ a, button, input, select, textarea {
 
   /* Glass card styles for mobile */
   .glass-card {
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
   }
 
   .dark .glass-card {
-    background: rgba(10, 10, 10, 0.95) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: rgba(20, 20, 20, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
   
   /* Completely disable all gradient animations */
@@ -1410,11 +1282,35 @@ a, button, input, select, textarea {
   }
   
   .glass-card {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
     width: auto !important;
     min-width: auto !important;
     max-width: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    transition: transform 0.3s ease, border-color 0.3s ease !important;
+  }
+
+  .dark .glass-card {
+    background: rgba(20, 20, 20, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: transform 0.3s ease, border-color 0.3s ease !important;
+  }
+  
+  /* Allow some hover effects on mobile for better UX */
+  .glass-card:active {
+    transform: translateY(-2px) !important;
+    border-color: rgba(255, 120, 0, 0.3) !important;
+  }
+  
+  .dark .glass-card:active {
+    transform: translateY(-2px) !important;
+    border-color: rgba(255, 120, 0, 0.5) !important;
   }
   
   /* Specific override for cards in expertise and partner sections */
@@ -1422,36 +1318,55 @@ a, button, input, select, textarea {
   .partner-cards-container .glass-card {
     width: 100% !important;
     min-width: 100% !important;
-    transform: none !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  .dark .expertise-section .glass-card,
+  .dark .partner-cards-container .glass-card {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+
+  .expertise-section .glass-card:active,
+  .partner-cards-container .glass-card:active {
+    border-color: rgba(255, 120, 0, 0.3) !important;
+  }
+  
+  .dark .expertise-section .glass-card:active,
+  .dark .partner-cards-container .glass-card:active {
+    border-color: rgba(255, 120, 0, 0.5) !important;
   }
 }
 
-/* Optimized touch device interactions */
+/* Optimized touch device interactions - Simplified to allow some hover effects */
 @media (hover: none) {
-  /* Remove all hover animations for touch devices */
-  .hover\:opacity-100:hover,
-  .hover\:scale-110:hover,
-  .hover\:blur-xl:hover,
-  .group:hover .group-hover\:opacity-100,
-  .group:hover .group-hover\:scale-110 {
-    opacity: inherit !important;
-    transform: none !important;
-    filter: none !important;
-  }
-  
-  /* Simplify card rendering on touch devices */
+  /* Simplify card rendering on touch devices but keep some transitions */
   .card,
   .glass-card,
   .frosted-container {
-    transform: none !important;
-    transition: none !important;
+    transition: transform 0.3s ease, border-color 0.3s ease !important;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
   }
   
-  /* Disable transitions for better performance */
-  * {
-    transition-duration: 0ms !important;
-    animation-duration: 0ms !important;
+  .dark .card,
+  .dark .glass-card,
+  .dark .frosted-container {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  /* Allow tap/active state for cards */
+  .card:active,
+  .glass-card:active,
+  .frosted-container:active {
+    transform: translateY(-2px) !important;
+    border-color: rgba(255, 120, 0, 0.3) !important;
+  }
+  
+  .dark .card:active,
+  .dark .glass-card:active,
+  .dark .frosted-container:active {
+    border-color: rgba(255, 120, 0, 0.5) !important;
   }
 }
 
