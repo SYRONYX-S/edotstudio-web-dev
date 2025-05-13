@@ -6,7 +6,8 @@ import { useTheme } from 'next-themes';
 
 export default function ParticleBackground() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   
   // Keep particle count balanced for performance
@@ -37,6 +38,9 @@ export default function ParticleBackground() {
   };
   
   useEffect(() => {
+    // Handle mounting state
+    setMounted(true);
+    
     // Check if device is mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -82,6 +86,18 @@ export default function ParticleBackground() {
     }));
   }, []);
   
+  // Determine the current theme for rendering
+  const currentTheme = mounted ? (resolvedTheme || theme) : 'system';
+  const isDarkTheme = currentTheme === 'dark';
+  
+  // Return null or placeholder on server/initial render
+  if (!mounted) {
+    // Use a similar div structure but with neutral styling
+    return (
+      <div className="fixed inset-0 w-full h-full overflow-hidden z-0 pointer-events-none bg-[#050505]" />
+    );
+  }
+  
   return (
     <div 
       ref={containerRef}
@@ -91,8 +107,8 @@ export default function ParticleBackground() {
       <div 
         className="absolute inset-0 transition-colors duration-500"
         style={{ 
-          backgroundColor: theme === 'dark' ? '#080808' : '#fafafa',
-          background: theme === 'dark'
+          backgroundColor: isDarkTheme ? '#080808' : '#fafafa',
+          background: isDarkTheme
             ? 'radial-gradient(ellipse at top, #0a0a0a 0%, #080808 70%, #050505 100%)'
             : 'radial-gradient(ellipse at top, #ffffff 0%, #fafafa 70%, #f5f5f5 100%)',
         }}
@@ -102,10 +118,10 @@ export default function ParticleBackground() {
       <div 
         className="absolute inset-0 transition-opacity duration-500"
         style={{ 
-          opacity: theme === 'dark' ? 0.07 : 0.04,
+          opacity: isDarkTheme ? 0.07 : 0.04,
           backgroundImage: `
-            linear-gradient(to right, ${theme === 'dark' ? '#333' : '#ddd'} 1px, transparent 1px),
-            linear-gradient(to bottom, ${theme === 'dark' ? '#333' : '#ddd'} 1px, transparent 1px)
+            linear-gradient(to right, ${isDarkTheme ? '#333' : '#ddd'} 1px, transparent 1px),
+            linear-gradient(to bottom, ${isDarkTheme ? '#333' : '#ddd'} 1px, transparent 1px)
           `,
           backgroundSize: '100px 100px',
           backgroundPosition: 'center center',
@@ -116,10 +132,10 @@ export default function ParticleBackground() {
       <div 
         className="absolute inset-0 transition-opacity duration-500"
         style={{ 
-          opacity: theme === 'dark' ? 0.05 : 0.03,
+          opacity: isDarkTheme ? 0.05 : 0.03,
           backgroundImage: `
-            linear-gradient(to right, ${theme === 'dark' ? '#444' : '#ccc'} 1px, transparent 1px),
-            linear-gradient(to bottom, ${theme === 'dark' ? '#444' : '#ccc'} 1px, transparent 1px)
+            linear-gradient(to right, ${isDarkTheme ? '#444' : '#ccc'} 1px, transparent 1px),
+            linear-gradient(to bottom, ${isDarkTheme ? '#444' : '#ccc'} 1px, transparent 1px)
           `,
           backgroundSize: '20px 20px',
           backgroundPosition: 'center center',
@@ -137,7 +153,7 @@ export default function ParticleBackground() {
             width: `${blob.size}px`,
             height: `${blob.size}px`,
             background: `radial-gradient(circle, ${blob.color} 0%, transparent 70%)`,
-            opacity: theme === 'dark' ? blob.opacity * 2 : blob.opacity,
+            opacity: isDarkTheme ? blob.opacity * 2 : blob.opacity,
             transform: 'translate(-50%, -50%)',
           }}
         />
@@ -157,12 +173,12 @@ export default function ParticleBackground() {
               ? '#FF7A00' // Brand orange for some stars
               : i % 12 === 0
                 ? '#4060FF' // Blue accent for some stars
-                : theme === 'dark' ? '#ffffff' : '#888888',
+                : isDarkTheme ? '#ffffff' : '#888888',
             boxShadow: i % 10 === 0
               ? `0 0 ${star.size * 2}px rgba(255, 122, 0, 0.6)` // Glow for orange stars
               : i % 12 === 0
                 ? `0 0 ${star.size * 2}px rgba(64, 96, 255, 0.6)` // Glow for blue stars
-                : `0 0 ${star.size}px ${theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(100, 100, 100, 0.3)'}`,
+                : `0 0 ${star.size}px ${isDarkTheme ? 'rgba(255, 255, 255, 0.4)' : 'rgba(100, 100, 100, 0.3)'}`,
             opacity: star.opacity,
           }}
           animate={{
@@ -183,8 +199,8 @@ export default function ParticleBackground() {
       <div 
         className="absolute inset-0 transition-opacity duration-500"
         style={{ 
-          opacity: theme === 'dark' ? 0.4 : 0.2,
-          background: theme === 'dark'
+          opacity: isDarkTheme ? 0.4 : 0.2,
+          background: isDarkTheme
             ? 'linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%)'
             : 'linear-gradient(135deg, transparent 0%, rgba(240, 240, 240, 0.6) 100%)',
         }}
@@ -194,8 +210,8 @@ export default function ParticleBackground() {
       <div 
         className="absolute inset-0 transition-opacity duration-500"
         style={{ 
-          opacity: theme === 'dark' ? 0.5 : 0.3,
-          background: theme === 'dark'
+          opacity: isDarkTheme ? 0.5 : 0.3,
+          background: isDarkTheme
             ? 'radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.7) 100%)'
             : 'radial-gradient(circle at center, transparent 30%, rgba(245, 245, 245, 0.7) 100%)',
         }}

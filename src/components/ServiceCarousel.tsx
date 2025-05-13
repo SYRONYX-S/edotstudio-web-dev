@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { IconType } from 'react-icons';
-import { motion, useMotionValue, PanInfo, animate, AnimationPlaybackControls } from 'framer-motion';
+import { motion, useMotionValue, PanInfo, animate, useTransform, useAnimationControls } from 'framer-motion';
 
 interface Service {
   title: string;
@@ -17,86 +17,153 @@ interface ServiceCarouselProps {
 
 const CARD_WIDTH = 350; // Max width of a card
 const GAP = 16; // gap-4 = 1rem = 16px
-const DRAG_BUFFER = 30; // Threshold before drag is considered significant
-const BASE_DURATION = 25; // Base animation duration in seconds (lower is faster)
+const BASE_DURATION = 20; // Base animation duration in seconds (lower is faster)
 
 export default function ServiceCarousel({ services }: ServiceCarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const controls = useAnimationControls();
   const x = useMotionValue(0);
-  const controls = useRef<AnimationPlaybackControls | null>(null);
-  const dragStartX = useRef(0);
-  const dragStartTime = useRef(0);
+  const isDragging = useRef(false);
 
-  // Duplicate services for the seamless loop effect
-  const duplicatedServices = React.useMemo(() => [...services, ...services, ...services], [services]);
-  const totalWidth = React.useMemo(() => duplicatedServices.length * (CARD_WIDTH + GAP), [duplicatedServices.length]);
-  const loopSegmentWidth = totalWidth / 3;
+  // Create 5 copies for a truly seamless experience
+  const duplicatedServices = React.useMemo(() => [
+    ...services,
+    ...services,
+    ...services,
+    ...services,
+    ...services
+  ], [services]);
 
-  const startAnimation = useCallback(() => {
-    controls.current?.stop(); // Stop any existing animation
+  const totalWidth = React.useMemo(() => 
+    duplicatedServices.length * (CARD_WIDTH + GAP), 
+    [duplicatedServices.length]
+  );
+  
+  const singleSetWidth = services.length * (CARD_WIDTH + GAP);
+  const loopPoint = -(2 * singleSetWidth); // We'll reset when we reach the third set
+  
+  // Check if viewport is updated
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (carouselRef.current) {
+        setContainerWidth(carouselRef.current.offsetWidth);
+        setIsMobile(window.innerWidth < 768);
+      }
+    };
+    
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
 
-    // Always use the base duration for consistent speed
-    controls.current = animate(x, [x.get(), x.get() - totalWidth], {
-      ease: "linear",
-      duration: BASE_DURATION * (totalWidth / loopSegmentWidth), // Scale duration for the full track
-      repeat: Infinity,
-      repeatType: "loop",
-      repeatDelay: 0
-    });
-    // Correct initial wrap-around if needed (less critical with direct animate)
-    if (x.get() <= -loopSegmentWidth) {
-      x.set(x.get() % loopSegmentWidth);
+  // Handle resetting position for seamless loop
+  const checkPosition = useCallback(() => {
+    const currentX = x.get();
+    
+    // If we've gone too far to the left, jump back to the equivalent position in the middle set
+    if (currentX < loopPoint) {
+      const offset = currentX % singleSetWidth;
+      x.set(-singleSetWidth + offset);
     }
+    
+    // If somehow we went too far right, jump to equivalent position
+    if (currentX > 0) {
+      const offset = currentX % singleSetWidth;
+      x.set(loopPoint + offset);
+    }
+  }, [x, loopPoint, singleSetWidth]);
 
-  }, [x, totalWidth, loopSegmentWidth]);
+  // Setup animation
+  const startAnimation = useCallback(() => {
+    checkPosition();
+    
+    controls.start({
+      x: x.get() - singleSetWidth,
+      transition: {
+        duration: BASE_DURATION,
+        ease: "linear",
+        repeat: Infinity,
+        repeatType: "loop"
+      }
+    });
+  }, [x, singleSetWidth, controls, checkPosition]);
 
-  React.useEffect(() => {
+  // Start the carousel animation
+  useEffect(() => {
     startAnimation();
-    return () => controls.current?.stop();
-  }, [startAnimation]); // Rerun if services change -> duplicatedServices -> totalWidth change
+    return () => {
+      controls.stop();
+    };
+  }, [startAnimation, controls]);
 
-  const handleDragStart = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    controls.current?.stop();
-    dragStartX.current = x.get();
-    dragStartTime.current = performance.now();
+  // Handle drag gestures
+  const handleDragStart = () => {
+    controls.stop();
+    isDragging.current = true;
   };
 
   const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const dragEndTime = performance.now();
-    const dragDuration = dragEndTime - dragStartTime.current;
-    const dragDistance = x.get() - dragStartX.current;
-
-    // Restart animation from current position with consistent speed
-    startAnimation(); 
+    isDragging.current = false;
+    checkPosition();
+    
+    // Momentum effect based on drag velocity
+    const velocity = info.velocity.x;
+    if (Math.abs(velocity) > 100) {
+      const momentumDistance = velocity * 0.3;
+      x.set(x.get() + momentumDistance);
+      checkPosition();
+    }
+    
+    // Resume regular animation after a short pause to let the user see the result of their drag
+    setTimeout(() => {
+      if (!isDragging.current) {
+        startAnimation();
+      }
+    }, 50);
   };
 
   return (
-    <div className="w-full mt-10 overflow-hidden cursor-grab" ref={carouselRef}>
+    <div className="w-full mt-10 overflow-hidden touch-pan-x" ref={carouselRef}>
       <div className="relative w-full overflow-hidden">
-        {/* Fades */}
+        {/* Fades for a smoother experience at the edges */}
         <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-background to-transparent dark:from-[#0f0f0f] z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-background to-transparent dark:from-[#0f0f0f] dark:to-transparent z-10 pointer-events-none" />
         
         <motion.div
           className="flex gap-4 py-4"
-          style={{ x }} // Apply motion value directly
+          animate={controls}
+          style={{ x }} 
           drag="x"
           dragConstraints={{ 
-            left: -loopSegmentWidth * 2, // Allow dragging through two segments
-            right: 0 
+            left: -totalWidth + containerWidth, 
+            right: containerWidth
           }} 
-          dragElastic={0.05} // Little resistance at the edges
+          dragElastic={0.05}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
+          dragTransition={{ 
+            power: 0.15, 
+            timeConstant: 100,
+            modifyTarget: (target) => Math.round(target / 10) * 10 // Snap to a grid for smoother feeling
+          }}
           whileTap={{ cursor: "grabbing" }}
         >
           {duplicatedServices.map((service, index) => {
             const IconComponent = service.icon;
             return (
-              <div
+              <motion.div
                 key={`${service.title}-card-${index}`}
-                style={{ flex: `0 0 ${CARD_WIDTH}px` }} // Use fixed width
-                className="bg-white/60 dark:bg-black/60 backdrop-blur rounded-xl p-6 transform transition-transform duration-300 hover:scale-[1.02] select-none"
+                style={{ 
+                  flex: `0 0 ${CARD_WIDTH}px`,
+                  WebkitTouchCallout: 'none',
+                  WebkitUserSelect: 'none', 
+                  userSelect: 'none'
+                }} 
+                className="bg-white/60 dark:bg-black/60 backdrop-blur rounded-xl p-6 transform transition-transform duration-300 hover:scale-[1.02]"
+                whileHover={{ scale: isMobile ? 1 : 1.02 }}
+                whileTap={{ scale: isMobile ? 0.98 : 1 }}
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="p-3 rounded-lg bg-primary/10 text-primary">
@@ -105,7 +172,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                   <h3 className="text-xl font-semibold">{service.title}</h3>
                 </div>
                 <p className="text-muted-foreground">{service.description}</p>
-              </div>
+              </motion.div>
             );
           })}
         </motion.div>
