@@ -66,7 +66,7 @@ export default function Navigation() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 h-20 flex items-center right-0 z-50 bg-background/90 dark:bg-black/80 backdrop-blur shadow-lg"
+        className="fixed top-0 left-0 h-20 flex items-center right-0 z-50 bg-white/95 dark:bg-[#080808]/95 backdrop-blur-md shadow-lg"
       >
         <div className="container mx-auto px-0 md:px-4 py-3 flex items-center justify-between nav-logo-parent">
           <Link href="/" className="flex-shrink-0 pl-2 md:pl-0">

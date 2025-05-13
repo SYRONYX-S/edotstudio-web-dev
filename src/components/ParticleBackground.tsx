@@ -9,26 +9,12 @@ export default function ParticleBackground() {
   const { theme } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
   
-  // Reduce particle count, especially for mobile
-  const dustParticleCount = isMobile ? 80 : 150;
-  
-  // More varied shapes for particles
-  const getRandomShape = () => {
-    const shapes = [
-      'rounded-full', // Circle
-      'rounded-sm', // Small rounded
-      'rounded-none rotate-45', // Diamond
-      'rounded-md', // Medium rounded
-      'rounded-full', // More circles for balance
-      'rounded-xl', // Extra rounded
-    ];
-    return shapes[Math.floor(Math.random() * shapes.length)];
-  };
+  // Keep particle count balanced for performance
+  const dustParticleCount = isMobile ? 30 : 60;
   
   // Get distributed positions instead of random
   const getDistributedPositions = (count: number) => {
     const positions = [];
-    // Create a grid effect but with some randomness
     const cols = Math.floor(Math.sqrt(count));
     const rows = Math.ceil(count / cols);
     
@@ -36,11 +22,9 @@ export default function ParticleBackground() {
       const col = i % cols;
       const row = Math.floor(i / cols) % rows;
       
-      // Calculate base position with good distribution
       const baseX = (col / cols) * 100;
       const baseY = (row / rows) * 100;
       
-      // Add randomness within the cell
       const randX = (Math.random() * 15 - 7.5);
       const randY = (Math.random() * 15 - 7.5);
       
@@ -69,74 +53,151 @@ export default function ParticleBackground() {
     };
   }, []);
   
-  // Generate particles only once
+  // Generate stars/particles
   const dustPositions = React.useMemo(() => getDistributedPositions(dustParticleCount), [dustParticleCount]);
   
-  const dustParticles = React.useMemo(() => {
+  const stars = React.useMemo(() => {
     return Array.from({ length: dustParticleCount }).map((_, i) => ({
       x: dustPositions[i].x,
       y: dustPositions[i].y,
-      size: Math.random() * 3 + 1.5, // Larger (1.5-4.5px)
-      opacity: Math.random() * 0.6 + 0.3, // Higher opacity (0.3-0.9)
-      duration: Math.random() * 60 + 60, // Slower animation for subtlety
-      shape: getRandomShape(),
-      rotate: Math.random() * 360,
+      size: Math.random() * 2 + 1, // Star sizes 1-3px
+      opacity: Math.random() * 0.4 + 0.3, // Star opacity 0.3-0.7
+      duration: Math.random() * 5 + 3, // Twinkle animation duration
+      delay: Math.random() * 5, // Random delay for twinkling
     }));
   }, [dustPositions, dustParticleCount]);
-  
-  // Remove the scroll and mouse movement animations completely
-  // These were causing the continuous refreshing and performance issues
 
+  // Generate subtle gradient blobs (very Framer-like)
+  const gradientBlobs = React.useMemo(() => {
+    return Array.from({ length: 3 }).map((_, i) => ({
+      x: Math.random() * 80 + 10,
+      y: Math.random() * 80 + 10,
+      size: Math.random() * 400 + 300, // Large gradient areas
+      opacity: Math.random() * 0.05 + 0.02, // Very subtle opacity
+      color: i === 0 
+        ? 'rgba(255, 122, 0, 0.3)' // Brand orange
+        : i === 1 
+          ? 'rgba(64, 96, 255, 0.2)' // Blue accent
+          : 'rgba(255, 255, 255, 0.1)', // White/neutral
+    }));
+  }, []);
+  
   return (
     <div 
       ref={containerRef}
       className="fixed inset-0 w-full h-full overflow-hidden z-0 pointer-events-none transition-colors duration-300"
     >
-      {/* Dust particles - better distributed */}
-      {dustParticles.map((particle, i) => (
-        <motion.div
-          key={`dust-${i}`}
-          className={`dust-particle absolute ${particle.shape}`}
-          data-rotate={particle.rotate}
+      {/* Base background with smoother gradient */}
+      <div 
+        className="absolute inset-0 transition-colors duration-500"
+        style={{ 
+          backgroundColor: theme === 'dark' ? '#080808' : '#fafafa',
+          background: theme === 'dark'
+            ? 'radial-gradient(ellipse at top, #0a0a0a 0%, #080808 70%, #050505 100%)'
+            : 'radial-gradient(ellipse at top, #ffffff 0%, #fafafa 70%, #f5f5f5 100%)',
+        }}
+      />
+
+      {/* Modern grid pattern with finer lines - Framer style */}
+      <div 
+        className="absolute inset-0 transition-opacity duration-500"
+        style={{ 
+          opacity: theme === 'dark' ? 0.07 : 0.04,
+          backgroundImage: `
+            linear-gradient(to right, ${theme === 'dark' ? '#333' : '#ddd'} 1px, transparent 1px),
+            linear-gradient(to bottom, ${theme === 'dark' ? '#333' : '#ddd'} 1px, transparent 1px)
+          `,
+          backgroundSize: '100px 100px',
+          backgroundPosition: 'center center',
+        }}
+      />
+
+      {/* Finer grid for more elegant design - more visible */}
+      <div 
+        className="absolute inset-0 transition-opacity duration-500"
+        style={{ 
+          opacity: theme === 'dark' ? 0.05 : 0.03,
+          backgroundImage: `
+            linear-gradient(to right, ${theme === 'dark' ? '#444' : '#ccc'} 1px, transparent 1px),
+            linear-gradient(to bottom, ${theme === 'dark' ? '#444' : '#ccc'} 1px, transparent 1px)
+          `,
+          backgroundSize: '20px 20px',
+          backgroundPosition: 'center center',
+        }}
+      />
+
+      {/* Subtle gradient blobs - very Framer-like */}
+      {gradientBlobs.map((blob, i) => (
+        <div
+          key={`blob-${i}`}
+          className="absolute rounded-full blur-3xl"
           style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: `${particle.size}px`,
-            height: `${particle.size}px`,
-            backgroundColor: i % 8 === 0 ? '#DCDCDC' : '#FF7A00',
-            opacity: theme === 'dark' ? particle.opacity * 0.8 : particle.opacity * 0.6,
-            boxShadow: i % 8 === 0 
-              ? `0 0 ${particle.size}px rgba(220, 220, 220, ${theme === 'dark' ? 0.4 : 0.7})` 
-              : `0 0 ${particle.size}px rgba(255, 122, 0, ${theme === 'dark' ? 0.4 : 0.7})`,
-            transform: `rotate(${particle.rotate}deg)`,
-            willChange: 'opacity',
-            transition: 'opacity 0.5s ease-in-out, background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out',
-          }}
-          animate={{
-            opacity: [
-              theme === 'dark' ? particle.opacity * 0.8 : particle.opacity * 0.6,
-              theme === 'dark' ? particle.opacity * 0.3 : particle.opacity * 0.3,
-              theme === 'dark' ? particle.opacity * 0.8 : particle.opacity * 0.6,
-            ],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Infinity,
-            repeatType: 'reverse',
-            ease: 'easeInOut',
+            left: `${blob.x}%`,
+            top: `${blob.y}%`,
+            width: `${blob.size}px`,
+            height: `${blob.size}px`,
+            background: `radial-gradient(circle, ${blob.color} 0%, transparent 70%)`,
+            opacity: theme === 'dark' ? blob.opacity * 2 : blob.opacity,
+            transform: 'translate(-50%, -50%)',
           }}
         />
       ))}
 
-      {/* Very subtle vignette - static, not animated */}
+      {/* Small particles/stars */}
+      {stars.map((star, i) => (
+        <motion.div
+          key={`star-${i}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            backgroundColor: i % 10 === 0 
+              ? '#FF7A00' // Brand orange for some stars
+              : i % 12 === 0
+                ? '#4060FF' // Blue accent for some stars
+                : theme === 'dark' ? '#ffffff' : '#888888',
+            boxShadow: i % 10 === 0
+              ? `0 0 ${star.size * 2}px rgba(255, 122, 0, 0.6)` // Glow for orange stars
+              : i % 12 === 0
+                ? `0 0 ${star.size * 2}px rgba(64, 96, 255, 0.6)` // Glow for blue stars
+                : `0 0 ${star.size}px ${theme === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(100, 100, 100, 0.3)'}`,
+            opacity: star.opacity,
+          }}
+          animate={{
+            opacity: [star.opacity, star.opacity * 0.4, star.opacity],
+            scale: [1, i % 7 === 0 ? 1.2 : 1, 1], // Subtle pulse for some
+          }}
+          transition={{
+            duration: star.duration,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut",
+            delay: star.delay,
+          }}
+        />
+      ))}
+      
+      {/* Framer-style gradient overlay */}
       <div 
         className="absolute inset-0 transition-opacity duration-500"
         style={{ 
-          opacity: theme === 'dark' ? 0.4 : 0.1,
+          opacity: theme === 'dark' ? 0.4 : 0.2,
           background: theme === 'dark'
-            ? 'radial-gradient(circle at center, transparent 30%, rgba(31, 31, 31, 0.8) 100%)'
-            : 'radial-gradient(circle at center, transparent 30%, rgba(220, 220, 220, 0.8) 100%)',
-          transition: 'opacity 0.5s ease-in-out, background 0.5s ease-in-out',
+            ? 'linear-gradient(135deg, transparent 0%, rgba(0, 0, 0, 0.6) 100%)'
+            : 'linear-gradient(135deg, transparent 0%, rgba(240, 240, 240, 0.6) 100%)',
+        }}
+      />
+      
+      {/* Subtle vignette effect */}
+      <div 
+        className="absolute inset-0 transition-opacity duration-500"
+        style={{ 
+          opacity: theme === 'dark' ? 0.5 : 0.3,
+          background: theme === 'dark'
+            ? 'radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.7) 100%)'
+            : 'radial-gradient(circle at center, transparent 30%, rgba(245, 245, 245, 0.7) 100%)',
         }}
       />
     </div>
