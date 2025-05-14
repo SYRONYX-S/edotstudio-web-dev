@@ -26,6 +26,7 @@
     --background-dark: 0, 0, 0;
     --primary: 255, 122, 0;       /* FF7A00 - True Orange */
     --primary-light: 255, 145, 30; /* FF911E - Lighter Orange */
+    --primary-dark: 199, 80, 0;   /* C75000 - Darker Orange for better contrast */
     --text-dark: 31, 31, 31;     /* 1F1F1F - Brand Dark Gray */
     --text-light: 220, 220, 220; /* DCDCDC - Brand Light Gray */
     --border-radius: 12px;
@@ -39,7 +40,7 @@
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 16.3% 36%; /* Darkened from 46.9% to 36% for better contrast */
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
@@ -64,7 +65,7 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 75%; /* Lightened from 65.1% to 75% for better contrast in dark mode */
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
@@ -828,8 +829,27 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Accessibility - focus styles */
 *:focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 3px solid var(--primary-dark);
   outline-offset: 2px;
+}
+
+/* Ensure links have proper focus and hover states with good contrast */
+a:focus, button:focus {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 2px;
+}
+
+/* Interactive elements - ensuring hover and focus states have 3:1 contrast ratio */
+button, a, [role="button"], input, select, textarea {
+  position: relative;
+}
+
+/* Add a high contrast focus ring for keyboard navigation */
+button:focus-visible, a:focus-visible, [role="button"]:focus-visible, 
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--primary-dark);
+  outline-offset: 2px;
+  z-index: 1;
 }
 
 /* SEO improvements - ensure proper contrast */
@@ -1201,11 +1221,11 @@ a, button, input, select, textarea {
 
   /* Disable transitions on mobile */
   * {
-    transition-duration: 0ms !important;
-    animation-duration: 0ms !important;
+    transition-duration: 0.2s !important;
+    animation-duration: 0.2s !important;
   }
 
-  /* Disable hover effects on mobile */
+  /* Disable hover effects on mobile, but keep the transitions */
   .hover\:scale-110:hover,
   .group-hover\:scale-110,
   .group-hover\:opacity-100,
@@ -1215,6 +1235,7 @@ a, button, input, select, textarea {
     transform: none !important;
     opacity: inherit !important;
     filter: none !important;
+    transition-duration: 0.2s !important;
   }
 
   /* Disable all animations */
@@ -1496,7 +1517,7 @@ h5:not(.no-theme-transition),
 h6:not(.no-theme-transition), 
 p:not(.no-theme-transition), 
 span:not(.no-theme-transition), 
-a:not(.no-theme-transition):not(:hover):not(:focus):not(:active), 
+a:not(.no-theme-transition), 
 li:not(.no-theme-transition) {
   transition: color 0.3s ease;
 }
@@ -1539,11 +1560,252 @@ button:not(.no-theme-transition) {
   transition: none !important;
 }
 
+/* Restore hover transitions for interactive elements */
+a:hover, button:hover, [role="button"]:hover, 
+.glass-card:hover, .frosted-container:hover, .bento-item:hover,
+.hover\:scale-105:hover, .hover\:scale-110:hover,
+.hover\:bg-primary:hover, .hover\:bg-primary-dark:hover,
+.hover\:text-primary:hover, .hover\:text-white:hover,
+.hover\:shadow-lg:hover, .hover\:shadow-xl:hover {
+  transition: all 0.3s ease !important;
+}
+
+/* Restore hover transitions for transform effects */
+.transform, .hover\:scale-105, .hover\:scale-110, .hover\:translate-y-1, 
+.group-hover\:scale-105, .group-hover\:scale-110, .group:hover .group-hover\:scale-105 {
+  transition: transform 0.3s ease !important;
+}
+
+/* Restore hover transitions for shadow effects */
+.hover\:shadow-lg, .hover\:shadow-xl, .hover\:shadow-md {
+  transition: box-shadow 0.3s ease !important;
+}
+
+/* Restore hover transitions for background effects */
+.hover\:bg-primary, .hover\:bg-primary-dark, .hover\:bg-gray-100, .hover\:bg-gray-900 {
+  transition: background-color 0.3s ease !important;
+}
+
+/* TARGETED FIXES: Only fixing specific sections mentioned by the user */
+/* Why Choose Us Section Cards */
+.why-choose-us .glass-card,
+.why-choose-us .card,
+.why-choose-us .frosted-container {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.why-choose-us .glass-card:hover,
+.why-choose-us .glass-card:not(:hover),
+.why-choose-us .card:hover,
+.why-choose-us .card:not(:hover),
+.why-choose-us .frosted-container:hover,
+.why-choose-us .frosted-container:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* Testimonials Cards */
+.testimonials .glass-card,
+.testimonials .card,
+.testimonials .frosted-container,
+.testimonial-card,
+[class*="testimonial-card"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.testimonials .glass-card:hover,
+.testimonials .glass-card:not(:hover),
+.testimonials .card:hover,
+.testimonials .card:not(:hover),
+.testimonials .frosted-container:hover,
+.testimonials .frosted-container:not(:hover),
+.testimonial-card:hover,
+.testimonial-card:not(:hover),
+[class*="testimonial-card"]:hover,
+[class*="testimonial-card"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* Services Page Cards */
+.services-page .glass-card,
+.services-page .card,
+.services-page .frosted-container,
+.service-card,
+[class*="service-card"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.services-page .glass-card:hover,
+.services-page .glass-card:not(:hover),
+.services-page .card:hover,
+.services-page .card:not(:hover),
+.services-page .frosted-container:hover,
+.services-page .frosted-container:not(:hover),
+.service-card:hover,
+.service-card:not(:hover),
+[class*="service-card"]:hover,
+[class*="service-card"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* Proven Process Cards */
+.proven-process .glass-card,
+.proven-process .card,
+.proven-process .frosted-container,
+.process-card,
+[class*="process-card"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.proven-process .glass-card:hover,
+.proven-process .glass-card:not(:hover),
+.proven-process .card:hover,
+.proven-process .card:not(:hover),
+.proven-process .frosted-container:hover,
+.proven-process .frosted-container:not(:hover),
+.process-card:hover,
+.process-card:not(:hover),
+[class*="process-card"]:hover,
+[class*="process-card"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* Our Impact Cards */
+.our-impact .glass-card,
+.our-impact .card,
+.our-impact .frosted-container,
+.impact-card,
+[class*="impact-card"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.our-impact .glass-card:hover,
+.our-impact .glass-card:not(:hover),
+.our-impact .card:hover,
+.our-impact .card:not(:hover),
+.our-impact .frosted-container:hover,
+.our-impact .frosted-container:not(:hover),
+.impact-card:hover,
+.impact-card:not(:hover),
+[class*="impact-card"]:hover,
+[class*="impact-card"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* Partner Program Cards */
+.partner-program .glass-card,
+.partner-program .card,
+.partner-program .frosted-container,
+.partner-card,
+[class*="partner-card"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.partner-program .glass-card:hover,
+.partner-program .glass-card:not(:hover),
+.partner-program .card:hover,
+.partner-program .card:not(:hover),
+.partner-program .frosted-container:hover,
+.partner-program .frosted-container:not(:hover),
+.partner-card:hover,
+.partner-card:not(:hover),
+[class*="partner-card"]:hover,
+[class*="partner-card"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* Partnerships Section in Portfolio Page */
+.partnerships .glass-card,
+.partnerships .card,
+.partnerships .frosted-container,
+.partnership-card,
+[class*="partnership-card"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+.partnerships .glass-card:hover,
+.partnerships .glass-card:not(:hover),
+.partnerships .card:hover,
+.partnerships .card:not(:hover),
+.partnerships .frosted-container:hover,
+.partnerships .frosted-container:not(:hover),
+.partnership-card:hover,
+.partnership-card:not(:hover),
+[class*="partnership-card"]:hover,
+[class*="partnership-card"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease !important;
+}
+
+/* CTA Buttons in Portfolio Page */
+.portfolio-page .cta-button,
+.portfolio-page button,
+.portfolio-page a[role="button"] {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease,
+              color 0.3s ease !important;
+}
+
+.portfolio-page .cta-button:hover,
+.portfolio-page .cta-button:not(:hover),
+.portfolio-page button:hover,
+.portfolio-page button:not(:hover),
+.portfolio-page a[role="button"]:hover,
+.portfolio-page a[role="button"]:not(:hover) {
+  transition: transform 0.3s ease, 
+              box-shadow 0.3s ease, 
+              background-color 0.3s ease, 
+              border-color 0.3s ease,
+              color 0.3s ease !important;
+}
+
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   /* Target all touch devices (including iOS) */
   
-  /* Optimize all animations */
+  /* Ensure minimum transition durations */
   * {
     /* Ensure minimum transition durations for smoother animations */
     transition-duration: 0.2s !important;
@@ -1558,9 +1820,15 @@ button:not(.no-theme-transition) {
     opacity: 0.05 !important;
   }
   
-  /* Disable hover effects that cause jank on touch devices */
+  /* Disable hover effects that cause jank on touch devices but maintain transitions */
   .hover-tilt:hover {
     transform: none !important;
+    transition: transform 0.2s ease !important;
+  }
+  
+  /* Keep transitions for elements */
+  a, button, input, select, textarea, [role="button"] {
+    transition: all 0.2s ease !important;
   }
   
   /* Optimize Framer Motion animations with touch-specific settings */

@@ -562,6 +562,10 @@ export default function Home() {
                 href={project.href}
                 index={index}
                 className="frosted-container hover-tilt w-full"
+                clientName="Client Name"
+                industry="Various"
+                servicesProvided={[project.category]}
+                description="Project showcase from our portfolio."
               />
             ))}
           </div>

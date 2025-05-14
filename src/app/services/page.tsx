@@ -346,7 +346,7 @@ export default function Services() {
                   <h3 className="text-xl font-technor text-primary mb-3">{service.title}</h3>
                   <p className="text-gray-600 dark:text-gray-400 mb-4 font-supreme text-sm">{service.description}</p>
                   <Button 
-                    href={service.link}
+                    href={`/services/${service.id}`}
                     icon={<RiArrowRightLine />}
                     variant="outline"
                     className="text-sm"
@@ -414,6 +414,16 @@ export default function Services() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                    
+                    <div className="mt-8">
+                      <Button 
+                        href={`/services/${service.id}`}
+                        icon={<RiArrowRightLine />}
+                        className="bg-primary text-white hover:bg-primary-dark"
+                      >
+                        View Full Details
+                      </Button>
                     </div>
                   </div>
                   

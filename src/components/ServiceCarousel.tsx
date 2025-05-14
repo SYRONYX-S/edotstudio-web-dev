@@ -239,7 +239,13 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                   WebkitBackfaceVisibility: "hidden",
                   backfaceVisibility: "hidden"
                 }} 
-                className="bg-white/60 dark:bg-black/60 backdrop-blur rounded-xl p-6 transform transition-transform duration-300 hover:scale-[1.02]"
+                className={`
+                  bg-white/60 dark:bg-black/60 backdrop-blur rounded-xl p-6 
+                  transform transition-transform duration-300 hover:scale-[1.02]
+                  ${service.inHouse 
+                    ? 'border-l-4 border-primary' 
+                    : 'border border-gray-200 dark:border-gray-800 border-dashed'}
+                `}
                 whileHover={{ scale: isMobile ? 1 : 1.02 }}
                 whileTap={{ scale: isMobile ? 0.98 : 1 }}
                 // Use optimized transforms
@@ -252,12 +258,17 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                 }}
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
+                  <div className={`p-3 rounded-lg ${service.inHouse ? 'bg-primary/10 text-primary' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'}`}>
                     <IconComponent className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-semibold">{service.title}</h3>
+                  <div className="flex flex-col">
+                    <h3 className="text-xl font-semibold">{service.title}</h3>
+                    {!service.inHouse && (
+                      <span className="text-xs font-medium text-gray-700 dark:text-gray-300 italic">Partner Service</span>
+                    )}
+                  </div>
                 </div>
-                <p className="text-muted-foreground">{service.description}</p>
+                <p className="text-gray-700 dark:text-gray-300">{service.description}</p>
               </motion.div>
             );
           })}

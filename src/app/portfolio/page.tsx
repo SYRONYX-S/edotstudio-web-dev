@@ -95,17 +95,39 @@ export default function Portfolio() {
                       <div className="p-6 md:p-8">
                         <div className="flex justify-between items-start mb-4">
                           <div>
-                            <p className="text-sm font-medium text-primary -mb-2">
-                              {project.category}
-                            </p>
+                            <div className="flex items-center gap-2 mb-1">
+                              <p className="text-sm font-medium text-primary">
+                                {project.category}
+                              </p>
+                              <span className="text-xs text-gray-500 dark:text-gray-400">
+                                {project.industry}
+                              </span>
+                            </div>
                             <h3 className="text-2xl font-technor mb-0 text-primary-light dark:text-primary transition-colors duration-300 break-words">
                               {project.title}
                             </h3>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                              Client: {project.clientName}
+                            </p>
                           </div>
                         </div>
                         <p className="dark:text-white/70 mb-6 font-pilcrow break-words">
                           {project.description}
                         </p>
+                        
+                        {/* Services Provided */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.servicesProvided.map((service, idx) => (
+                            <span
+                              key={idx}
+                              className="dark:bg-white/5 dark:text-white/70 px-3 py-1 rounded-full text-xs border dark:border-white/10 backdrop-blur-none md:backdrop-blur-sm font-pilcrow"
+                            >
+                              {service}
+                            </span>
+                          ))}
+                        </div>
+                        
+                        {/* Technologies */}
                         <div className="flex flex-wrap gap-2 mb-6">
                           {project.technologies.map((tech, idx) => (
                             <span
@@ -116,6 +138,19 @@ export default function Portfolio() {
                             </span>
                           ))}
                         </div>
+                        
+                        {/* Challenge & Results Preview */}
+                        <div className="mb-6 space-y-3">
+                          <div className="flex items-start">
+                            <span className="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold mr-2 mt-0.5">C</span>
+                            <p className="text-sm dark:text-white/70 line-clamp-2">{project.challenge.substring(0, 100)}...</p>
+                          </div>
+                          <div className="flex items-start">
+                            <span className="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold mr-2 mt-0.5">R</span>
+                            <p className="text-sm dark:text-white/70 line-clamp-1">{project.results[0]}</p>
+                          </div>
+                        </div>
+                        
                         <div className="font-pilcrow flex items-center text-primary group/link">
                           <span className="mr-2 group-hover/link:mr-4 transition-all duration-300">View Case Study</span>
                           <RiArrowRightLine className="transform group-hover/link:translate-x-1 transition-all duration-300" />
