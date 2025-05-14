@@ -1381,3 +1381,105 @@ a, button, input, select, textarea {
     scroll-behavior: auto !important;
   }
 }
+
+/* iOS-specific Optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* Target iOS devices specifically */
+  
+  /* Hardware acceleration for motion components */
+  .motion-div, 
+  .motion-article, 
+  .motion-section,
+  .motion-nav,
+  .motion-header,
+  .motion-footer,
+  .motion-span,
+  .motion-ul,
+  .motion-li,
+  .motion-button,
+  .motion-a,
+  .client-logo-slider-wrapper,
+  .frosted-container,
+  .parallax,
+  [class*="animate-"],
+  [class*="motion-"] {
+    /* Force hardware acceleration for smoother animations on iOS */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    perspective: 1000;
+    -webkit-perspective: 1000;
+  }
+  
+  /* Optimize carousels for iOS */
+  .client-logo-slider-wrapper,
+  .service-carousel,
+  .client-carousel {
+    /* iOS-specific optimizations for smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  /* Performance optimizations for touch interactions */
+  a, button, input, select, textarea, [role="button"] {
+    /* Prevent delays with touch interactions on iOS */
+    touch-action: manipulation;
+  }
+  
+  /* Improve scrolling performance on iOS */
+  html, body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+  
+  /* Image optimizations for iOS */
+  img {
+    /* Reduce image-related performance issues on iOS */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Target all touch devices (including iOS) */
+  
+  /* Optimize all animations */
+  * {
+    /* Ensure minimum transition durations for smoother animations */
+    transition-duration: 0.2s !important;
+    animation-duration: 0.4s !important;
+  }
+  
+  /* Reduce animation complexity */
+  .animated-gradient::before,
+  .animated-bg-shapes .shape {
+    /* Disable complex animations on touch devices */
+    animation: none !important;
+    opacity: 0.05 !important;
+  }
+  
+  /* Disable hover effects that cause jank on touch devices */
+  .hover-tilt:hover {
+    transform: none !important;
+  }
+  
+  /* Optimize Framer Motion animations with touch-specific settings */
+  .motion-div,
+  .motion-article,
+  .motion-section,
+  [class*="animate-"],
+  [class*="motion-"] {
+    /* Prevent jank during animations on touch devices */
+    animation-timing-function: ease-out !important;
+    transition-timing-function: ease-out !important;
+  }
+}

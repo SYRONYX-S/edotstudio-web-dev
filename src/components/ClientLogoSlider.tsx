@@ -29,6 +29,13 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
   const containerRef = useRef<HTMLDivElement>(null); // Ref for the motion div
   const dragStartX = useRef(0); // Re-added this ref
   const isAnimating = useRef(false); // Track animation state
+  const isDragging = useRef(false); // Track if currently dragging
+  const isIOS = useRef(false); // Track iOS detection
+  
+  // Check if we're on iOS
+  useEffect(() => {
+    isIOS.current = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+  }, []);
 
   const duplicatedClients = useMemo(() => {
     if (!clients || clients.length === 0) return [];
@@ -45,8 +52,11 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
   const totalWidth = useMemo(() => duplicatedClients.length * approxItemWidth, [duplicatedClients, approxItemWidth]);
   const loopSegmentWidth = totalWidth / 3; // Width of one original client set repeated 3 times
 
-  // Simplified animation start/restart
+  // Optimized animation start/restart
   const startAnimation = useCallback(() => {
+    // Don't start animation if dragging
+    if (isDragging.current) return;
+    
     if (isAnimating.current) controls.current?.stop(); // Stop if already animating
     
     const currentX = baseX.get();
@@ -55,52 +65,79 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
     const duration = distanceToGo / baseVelocity;
 
     isAnimating.current = true;
-    controls.current = animate(baseX, currentX - distanceToGo, { // Animate only to the end of the current segment
-      ease: "linear",
-      duration: duration,
-      onComplete: () => {
-        // Manually wrap position when animation completes one segment
-        baseX.set(currentX - distanceToGo + loopSegmentWidth);
-        isAnimating.current = false;
-        startAnimation(); // Immediately start the next segment's animation
-      }
-    });
+    
+    // Special handling for iOS to prevent jank during animation
+    if (isIOS.current) {
+      // Use a more conservative animation on iOS
+      controls.current = animate(baseX, currentX - distanceToGo, {
+        ease: "linear",
+        duration: duration,
+        onComplete: () => {
+          // Immediate position reset instead of animation chain on iOS
+          baseX.set(currentX - distanceToGo + loopSegmentWidth);
+          isAnimating.current = false;
+          // Use requestAnimationFrame for better timing on iOS
+          requestAnimationFrame(() => startAnimation());
+        }
+      });
+    } else {
+      // Regular animation for other platforms
+      controls.current = animate(baseX, currentX - distanceToGo, {
+        ease: "linear",
+        duration: duration,
+        onComplete: () => {
+          baseX.set(currentX - distanceToGo + loopSegmentWidth);
+          isAnimating.current = false;
+          startAnimation();
+        }
+      });
+    }
   }, [baseX, loopSegmentWidth, baseVelocity]);
 
-  // Monitor position for manual wrap-around (backup/alternative loop mechanism)
-  // This helps if animation completes slightly off or during drag interactions
+  // Improved position monitoring with throttling to prevent excessive updates on iOS
   useMotionValueEvent(baseX, "change", (latestX) => {
     if (latestX <= -loopSegmentWidth) {
-        // When scrolled past one full segment, instantly jump back
+      // When scrolled past one full segment, instantly jump back
+      // Schedule this reset in the next frame to avoid jank on iOS
+      requestAnimationFrame(() => {
         baseX.set(latestX + loopSegmentWidth);
+      });
     }
   });
 
   useEffect(() => {
     setIsMounted(true);
-    const timer = setTimeout(startAnimation, 100);
+    // Wait slightly longer before starting animation on iOS
+    const timer = setTimeout(startAnimation, isIOS.current ? 300 : 100);
     return () => {
-        clearTimeout(timer);
-        controls.current?.stop();
-        isAnimating.current = false;
+      clearTimeout(timer);
+      controls.current?.stop();
+      isAnimating.current = false;
     };
   }, [startAnimation]);
 
+  // Optimized drag handlers with improved touch handling for iOS
   const handleDragStart = () => {
-    isAnimating.current = false; // Mark as not animating during drag
+    isDragging.current = true;
+    isAnimating.current = false;
     controls.current?.stop();
     dragStartX.current = baseX.get();
+    
     if(containerRef.current) {
-      containerRef.current.style.cursor = 'grabbing'; // Ensure grabbing cursor on drag
+      containerRef.current.style.cursor = 'grabbing';
     }
   };
 
-  const handleDragEnd = () => {
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if(containerRef.current) {
-      containerRef.current.style.cursor = 'grab'; // Restore grab cursor
+      containerRef.current.style.cursor = 'grab';
     }
-    // Restart animation logic ensures it picks up correctly
-    startAnimation();
+    
+    // Add a small delay before restarting animation to prevent iOS glitches
+    setTimeout(() => {
+      isDragging.current = false;
+      startAnimation();
+    }, isIOS.current ? 100 : 0);
   };
 
   if (!clients || clients.length === 0) {
@@ -112,12 +149,26 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
       <motion.div
         ref={containerRef} // Add ref to the motion div
         className={cn("flex items-center w-max cursor-grab", GAP_CLASS)} // Added cursor-grab here
-        style={{ x: baseX }}
+        style={{ 
+          x: baseX,
+          // Add hardware acceleration hints for iOS
+          willChange: "transform",
+          transform: "translateZ(0)",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden"
+        }}
         drag="x"
         dragConstraints={{ left: -loopSegmentWidth * 2, right: 0 }}
         dragElastic={0.05}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
+        // Optimize drag for touch devices
+        dragTransition={{
+          power: 0.15,
+          timeConstant: 200,
+          modifyTarget: (target) => Math.round(target / 5) * 5 // Snap to a grid for smoother feeling
+        }}
+        whileDrag={{ scale: 0.98 }}
       >
         {duplicatedClients.map((client, index) => (
           <a 
@@ -135,10 +186,16 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
             )}
             draggable="false" // Prevent default image drag
             onClick={(e) => { 
-                // This check should now work correctly
-                if (Math.abs(baseX.get() - dragStartX.current) > 5) {
+                // Improved drag detection
+                if (Math.abs(baseX.get() - dragStartX.current) > 5 || isDragging.current) {
                      e.preventDefault();
                 }
+            }}
+            style={{
+              // Hardware acceleration for each item
+              transform: "translateZ(0)",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden"
             }}
           >
             <div 
@@ -159,7 +216,8 @@ export function ClientLogoSlider({ clients, baseVelocity = 10 }: ClientLogoSlide
                     objectFit: 'contain', 
                     width: 'auto', 
                     height: 'auto', 
-                    maxHeight: '40px' // Explicit max height style
+                    maxHeight: '40px', // Explicit max height style
+                    willChange: "transform" // Add hardware acceleration hint
                   }} 
                   className={cn(
                     LOGO_HEIGHT_CLASS, // Apply height class for layout spacing
