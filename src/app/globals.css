@@ -1448,6 +1448,97 @@ a, button, input, select, textarea {
   }
 }
 
+/* Theme Transition - Targeted approach for smoother theme changes */
+/* Apply transitions only to elements and properties that actually change with theme */
+html.light,
+html.dark,
+html {
+  transition: color-scheme 0.3s ease;
+}
+
+/* Apply theme transitions to common root elements */
+body {
+  transition: background-color 0.3s ease;
+  /* Add GPU acceleration for smoother theme transitions */
+  will-change: background-color;
+  backface-visibility: hidden;
+}
+
+/* Common container elements that change with theme */
+.glass-card,
+.frosted-container,
+.bento-item,
+.bg-white, .bg-black,
+.bg-primary, .bg-secondary,
+[class*="bg-gray"] {
+  transition: background-color 0.3s ease, 
+              background-image 0.3s ease,
+              backdrop-filter 0.3s ease;
+}
+
+/* More targeted approach for specific theme-changing elements */
+[class*="dark:bg-"]:not(.motion-div):not([class*="hover"]):not([class*="animate"]),
+section:not(.no-theme-transition), 
+header:not(.no-theme-transition), 
+footer:not(.no-theme-transition), 
+nav:not(.no-theme-transition), 
+article:not(.no-theme-transition), 
+aside:not(.no-theme-transition) {
+  transition: background-color 0.3s ease;
+}
+
+/* Text elements that change with theme */
+h1:not(.no-theme-transition), 
+h2:not(.no-theme-transition), 
+h3:not(.no-theme-transition), 
+h4:not(.no-theme-transition), 
+h5:not(.no-theme-transition), 
+h6:not(.no-theme-transition), 
+p:not(.no-theme-transition), 
+span:not(.no-theme-transition), 
+a:not(.no-theme-transition):not(:hover):not(:focus):not(:active), 
+li:not(.no-theme-transition) {
+  transition: color 0.3s ease;
+}
+
+/* Border elements that change with theme */
+[class*="dark:border-"]:not(.motion-div):not([class*="hover"]):not([class*="animate"]),
+[class*="border-primary"]:not(.motion-div):not([class*="hover"]):not([class*="animate"]),
+[class*="border-secondary"]:not(.motion-div):not([class*="hover"]):not([class*="animate"]) {
+  transition: border-color 0.3s ease;
+}
+
+/* Shadow elements that change with theme */
+[class*="shadow-"]:not(.motion-div):not([class*="hover"]):not([class*="animate"]),
+[class*="dark:shadow-"]:not(.motion-div):not([class*="hover"]):not([class*="animate"]) {
+  transition: box-shadow 0.3s ease;
+}
+
+/* Prevent transitions on elements with their own animations */
+.animate-pulse, 
+.animate-spin, 
+.animate-ping, 
+.animate-bounce,
+[class*="motion-"],
+.transition-colors, 
+.transition-all, 
+.transition-transform,
+[data-framer-component-type],
+[class*="animate-"] {
+  /* Exclude these elements from theme transitions */
+  transition-property: none !important;
+}
+
+/* Buttons should have faster transitions to feel responsive */
+button:not(.no-theme-transition) {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Override for elements that should have no theme transition */
+.no-theme-transition {
+  transition: none !important;
+}
+
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
   /* Target all touch devices (including iOS) */

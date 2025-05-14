@@ -10,19 +10,14 @@ export default function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Force an immediate update of the theme when component mounts
+  // Only set mounted state after component mounts
   useEffect(() => {
     setMounted(true);
-    // Ensure theme is properly initialized
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.classList.toggle('dark', currentTheme === 'dark');
   }, []);
 
   const toggleTheme = () => {
     const newTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-    // Apply theme immediately for instant visual feedback
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
     hapticFeedback.selection(); // Use selection
   };
 

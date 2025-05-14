@@ -132,7 +132,6 @@ export default function Navigation() {
               onClick={() => {
                 const newTheme = theme === 'dark' ? 'light' : 'dark';
                 setTheme(newTheme);
-                document.documentElement.classList.toggle('dark', newTheme === 'dark');
               }}
               className="p-2 rounded-full hover:bg-primary/10 transition-colors duration-300"
             >
