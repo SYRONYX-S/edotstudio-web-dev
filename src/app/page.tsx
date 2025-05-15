@@ -124,6 +124,12 @@ const newServices: Service[] = [
     title: 'UI/UX Design',
     description: 'Beautiful, intuitive interfaces designed by our partner agency Brandlifté.',
     icon: FaPalette,
+    inHouse: true
+  },
+  {
+    title: 'Branding',
+    description: 'Strategic brand identity design and development from our specialized team.',
+    icon: FaPalette,
     inHouse: false
   },
   {

@@ -242,9 +242,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                 className={`
                   bg-white/60 dark:bg-black/60 backdrop-blur rounded-xl p-6 
                   transform transition-transform duration-300 hover:scale-[1.02]
-                  ${service.inHouse 
-                    ? 'border-l-4 border-primary' 
-                    : 'border border-gray-200 dark:border-gray-800 border-dashed'}
+                  border border-gray-200 dark:border-gray-800
                 `}
                 whileHover={{ scale: isMobile ? 1 : 1.02 }}
                 whileTap={{ scale: isMobile ? 0.98 : 1 }}
@@ -258,7 +256,7 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
                 }}
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className={`p-3 rounded-lg ${service.inHouse ? 'bg-primary/10 text-primary' : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200'}`}>
+                  <div className="p-3 rounded-lg bg-primary/10 text-primary">
                     <IconComponent className="w-6 h-6" />
                   </div>
                   <div className="flex flex-col">
