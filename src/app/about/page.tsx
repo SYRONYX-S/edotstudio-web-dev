@@ -199,15 +199,19 @@ export default function About() {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
-                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Custom Web Development</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Web Development</span>
                   </li>
                   <li className="flex items-start">
                     <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
-                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Mobile App Development</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">App Development</span>
                   </li>
                   <li className="flex items-start">
                     <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
                     <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Software Solutions</span>
+                  </li>
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">UI/UX Design</span>
                   </li>
                 </ul>
               </div>
@@ -226,15 +230,19 @@ export default function About() {
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
-                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">UI/UX Design Excellence</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Branding</span>
                   </li>
                   <li className="flex items-start">
                     <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
-                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Digital Marketing Expertise</span>
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Digital Marketing</span>
                   </li>
                   <li className="flex items-start">
                     <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
                     <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Business Services</span>
+                  </li>
+                  <li className="flex items-start">
+                    <RiCheckLine className="text-[#FF4D00] mt-1 mr-2" />
+                    <span className="text-gray-700 dark:text-gray-300 font-pilcrow">Social Media Management</span>
                   </li>
                 </ul>
               </div>

@@ -143,6 +143,12 @@ const newServices: Service[] = [
     description: 'Legal, financial, and business consulting via our trusted partner network.',
     icon: FaBalanceScale,
     inHouse: false
+  },
+  {
+    title: 'Social Media Management',
+    description: 'Strategic social media management and content creation by our specialized agency partners.',
+    icon: FaChartLine,
+    inHouse: false
   }
 ];
 

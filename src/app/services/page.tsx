@@ -227,6 +227,33 @@ const serviceDetails = [
       { step: 5, title: 'Security', description: 'Implement robust security measures to protect cloud resources.' },
       { step: 6, title: 'Management', description: 'Provide ongoing cloud management and support services.' },
     ],
+  },
+  {
+    id: 'legal-solutions',
+    title: 'Legal Solutions',
+    subtitle: 'Comprehensive legal services for digital businesses',
+    description: 'Our legal services are designed specifically for digital businesses, helping you navigate complex regulatory landscapes and ensure compliance while protecting your interests and intellectual property.',
+    image: '/images/services/legal.jpg',
+    features: [
+      'Business Entity Formation',
+      'Intellectual Property Protection',
+      'Privacy Policy & Terms of Service',
+      'GDPR & Data Protection Compliance',
+      'Contract Drafting & Review',
+      'Licensing Agreements',
+      'Employment & Contractor Agreements',
+      'Regulatory Compliance',
+      'Dispute Resolution',
+      'Legal Risk Assessment'
+    ],
+    process: [
+      { step: 1, title: 'Consultation', description: 'Understand your business model and identify legal needs.' },
+      { step: 2, title: 'Assessment', description: 'Evaluate current legal status and identify potential risks.' },
+      { step: 3, title: 'Strategy', description: 'Develop a comprehensive legal strategy for your business.' },
+      { step: 4, title: 'Implementation', description: 'Put necessary legal documents and protections in place.' },
+      { step: 5, title: 'Compliance', description: 'Ensure ongoing compliance with relevant regulations.' },
+      { step: 6, title: 'Maintenance', description: 'Regular updates to legal documents as your business evolves.' },
+    ],
   }
 ];
 
@@ -294,20 +321,6 @@ const services = [
     description: 'Comprehensive legal setup and compliance services for your digital business.',
     icon: FaBalanceScale,
     link: '#legal-solutions'
-  },
-  {
-    id: 'cybersecurity',
-    title: 'Cybersecurity',
-    description: 'Protect your digital assets with advanced security solutions and protocols.',
-    icon: FaShieldAlt,
-    link: '#cybersecurity'
-  },
-  {
-    id: 'data-analytics',
-    title: 'Data Analytics',
-    description: 'Transform your data into actionable insights with advanced analytics solutions.',
-    icon: FaChartLine,
-    link: '#data-analytics'
   }
 ];
 
@@ -322,7 +335,7 @@ export default function Services() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   
   return (
-    <main className="relative services-page overflow-hidden">
+    <main className="relative services-page">
       <PageHero
         badge="Our Services"
         title="Comprehensive Digital Solutions"
@@ -362,7 +375,7 @@ export default function Services() {
 
       {/* Detailed Service Sections */}
       <section className="py-16 md:py-20">
-        <div className="container mx-auto px-4 overflow-hidden">
+        <div className="container mx-auto px-4">
           <AnimatePresence>
             {serviceDetails.map((service, index) => (
               <section
