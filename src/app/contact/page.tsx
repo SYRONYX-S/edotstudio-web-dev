@@ -80,7 +80,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="relative contact-page overflow-hidden">
+    <main className="relative contact-page">
       <PageHero
         badge="Get In Touch"
         title="Let's Build Something Great Together"
@@ -105,25 +105,66 @@ export default function Contact() {
               <p className="text-gray-600 dark:text-gray-400 font-pilcrow mb-6">Fill out the form and we'll get back to you shortly.</p>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
+                  <div className="form-group">
                     <label htmlFor="name" className="sr-only">Name</label>
-                    <input type="text" id="name" name="name" required value={formData.name} onChange={handleInputChange} className="contact-input" placeholder="Your Name" />
+                    <input 
+                      type="text" 
+                      id="name" 
+                      name="name" 
+                      required 
+                      value={formData.name} 
+                      onChange={handleInputChange} 
+                      className="contact-input" 
+                      placeholder="Your Name" 
+                    />
                   </div>
-                  <div>
+                  <div className="form-group">
                     <label htmlFor="email" className="sr-only">Email</label>
-                    <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} className="contact-input" placeholder="Your Email" />
+                    <input 
+                      type="email" 
+                      id="email" 
+                      name="email" 
+                      required 
+                      value={formData.email} 
+                      onChange={handleInputChange} 
+                      className="contact-input" 
+                      placeholder="Your Email" 
+                    />
                   </div>
                 </div>
-                <div>
+                <div className="form-group">
                   <label htmlFor="subject" className="sr-only">Subject</label>
-                  <input type="text" id="subject" name="subject" required value={formData.subject} onChange={handleInputChange} className="contact-input" placeholder="Subject" />
+                  <input 
+                    type="text" 
+                    id="subject" 
+                    name="subject" 
+                    required 
+                    value={formData.subject} 
+                    onChange={handleInputChange} 
+                    className="contact-input" 
+                    placeholder="Subject" 
+                  />
                 </div>
-                <div>
+                <div className="form-group">
                   <label htmlFor="message" className="sr-only">Message</label>
-                  <textarea id="message" name="message" rows={5} required value={formData.message} onChange={handleInputChange} className="contact-input" placeholder="Your message..."></textarea>
+                  <textarea 
+                    id="message" 
+                    name="message" 
+                    rows={5} 
+                    required 
+                    value={formData.message} 
+                    onChange={handleInputChange} 
+                    className="contact-input" 
+                    placeholder="Your message..."
+                  ></textarea>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-                  <Button type="submit" disabled={isSubmitting} size="lg" className="w-full sm:w-auto">
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting} 
+                    size="lg" 
+                    className="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white"
+                  >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                     {!isSubmitting && <Send className="w-5 h-5 ml-2" />}
                   </Button>
@@ -151,8 +192,13 @@ export default function Contact() {
                         <item.icon className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="text-md font-semibold text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors">{item.title}</h4>
-                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-500 dark:text-gray-400 hover:underline font-pilcrow break-all">
+                        <h4 className="text-md font-semibold text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors duration-300">{item.title}</h4>
+                        <a 
+                          href={item.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:underline transition-all duration-300 font-pilcrow break-all"
+                        >
                           {item.details}
                         </a>
                       </div>
@@ -173,7 +219,7 @@ export default function Contact() {
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label={social.label}
-                      className="p-2 rounded-full text-gray-500 dark:text-gray-400 bg-white/10 hover:bg-primary/10 hover:text-primary dark:bg-black/20 dark:hover:bg-primary/10 dark:hover:text-primary transition-colors duration-300"
+                      className="p-2 rounded-full text-gray-500 dark:text-gray-400 bg-white/10 hover:bg-primary/10 hover:text-primary dark:bg-black/20 dark:hover:bg-primary/10 dark:hover:text-primary transform hover:scale-110 transition-all duration-300"
                     >
                       <social.icon className="w-5 h-5" />
                     </a>
@@ -196,9 +242,7 @@ export default function Contact() {
             transition={{ duration: 0.6, delay: 0.4 }} 
             className="mt-16 md:mt-24 glass-card shadow-xl"
           >
-            <div>
-              <FAQ /> 
-            </div>
+            <FAQ />
           </motion.div>
         </div>
       </section>

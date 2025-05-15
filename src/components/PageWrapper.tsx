@@ -189,10 +189,17 @@ export default function PageWrapper({ children }: PageWrapperProps) {
         // Use window properties (Mobile or reduced motion)
         scrollPosition = window.scrollY;
         windowHeight = window.innerHeight;
-        documentHeight = document.documentElement.scrollHeight;
+        // Use the max of several height calculations to ensure accuracy
+        documentHeight = Math.max(
+          document.documentElement.scrollHeight,
+          document.body.scrollHeight,
+          document.documentElement.offsetHeight,
+          document.body.offsetHeight
+        );
       }
 
-      const totalScrollableDistance = documentHeight - windowHeight;
+      // Ensure scrollable distance is positive and not including phantom space
+      const totalScrollableDistance = Math.max(documentHeight - windowHeight, 0);
 
       scrollPercentage =
         totalScrollableDistance > 0

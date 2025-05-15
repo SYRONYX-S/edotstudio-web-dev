@@ -205,6 +205,30 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-roundo;
   }
+
+  /* Contact form styles */
+  .contact-input {
+    @apply w-full px-4 py-3 bg-white/70 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-md 
+    focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-primary/40 
+    focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-800 dark:text-gray-200
+    transition-all duration-200 ease-in-out shadow-sm;
+  }
+  
+  .contact-input:hover {
+    @apply border-gray-300 dark:border-gray-600 bg-white/80 dark:bg-gray-900/60;
+  }
+  
+  .contact-input:focus {
+    @apply bg-white dark:bg-gray-900/70;
+  }
+
+  .form-group {
+    @apply relative w-full mb-1;
+  }
+  
+  .form-group label:not(.sr-only) {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+  }
 }
 
 @layer base {
@@ -1142,7 +1166,7 @@ a, button, input, select, textarea {
 }
 
 /* Background transitions */
-.bg-white, .bg-black, .bg-primary, .bg-secondary, [class*='bg-gray'] {
+.bg-white, .bg-black, .bg-primary, .bg-secondary, [class*="bg-gray"] {
   @apply transition-colors duration-300 ease-in-out;
 }
 
@@ -1840,5 +1864,44 @@ a:hover, button:hover, [role="button"]:hover,
     /* Prevent jank during animations on touch devices */
     animation-timing-function: ease-out !important;
     transition-timing-function: ease-out !important;
+  }
+}
+
+/* Contact page responsive styling */
+.contact-page .glass-card {
+  @apply p-6 md:p-8 transition-all duration-300;
+}
+
+.contact-page .glass-card:hover {
+  @apply shadow-xl;
+}
+
+.contact-page form {
+  @apply w-full max-w-full;
+}
+
+/* Make sure the contact page's main container doesn't have hidden overflow */
+.contact-page {
+  @apply min-h-screen; /* Ensure at least full viewport height */
+  overflow: visible; /* Explicitly set to visible */
+}
+
+/* Make sure scroll behavior is smooth */
+.contact-page section {
+  @apply w-full;
+  overflow: visible; /* Ensure sections don't clip content */
+}
+
+@media (max-width: 640px) {
+  .contact-page .grid {
+    @apply gap-6;
+  }
+  
+  .contact-page .glass-card {
+    @apply p-5;
+  }
+  
+  .contact-page .form-group {
+    @apply mb-3;
   }
 }
