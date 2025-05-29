@@ -140,30 +140,94 @@ export default function About() {
                     </p>
                   </div>
                 </motion.div>
-                <div className="relative rounded-xl overflow-hidden">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="relative h-[500px] w-full rounded-xl overflow-hidden group"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10 opacity-60 group-hover:opacity-30 transition-opacity duration-500"></div>
-                    <Image
-                      src="/images/hero/about-hero.jpg"
-                      alt="EdotStudio's innovative approach to digital solutions"
-                      fill
-                      priority
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                      style={{ objectFit: 'cover' }}
-                      className="rounded-xl group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute bottom-8 left-8 z-20">
-                      <h3 className="text-white text-2xl font-technor mb-2">Transforming Digital Services</h3>
-                      <p className="text-white/80 font-pilcrow">Through strategic partnerships</p>
+                
+                {/* Evolution Timeline */}
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="relative"
+                >
+                  <div className="space-y-8">
+                    {/* Timeline Line */}
+                    <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#FF4D00] via-primary-light to-[#FF4D00]/30"></div>
+                    
+                    {/* Timeline Events */}
+                    <div className="relative pl-16 space-y-8">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.2 }}
+                        className="relative"
+                      >
+                        <div className="absolute -left-16 top-1 w-3 h-3 bg-[#FF4D00] rounded-full border-2 border-white dark:border-gray-900"></div>
+                        <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/20 dark:border-white/10">
+                          <span className="text-[#FF4D00] text-sm font-medium">February 2022</span>
+                          <h3 className="font-technor text-lg text-black dark:text-white mt-1">Foundation</h3>
+                          <p className="text-gray-700 dark:text-gray-300 text-sm font-pilcrow mt-1">
+                            EdotStudio was born with a vision to simplify digital services for businesses
+                          </p>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 }}
+                        className="relative"
+                      >
+                        <div className="absolute -left-16 top-1 w-3 h-3 bg-[#FF4D00] rounded-full border-2 border-white dark:border-gray-900"></div>
+                        <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/20 dark:border-white/10">
+                          <span className="text-[#FF4D00] text-sm font-medium">2022-2023</span>
+                          <h3 className="font-technor text-lg text-black dark:text-white mt-1">Technical Excellence</h3>
+                          <p className="text-gray-700 dark:text-gray-300 text-sm font-pilcrow mt-1">
+                            Built core competencies in web, app, and software development
+                          </p>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 }}
+                        className="relative"
+                      >
+                        <div className="absolute -left-16 top-1 w-3 h-3 bg-[#FF4D00] rounded-full border-2 border-white dark:border-gray-900"></div>
+                        <div className="bg-white/10 dark:bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/20 dark:border-white/10">
+                          <span className="text-[#FF4D00] text-sm font-medium">2024</span>
+                          <h3 className="font-technor text-lg text-black dark:text-white mt-1">Strategic Partnerships</h3>
+                          <p className="text-gray-700 dark:text-gray-300 text-sm font-pilcrow mt-1">
+                            Expanded capabilities through curated agency partnerships
+                          </p>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.8 }}
+                        className="relative"
+                      >
+                        <div className="absolute -left-16 top-1 w-3 h-3 bg-[#FF4D00] rounded-full border-2 border-white dark:border-gray-900 ring-4 ring-[#FF4D00]/20"></div>
+                        <div className="bg-gradient-to-r from-[#FF4D00]/10 to-primary-light/5 backdrop-blur-sm rounded-lg p-4 border border-[#FF4D00]/30">
+                          <span className="text-[#FF4D00] text-sm font-medium">Today</span>
+                          <h3 className="font-technor text-lg text-black dark:text-white mt-1">Integrated Solutions Hub</h3>
+                          <p className="text-gray-700 dark:text-gray-300 text-sm font-pilcrow mt-1">
+                            Delivering comprehensive digital solutions through unified expertise
+                          </p>
+                        </div>
+                      </motion.div>
                     </div>
-                  </motion.div>
-                </div>
+
+                    {/* Decorative Elements */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF4D00]/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary-light/5 rounded-full blur-2xl"></div>
+                  </div>
+                </motion.div>
               </div>
             </div>
           </div>
@@ -393,30 +457,103 @@ export default function About() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 relative z-10">
-          <div className="container mx-auto px-4 text-center">
-            <div className="bg-black/80 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 md:p-16 border border-white/10 dark:border-white/5 relative overflow-hidden">
-              <div className="absolute inset-0 overflow-hidden opacity-10">
-                <div className="absolute -bottom-1/2 -right-1/2 w-[800px] h-[800px] rounded-full border border-primary/30"></div>
-                <div className="absolute -top-1/4 -left-1/4 w-[400px] h-[400px] rounded-full border border-primary/30"></div>
+        <section className="py-20 relative overflow-hidden w-full">
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D00]/8 via-transparent to-primary-light/8"></div>
+          <div className="absolute inset-0">
+            <div className="absolute top-1/4 left-0 w-72 h-72 bg-[#FF4D00]/15 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary-light/15 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto px-4 relative z-10 w-full">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="w-full"
+            >
+              {/* Enhanced glassmorphism CTA card */}
+              <div className="bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/30 dark:border-white/15 relative overflow-hidden group hover:bg-white/20 dark:hover:bg-white/12 hover:border-white/40 dark:hover:border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 shadow-xl w-full">
+                {/* Floating decorative elements */}
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-700"></div>
+                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-700"></div>
+                
+                <div className="relative z-10 text-center w-full">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                  >
+                    <span>🚀</span>
+                    <span>EXPERIENCE THE DIFFERENCE</span>
+                  </motion.div>
+                  
+                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-technor text-black dark:text-white mb-6 leading-tight group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500">
+                    Experience the Power of <br />
+                    <span className="text-[#FF4D00] group-hover:text-primary-light transition-colors duration-500">Partnership</span>
+                  </h2>
+                  
+                  <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-10 text-lg md:text-xl font-pilcrow leading-relaxed group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                    Let's discuss how our unique approach can transform your business. From concept to execution, we're your trusted digital partner.
+                  </p>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 w-full">
+                    <Button
+                      href="/contact"
+                      className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                      size="lg"
+                    >
+                      Start Your Journey
+                    </Button>
+                    <Button
+                      href="/portfolio"
+                      variant="outline"
+                      className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                      size="lg"
+                    >
+                      View Our Work
+                    </Button>
+                  </div>
+                  
+                  {/* Partnership benefits grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                    {[
+                      {
+                        icon: "🎯",
+                        title: "Strategic Focus",
+                        description: "Tailored solutions that align with your business goals"
+                      },
+                      {
+                        icon: "⚡",
+                        title: "Rapid Delivery",
+                        description: "Efficient processes that get you to market faster"
+                      },
+                      {
+                        icon: "🤝",
+                        title: "True Partnership",
+                        description: "Long-term relationship focused on your success"
+                      }
+                    ].map((benefit, index) => (
+                      <motion.div
+                        key={benefit.title}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 + index * 0.1 }}
+                        className="text-center p-4 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+                      >
+                        <div className="text-2xl mb-3 hover:scale-110 transition-transform duration-300">{benefit.icon}</div>
+                        <h3 className="font-technor text-black dark:text-white mb-2 hover:text-[#FF4D00] dark:hover:text-[#FF4D00] transition-colors duration-300">{benefit.title}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300">{benefit.description}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              
-              <div className="relative max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-5xl font-technor text-white mb-6">
-                  Experience the Power of Partnership
-                </h2>
-                <p className="text-white/70 text-lg mb-8 font-pilcrow">
-                  Let's discuss how our unique approach can transform your business.
-                </p>
-                <Button
-                  href="/contact"
-                  className="bg-primary-light hover:bg-primary-light/90 text-white font-pilcrow"
-                  size="lg"
-                >
-                  Start Your Journey
-                </Button>
-              </div>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>

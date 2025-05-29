@@ -8,6 +8,7 @@ import { RiArrowRightLine, RiArrowRightUpLine } from 'react-icons/ri';
 import { projects } from './data';
 import { Project } from './utils';
 import PageHero from '@/components/PageHero';
+import { motion } from 'framer-motion';
 
 const categories = ['All', 'Software Development', 'Web Development', 'Branding', 'Marketing', 'Posters'];
 
@@ -276,65 +277,90 @@ export default function Portfolio() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-32 overflow-hidden">
+      <section className="py-20 relative overflow-hidden w-full">
         {/* Background Effects */}
-        <div className="absolute inset-0" />
-        <div
-          className="absolute inset-0"
-        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D00]/8 via-transparent to-primary-light/8"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-[#FF4D00]/12 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-72 h-72 bg-primary-light/12 rounded-full blur-3xl"></div>
+        </div>
         
-        <div className="container mx-auto px-4 relative overflow-hidden">
-          <div
-            className="max-w-5xl mx-auto text-center"
+        <div className="container mx-auto px-4 relative z-10 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full"
           >
-            <div className="inline-block glass dark:glass-dark text-primary px-4 py-1 rounded-full text-sm font-medium mb-6 font-pilcrow">
-              START YOUR PROJECT
-            </div>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-technor mb-8 dark:text-white leading-tight">
-              Ready to Transform Your <br />
-              <span className="text-primary">Digital Presence?</span>
-            </h2>
-            <p className="text-lg md:text-xl dark:text-white/70 mb-12 max-w-3xl mx-auto font-pilcrow">
-              Let's collaborate to bring your vision to life. Our team of experts is ready to help you create something extraordinary.
-            </p>
-            
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-              <Link
-                href="/contact"
-                className="group flex items-center gap-2 bg-primary-light dark:bg-primary-light hover:bg-primary/90 dark:hover:bg-primary/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-glow hover:shadow-glow-lg"
-              >
-                Start a Project
-                <RiArrowRightUpLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </Link>
-              <Link
-                href="/about"
-                className="group flex items-center gap-2 bg-black/5 dark:bg-white/5 hover:dark:bg-white/10 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-none md:backdrop-blur-sm"
-              >
-                Learn More About Us
-                <RiArrowRightLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div 
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-20 border-t dark:border-white/10"
-            >
-              {[
-                { number: '150+', label: 'Projects Completed' },
-                { number: '50+', label: 'Happy Clients' },
-                { number: '10+', label: 'Years Experience' },
-                { number: '25+', label: 'Team Members' }
-              ].map((stat, index) => (
-                <div
-                  key={stat.label}
-                  className="text-center"
+            {/* Enhanced glassmorphism CTA card */}
+            <div className="bg-white/12 dark:bg-white/6 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/25 dark:border-white/15 relative overflow-hidden group hover:bg-white/18 dark:hover:bg-white/10 hover:border-white/35 dark:hover:border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 shadow-xl w-full">
+              {/* Floating decorative elements */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-700"></div>
+              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-700"></div>
+              
+              <div className="relative z-10 text-center w-full">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.number}</div>
-                  <div className="text-sm dark:text-white/70">{stat.label}</div>
+                  <span>🎨</span>
+                  <span>START YOUR PROJECT</span>
+                </motion.div>
+                
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-technor mb-8 text-black dark:text-white leading-tight group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500">
+                  Ready to Transform Your <br />
+                  <span className="text-[#FF4D00] group-hover:text-primary-light transition-colors duration-500">Digital Presence?</span>
+                </h2>
+                
+                <p className="text-gray-700 dark:text-gray-300 mb-12 max-w-3xl mx-auto text-lg md:text-xl font-pilcrow leading-relaxed group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                  Let's collaborate to bring your vision to life. Our team of experts is ready to help you create something extraordinary that stands out in the digital landscape.
+                </p>
+                
+                <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16 w-full">
+                  <Link
+                    href="/contact"
+                    className="group flex items-center gap-2 bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 font-pilcrow"
+                  >
+                    Start a Project
+                    <RiArrowRightUpLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="group flex items-center gap-2 bg-white/10 dark:bg-white/5 hover:bg-white/15 dark:hover:bg-white/10 text-gray-700 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:border-white/30 dark:hover:border-white/15 hover:scale-105 hover:-translate-y-1 font-pilcrow"
+                  >
+                    Learn More About Us
+                    <RiArrowRightLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
                 </div>
-              ))}
+
+                {/* Enhanced Stats Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-white/10 group-hover:border-gray-300 dark:group-hover:border-white/20 transition-colors duration-300 w-full">
+                  {[
+                    { number: '150+', label: 'Projects Completed' },
+                    { number: '50+', label: 'Happy Clients' },
+                    { number: '10+', label: 'Years Experience' },
+                    { number: '25+', label: 'Team Members' }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="text-center group/stat p-4 rounded-xl bg-white/5 dark:bg-white/3 backdrop-blur-sm border border-white/10 dark:border-white/5 hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/20 dark:hover:border-white/10 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+                    >
+                      <div className="text-3xl md:text-4xl font-bold text-[#FF4D00] mb-2 group-hover/stat:scale-110 group-hover/stat:text-[#FF6B00] transition-all duration-300">{stat.number}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow group-hover/stat:text-gray-500 dark:group-hover/stat:text-gray-300 transition-colors duration-300">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

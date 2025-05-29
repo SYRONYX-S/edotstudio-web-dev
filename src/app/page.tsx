@@ -964,49 +964,92 @@ export default function Home() {
       <FAQ />
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary-light dark:bg-primary-light text-white w-full">
-        <div className="container text-center">
+      <section className="py-20 relative overflow-hidden w-full">
+        {/* Background Effects - Static instead of animated */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D00]/5 via-transparent to-primary-light/5"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF4D00]/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary-light/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10 w-full">
           <motion.div
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true, amount: 0.2 }}
              transition={{ duration: 0.8, ease: "easeOut" }}
-             className="frosted-container py-12 px-6"
+             className="w-full"
            >
-            <AnimatedTitle 
-              title="Let's Create the Future Together"
-              color="light"
-              className="text-3xl md:text-5xl mb-6 font-technor"
-            />
-            <p className="text-white/90 max-w-2xl mx-auto mb-8 text-lg font-pilcrow">
-              Ready to elevate your digital presence? Contact us today to discuss how we can help your business grow.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                href="/contact" 
-                size="lg"
-                className="bg-white dark:bg-white text-black dark:text-black hover:bg-primary-light"
-                icon={<RiArrowRightLine />}
-              >
-                Get in Touch
-              </Button>
-              <Button 
-                href="/portfolio" 
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white/10"
-              >
-                View Our Work
-              </Button>
-              <Button 
-                href="/partner" 
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white/10"
-                icon={<Users className="w-5 h-5" />}
-              >
-                Partner With Us
-              </Button>
+            {/* Main CTA Card */}
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/20 dark:border-white/10 relative overflow-hidden group hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 w-full">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF4D00]/10 rounded-full blur-2xl group-hover:bg-[#FF4D00]/15 group-hover:scale-110 transition-all duration-700"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary-light/10 rounded-full blur-2xl group-hover:bg-primary-light/15 group-hover:scale-110 transition-all duration-700"></div>
+              
+              <div className="relative z-10 text-center w-full">
+                <div className="inline-block bg-[#FF4D00] text-white px-6 py-2 rounded-full text-sm font-medium mb-6 font-pilcrow hover:bg-[#FF4D00]/90 hover:scale-105 transition-all duration-300">
+                  READY TO START?
+                </div>
+                
+                <AnimatedTitle 
+                  title="Let's Create the Future Together"
+                  className="text-3xl md:text-5xl lg:text-6xl mb-6 font-technor text-black dark:text-white group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500"
+                />
+                
+                <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 text-lg md:text-xl font-pilcrow group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                  Ready to elevate your digital presence? Partner with us to transform your vision into reality with cutting-edge technology and creative excellence.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full mb-12">
+                  <Button 
+                    href="/contact" 
+                    size="lg"
+                    className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    icon={<RiArrowRightLine />}
+                  >
+                    Get in Touch
+                  </Button>
+                  <Button 
+                    href="/portfolio" 
+                    variant="outline"
+                    size="lg"
+                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                  >
+                    View Our Work
+                  </Button>
+                  <Button 
+                    href="/partner" 
+                    variant="outline"
+                    size="lg"
+                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                    icon={<Users className="w-5 h-5" />}
+                  >
+                    Partner With Us
+                  </Button>
+                </div>
+                
+                {/* Trust indicators */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-white/10 group-hover:border-gray-300 dark:group-hover:border-white/20 transition-colors duration-300 w-full">
+                  {[
+                    { number: '150+', label: 'Projects Delivered' },
+                    { number: '50+', label: 'Happy Clients' },
+                    { number: '95%', label: 'Satisfaction Rate' },
+                    { number: '24/7', label: 'Support Available' }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={stat.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.1 }}
+                      className="text-center group/stat hover:transform hover:scale-110 hover:-translate-y-2 transition-all duration-300"
+                    >
+                      <div className="text-2xl md:text-3xl font-bold text-[#FF4D00] mb-1 group-hover/stat:scale-110 group-hover/stat:text-[#FF6B00] transition-all duration-300">{stat.number}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow group-hover/stat:text-gray-500 dark:group-hover/stat:text-gray-300 transition-colors duration-300">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

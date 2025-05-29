@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { RiArrowRightLine, RiCheckLine, RiCodeSLine, RiSmartphoneLine, RiPaletteLine, RiMegaphoneLine, RiTeamLine } from 'react-icons/ri';
 import { Users } from 'lucide-react';
 import { IconType } from 'react-icons';
@@ -325,17 +325,9 @@ const services = [
 ];
 
 export default function Services() {
-  const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end start"]
-  });
-  
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   
   return (
-    <main className="relative services-page">
+    <main className="relative services-page min-h-screen">
       <PageHero
         badge="Our Services"
         title="Comprehensive Digital Solutions"
@@ -513,22 +505,103 @@ export default function Services() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-white">
-        <div className="container mx-auto px-4 text-center">
-          <AnimatedTitle 
-            title="Ready to Transform Your Business?"
-            color="light"
-            className="text-3xl md:text-4xl mb-6 font-technor"
-          />
-          <p className="text-white/90 max-w-2xl mx-auto mb-8 font-supreme">
-            Let's discuss how our services can help you achieve your business goals and create a standout digital presence.
-          </p>
-          <Button 
-            href="/contact" 
-            className="bg-white text-primary hover:bg-gray-100"
+      <section className="py-20 relative overflow-hidden w-full">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D00]/10 via-transparent to-primary-light/10"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#FF4D00]/15 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-1/4 w-72 h-72 bg-primary-light/15 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="w-full"
           >
-            Get in Touch
-          </Button>
+            {/* Enhanced glassmorphism CTA card */}
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/25 dark:border-white/15 relative overflow-hidden group hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/35 dark:hover:border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 shadow-xl w-full">
+              {/* Floating decorative elements */}
+              <div className="absolute -top-6 -right-6 w-36 h-36 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-700"></div>
+              <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-700"></div>
+              
+              <div className="relative z-10 text-center w-full">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <span>✨</span>
+                  <span>TRANSFORM YOUR BUSINESS</span>
+                </motion.div>
+                
+                <AnimatedTitle 
+                  title="Ready to Transform Your Business?"
+                  className="text-3xl md:text-5xl lg:text-6xl mb-6 font-technor text-black dark:text-white group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500"
+                />
+                
+                <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 text-lg md:text-xl font-pilcrow leading-relaxed group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                  Let's discuss how our services can help you achieve your business goals and create a standout digital presence that drives results.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 w-full">
+                  <Button 
+                    href="/contact" 
+                    className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    size="lg"
+                  >
+                    Get in Touch
+                  </Button>
+                  <Button 
+                    href="/portfolio" 
+                    variant="outline"
+                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                    size="lg"
+                  >
+                    View Our Work
+                  </Button>
+                </div>
+                
+                {/* Service highlights */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                  {[
+                    {
+                      icon: "🚀",
+                      title: "Fast Delivery",
+                      description: "Quick turnaround without compromising quality"
+                    },
+                    {
+                      icon: "💎",
+                      title: "Premium Quality",
+                      description: "Exceptional standards in every project"
+                    },
+                    {
+                      icon: "🎯",
+                      title: "Goal-Oriented",
+                      description: "Solutions designed for your specific objectives"
+                    }
+                  ].map((highlight, index) => (
+                    <motion.div
+                      key={highlight.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="text-center p-4 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+                    >
+                      <div className="text-2xl mb-3 hover:scale-110 transition-transform duration-300">{highlight.icon}</div>
+                      <h3 className="font-technor text-black dark:text-white mb-2 hover:text-[#FF4D00] dark:hover:text-[#FF4D00] transition-colors duration-300">{highlight.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300">{highlight.description}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </main>
