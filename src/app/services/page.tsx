@@ -110,20 +110,20 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   <h3 className="text-sm font-bold text-[#FF4D00]">Brand Style Guide</h3>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-smooth-pulse"></div>
-                    <span className="text-xs text-gray-600">v2.1</span>
+                    <span className="text-xs text-gray-700 dark:text-gray-400">v2.1</span>
                   </div>
                 </div>
                 
                 {/* Brand Identity Section */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Brand Identity</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2 font-medium">Brand Identity</div>
                   <div className="grid grid-cols-2 gap-2">
                     {/* Primary Logo */}
-                    <div className="p-2 bg-white rounded border animate-smooth-slide">
+                    <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 animate-smooth-slide">
                       <div className="w-full h-6 bg-gradient-to-r from-[#FF4D00] to-orange-600 rounded flex items-center justify-center text-white text-xs font-bold animate-clean-glow">
                         BRAND
                       </div>
-                      <div className="text-xs text-gray-500 mt-1 text-center">Primary</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 text-center">Primary</div>
                     </div>
                     
                     {/* Secondary Logos */}
@@ -131,7 +131,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                       <div className="p-1 bg-gray-900 rounded flex items-center justify-center animate-smooth-slide" style={{ animationDelay: '0.2s' }}>
                         <span className="text-white text-xs font-bold">BRAND</span>
                       </div>
-                      <div className="p-1 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center animate-smooth-slide" style={{ animationDelay: '0.3s' }}>
+                      <div className="p-1 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center animate-smooth-slide" style={{ animationDelay: '0.3s' }}>
                         <span className="text-gray-900 dark:text-white text-xs font-bold">BRAND</span>
                       </div>
                     </div>
@@ -140,7 +140,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 
                 {/* Color System */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Color System</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2 font-medium">Color System</div>
                   <div className="grid grid-cols-6 gap-1 mb-2">
                     {[
                       { color: '#FF4D00', name: 'Primary' },
@@ -152,10 +152,10 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                     ].map((colorItem, i) => (
                       <div key={i} className="text-center animate-smooth-pulse" style={{ animationDelay: `${i * 0.1}s` }}>
                         <div 
-                          className="w-full h-4 rounded mb-1" 
+                          className="w-full h-4 rounded mb-1 border border-gray-200 dark:border-gray-600" 
                           style={{ backgroundColor: colorItem.color }}
                         />
-                        <div className="text-xs text-gray-500" style={{ fontSize: '9px' }}>{colorItem.name}</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400" style={{ fontSize: '9px' }}>{colorItem.name}</div>
                       </div>
                     ))}
                   </div>
@@ -176,26 +176,26 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 
                 {/* Typography Scale */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Typography</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2 font-medium">Typography</div>
                   <div className="space-y-1">
                     <div className="animate-smooth-slide">
                       <div className="text-base font-bold text-gray-900 dark:text-white">Heading Bold</div>
-                      <div className="text-xs text-gray-500">32px • Technor</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">32px • Technor</div>
                     </div>
                     <div className="animate-smooth-slide" style={{ animationDelay: '0.2s' }}>
                       <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Subheading Medium</div>
-                      <div className="text-xs text-gray-500">24px • Technor</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">24px • Technor</div>
                     </div>
                     <div className="animate-smooth-slide" style={{ animationDelay: '0.4s' }}>
                       <div className="text-xs text-gray-700 dark:text-gray-300">Body Regular</div>
-                      <div className="text-xs text-gray-500">16px • Pilcrow</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">16px • Pilcrow</div>
                     </div>
                   </div>
                 </div>
                 
                 {/* Brand Elements & Icons */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Brand Elements</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2 font-medium">Brand Elements</div>
                   <div className="grid grid-cols-4 gap-2">
                     {[
                       { element: '🎯', name: 'Target' },
@@ -205,7 +205,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                     ].map((item, i) => (
                       <div key={i} className="text-center animate-simple-bounce" style={{ animationDelay: `${i * 0.2}s` }}>
                         <div className="text-lg mb-1">{item.element}</div>
-                        <div className="text-xs text-gray-500">{item.name}</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">{item.name}</div>
                       </div>
                     ))}
                   </div>
@@ -213,12 +213,12 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 
                 {/* Brand Voice */}
                 <div>
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Brand Voice</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2 font-medium">Brand Voice</div>
                   <div className="grid grid-cols-3 gap-1">
                     {['Professional', 'Innovative', 'Reliable'].map((trait, i) => (
                       <div 
                         key={trait}
-                        className="text-center p-1 bg-[#FF4D00]/10 rounded text-xs text-[#FF4D00] animate-fade-in-out"
+                        className="text-center p-1 bg-[#FF4D00]/10 dark:bg-[#FF4D00]/20 rounded text-xs text-[#FF4D00] dark:text-orange-400 animate-fade-in-out"
                         style={{ animationDelay: `${i * 0.3}s` }}
                       >
                         {trait}
@@ -252,14 +252,14 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                       <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     </div>
-                    <span className="text-xs text-gray-600">VS Code</span>
+                    <span className="text-xs text-gray-700 dark:text-gray-400">VS Code</span>
                   </div>
-                  <div className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-1 rounded">Dev Server</div>
+                  <div className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded">Dev Server</div>
                 </div>
                 
                 {/* File Explorer */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">📁 Project Files</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">📁 Project Files</div>
                   <div className="space-y-1">
                     {[
                       { name: 'index.html', icon: '🌐', status: 'modified' },
@@ -275,7 +275,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                         style={{ animationDelay: `${i * 0.1}s` }}
                       >
                         <span>{file.icon}</span>
-                        <span className="flex-1 text-gray-700 dark:text-gray-300">{file.name}</span>
+                        <span className="flex-1 text-gray-800 dark:text-gray-300">{file.name}</span>
                         {file.status === 'modified' && <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>}
                         {file.status === 'active' && <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-smooth-pulse"></div>}
                       </div>
@@ -284,7 +284,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 </div>
                 
                 {/* Code Editor */}
-                <div className="mb-3 p-2 bg-gray-900 rounded text-xs overflow-hidden">
+                <div className="mb-3 p-2 bg-gray-900 dark:bg-gray-950 rounded text-xs overflow-hidden border border-gray-300 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-blue-400">app.js</span>
                     <div className="w-1 h-1 bg-green-500 rounded-full animate-smooth-pulse"></div>
@@ -303,7 +303,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 
                 {/* Browser Preview */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">🌐 Browser Preview</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">🌐 Browser Preview</div>
                   <div className="border border-gray-300 dark:border-gray-600 rounded overflow-hidden">
                     {/* Browser Bar */}
                     <div className="h-4 bg-gray-100 dark:bg-gray-800 flex items-center px-2">
@@ -312,7 +312,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                         <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
                       </div>
-                      <div className="flex-1 text-center text-xs text-gray-500">localhost:3000</div>
+                      <div className="flex-1 text-center text-xs text-gray-600 dark:text-gray-400">localhost:3000</div>
                     </div>
                     
                     {/* Website Content */}
@@ -346,11 +346,11 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((item, i) => (
                     <div 
                       key={item.tool}
-                      className="text-center p-1 bg-white/50 dark:bg-black/20 rounded animate-fade-in-out"
+                      className="text-center p-1 bg-white/60 dark:bg-black/20 rounded animate-fade-in-out border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.3}s` }}
                     >
-                      <div className="text-xs font-medium text-gray-800 dark:text-white">{item.tool}</div>
-                      <div className={`text-xs text-${item.color}-600`}>{item.status}</div>
+                      <div className="text-xs font-medium text-gray-900 dark:text-white">{item.tool}</div>
+                      <div className={`text-xs text-${item.color}-600 dark:text-${item.color}-400`}>{item.status}</div>
                       {item.status === 'Building' && (
                         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-0.5 mt-1">
                           <div className="bg-orange-500 h-0.5 rounded-full animate-progress-fill"></div>
@@ -511,7 +511,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 </div>
                 
                 {/* Main Artboard */}
-                <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg border-2 border-dashed border-pink-300 relative">
+                <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg border-2 border-dashed border-pink-300 dark:border-pink-600 relative">
                   {/* Canvas Content */}
                   <div className="space-y-3">
                     {/* Header Design */}
@@ -530,9 +530,9 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                     <div className="p-3 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/20 dark:to-purple-900/20 rounded animate-smooth-slide" style={{ animationDelay: '0.2s' }}>
                       <div className="w-20 h-2 bg-pink-600 rounded mb-2"></div>
                       <div className="space-y-1">
-                        <div className="w-full h-1 bg-gray-400 rounded"></div>
-                        <div className="w-3/4 h-1 bg-gray-400 rounded"></div>
-                        <div className="w-1/2 h-1 bg-gray-400 rounded"></div>
+                        <div className="w-full h-1 bg-gray-400 dark:bg-gray-500 rounded"></div>
+                        <div className="w-3/4 h-1 bg-gray-400 dark:bg-gray-500 rounded"></div>
+                        <div className="w-1/2 h-1 bg-gray-400 dark:bg-gray-500 rounded"></div>
                       </div>
                     </div>
                     
@@ -560,7 +560,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 <div className="grid grid-cols-2 gap-4">
                   {/* Tools */}
                   <div>
-                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Tools</div>
+                    <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Tools</div>
                     <div className="grid grid-cols-4 gap-1">
                       {[
                         { name: 'Select', icon: '↖️', active: true },
@@ -570,7 +570,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                       ].map((tool, i) => (
                         <div 
                           key={tool.name}
-                          className={`text-center p-1 rounded text-xs ${tool.active ? 'bg-pink-600 text-white' : 'bg-gray-200 dark:bg-gray-700'} animate-smooth-slide`}
+                          className={`text-center p-1 rounded text-xs ${tool.active ? 'bg-pink-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'} animate-smooth-slide`}
                           style={{ animationDelay: `${i * 0.1}s` }}
                         >
                           <div className="text-sm">{tool.icon}</div>
@@ -581,7 +581,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   
                   {/* Color Palette */}
                   <div>
-                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Colors</div>
+                    <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Colors</div>
                     <div className="grid grid-cols-4 gap-1">
                       {[
                         { color: '#FF4D00', name: 'Primary' },
@@ -595,10 +595,10 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                           style={{ animationDelay: `${i * 0.15}s` }}
                         >
                           <div 
-                            className="w-6 h-6 rounded mx-auto mb-1 border-2 border-white shadow-sm" 
+                            className="w-6 h-6 rounded mx-auto mb-1 border-2 border-white dark:border-gray-600 shadow-sm" 
                             style={{ backgroundColor: colorItem.color }}
                           />
-                          <div className="text-xs text-gray-500">{colorItem.name}</div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">{colorItem.name}</div>
                         </div>
                       ))}
                     </div>
@@ -606,8 +606,8 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 </div>
                 
                 {/* Layer Panel */}
-                <div className="absolute top-4 right-4 w-20 bg-white/90 dark:bg-black/90 rounded p-2">
-                  <div className="text-xs font-medium mb-2">Layers</div>
+                <div className="absolute top-4 right-4 w-20 bg-white/90 dark:bg-gray-800/90 rounded p-2 border border-gray-200 dark:border-gray-600">
+                  <div className="text-xs font-medium mb-2 text-gray-800 dark:text-white">Layers</div>
                   {['Header', 'Hero', 'Content', 'Footer'].map((layer, i) => (
                     <div 
                       key={layer}
@@ -615,7 +615,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                       style={{ animationDelay: `${i * 0.1}s` }}
                     >
                       <div className="w-1 h-1 bg-pink-500 rounded-full"></div>
-                      <div className="text-xs">{layer}</div>
+                      <div className="text-xs text-gray-700 dark:text-gray-300">{layer}</div>
                     </div>
                   ))}
                 </div>
@@ -632,8 +632,8 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
               <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-bold text-emerald-600">Campaign Analytics</h3>
-                  <div className="text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 px-2 py-1 rounded">Live</div>
+                  <h3 className="text-sm font-bold text-emerald-600 dark:text-emerald-400">Campaign Analytics</h3>
+                  <div className="text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded">Live</div>
                 </div>
                 
                 {/* Key Metrics */}
@@ -646,20 +646,20 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((metric, i) => (
                     <div 
                       key={metric.label} 
-                      className="text-center p-2 bg-white/50 dark:bg-black/20 rounded animate-fade-in-out"
+                      className="text-center p-2 bg-white/60 dark:bg-black/20 rounded animate-fade-in-out border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.2}s` }}
                     >
-                      <div className="text-xs text-gray-500">{metric.label}</div>
-                      <div className="text-sm font-bold text-gray-800 dark:text-white">{metric.value}</div>
-                      <div className="text-xs text-emerald-600">{metric.change}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">{metric.label}</div>
+                      <div className="text-sm font-bold text-gray-900 dark:text-white">{metric.value}</div>
+                      <div className="text-xs text-emerald-600 dark:text-emerald-400">{metric.change}</div>
                     </div>
                   ))}
                 </div>
                 
                 {/* Growth Chart */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Revenue Growth</div>
-                  <div className="flex items-end space-x-1 h-16 bg-white/30 dark:bg-black/20 rounded p-2">
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Revenue Growth</div>
+                  <div className="flex items-end space-x-1 h-16 bg-white/40 dark:bg-black/20 rounded p-2 border border-gray-200 dark:border-gray-600">
                     {[...Array(12)].map((_, i) => (
                       <div
                         key={i}
@@ -685,7 +685,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                     <div key={item.channel} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.2}s` }}>
                       <div className={`w-2 h-2 ${item.color} rounded-full`}></div>
                       <div className="flex-1">
-                        <div className="text-xs text-gray-600 dark:text-gray-400">{item.channel}</div>
+                        <div className="text-xs text-gray-700 dark:text-gray-400">{item.channel}</div>
                         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
                           <div 
                             className={`h-1 ${item.color} rounded-full animate-progress-fill`}
@@ -696,7 +696,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                           ></div>
                         </div>
                       </div>
-                      <div className="text-xs font-bold">{item.performance}%</div>
+                      <div className="text-xs font-bold text-gray-800 dark:text-white">{item.performance}%</div>
                     </div>
                   ))}
                 </div>
@@ -713,10 +713,10 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
               <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-bold text-blue-600">System Control Panel</h3>
+                  <h3 className="text-sm font-bold text-blue-600 dark:text-blue-400">System Control Panel</h3>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-smooth-pulse"></div>
-                    <span className="text-xs text-gray-600">Online</span>
+                    <span className="text-xs text-gray-700 dark:text-gray-400">Online</span>
                   </div>
                 </div>
                 
@@ -732,11 +732,11 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((system, i) => (
                     <div 
                       key={system.name}
-                      className="p-2 bg-white/30 dark:bg-black/20 rounded text-center animate-smooth-slide"
+                      className="p-2 bg-white/40 dark:bg-black/20 rounded text-center animate-smooth-slide border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.1}s` }}
                     >
-                      <div className="text-xs font-medium text-gray-800 dark:text-white">{system.name}</div>
-                      <div className={`text-xs text-${system.color}-600 mb-1`}>{system.status}</div>
+                      <div className="text-xs font-medium text-gray-900 dark:text-white">{system.name}</div>
+                      <div className={`text-xs text-${system.color}-600 dark:text-${system.color}-400 mb-1`}>{system.status}</div>
                       <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
                         <div 
                           className={`h-1 bg-${system.color}-500 rounded-full animate-progress-fill`}
@@ -747,14 +747,14 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                           }}
                         ></div>
                       </div>
-                      <div className="text-xs text-gray-500 mt-1">{system.load}%</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{system.load}%</div>
                     </div>
                   ))}
                 </div>
                 
                 {/* Recent Activity */}
                 <div className="space-y-1">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Recent Activity</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Recent Activity</div>
                   {[
                     { activity: 'User Authentication', time: '2min ago', status: 'success' },
                     { activity: 'Data Sync Complete', time: '5min ago', status: 'success' },
@@ -763,7 +763,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((item, i) => (
                     <div 
                       key={i}
-                      className="flex items-center justify-between text-xs p-2 bg-white/20 dark:bg-black/10 rounded animate-smooth-slide"
+                      className="flex items-center justify-between text-xs p-2 bg-white/30 dark:bg-black/10 rounded animate-smooth-slide border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.2}s` }}
                     >
                       <div className="flex items-center space-x-2">
@@ -771,9 +771,9 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                           item.status === 'success' ? 'bg-green-500' : 
                           item.status === 'processing' ? 'bg-yellow-500 animate-smooth-pulse' : 'bg-red-500'
                         }`}></div>
-                        <span className="text-gray-700 dark:text-gray-300">{item.activity}</span>
+                        <span className="text-gray-800 dark:text-gray-300">{item.activity}</span>
                       </div>
-                      <span className="text-gray-500">{item.time}</span>
+                      <span className="text-gray-600 dark:text-gray-400">{item.time}</span>
                     </div>
                   ))}
                 </div>
@@ -790,12 +790,12 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
               <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-sm font-bold text-cyan-600">Design System</h3>
+                  <h3 className="text-sm font-bold text-cyan-600 dark:text-cyan-400">Design System</h3>
                   <div className="flex space-x-1">
                     {['Desktop', 'Mobile'].map((device, i) => (
                       <div 
                         key={device}
-                        className={`text-xs px-2 py-1 rounded ${i === 0 ? 'bg-cyan-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-600'} animate-fade-in-out`}
+                        className={`text-xs px-2 py-1 rounded ${i === 0 ? 'bg-cyan-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'} animate-fade-in-out`}
                         style={{ animationDelay: `${i * 0.3}s` }}
                       >
                         {device}
@@ -805,11 +805,11 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 </div>
                 
                 {/* Wireframe Canvas */}
-                <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded border-2 border-dashed border-cyan-300 relative">
+                <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded border-2 border-dashed border-cyan-300 dark:border-cyan-600 relative">
                   {/* Header Section */}
                   <div className="flex items-center justify-between mb-3 animate-smooth-slide">
                     <div className="flex items-center space-x-2">
-                      <div className="w-8 h-2 bg-cyan-400 rounded animate-smooth-pulse"></div>
+                      <div className="w-8 h-2 bg-cyan-400 dark:bg-cyan-500 rounded animate-smooth-pulse"></div>
                       <div className="w-12 h-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
                     </div>
                     <div className="w-6 h-2 bg-[#FF4D00] rounded animate-clean-glow"></div>
@@ -833,11 +833,11 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   {/* Interactive Elements */}
                   <div className="flex space-x-2">
                     <div className="px-3 py-1 bg-cyan-600 text-white text-xs rounded animate-smooth-pulse">Primary</div>
-                    <div className="px-3 py-1 border border-cyan-600 text-cyan-600 text-xs rounded animate-smooth-pulse" style={{ animationDelay: '0.2s' }}>Secondary</div>
+                    <div className="px-3 py-1 border border-cyan-600 text-cyan-600 dark:text-cyan-400 text-xs rounded animate-smooth-pulse" style={{ animationDelay: '0.2s' }}>Secondary</div>
                   </div>
                   
                   {/* Cursor */}
-                  <div className="absolute top-2 right-2 w-3 h-3 border-l-2 border-b-2 border-cyan-600 animate-simple-bounce"></div>
+                  <div className="absolute top-2 right-2 w-3 h-3 border-l-2 border-b-2 border-cyan-600 dark:border-cyan-400 animate-simple-bounce"></div>
                 </div>
                 
                 {/* Component Library */}
@@ -874,7 +874,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300">Cloud Infrastructure</h3>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-smooth-pulse"></div>
-                    <span className="text-xs text-gray-600">3 Regions Active</span>
+                    <span className="text-xs text-gray-700 dark:text-gray-400">3 Regions Active</span>
                   </div>
                 </div>
                 
@@ -890,20 +890,20 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((item, i) => (
                     <div 
                       key={item.service}
-                      className="p-2 bg-white/30 dark:bg-black/20 rounded text-center animate-smooth-slide"
+                      className="p-2 bg-white/40 dark:bg-black/20 rounded text-center animate-smooth-slide border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.1}s` }}
                     >
                       <div className="text-lg mb-1 animate-simple-bounce" style={{ animationDelay: `${i * 0.2}s` }}>{item.icon}</div>
-                      <div className="text-xs font-medium text-gray-800 dark:text-white">{item.service}</div>
-                      <div className="text-xs font-bold text-gray-700 dark:text-gray-300">{item.instances || item.usage || item.bandwidth || item.queries || item.hits || item.nodes}</div>
-                      <div className="text-xs text-green-600">{item.status}</div>
+                      <div className="text-xs font-medium text-gray-900 dark:text-white">{item.service}</div>
+                      <div className="text-xs font-bold text-gray-800 dark:text-gray-300">{item.instances || item.usage || item.bandwidth || item.queries || item.hits || item.nodes}</div>
+                      <div className="text-xs text-green-600 dark:text-green-400">{item.status}</div>
                     </div>
                   ))}
                 </div>
                 
                 {/* Resource Usage */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Resource Utilization</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Resource Utilization</div>
                   <div className="space-y-2">
                     {[
                       { resource: 'CPU', usage: 67, color: 'blue' },
@@ -912,7 +912,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                       { resource: 'Network', usage: 34, color: 'purple' }
                     ].map((resource, i) => (
                       <div key={resource.resource} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.15}s` }}>
-                        <div className="w-12 text-xs text-gray-600 dark:text-gray-400">{resource.resource}</div>
+                        <div className="w-12 text-xs text-gray-700 dark:text-gray-400">{resource.resource}</div>
                         <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                           <div 
                             className={`h-1.5 bg-${resource.color}-500 rounded-full animate-progress-fill`}
@@ -923,7 +923,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                             }}
                           ></div>
                         </div>
-                        <div className="text-xs font-medium w-8">{resource.usage}%</div>
+                        <div className="text-xs font-medium text-gray-800 dark:text-white w-8">{resource.usage}%</div>
                       </div>
                     ))}
                   </div>
@@ -934,11 +934,11 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   {['US-East', 'EU-West', 'Asia-Pacific'].map((region, i) => (
                     <div 
                       key={region}
-                      className="text-center p-1 bg-white/20 dark:bg-black/10 rounded animate-fade-in-out"
+                      className="text-center p-1 bg-white/30 dark:bg-black/10 rounded animate-fade-in-out border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.2}s` }}
                     >
-                      <div className="text-gray-700 dark:text-gray-300">{region}</div>
-                      <div className="text-green-600 text-xs">Active</div>
+                      <div className="text-gray-800 dark:text-gray-300">{region}</div>
+                      <div className="text-green-600 dark:text-green-400 text-xs">Active</div>
                     </div>
                   ))}
                 </div>
@@ -958,7 +958,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   <h3 className="text-sm font-bold text-amber-700 dark:text-amber-400">Legal Management</h3>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-amber-500 rounded-full animate-smooth-pulse"></div>
-                    <span className="text-xs text-gray-600">Compliant</span>
+                    <span className="text-xs text-gray-700 dark:text-gray-400">Compliant</span>
                   </div>
                 </div>
                 
@@ -972,22 +972,22 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((doc, i) => (
                     <div 
                       key={doc.type}
-                      className="p-2 bg-white/30 dark:bg-black/20 rounded animate-smooth-slide"
+                      className="p-2 bg-white/40 dark:bg-black/20 rounded animate-smooth-slide border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.15}s` }}
                     >
                       <div className="flex items-center space-x-2 mb-1">
                         <span className="text-sm animate-simple-bounce" style={{ animationDelay: `${i * 0.2}s` }}>{doc.icon}</span>
-                        <span className="text-xs font-medium text-gray-800 dark:text-white">{doc.type}</span>
+                        <span className="text-xs font-medium text-gray-900 dark:text-white">{doc.type}</span>
                       </div>
                       <div className="text-sm font-bold text-amber-700 dark:text-amber-400">{doc.count}</div>
-                      <div className="text-xs text-green-600">{doc.status}</div>
+                      <div className="text-xs text-green-600 dark:text-green-400">{doc.status}</div>
                     </div>
                   ))}
                 </div>
                 
                 {/* Compliance Status */}
                 <div className="mb-4">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Compliance Overview</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Compliance Overview</div>
                   <div className="space-y-2">
                     {[
                       { regulation: 'GDPR', compliance: 100, status: 'Compliant' },
@@ -996,7 +996,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                       { regulation: 'SOX', compliance: 88, status: 'In Progress' }
                     ].map((item, i) => (
                       <div key={item.regulation} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.2}s` }}>
-                        <div className="w-10 text-xs text-gray-600 dark:text-gray-400">{item.regulation}</div>
+                        <div className="w-10 text-xs text-gray-700 dark:text-gray-400">{item.regulation}</div>
                         <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
                           <div 
                             className={`h-1.5 ${item.compliance === 100 ? 'bg-green-500' : item.compliance >= 95 ? 'bg-yellow-500' : 'bg-orange-500'} rounded-full animate-progress-fill`}
@@ -1007,8 +1007,8 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                             }}
                           ></div>
                         </div>
-                        <div className="text-xs w-16">{item.compliance}%</div>
-                        <div className={`text-xs ${item.compliance === 100 ? 'text-green-600' : item.compliance >= 95 ? 'text-yellow-600' : 'text-orange-600'}`}>
+                        <div className="text-xs text-gray-800 dark:text-white w-16">{item.compliance}%</div>
+                        <div className={`text-xs ${item.compliance === 100 ? 'text-green-600 dark:text-green-400' : item.compliance >= 95 ? 'text-yellow-600 dark:text-yellow-400' : 'text-orange-600 dark:text-orange-400'}`}>
                           {item.status}
                         </div>
                       </div>
@@ -1018,7 +1018,7 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                 
                 {/* Recent Legal Activity */}
                 <div className="space-y-1">
-                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Recent Activity</div>
+                  <div className="text-xs text-gray-700 dark:text-gray-400 mb-2">Recent Activity</div>
                   {[
                     { activity: 'Contract Review Complete', time: '2h ago', type: 'contract' },
                     { activity: 'Privacy Policy Updated', time: '1d ago', type: 'policy' },
@@ -1026,14 +1026,14 @@ const ServiceAnimation = ({ serviceId, className }: { serviceId: string; classNa
                   ].map((item, i) => (
                     <div 
                       key={i}
-                      className="flex items-center justify-between text-xs p-2 bg-white/20 dark:bg-black/10 rounded animate-smooth-slide"
+                      className="flex items-center justify-between text-xs p-2 bg-white/30 dark:bg-black/10 rounded animate-smooth-slide border border-gray-200 dark:border-gray-600"
                       style={{ animationDelay: `${i * 0.2}s` }}
                     >
                       <div className="flex items-center space-x-2">
                         <div className="w-1.5 h-1.5 bg-amber-500 rounded-full"></div>
-                        <span className="text-gray-700 dark:text-gray-300">{item.activity}</span>
+                        <span className="text-gray-800 dark:text-gray-300">{item.activity}</span>
                       </div>
-                      <span className="text-gray-500">{item.time}</span>
+                      <span className="text-gray-600 dark:text-gray-400">{item.time}</span>
                     </div>
                   ))}
                 </div>
