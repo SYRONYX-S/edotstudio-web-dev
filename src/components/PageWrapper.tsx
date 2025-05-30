@@ -75,6 +75,25 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   // Update content when pathname changes
   useEffect(() => {
     setPageContent(children);
+    
+    // Ensure proper scroll bounds are calculated after content change
+    setTimeout(() => {
+      // Trigger a reflow to ensure the browser recalculates scroll bounds
+      if (typeof window !== 'undefined') {
+        const { scrollHeight } = document.documentElement;
+        // Force browser to acknowledge new content height
+        document.documentElement.style.height = 'auto';
+        // Trigger reflow
+        document.documentElement.offsetHeight;
+        // Reset height
+        document.documentElement.style.height = '';
+        
+        // Update Lenis if it exists
+        if (lenisRef.current) {
+          lenisRef.current.resize();
+        }
+      }
+    }, 100);
   }, [children, pathname]);
 
   // Check if device is mobile - client-side only
@@ -253,10 +272,38 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     // Depend on lenisRef.current to re-attach listeners if Lenis gets initialized/destroyed
   }, [pathname, isMobile, lenisRef.current]); 
 
-  // Reset navigation state after page change
+  // Reset navigation state after page change and handle scroll restoration
   useEffect(() => {
     setIsNavigating(false);
-    window.scrollTo(0, 0);
+    
+    // Improved scroll restoration logic
+    const resetScroll = () => {
+      if (lenisRef.current) {
+        // Use Lenis scrollTo method for smooth scrolling systems
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        // Use native scroll for mobile/reduced motion
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      
+      // Force a layout recalculation to ensure proper scroll bounds
+      document.documentElement.style.scrollBehavior = 'auto';
+      setTimeout(() => {
+        document.documentElement.style.scrollBehavior = '';
+      }, 100);
+    };
+    
+    // Delay scroll reset slightly to ensure page content has rendered
+    const scrollTimeout = setTimeout(resetScroll, 50);
+    
+    // Also ensure scroll triggers are refreshed after navigation
+    setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        ScrollTrigger.refresh();
+      }
+    }, 100);
+    
+    return () => clearTimeout(scrollTimeout);
   }, [pathname]);
 
   // Simplified page transition for better performance

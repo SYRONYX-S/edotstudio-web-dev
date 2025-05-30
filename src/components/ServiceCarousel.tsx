@@ -94,7 +94,8 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
 
   // Setup optimized animation with manual animation completion handler
   const startAnimation = useCallback(() => {
-    if (isDragging.current) return;
+    // Ensure component is mounted and controls are available
+    if (isDragging.current || !carouselRef.current || !controls) return;
     
     checkPosition();
     
@@ -117,32 +118,49 @@ export default function ServiceCarousel({ services }: ServiceCarouselProps) {
         repeatType: "loop"
       }
     }).then(() => {
-      // This runs when the animation completes
-      checkPosition();
-      // Schedule next animation using requestAnimationFrame for better timing
-      animationRef.current = requestAnimationFrame(() => {
-        startAnimation();
-      });
+      // Only continue if component is still mounted
+      if (carouselRef.current && !isDragging.current) {
+        // This runs when the animation completes
+        checkPosition();
+        // Schedule next animation using requestAnimationFrame for better timing
+        animationRef.current = requestAnimationFrame(() => {
+          startAnimation();
+        });
+      }
+    }).catch(() => {
+      // Silently handle any animation errors to prevent console spam
     });
   }, [x, singleSetWidth, controls, checkPosition, isIOS]);
 
   // Start the carousel animation with appropriate timing for iOS
   useEffect(() => {
+    // Ensure component is mounted and refs are available
+    if (!carouselRef.current) return;
+    
+    // Check if controls are ready before starting animation
+    let isMounted = true;
+    
     // Delay animation start slightly more on iOS
     const startDelay = isIOS ? 300 : 100;
     const timer = setTimeout(() => {
-      startAnimation();
+      // Double-check mount status and ref availability before starting
+      if (isMounted && carouselRef.current && controls) {
+        startAnimation();
+      }
     }, startDelay);
     
     return () => {
+      isMounted = false;
       clearTimeout(timer);
-      controls.stop();
+      if (controls) {
+        controls.stop();
+      }
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
         animationRef.current = null;
       }
     };
-  }, [startAnimation, isIOS]);
+  }, [startAnimation, isIOS, controls]); // Add controls to dependencies
 
   // Handle drag gestures with iOS optimizations
   const handleDragStart = () => {
