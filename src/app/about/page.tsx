@@ -474,10 +474,10 @@ export default function About() {
               className="w-full"
             >
               {/* Enhanced glassmorphism CTA card */}
-              <div className="bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/30 dark:border-white/15 relative overflow-hidden group hover:bg-white/20 dark:hover:bg-white/12 hover:border-white/40 dark:hover:border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 shadow-xl w-full">
+              <div className="bg-white/15 dark:bg-white/8 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/30 dark:border-white/15 relative overflow-hidden group shadow-xl hover:bg-white/20 dark:hover:bg-white/12 hover:border-white/40 dark:hover:border-white/20 hover:shadow-[0_20px_50px_rgba(255,77,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(255,77,0,0.2)] w-full transition-all duration-500">
                 {/* Floating decorative elements */}
-                <div className="absolute -top-8 -right-8 w-32 h-32 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-700"></div>
-                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-700"></div>
+                <div className="absolute -top-8 -right-8 w-32 h-32 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-500"></div>
+                <div className="absolute -bottom-8 -left-8 w-40 h-40 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-500"></div>
                 
                 <div className="relative z-10 text-center w-full">
                   <motion.div
@@ -485,25 +485,25 @@ export default function About() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
-                    className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                   >
                     <span>🚀</span>
                     <span>EXPERIENCE THE DIFFERENCE</span>
                   </motion.div>
                   
-                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-technor text-black dark:text-white mb-6 leading-tight group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500">
+                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-technor text-black dark:text-white mb-6 leading-tight">
                     Experience the Power of <br />
-                    <span className="text-[#FF4D00] group-hover:text-primary-light transition-colors duration-500">Partnership</span>
+                    <span className="text-[#FF4D00]">Partnership</span>
                   </h2>
                   
-                  <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-10 text-lg md:text-xl font-pilcrow leading-relaxed group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                  <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-10 text-lg md:text-xl font-pilcrow leading-relaxed">
                     Let's discuss how our unique approach can transform your business. From concept to execution, we're your trusted digital partner.
                   </p>
                   
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 w-full">
                     <Button
                       href="/contact"
-                      className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                      className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                       size="lg"
                     >
                       Start Your Journey
@@ -511,7 +511,7 @@ export default function About() {
                     <Button
                       href="/portfolio"
                       variant="outline"
-                      className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                      className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-500"
                       size="lg"
                     >
                       View Our Work
@@ -543,11 +543,11 @@ export default function About() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.4 + index * 0.1 }}
-                        className="text-center p-4 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+                        className="text-center p-4 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
                       >
-                        <div className="text-2xl mb-3 hover:scale-110 transition-transform duration-300">{benefit.icon}</div>
-                        <h3 className="font-technor text-black dark:text-white mb-2 hover:text-[#FF4D00] dark:hover:text-[#FF4D00] transition-colors duration-300">{benefit.title}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300">{benefit.description}</p>
+                        <div className="text-2xl mb-3 hover:scale-110 transition-all duration-500">{benefit.icon}</div>
+                        <h3 className="font-technor text-black dark:text-white mb-2">{benefit.title}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow">{benefit.description}</p>
                       </motion.div>
                     ))}
                   </div>

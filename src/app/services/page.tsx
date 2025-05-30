@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { RiArrowRightLine, RiCheckLine, RiCodeSLine, RiSmartphoneLine, RiPaletteLine, RiMegaphoneLine, RiTeamLine } from 'react-icons/ri';
 import { Users } from 'lucide-react';
@@ -14,6 +13,1050 @@ import AnimatedTitle from '@/components/AnimatedTitle';
 import Button from '@/components/Button';
 import ParallaxSection from '@/components/ParallaxSection';
 import PageHero from '@/components/PageHero';
+
+// Add clean, professional CSS animations
+const customStyles = `
+  @keyframes matrix-rain {
+    0% { transform: translateY(-100%); opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+  @keyframes code-compile {
+    0% { transform: scaleX(0); opacity: 0; }
+    50% { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 0.7; }
+  }
+  @keyframes hologram {
+    0%, 100% { opacity: 0.7; transform: translateZ(0) rotateY(0deg); }
+    50% { opacity: 1; transform: translateZ(10px) rotateY(180deg); }
+  }
+  @keyframes smooth-pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  @keyframes data-stream {
+    0% { transform: translateX(-100%) translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100%) translateY(-20px); opacity: 0; }
+  }
+  @keyframes clean-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes smooth-slide {
+    0% { transform: translateX(-100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes fade-in-out {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  @keyframes progress-fill {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  @keyframes simple-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes chart-grow {
+    0% { transform: scaleY(0); }
+    100% { transform: scaleY(1); }
+  }
+  @keyframes clean-glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(255, 77, 0, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(255, 77, 0, 0.6); }
+  }
+  
+  .animate-matrix-rain { animation: matrix-rain 3s linear infinite; }
+  .animate-code-compile { animation: code-compile 2s ease-out infinite; }
+  .animate-hologram { animation: hologram 4s ease-in-out infinite; }
+  .animate-smooth-pulse { animation: smooth-pulse 2s ease-in-out infinite; }
+  .animate-data-stream { animation: data-stream 3s ease-in-out infinite; }
+  .animate-clean-rotate { animation: clean-rotate 8s linear infinite; }
+  .animate-smooth-slide { animation: smooth-slide 1s ease-out forwards; }
+  .animate-fade-in-out { animation: fade-in-out 2s ease-in-out infinite; }
+  .animate-progress-fill { animation: progress-fill 2s ease-in-out infinite; }
+  .animate-simple-bounce { animation: simple-bounce 2s ease-in-out infinite; }
+  .animate-chart-grow { animation: chart-grow 1.5s ease-out forwards; transform-origin: bottom; }
+  .animate-clean-glow { animation: clean-glow 3s ease-in-out infinite; }
+  
+  .glass-clean {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+`;
+
+// Insert styles into document head
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerText = customStyles;
+  document.head.appendChild(styleSheet);
+}
+
+// Clean ServiceAnimation Component
+const ServiceAnimation = ({ serviceId, className }: { serviceId: string; className?: string }) => {
+  const getAnimation = (id: string) => {
+    switch (id) {
+      case 'branding':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-[#FF4D00]/10 to-orange-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Comprehensive Brand Guidelines Interface */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-[#FF4D00]">Brand Style Guide</h3>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-smooth-pulse"></div>
+                    <span className="text-xs text-gray-600">v2.1</span>
+                  </div>
+                </div>
+                
+                {/* Brand Identity Section */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Brand Identity</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {/* Primary Logo */}
+                    <div className="p-2 bg-white rounded border animate-smooth-slide">
+                      <div className="w-full h-6 bg-gradient-to-r from-[#FF4D00] to-orange-600 rounded flex items-center justify-center text-white text-xs font-bold animate-clean-glow">
+                        BRAND
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1 text-center">Primary</div>
+                    </div>
+                    
+                    {/* Secondary Logos */}
+                    <div className="space-y-1">
+                      <div className="p-1 bg-gray-900 rounded flex items-center justify-center animate-smooth-slide" style={{ animationDelay: '0.2s' }}>
+                        <span className="text-white text-xs font-bold">BRAND</span>
+                      </div>
+                      <div className="p-1 bg-gray-100 dark:bg-gray-800 rounded flex items-center justify-center animate-smooth-slide" style={{ animationDelay: '0.3s' }}>
+                        <span className="text-gray-900 dark:text-white text-xs font-bold">BRAND</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Color System */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Color System</div>
+                  <div className="grid grid-cols-6 gap-1 mb-2">
+                    {[
+                      { color: '#FF4D00', name: 'Primary' },
+                      { color: '#FF6B2B', name: 'Secondary' },
+                      { color: '#FF8F66', name: 'Accent' },
+                      { color: '#1F2937', name: 'Dark' },
+                      { color: '#6B7280', name: 'Gray' },
+                      { color: '#F9FAFB', name: 'Light' }
+                    ].map((colorItem, i) => (
+                      <div key={i} className="text-center animate-smooth-pulse" style={{ animationDelay: `${i * 0.1}s` }}>
+                        <div 
+                          className="w-full h-4 rounded mb-1" 
+                          style={{ backgroundColor: colorItem.color }}
+                        />
+                        <div className="text-xs text-gray-500" style={{ fontSize: '9px' }}>{colorItem.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Color Usage Examples */}
+                  <div className="grid grid-cols-3 gap-1">
+                    <div className="p-1 bg-[#FF4D00] rounded text-center animate-fade-in-out">
+                      <span className="text-white text-xs">CTA</span>
+                    </div>
+                    <div className="p-1 bg-[#FF6B2B] rounded text-center animate-fade-in-out" style={{ animationDelay: '0.3s' }}>
+                      <span className="text-white text-xs">Hover</span>
+                    </div>
+                    <div className="p-1 bg-[#1F2937] rounded text-center animate-fade-in-out" style={{ animationDelay: '0.6s' }}>
+                      <span className="text-white text-xs">Text</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Typography Scale */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Typography</div>
+                  <div className="space-y-1">
+                    <div className="animate-smooth-slide">
+                      <div className="text-base font-bold text-gray-900 dark:text-white">Heading Bold</div>
+                      <div className="text-xs text-gray-500">32px • Technor</div>
+                    </div>
+                    <div className="animate-smooth-slide" style={{ animationDelay: '0.2s' }}>
+                      <div className="text-sm font-medium text-gray-800 dark:text-gray-200">Subheading Medium</div>
+                      <div className="text-xs text-gray-500">24px • Technor</div>
+                    </div>
+                    <div className="animate-smooth-slide" style={{ animationDelay: '0.4s' }}>
+                      <div className="text-xs text-gray-700 dark:text-gray-300">Body Regular</div>
+                      <div className="text-xs text-gray-500">16px • Pilcrow</div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Brand Elements & Icons */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Brand Elements</div>
+                  <div className="grid grid-cols-4 gap-2">
+                    {[
+                      { element: '🎯', name: 'Target' },
+                      { element: '⚡', name: 'Speed' },
+                      { element: '💎', name: 'Quality' },
+                      { element: '🚀', name: 'Growth' }
+                    ].map((item, i) => (
+                      <div key={i} className="text-center animate-simple-bounce" style={{ animationDelay: `${i * 0.2}s` }}>
+                        <div className="text-lg mb-1">{item.element}</div>
+                        <div className="text-xs text-gray-500">{item.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Brand Voice */}
+                <div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-medium">Brand Voice</div>
+                  <div className="grid grid-cols-3 gap-1">
+                    {['Professional', 'Innovative', 'Reliable'].map((trait, i) => (
+                      <div 
+                        key={trait}
+                        className="text-center p-1 bg-[#FF4D00]/10 rounded text-xs text-[#FF4D00] animate-fade-in-out"
+                        style={{ animationDelay: `${i * 0.3}s` }}
+                      >
+                        {trait}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Floating Brand Symbol */}
+                <div className="absolute top-4 right-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#FF4D00] to-orange-600 rounded-lg animate-clean-rotate flex items-center justify-center">
+                    <div className="text-white font-bold text-sm">©</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'web-development':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-blue-500/10 to-cyan-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Web Development Workspace */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* IDE Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    </div>
+                    <span className="text-xs text-gray-600">VS Code</span>
+                  </div>
+                  <div className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-1 rounded">Dev Server</div>
+                </div>
+                
+                {/* File Explorer */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">📁 Project Files</div>
+                  <div className="space-y-1">
+                    {[
+                      { name: 'index.html', icon: '🌐', status: 'modified' },
+                      { name: 'style.css', icon: '🎨', status: 'saved' },
+                      { name: 'app.js', icon: '⚡', status: 'active' },
+                      { name: 'components/', icon: '📦', status: 'folder' }
+                    ].map((file, i) => (
+                      <div 
+                        key={file.name}
+                        className={`flex items-center space-x-2 text-xs p-1 rounded animate-smooth-slide ${
+                          file.status === 'active' ? 'bg-blue-100 dark:bg-blue-900/30' : ''
+                        }`}
+                        style={{ animationDelay: `${i * 0.1}s` }}
+                      >
+                        <span>{file.icon}</span>
+                        <span className="flex-1 text-gray-700 dark:text-gray-300">{file.name}</span>
+                        {file.status === 'modified' && <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>}
+                        {file.status === 'active' && <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-smooth-pulse"></div>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Code Editor */}
+                <div className="mb-3 p-2 bg-gray-900 rounded text-xs overflow-hidden">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-blue-400">app.js</span>
+                    <div className="w-1 h-1 bg-green-500 rounded-full animate-smooth-pulse"></div>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="text-purple-400 animate-smooth-slide">const app = () =&gt; &#123;</div>
+                    <div className="text-blue-400 animate-smooth-slide" style={{ animationDelay: '0.2s' }}>  return (</div>
+                    <div className="text-green-400 animate-smooth-slide" style={{ animationDelay: '0.4s' }}>    &lt;div className="app"&gt;</div>
+                    <div className="text-yellow-400 animate-smooth-slide" style={{ animationDelay: '0.6s' }}>      &lt;Header /&gt;</div>
+                    <div className="text-yellow-400 animate-smooth-slide" style={{ animationDelay: '0.8s' }}>      &lt;Main /&gt;</div>
+                    <div className="text-green-400 animate-smooth-slide" style={{ animationDelay: '1.0s' }}>    &lt;/div&gt;</div>
+                    <div className="text-blue-400 animate-smooth-slide" style={{ animationDelay: '1.2s' }}>  );</div>
+                    <div className="text-purple-400 animate-smooth-slide" style={{ animationDelay: '1.4s' }}>&#125;</div>
+                  </div>
+                </div>
+                
+                {/* Browser Preview */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">🌐 Browser Preview</div>
+                  <div className="border border-gray-300 dark:border-gray-600 rounded overflow-hidden">
+                    {/* Browser Bar */}
+                    <div className="h-4 bg-gray-100 dark:bg-gray-800 flex items-center px-2">
+                      <div className="flex space-x-1">
+                        <div className="w-1.5 h-1.5 bg-red-500 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                      </div>
+                      <div className="flex-1 text-center text-xs text-gray-500">localhost:3000</div>
+                    </div>
+                    
+                    {/* Website Content */}
+                    <div className="h-12 bg-white dark:bg-gray-900 p-2">
+                      {/* Header */}
+                      <div className="flex items-center justify-between mb-1 animate-smooth-slide">
+                        <div className="w-8 h-2 bg-blue-600 rounded"></div>
+                        <div className="w-6 h-1.5 bg-blue-600 rounded animate-clean-glow"></div>
+                      </div>
+                      
+                      {/* Content */}
+                      <div className="grid grid-cols-3 gap-1">
+                        {[...Array(6)].map((_, i) => (
+                          <div 
+                            key={i}
+                            className="h-1.5 bg-gray-200 dark:bg-gray-700 rounded animate-smooth-slide"
+                            style={{ animationDelay: `${i * 0.1}s` }}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Development Tools */}
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { tool: 'React', status: 'Running', color: 'blue' },
+                    { tool: 'Webpack', status: 'Building', color: 'orange' },
+                    { tool: 'Git', status: 'Clean', color: 'green' }
+                  ].map((item, i) => (
+                    <div 
+                      key={item.tool}
+                      className="text-center p-1 bg-white/50 dark:bg-black/20 rounded animate-fade-in-out"
+                      style={{ animationDelay: `${i * 0.3}s` }}
+                    >
+                      <div className="text-xs font-medium text-gray-800 dark:text-white">{item.tool}</div>
+                      <div className={`text-xs text-${item.color}-600`}>{item.status}</div>
+                      {item.status === 'Building' && (
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-0.5 mt-1">
+                          <div className="bg-orange-500 h-0.5 rounded-full animate-progress-fill"></div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'app-development':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-purple-500/10 to-indigo-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Mobile App Development Interface */}
+              <div className="flex items-center justify-center h-full space-x-6 max-w-lg">
+                {/* Main Device */}
+                <div className="relative">
+                  <div className="w-32 h-56 bg-gray-900 rounded-3xl border-4 border-gray-700 relative overflow-hidden shadow-2xl">
+                    {/* Screen */}
+                    <div className="absolute inset-3 bg-gradient-to-b from-purple-900/40 to-indigo-900/40 rounded-2xl overflow-hidden">
+                      {/* Status bar */}
+                      <div className="h-6 bg-gradient-to-r from-purple-600/60 to-indigo-600/60 flex items-center justify-between px-2">
+                        <div className="flex space-x-1">
+                          <div className="w-1 h-1 bg-white rounded-full animate-smooth-pulse"></div>
+                          <div className="w-1 h-1 bg-white rounded-full animate-smooth-pulse" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="w-1 h-1 bg-white rounded-full animate-smooth-pulse" style={{ animationDelay: '0.4s' }}></div>
+                        </div>
+                        <div className="text-white text-xs font-medium">EdotApp</div>
+                        <div className="text-white text-xs">100%</div>
+                      </div>
+                      
+                      {/* App Content */}
+                      <div className="p-3 space-y-2">
+                        {/* Navigation */}
+                        <div className="flex justify-between items-center mb-3">
+                          <div className="w-6 h-6 bg-purple-500 rounded-lg animate-smooth-pulse flex items-center justify-center">
+                            <div className="w-3 h-3 bg-white rounded"></div>
+                          </div>
+                          <div className="flex space-x-1">
+                            <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
+                            <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
+                            <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Content Cards */}
+                        {[...Array(4)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="p-2 bg-white/10 rounded-lg animate-smooth-slide"
+                            style={{ animationDelay: `${i * 0.2}s` }}
+                          >
+                            <div className="flex items-center space-x-2 mb-1">
+                              <div className="w-4 h-4 bg-gradient-to-br from-purple-400 to-indigo-500 rounded"></div>
+                              <div className="flex-1 h-1 bg-purple-400/60 rounded"></div>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="w-full h-1 bg-indigo-400/40 rounded"></div>
+                              <div className="w-3/4 h-1 bg-indigo-400/30 rounded"></div>
+                            </div>
+                          </div>
+                        ))}
+                        
+                        {/* Bottom Action */}
+                        <div className="mt-4 p-2 bg-[#FF4D00] rounded-lg text-center animate-clean-glow">
+                          <div className="text-white text-xs font-medium">Get Started</div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Home indicator */}
+                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gray-500 rounded-full"></div>
+                  </div>
+                  
+                  {/* Device Shadow */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 rounded-3xl"></div>
+                </div>
+                
+                {/* Development Tools Panel */}
+                <div className="w-40 h-56 glass-clean rounded-lg p-3">
+                  <div className="text-xs font-bold text-purple-600 mb-3">Development Tools</div>
+                  
+                  {/* Code Editor Simulation */}
+                  <div className="mb-3 p-2 bg-gray-900 rounded text-xs">
+                    <div className="text-purple-400 animate-smooth-slide">const app = () =&gt; &#123;</div>
+                    <div className="text-blue-400 animate-smooth-slide" style={{ animationDelay: '0.2s' }}>  return (</div>
+                    <div className="text-green-400 animate-smooth-slide" style={{ animationDelay: '0.4s' }}>    &lt;AppComponent /&gt;</div>
+                    <div className="text-blue-400 animate-smooth-slide" style={{ animationDelay: '0.6s' }}>  );</div>
+                    <div className="text-purple-400 animate-smooth-slide" style={{ animationDelay: '0.8s' }}>&#125;</div>
+                  </div>
+                  
+                  {/* Build Status */}
+                  <div className="space-y-2">
+                    {[
+                      { task: 'Compile', status: 'Complete', color: 'green' },
+                      { task: 'Bundle', status: 'Running', color: 'yellow' },
+                      { task: 'Deploy', status: 'Pending', color: 'gray' }
+                    ].map((item, i) => (
+                      <div key={item.task} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.3}s` }}>
+                        <div className={`w-2 h-2 bg-${item.color}-500 rounded-full ${item.status === 'Running' ? 'animate-smooth-pulse' : ''}`}></div>
+                        <div className="flex-1 text-xs">{item.task}</div>
+                        <div className={`text-xs text-${item.color}-600`}>{item.status}</div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Device Testing */}
+                  <div className="mt-4">
+                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Testing</div>
+                    <div className="grid grid-cols-3 gap-1">
+                      {['iOS', 'Android', 'Web'].map((platform, i) => (
+                        <div 
+                          key={platform}
+                          className={`text-center p-1 rounded text-xs ${i === 1 ? 'bg-purple-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-600'} animate-fade-in-out`}
+                          style={{ animationDelay: `${i * 0.2}s` }}
+                        >
+                          {platform}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Touch Interactions */}
+                {[...Array(3)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute w-12 h-12 border-2 border-purple-400/50 rounded-full animate-smooth-pulse"
+                    style={{
+                      top: `${25 + i * 30}%`,
+                      right: `${-10 + i * 5}px`,
+                      animationDelay: `${i * 0.8}s`
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'graphic-design':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-pink-500/10 to-rose-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Design Workspace */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-pink-600">Creative Studio</h3>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full animate-smooth-pulse"></div>
+                    <span className="text-xs text-gray-600">Design Mode</span>
+                  </div>
+                </div>
+                
+                {/* Main Artboard */}
+                <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg border-2 border-dashed border-pink-300 relative">
+                  {/* Canvas Content */}
+                  <div className="space-y-3">
+                    {/* Header Design */}
+                    <div className="flex items-center justify-between animate-smooth-slide">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-12 h-8 bg-gradient-to-r from-[#FF4D00] to-orange-500 rounded animate-clean-glow flex items-center justify-center text-white text-xs font-bold">LOGO</div>
+                        <div className="space-y-1">
+                          <div className="w-16 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          <div className="w-12 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                        </div>
+                      </div>
+                      <div className="w-8 h-6 bg-pink-500 rounded animate-smooth-pulse"></div>
+                    </div>
+                    
+                    {/* Hero Section */}
+                    <div className="p-3 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/20 dark:to-purple-900/20 rounded animate-smooth-slide" style={{ animationDelay: '0.2s' }}>
+                      <div className="w-20 h-2 bg-pink-600 rounded mb-2"></div>
+                      <div className="space-y-1">
+                        <div className="w-full h-1 bg-gray-400 rounded"></div>
+                        <div className="w-3/4 h-1 bg-gray-400 rounded"></div>
+                        <div className="w-1/2 h-1 bg-gray-400 rounded"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Content Grid */}
+                    <div className="grid grid-cols-3 gap-2">
+                      {[...Array(6)].map((_, i) => (
+                        <div 
+                          key={i}
+                          className="space-y-1 animate-smooth-slide"
+                          style={{ animationDelay: `${0.4 + i * 0.1}s` }}
+                        >
+                          <div className="w-full h-6 bg-gradient-to-br from-pink-300 to-purple-300 rounded"></div>
+                          <div className="w-full h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                          <div className="w-2/3 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Selection Tool */}
+                  <div className="absolute top-2 right-2 w-4 h-4 border-2 border-pink-600 border-dashed animate-simple-bounce"></div>
+                </div>
+                
+                {/* Design Tools & Color Palette */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Tools */}
+                  <div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Tools</div>
+                    <div className="grid grid-cols-4 gap-1">
+                      {[
+                        { name: 'Select', icon: '↖️', active: true },
+                        { name: 'Brush', icon: '🖌️', active: false },
+                        { name: 'Text', icon: '📝', active: false },
+                        { name: 'Shape', icon: '⬜', active: false }
+                      ].map((tool, i) => (
+                        <div 
+                          key={tool.name}
+                          className={`text-center p-1 rounded text-xs ${tool.active ? 'bg-pink-600 text-white' : 'bg-gray-200 dark:bg-gray-700'} animate-smooth-slide`}
+                          style={{ animationDelay: `${i * 0.1}s` }}
+                        >
+                          <div className="text-sm">{tool.icon}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Color Palette */}
+                  <div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Colors</div>
+                    <div className="grid grid-cols-4 gap-1">
+                      {[
+                        { color: '#FF4D00', name: 'Primary' },
+                        { color: '#EC4899', name: 'Accent' },
+                        { color: '#8B5CF6', name: 'Purple' },
+                        { color: '#06B6D4', name: 'Cyan' }
+                      ].map((colorItem, i) => (
+                        <div 
+                          key={colorItem.name}
+                          className="text-center animate-smooth-pulse"
+                          style={{ animationDelay: `${i * 0.15}s` }}
+                        >
+                          <div 
+                            className="w-6 h-6 rounded mx-auto mb-1 border-2 border-white shadow-sm" 
+                            style={{ backgroundColor: colorItem.color }}
+                          />
+                          <div className="text-xs text-gray-500">{colorItem.name}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Layer Panel */}
+                <div className="absolute top-4 right-4 w-20 bg-white/90 dark:bg-black/90 rounded p-2">
+                  <div className="text-xs font-medium mb-2">Layers</div>
+                  {['Header', 'Hero', 'Content', 'Footer'].map((layer, i) => (
+                    <div 
+                      key={layer}
+                      className="flex items-center space-x-1 mb-1 animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.1}s` }}
+                    >
+                      <div className="w-1 h-1 bg-pink-500 rounded-full"></div>
+                      <div className="text-xs">{layer}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'marketing':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Marketing Dashboard */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-emerald-600">Campaign Analytics</h3>
+                  <div className="text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 px-2 py-1 rounded">Live</div>
+                </div>
+                
+                {/* Key Metrics */}
+                <div className="grid grid-cols-4 gap-2 mb-4">
+                  {[
+                    { label: 'CTR', value: '4.2%', change: '+12%' },
+                    { label: 'ROI', value: '340%', change: '+28%' },
+                    { label: 'Leads', value: '1.2K', change: '+45%' },
+                    { label: 'Sales', value: '$47K', change: '+18%' }
+                  ].map((metric, i) => (
+                    <div 
+                      key={metric.label} 
+                      className="text-center p-2 bg-white/50 dark:bg-black/20 rounded animate-fade-in-out"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    >
+                      <div className="text-xs text-gray-500">{metric.label}</div>
+                      <div className="text-sm font-bold text-gray-800 dark:text-white">{metric.value}</div>
+                      <div className="text-xs text-emerald-600">{metric.change}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Growth Chart */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Revenue Growth</div>
+                  <div className="flex items-end space-x-1 h-16 bg-white/30 dark:bg-black/20 rounded p-2">
+                    {[...Array(12)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-t animate-chart-grow"
+                        style={{
+                          width: '6px',
+                          height: `${25 + Math.sin(i * 0.8) * 20 + i * 2}px`,
+                          animationDelay: `${i * 0.1}s`
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Channel Performance */}
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { channel: 'Social Media', performance: 85, color: 'bg-blue-500' },
+                    { channel: 'Email', performance: 92, color: 'bg-purple-500' },
+                    { channel: 'SEO', performance: 78, color: 'bg-green-500' },
+                    { channel: 'PPC', performance: 89, color: 'bg-orange-500' }
+                  ].map((item, i) => (
+                    <div key={item.channel} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.2}s` }}>
+                      <div className={`w-2 h-2 ${item.color} rounded-full`}></div>
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-600 dark:text-gray-400">{item.channel}</div>
+                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
+                          <div 
+                            className={`h-1 ${item.color} rounded-full animate-progress-fill`}
+                            style={{ 
+                              width: `${item.performance}%`,
+                              animationDelay: `${i * 0.3}s`
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                      <div className="text-xs font-bold">{item.performance}%</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'software-solutions':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-blue-500/10 to-indigo-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Enterprise Software Dashboard */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-blue-600">System Control Panel</h3>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-smooth-pulse"></div>
+                    <span className="text-xs text-gray-600">Online</span>
+                  </div>
+                </div>
+                
+                {/* System Status Grid */}
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  {[
+                    { name: 'API Server', status: 'Active', load: 67, color: 'green' },
+                    { name: 'Database', status: 'Optimal', load: 23, color: 'blue' },
+                    { name: 'Cache', status: 'Healthy', load: 45, color: 'purple' },
+                    { name: 'Queue', status: 'Running', load: 12, color: 'orange' },
+                    { name: 'Storage', status: 'Available', load: 78, color: 'teal' },
+                    { name: 'CDN', status: 'Distributed', load: 34, color: 'pink' }
+                  ].map((system, i) => (
+                    <div 
+                      key={system.name}
+                      className="p-2 bg-white/30 dark:bg-black/20 rounded text-center animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.1}s` }}
+                    >
+                      <div className="text-xs font-medium text-gray-800 dark:text-white">{system.name}</div>
+                      <div className={`text-xs text-${system.color}-600 mb-1`}>{system.status}</div>
+                      <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1">
+                        <div 
+                          className={`h-1 bg-${system.color}-500 rounded-full animate-progress-fill`}
+                          style={{ 
+                            width: `${system.load}%`,
+                            animationDelay: `${i * 0.2}s`,
+                            animationDuration: '2s'
+                          }}
+                        ></div>
+                      </div>
+                      <div className="text-xs text-gray-500 mt-1">{system.load}%</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Recent Activity */}
+                <div className="space-y-1">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Recent Activity</div>
+                  {[
+                    { activity: 'User Authentication', time: '2min ago', status: 'success' },
+                    { activity: 'Data Sync Complete', time: '5min ago', status: 'success' },
+                    { activity: 'Backup Initiated', time: '12min ago', status: 'processing' },
+                    { activity: 'Cache Refresh', time: '18min ago', status: 'success' }
+                  ].map((item, i) => (
+                    <div 
+                      key={i}
+                      className="flex items-center justify-between text-xs p-2 bg-white/20 dark:bg-black/10 rounded animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <div className={`w-1.5 h-1.5 rounded-full ${
+                          item.status === 'success' ? 'bg-green-500' : 
+                          item.status === 'processing' ? 'bg-yellow-500 animate-smooth-pulse' : 'bg-red-500'
+                        }`}></div>
+                        <span className="text-gray-700 dark:text-gray-300">{item.activity}</span>
+                      </div>
+                      <span className="text-gray-500">{item.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'ui-ux-design':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-cyan-500/10 to-blue-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Design Tool Interface */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-cyan-600">Design System</h3>
+                  <div className="flex space-x-1">
+                    {['Desktop', 'Mobile'].map((device, i) => (
+                      <div 
+                        key={device}
+                        className={`text-xs px-2 py-1 rounded ${i === 0 ? 'bg-cyan-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-600'} animate-fade-in-out`}
+                        style={{ animationDelay: `${i * 0.3}s` }}
+                      >
+                        {device}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Wireframe Canvas */}
+                <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded border-2 border-dashed border-cyan-300 relative">
+                  {/* Header Section */}
+                  <div className="flex items-center justify-between mb-3 animate-smooth-slide">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-8 h-2 bg-cyan-400 rounded animate-smooth-pulse"></div>
+                      <div className="w-12 h-2 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                    </div>
+                    <div className="w-6 h-2 bg-[#FF4D00] rounded animate-clean-glow"></div>
+                  </div>
+                  
+                  {/* Content Grid */}
+                  <div className="grid grid-cols-3 gap-2 mb-3">
+                    {[...Array(6)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="space-y-1 animate-smooth-slide"
+                        style={{ animationDelay: `${i * 0.1}s` }}
+                      >
+                        <div className="w-full h-6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div className="w-3/4 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                        <div className="w-1/2 h-1 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Interactive Elements */}
+                  <div className="flex space-x-2">
+                    <div className="px-3 py-1 bg-cyan-600 text-white text-xs rounded animate-smooth-pulse">Primary</div>
+                    <div className="px-3 py-1 border border-cyan-600 text-cyan-600 text-xs rounded animate-smooth-pulse" style={{ animationDelay: '0.2s' }}>Secondary</div>
+                  </div>
+                  
+                  {/* Cursor */}
+                  <div className="absolute top-2 right-2 w-3 h-3 border-l-2 border-b-2 border-cyan-600 animate-simple-bounce"></div>
+                </div>
+                
+                {/* Component Library */}
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { name: 'Button', color: 'bg-blue-500' },
+                    { name: 'Input', color: 'bg-green-500' },
+                    { name: 'Card', color: 'bg-purple-500' },
+                    { name: 'Modal', color: 'bg-orange-500' }
+                  ].map((component, i) => (
+                    <div 
+                      key={component.name}
+                      className="text-center p-2 bg-white/30 dark:bg-black/20 rounded animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    >
+                      <div className={`w-6 h-6 ${component.color} rounded mx-auto mb-1`}></div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">{component.name}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'cloud-solutions':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-gray-500/10 to-slate-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Cloud Infrastructure Dashboard */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-gray-700 dark:text-gray-300">Cloud Infrastructure</h3>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-smooth-pulse"></div>
+                    <span className="text-xs text-gray-600">3 Regions Active</span>
+                  </div>
+                </div>
+                
+                {/* Cloud Services Grid */}
+                <div className="grid grid-cols-3 gap-2 mb-4">
+                  {[
+                    { service: 'Compute', instances: '24', status: 'Running', icon: '⚡' },
+                    { service: 'Storage', usage: '2.4TB', status: 'Available', icon: '💾' },
+                    { service: 'Network', bandwidth: '156GB', status: 'Optimal', icon: '🌐' },
+                    { service: 'Database', queries: '1.2M', status: 'Healthy', icon: '🗄️' },
+                    { service: 'Cache', hits: '98.2%', status: 'Efficient', icon: '⚡' },
+                    { service: 'CDN', nodes: '47', status: 'Global', icon: '🌍' }
+                  ].map((item, i) => (
+                    <div 
+                      key={item.service}
+                      className="p-2 bg-white/30 dark:bg-black/20 rounded text-center animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.1}s` }}
+                    >
+                      <div className="text-lg mb-1 animate-simple-bounce" style={{ animationDelay: `${i * 0.2}s` }}>{item.icon}</div>
+                      <div className="text-xs font-medium text-gray-800 dark:text-white">{item.service}</div>
+                      <div className="text-xs font-bold text-gray-700 dark:text-gray-300">{item.instances || item.usage || item.bandwidth || item.queries || item.hits || item.nodes}</div>
+                      <div className="text-xs text-green-600">{item.status}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Resource Usage */}
+                <div className="mb-3">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Resource Utilization</div>
+                  <div className="space-y-2">
+                    {[
+                      { resource: 'CPU', usage: 67, color: 'blue' },
+                      { resource: 'Memory', usage: 45, color: 'green' },
+                      { resource: 'Storage', usage: 78, color: 'orange' },
+                      { resource: 'Network', usage: 34, color: 'purple' }
+                    ].map((resource, i) => (
+                      <div key={resource.resource} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.15}s` }}>
+                        <div className="w-12 text-xs text-gray-600 dark:text-gray-400">{resource.resource}</div>
+                        <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                          <div 
+                            className={`h-1.5 bg-${resource.color}-500 rounded-full animate-progress-fill`}
+                            style={{ 
+                              width: `${resource.usage}%`,
+                              animationDelay: `${i * 0.3}s`,
+                              animationDuration: '2s'
+                            }}
+                          ></div>
+                        </div>
+                        <div className="text-xs font-medium w-8">{resource.usage}%</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Deployment Status */}
+                <div className="grid grid-cols-3 gap-1 text-xs">
+                  {['US-East', 'EU-West', 'Asia-Pacific'].map((region, i) => (
+                    <div 
+                      key={region}
+                      className="text-center p-1 bg-white/20 dark:bg-black/10 rounded animate-fade-in-out"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    >
+                      <div className="text-gray-700 dark:text-gray-300">{region}</div>
+                      <div className="text-green-600 text-xs">Active</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      case 'legal-solutions':
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-amber-500/10 to-yellow-500/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative w-full h-full p-4 flex items-center justify-center">
+              {/* Legal Document Management Interface */}
+              <div className="w-full max-w-md h-full max-h-96 glass-clean rounded-lg p-4 relative overflow-hidden">
+                {/* Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold text-amber-700 dark:text-amber-400">Legal Management</h3>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-amber-500 rounded-full animate-smooth-pulse"></div>
+                    <span className="text-xs text-gray-600">Compliant</span>
+                  </div>
+                </div>
+                
+                {/* Document Types */}
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  {[
+                    { type: 'Contracts', count: '127', status: 'Active', icon: '📄' },
+                    { type: 'Privacy Policy', count: '1', status: 'Updated', icon: '🔒' },
+                    { type: 'Terms of Service', count: '1', status: 'Current', icon: '📋' },
+                    { type: 'NDAs', count: '23', status: 'Signed', icon: '🤐' }
+                  ].map((doc, i) => (
+                    <div 
+                      key={doc.type}
+                      className="p-2 bg-white/30 dark:bg-black/20 rounded animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.15}s` }}
+                    >
+                      <div className="flex items-center space-x-2 mb-1">
+                        <span className="text-sm animate-simple-bounce" style={{ animationDelay: `${i * 0.2}s` }}>{doc.icon}</span>
+                        <span className="text-xs font-medium text-gray-800 dark:text-white">{doc.type}</span>
+                      </div>
+                      <div className="text-sm font-bold text-amber-700 dark:text-amber-400">{doc.count}</div>
+                      <div className="text-xs text-green-600">{doc.status}</div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Compliance Status */}
+                <div className="mb-4">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Compliance Overview</div>
+                  <div className="space-y-2">
+                    {[
+                      { regulation: 'GDPR', compliance: 100, status: 'Compliant' },
+                      { regulation: 'CCPA', compliance: 95, status: 'Review Needed' },
+                      { regulation: 'COPPA', compliance: 100, status: 'Compliant' },
+                      { regulation: 'SOX', compliance: 88, status: 'In Progress' }
+                    ].map((item, i) => (
+                      <div key={item.regulation} className="flex items-center space-x-2 animate-smooth-slide" style={{ animationDelay: `${i * 0.2}s` }}>
+                        <div className="w-10 text-xs text-gray-600 dark:text-gray-400">{item.regulation}</div>
+                        <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
+                          <div 
+                            className={`h-1.5 ${item.compliance === 100 ? 'bg-green-500' : item.compliance >= 95 ? 'bg-yellow-500' : 'bg-orange-500'} rounded-full animate-progress-fill`}
+                            style={{ 
+                              width: `${item.compliance}%`,
+                              animationDelay: `${i * 0.3}s`,
+                              animationDuration: '2s'
+                            }}
+                          ></div>
+                        </div>
+                        <div className="text-xs w-16">{item.compliance}%</div>
+                        <div className={`text-xs ${item.compliance === 100 ? 'text-green-600' : item.compliance >= 95 ? 'text-yellow-600' : 'text-orange-600'}`}>
+                          {item.status}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Recent Legal Activity */}
+                <div className="space-y-1">
+                  <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">Recent Activity</div>
+                  {[
+                    { activity: 'Contract Review Complete', time: '2h ago', type: 'contract' },
+                    { activity: 'Privacy Policy Updated', time: '1d ago', type: 'policy' },
+                    { activity: 'NDA Template Created', time: '3d ago', type: 'template' }
+                  ].map((item, i) => (
+                    <div 
+                      key={i}
+                      className="flex items-center justify-between text-xs p-2 bg-white/20 dark:bg-black/10 rounded animate-smooth-slide"
+                      style={{ animationDelay: `${i * 0.2}s` }}
+                    >
+                      <div className="flex items-center space-x-2">
+                        <div className="w-1.5 h-1.5 bg-amber-500 rounded-full"></div>
+                        <span className="text-gray-700 dark:text-gray-300">{item.activity}</span>
+                      </div>
+                      <span className="text-gray-500">{item.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      
+      default:
+        return (
+          <div className="relative w-full h-full bg-gradient-to-br from-[#FF4D00]/10 to-primary-light/5 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="w-16 h-16 border-4 border-[#FF4D00] rounded-full animate-clean-rotate"></div>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className={className}>
+      {getAnimation(serviceId)}
+    </div>
+  );
+};
 
 // Service detail data
 const serviceDetails = [
@@ -436,13 +1479,9 @@ export default function Services() {
                   <div
                     className={`${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'} relative h-[400px] md:h-[500px] lg:h-[600px] w-full rounded-xl overflow-hidden group shadow-lg`}
                   >
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                      style={{ objectFit: 'cover' }}
-                      className="group-hover:scale-105 transition-transform duration-700"
+                    <ServiceAnimation
+                      serviceId={service.id}
+                      className="w-full h-full group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
                 </div>
@@ -522,10 +1561,10 @@ export default function Services() {
             className="w-full"
           >
             {/* Enhanced glassmorphism CTA card */}
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/25 dark:border-white/15 relative overflow-hidden group hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/35 dark:hover:border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 shadow-xl w-full">
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/25 dark:border-white/15 relative overflow-hidden group shadow-xl hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/35 dark:hover:border-white/20 hover:shadow-[0_20px_50px_rgba(255,77,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(255,77,0,0.2)] w-full transition-all duration-500">
               {/* Floating decorative elements */}
-              <div className="absolute -top-6 -right-6 w-36 h-36 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-700"></div>
-              <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-700"></div>
+              <div className="absolute -top-6 -right-6 w-36 h-36 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-500"></div>
+              <div className="absolute -bottom-6 -left-6 w-28 h-28 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-500"></div>
               
               <div className="relative z-10 text-center w-full">
                 <motion.div
@@ -533,7 +1572,7 @@ export default function Services() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                 >
                   <span>✨</span>
                   <span>TRANSFORM YOUR BUSINESS</span>
@@ -541,17 +1580,17 @@ export default function Services() {
                 
                 <AnimatedTitle 
                   title="Ready to Transform Your Business?"
-                  className="text-3xl md:text-5xl lg:text-6xl mb-6 font-technor text-black dark:text-white group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500"
+                  className="text-3xl md:text-5xl lg:text-6xl mb-6 font-technor text-black dark:text-white"
                 />
                 
-                <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 text-lg md:text-xl font-pilcrow leading-relaxed group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 text-lg md:text-xl font-pilcrow leading-relaxed">
                   Let's discuss how our services can help you achieve your business goals and create a standout digital presence that drives results.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 w-full">
                   <Button 
                     href="/contact" 
-                    className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                     size="lg"
                   >
                     Get in Touch
@@ -559,7 +1598,7 @@ export default function Services() {
                   <Button 
                     href="/portfolio" 
                     variant="outline"
-                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-500"
                     size="lg"
                   >
                     View Our Work
@@ -591,11 +1630,11 @@ export default function Services() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.4 + index * 0.1 }}
-                      className="text-center p-4 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+                      className="text-center p-4 rounded-xl bg-white/10 dark:bg-white/5 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
                     >
-                      <div className="text-2xl mb-3 hover:scale-110 transition-transform duration-300">{highlight.icon}</div>
-                      <h3 className="font-technor text-black dark:text-white mb-2 hover:text-[#FF4D00] dark:hover:text-[#FF4D00] transition-colors duration-300">{highlight.title}</h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow hover:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300">{highlight.description}</p>
+                      <div className="text-2xl mb-3 hover:scale-110 transition-all duration-500">{highlight.icon}</div>
+                      <h3 className="font-technor text-black dark:text-white mb-2">{highlight.title}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow">{highlight.description}</p>
                     </motion.div>
                   ))}
                 </div>

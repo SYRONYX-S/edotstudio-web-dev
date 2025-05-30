@@ -294,10 +294,10 @@ export default function Portfolio() {
             className="w-full"
           >
             {/* Enhanced glassmorphism CTA card */}
-            <div className="bg-white/12 dark:bg-white/6 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/25 dark:border-white/15 relative overflow-hidden group hover:bg-white/18 dark:hover:bg-white/10 hover:border-white/35 dark:hover:border-white/20 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 shadow-xl w-full">
+            <div className="bg-white/12 dark:bg-white/6 backdrop-blur-2xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/25 dark:border-white/15 relative overflow-hidden group shadow-xl hover:bg-white/18 dark:hover:bg-white/10 hover:border-white/35 dark:hover:border-white/20 hover:shadow-[0_20px_50px_rgba(255,77,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(255,77,0,0.2)] w-full transition-all duration-500">
               {/* Floating decorative elements */}
-              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-700"></div>
-              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-700"></div>
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#FF4D00]/20 rounded-full blur-xl group-hover:bg-[#FF4D00]/25 group-hover:scale-110 transition-all duration-500"></div>
+              <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-primary-light/20 rounded-full blur-xl group-hover:bg-primary-light/25 group-hover:scale-110 transition-all duration-500"></div>
               
               <div className="relative z-10 text-center w-full">
                 <motion.div
@@ -305,40 +305,40 @@ export default function Portfolio() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2 }}
-                  className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-[#FF4D00] text-white px-6 py-3 rounded-full text-sm font-medium mb-8 font-pilcrow shadow-lg hover:bg-[#FF4D00]/90 hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                 >
                   <span>🎨</span>
                   <span>START YOUR PROJECT</span>
                 </motion.div>
                 
-                <h2 className="text-4xl md:text-6xl lg:text-7xl font-technor mb-8 text-black dark:text-white leading-tight group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500">
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-technor mb-8 text-black dark:text-white leading-tight">
                   Ready to Transform Your <br />
-                  <span className="text-[#FF4D00] group-hover:text-primary-light transition-colors duration-500">Digital Presence?</span>
+                  <span className="text-[#FF4D00]">Digital Presence?</span>
                 </h2>
                 
-                <p className="text-gray-700 dark:text-gray-300 mb-12 max-w-3xl mx-auto text-lg md:text-xl font-pilcrow leading-relaxed group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                <p className="text-gray-700 dark:text-gray-300 mb-12 max-w-3xl mx-auto text-lg md:text-xl font-pilcrow leading-relaxed">
                   Let's collaborate to bring your vision to life. Our team of experts is ready to help you create something extraordinary that stands out in the digital landscape.
                 </p>
                 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16 w-full">
                   <Link
                     href="/contact"
-                    className="group flex items-center gap-2 bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 font-pilcrow"
+                    className="group flex items-center gap-2 bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-500"
                   >
                     Start a Project
-                    <RiArrowRightUpLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <RiArrowRightUpLine className="text-2xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-500" />
                   </Link>
                   <Link
                     href="/about"
-                    className="group flex items-center gap-2 bg-white/10 dark:bg-white/5 hover:bg-white/15 dark:hover:bg-white/10 text-gray-700 dark:text-white px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 backdrop-blur-sm border border-white/20 dark:border-white/10 hover:border-white/30 dark:hover:border-white/15 hover:scale-105 hover:-translate-y-1 font-pilcrow"
+                    className="group flex items-center gap-2 bg-white/10 dark:bg-white/5 hover:bg-white/15 dark:hover:bg-white/10 text-gray-700 dark:text-white px-8 py-4 rounded-full text-lg font-medium backdrop-blur-sm border border-white/20 dark:border-white/10 hover:border-white/30 dark:hover:border-white/15 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-500"
                   >
                     Learn More About Us
-                    <RiArrowRightLine className="text-2xl transition-transform duration-300 group-hover:translate-x-1" />
+                    <RiArrowRightLine className="text-2xl group-hover:translate-x-1 transition-all duration-500" />
                   </Link>
                 </div>
 
                 {/* Enhanced Stats Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-white/10 group-hover:border-gray-300 dark:group-hover:border-white/20 transition-colors duration-300 w-full">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-white/10 group-hover:border-gray-300 dark:group-hover:border-white/20 w-full transition-all duration-500">
                   {[
                     { number: '150+', label: 'Projects Completed' },
                     { number: '50+', label: 'Happy Clients' },
@@ -351,10 +351,10 @@ export default function Portfolio() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.4 + index * 0.1 }}
-                      className="text-center group/stat p-4 rounded-xl bg-white/5 dark:bg-white/3 backdrop-blur-sm border border-white/10 dark:border-white/5 hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/20 dark:hover:border-white/10 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-300"
+                      className="text-center group/stat p-4 rounded-xl bg-white/5 dark:bg-white/3 backdrop-blur-sm border border-white/10 dark:border-white/5 hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/20 dark:hover:border-white/10 hover:transform hover:scale-105 hover:-translate-y-2 transition-all duration-500"
                     >
-                      <div className="text-3xl md:text-4xl font-bold text-[#FF4D00] mb-2 group-hover/stat:scale-110 group-hover/stat:text-[#FF6B00] transition-all duration-300">{stat.number}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow group-hover/stat:text-gray-500 dark:group-hover/stat:text-gray-300 transition-colors duration-300">{stat.label}</div>
+                      <div className="text-3xl md:text-4xl font-bold text-[#FF4D00] mb-2 transition-all duration-500">{stat.number}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>

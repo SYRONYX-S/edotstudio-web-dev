@@ -981,22 +981,22 @@ export default function Home() {
              className="w-full"
            >
             {/* Main CTA Card */}
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/20 dark:border-white/10 relative overflow-hidden group hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:shadow-2xl hover:scale-[1.02] transition-all duration-500 w-full">
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-3xl p-8 md:p-12 lg:p-16 border border-white/20 dark:border-white/10 relative overflow-hidden group shadow-lg hover:bg-white/15 dark:hover:bg-white/8 hover:border-white/30 dark:hover:border-white/15 hover:shadow-[0_20px_50px_rgba(255,77,0,0.15)] dark:hover:shadow-[0_20px_50px_rgba(255,77,0,0.2)] w-full transition-all duration-500">
               {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF4D00]/10 rounded-full blur-2xl group-hover:bg-[#FF4D00]/15 group-hover:scale-110 transition-all duration-700"></div>
-              <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary-light/10 rounded-full blur-2xl group-hover:bg-primary-light/15 group-hover:scale-110 transition-all duration-700"></div>
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF4D00]/10 rounded-full blur-2xl group-hover:bg-[#FF4D00]/15 group-hover:scale-110 transition-all duration-500"></div>
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary-light/10 rounded-full blur-2xl group-hover:bg-primary-light/15 group-hover:scale-110 transition-all duration-500"></div>
               
               <div className="relative z-10 text-center w-full">
-                <div className="inline-block bg-[#FF4D00] text-white px-6 py-2 rounded-full text-sm font-medium mb-6 font-pilcrow hover:bg-[#FF4D00]/90 hover:scale-105 transition-all duration-300">
+                <div className="inline-block bg-[#FF4D00] text-white px-6 py-2 rounded-full text-sm font-medium mb-6 font-pilcrow hover:bg-[#FF4D00]/90 hover:scale-105 transition-all duration-500">
                   READY TO START?
                 </div>
                 
                 <AnimatedTitle 
                   title="Let's Create the Future Together"
-                  className="text-3xl md:text-5xl lg:text-6xl mb-6 font-technor text-black dark:text-white group-hover:text-[#FF4D00] dark:group-hover:text-[#FF4D00] transition-colors duration-500"
+                  className="text-3xl md:text-5xl lg:text-6xl mb-6 font-technor text-black dark:text-white"
                 />
                 
-                <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 text-lg md:text-xl font-pilcrow group-hover:text-gray-600 dark:group-hover:text-gray-200 transition-colors duration-300">
+                <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-10 text-lg md:text-xl font-pilcrow">
                   Ready to elevate your digital presence? Partner with us to transform your vision into reality with cutting-edge technology and creative excellence.
                 </p>
                 
@@ -1004,7 +1004,7 @@ export default function Home() {
                   <Button 
                     href="/contact" 
                     size="lg"
-                    className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300"
+                    className="bg-[#FF4D00] hover:bg-[#FF4D00]/90 text-white font-pilcrow shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                     icon={<RiArrowRightLine />}
                   >
                     Get in Touch
@@ -1013,7 +1013,7 @@ export default function Home() {
                     href="/portfolio" 
                     variant="outline"
                     size="lg"
-                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-500"
                   >
                     View Our Work
                   </Button>
@@ -1021,7 +1021,7 @@ export default function Home() {
                     href="/partner" 
                     variant="outline"
                     size="lg"
-                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-300"
+                    className="border-gray-300 dark:border-white/30 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-400 dark:hover:border-white/40 hover:scale-105 hover:-translate-y-1 font-pilcrow transition-all duration-500"
                     icon={<Users className="w-5 h-5" />}
                   >
                     Partner With Us
@@ -1029,7 +1029,7 @@ export default function Home() {
                 </div>
                 
                 {/* Trust indicators */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-white/10 group-hover:border-gray-300 dark:group-hover:border-white/20 transition-colors duration-300 w-full">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-gray-200 dark:border-white/10 transition-all duration-500 group-hover:border-gray-300 dark:group-hover:border-white/20 w-full">
                   {[
                     { number: '150+', label: 'Projects Delivered' },
                     { number: '50+', label: 'Happy Clients' },
@@ -1042,10 +1042,10 @@ export default function Home() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1 }}
-                      className="text-center group/stat hover:transform hover:scale-110 hover:-translate-y-2 transition-all duration-300"
+                      className="text-center group/stat hover:transform hover:scale-110 hover:-translate-y-2 transition-all duration-500"
                     >
-                      <div className="text-2xl md:text-3xl font-bold text-[#FF4D00] mb-1 group-hover/stat:scale-110 group-hover/stat:text-[#FF6B00] transition-all duration-300">{stat.number}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow group-hover/stat:text-gray-500 dark:group-hover/stat:text-gray-300 transition-colors duration-300">{stat.label}</div>
+                      <div className="text-2xl md:text-3xl font-bold text-[#FF4D00] mb-1 transition-all duration-500">{stat.number}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 font-pilcrow">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>
