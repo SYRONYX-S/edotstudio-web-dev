@@ -100,7 +100,7 @@ const services: Record<string, Service> = {
     faq: [
       {
         question: 'How long does it take to build a website?',
-        answer: 'The timeline for a website project depends on its complexity. A basic informational website might take 4-6 weeks, while a complex e-commerce platform or web application could take 3-6 months. We'll provide a detailed timeline during the planning phase.'
+        answer: 'The timeline for a website project depends on its complexity. A basic informational website might take 4-6 weeks, while a complex e-commerce platform or web application could take 3-6 months. We\'ll provide a detailed timeline during the planning phase.'
       },
       {
         question: 'Do you offer website maintenance services?',
@@ -108,7 +108,7 @@ const services: Record<string, Service> = {
       },
       {
         question: 'Can you redesign my existing website?',
-        answer: 'Absolutely! We specialize in website redesigns that improve both aesthetics and functionality. We'll evaluate your current website, identify areas for improvement, and develop a plan to enhance your online presence while preserving your brand identity.'
+        answer: 'Absolutely! We specialize in website redesigns that improve both aesthetics and functionality. We\'ll evaluate your current website, identify areas for improvement, and develop a plan to enhance your online presence while preserving your brand identity.'
       }
     ],
     relatedProjects: ['minar-tmt', 'khayal-media'],
@@ -185,7 +185,7 @@ const services: Record<string, Service> = {
     faq: [
       {
         question: 'Should I build a native or cross-platform app?',
-        answer: 'The choice depends on your specific requirements. Native apps offer the best performance and access to platform-specific features but require separate development for iOS and Android. Cross-platform solutions like React Native or Flutter provide cost efficiency and faster development while still delivering near-native experiences. We'll help you determine the best approach based on your goals, budget, and timeline.'
+        answer: 'The choice depends on your specific requirements. Native apps offer the best performance and access to platform-specific features but require separate development for iOS and Android. Cross-platform solutions like React Native or Flutter provide cost efficiency and faster development while still delivering near-native experiences. We\'ll help you determine the best approach based on your goals, budget, and timeline.'
       },
       {
         question: 'How much does it cost to develop a mobile app?',
