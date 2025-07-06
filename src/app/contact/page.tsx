@@ -53,29 +53,38 @@ export default function Contact() {
   };
 
   const contactInfo = [
-    { icon: Mail, title: 'Email Us', details: 'info@edotstudio.com', link: 'mailto:info@edotstudio.com' },
-    { icon: Phone, title: 'Call Us', details: '+1 (234) 567-890', link: 'tel:+1234567890' },
-    { icon: MapPin, title: 'Find Us', details: '123 Business St, New York, NY', link: '#' }, // Link to map placeholder or actual map
+    { icon: Mail, title: 'Email Us', details: 'contact.edotstudio@gmail.com', link: 'mailto:contact.edotstudio@gmail.com' },
+    { 
+      icon: Phone, 
+      title: 'Call Us', 
+      details: '+91 6282381374, +91 8304081013, +91 9188108310', 
+      link: 'tel:+916282381374',
+      additionalNumbers: [
+        { number: '+91 8304081013', link: 'tel:+918304081013' },
+        { number: '+91 9188108310', link: 'tel:+919188108310' }
+      ]
+    },
+    { icon: MapPin, title: 'Find Us', details: 'Serving Clients Globally', link: '#' },
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Twitter, href: 'https://twitter.com/edotstudio', label: 'Twitter' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/edotstudio', label: 'LinkedIn' },
+    { icon: Facebook, href: 'https://www.facebook.com/edotstudio', label: 'Facebook' },
+    { icon: Instagram, href: 'https://www.instagram.com/edotstudio', label: 'Instagram' },
   ];
 
   const contactStructuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",
     "url": "https://edotstudio.com/contact",
-    "name": "Contact EdotStudio",
-    "description": "Get in touch with EdotStudio for web development, app development, branding, and marketing services.",
+    "name": "Contact EdotStudio - Complete Business Solutions Agency",
+    "description": "Get in touch with EdotStudio for comprehensive business solutions including web development, app development, marketing, legal services, and business consulting.",
     "mainEntity": {
       "@type": "Organization",
       "name": "EdotStudio",
-      "telephone": "+1-123-456-7890",
-      "email": "info@edotstudio.com"
+      "telephone": ["+916282381374", "+918304081013", "+919188108310"],
+      "email": "contact.edotstudio@gmail.com"
     }
   };
 
@@ -83,8 +92,8 @@ export default function Contact() {
     <main className="relative contact-page">
       <PageHero
         badge="Get In Touch"
-        title="Let's Build Something Great Together"
-        description="Reach out to discuss your project, ask questions, or just say hello. We're here to help you succeed."
+        title="Let's Transform Your Business Together"
+        description="Ready to take your business to the next level? Contact our team of experts for comprehensive business solutions tailored to your needs."
       />
 
       <section className="py-16 md:py-20 -mt-10 md:-mt-16 relative z-10">
@@ -193,6 +202,25 @@ export default function Contact() {
                       </div>
                       <div>
                         <h4 className="text-md font-semibold text-gray-700 dark:text-gray-200 group-hover:text-primary transition-colors duration-300">{item.title}</h4>
+                        {item.title === 'Call Us' ? (
+                          <div className="space-y-1">
+                            <a 
+                              href={item.link} 
+                              className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:underline transition-all duration-300 font-pilcrow block"
+                            >
+                              +91 6282381374
+                            </a>
+                            {item.additionalNumbers?.map((phone, idx) => (
+                              <a 
+                                key={idx}
+                                href={phone.link} 
+                                className="text-sm text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary hover:underline transition-all duration-300 font-pilcrow block"
+                              >
+                                {phone.number}
+                              </a>
+                            ))}
+                          </div>
+                        ) : (
                         <a 
                           href={item.link} 
                           target="_blank" 
@@ -201,6 +229,7 @@ export default function Contact() {
                         >
                           {item.details}
                         </a>
+                        )}
                       </div>
                     </li>
                   ))}

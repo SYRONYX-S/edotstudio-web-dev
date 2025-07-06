@@ -166,7 +166,7 @@ export default function Terms() {
                   These terms of service are subject to change without notice. We recommend reviewing these terms periodically to stay informed about any updates.
                 </p>
                 <p className="text-white/80 font-pilcrow">
-                  By engaging our services, you agree to these terms and conditions. If you have any questions, please contact us at contact@edotstudio.com
+                  By engaging our services, you agree to these terms and conditions. If you have any questions, please contact us at contact.edotstudio@gmail.com
                 </p>
                 <p className="text-white/80 font-pilcrow">
                   Last updated: 8 April 2025

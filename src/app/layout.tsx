@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import { Inter } from 'next/font/google';
 import ClientLayout from "@/components/ClientLayout";
+import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 
 // Load local fonts
 const roundo = localFont({
@@ -100,9 +101,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: {
     template: '%s | EdotStudio - Custom Web & App Development Agency',
-    default: 'EdotStudio - Premium Web Development & Digital Solutions Agency',
+    default: 'EdotStudio - Website Under Maintenance | Premium Web Development & Digital Solutions Agency',
   },
-  description: 'EdotStudio is a premier website development agency specializing in custom web design, responsive development, app creation, branding & digital strategy. Our expert team builds conversion-focused websites that drive business growth.',
+  description: 'EdotStudio website is currently under maintenance. We are revamping our site to bring you an even better experience. Contact us directly for immediate assistance with web development, app development, and digital solutions.',
   keywords: [
     'website development',
     'professional web design',
@@ -119,6 +120,8 @@ export const metadata: Metadata = {
     'enterprise web solutions',
     'digital transformation',
     'e-commerce websites',
+    'website maintenance',
+    'under construction'
   ],
   authors: [{ name: 'EdotStudio Team' }],
   metadataBase: new URL('https://edotstudio.com'),
@@ -126,10 +129,10 @@ export const metadata: Metadata = {
   creator: 'EdotStudio',
   publisher: 'EdotStudio',
   robots: {
-    index: true,
+    index: false,
     follow: true,
     googleBot: {
-      index: true,
+      index: false,
       follow: true,
       'max-image-preview': 'large',
       'max-video-preview': -1,
@@ -140,22 +143,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://edotstudio.com/',
-    title: 'EdotStudio - Premium Web & App Development Agency',
-    description: 'EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.',
+    title: 'EdotStudio - Website Under Maintenance | Premium Web & App Development Agency',
+    description: 'EdotStudio website is currently under maintenance. We are revamping our site to bring you an even better experience. Contact us directly for immediate assistance.',
     siteName: 'EdotStudio',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'EdotStudio Preview',
+        alt: 'EdotStudio - Website Under Maintenance',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdotStudio - Premium Web & App Development Agency',
-    description: 'EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.',
+    title: 'EdotStudio - Website Under Maintenance | Premium Web & App Development Agency',
+    description: 'EdotStudio website is currently under maintenance. Contact us directly for immediate assistance with web development and digital solutions.',
     images: ['/images/twitter-image.jpg'],
     creator: '@edotstudio',
   },
@@ -202,6 +205,7 @@ export default function RootLayout({
       </head>
       <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
         <ClientLayout>{children}</ClientLayout>
+        <MaintenanceOverlay />
       </body>
     </html>
   );

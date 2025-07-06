@@ -37,14 +37,15 @@ export default function FloatingButtons() {
         >
           {/* WhatsApp Button */}
           <motion.a
-            href="https://wa.me/1234567890" // Replace with your WhatsApp number
+            href="https://wa.me/918304081013" // Updated WhatsApp number
             target="_blank"
             rel="noopener noreferrer"
+            className="group flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 relative overflow-hidden"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="w-10 h-10 flex items-center justify-center bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
+            aria-label="Contact us on WhatsApp"
           >
-            <span className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/40 to-primary-light/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></span>
             <RiWhatsappLine className="w-5 h-5 text-primary-light dark:text-primary-light relative z-10" />
           </motion.a>
 

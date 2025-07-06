@@ -31,16 +31,16 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "EdotStudio",
-  "description": "EdotStudio is a top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.",
+  "description": "EdotStudio is a comprehensive business solutions agency providing web development, app development, branding, digital marketing, legal services, software solutions, and complete business consulting services.",
   "image": "https://edotstudio.com/images/og-image.jpg",
   "url": "https://edotstudio.com",
-  "telephone": "+1-123-456-7890",
+  "telephone": ["+916282381374", "+918304081013", "+919188108310"],
+  "email": "contact.edotstudio@gmail.com",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "City",
-    "addressRegion": "Region",
-    "postalCode": "Postal Code",
-    "addressCountry": "Country"
+    "addressLocality": "Global",
+    "addressRegion": "Worldwide",
+    "addressCountry": "Multiple Countries"
   },
   "priceRange": "$$",
   "openingHours": "Mo-Fr 09:00-17:00",
@@ -63,28 +63,72 @@ const structuredData = {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "Web Development"
+        "name": "Web Development Services",
+        "description": "Custom website development and responsive web design"
       }
     },
     {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "App Development"
+        "name": "Mobile App Development",
+        "description": "Native and cross-platform mobile application development"
       }
     },
     {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "Branding"
+        "name": "Software Development",
+        "description": "Custom software solutions and enterprise applications"
       }
     },
     {
       "@type": "Offer",
       "itemOffered": {
         "@type": "Service",
-        "name": "Marketing"
+        "name": "Digital Marketing Services",
+        "description": "SEO, social media marketing, and digital advertising"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Branding Services",
+        "description": "Brand identity design and brand strategy development"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Legal Services",
+        "description": "Business legal compliance and documentation services"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "UI/UX Design",
+        "description": "User interface and user experience design services"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Cloud Solutions",
+        "description": "Cloud infrastructure and deployment services"
+      }
+    },
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Business Consulting",
+        "description": "Strategic business consulting and digital transformation"
       }
     }
   ]
@@ -292,7 +336,7 @@ export default function Home() {
                 translateY: { type: "spring", damping: 15 }
               }}
             >
-              <h1 className="sr-only">EdotStudio - Premium Web & App Development Agency</h1>
+              <h1 className="sr-only">EdotStudio - Complete Business Solutions Agency</h1>
               
               {/* Badge positioned toward the top left */}
               <div className="mb-0 mt-[44px]">

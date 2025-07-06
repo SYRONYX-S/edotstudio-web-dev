@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
             </Link>
             
             <p className="text-gray-400 mb-6 font-pilcrow">
-              Top-tier digital solutions agency specializing in branding, marketing, web/app/software development, and graphic design.
+              Complete business solutions agency providing web development, app development, marketing, legal services, and comprehensive business consulting to transform and grow your business.
             </p>
             
             <div className="flex items-center space-x-4 mb-6">
@@ -197,15 +197,9 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Email Us</p>
-                  <motion.a 
-                    href="mailto:info@edotstudio.com" 
-                    className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
-                    whileHover={{ x: 5 }}
-                  >
-                    <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
-                      info@edotstudio.com
-                    </span>
-                  </motion.a>
+                  <a href="mailto:contact.edotstudio@gmail.com" className="text-gray-400 hover:text-white transition-colors duration-300">
+                    contact.edotstudio@gmail.com
+                  </a>
                 </div>
               </li>
               <li className="flex items-start group">
@@ -214,15 +208,37 @@ const Footer: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-gray-200 font-medium mb-0.5">Call Us</p>
-                  <motion.a 
-                    href="tel:+1234567890" 
-                    className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
-                    whileHover={{ x: 5 }}
-                  >
-                    <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
-                      +1 (234) 567-890
-                    </span>
-                  </motion.a>
+                  <div className="space-y-1">
+                    <motion.a 
+                      href="tel:+916282381374" 
+                      className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
+                      whileHover={{ x: 5 }}
+                    >
+                      <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
+                        +91 6282381374
+                      </span>
+                    </motion.a>
+                    <br />
+                    <motion.a 
+                      href="tel:+918304081013" 
+                      className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
+                      whileHover={{ x: 5 }}
+                    >
+                      <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
+                        +91 8304081013
+                      </span>
+                    </motion.a>
+                    <br />
+                    <motion.a 
+                      href="tel:+919188108310" 
+                      className="text-gray-400 hover:text-primary transition-all duration-300 inline-block"
+                      whileHover={{ x: 5 }}
+                    >
+                      <span className="relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-px after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">
+                        +91 9188108310
+                      </span>
+                    </motion.a>
+                  </div>
                 </div>
               </li>
               <li className="flex items-start group">

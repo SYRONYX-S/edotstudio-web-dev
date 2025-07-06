@@ -1373,13 +1373,23 @@ export default function Services() {
     <main className="relative services-page min-h-screen">
       <PageHero
         badge="Our Services"
-        title="Comprehensive Digital Solutions"
-        description="Explore our wide range of services designed to elevate your brand and drive business growth, from strategy to execution."
+        title="Complete Business Solutions Under One Roof"
+        description="From web development and app creation to marketing, legal services, and business consulting - we provide comprehensive solutions to transform and grow your business through our expert in-house team and trusted partner network."
       />
 
       {/* Services Overview */}
       <section className="py-20 bg-white dark:bg-dark-200">
         <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="uppercase font-pilcrow inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
+              Complete Business Solutions
+            </div>
+            <h2 className="text-2xl md:text-4xl font-technor text-black dark:text-white mb-4">Everything Your Business Needs to Succeed</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-pilcrow">
+              EdotStudio is your one-stop business solutions agency. We combine our core technical expertise with a curated network of specialized partners to deliver comprehensive services that drive business growth and digital transformation.
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {services.map((service, index) => {
               const IconComponent = service.icon;

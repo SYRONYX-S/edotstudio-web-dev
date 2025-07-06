@@ -15,8 +15,8 @@ import StructuredData from '@/components/StructuredData';
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
-  "name": "About EdotStudio",
-  "description": "Learn about EdotStudio's unique approach combining in-house technical excellence with a curated network of specialized agency partners.",
+  "name": "About EdotStudio - Complete Business Solutions Agency",
+  "description": "Learn about EdotStudio's comprehensive business solutions approach, combining in-house technical excellence with specialized partner services for complete business transformation.",
   "publisher": {
     "@type": "Organization",
     "name": "EdotStudio",
@@ -28,14 +28,16 @@ const structuredData = {
   "mainEntity": {
     "@type": "Organization",
     "name": "EdotStudio",
-    "description": "EdotStudio is a digital solutions hub that combines in-house technical expertise with a curated network of specialized agency partners to deliver comprehensive business solutions.",
+    "description": "EdotStudio is a complete business solutions agency that combines in-house technical expertise with a curated network of specialized partners to deliver comprehensive services including web development, app development, marketing, legal services, and business consulting.",
     "foundingDate": "2022-02",
     "numberOfEmployees": {
       "@type": "QuantitativeValue",
       "value": "10+"
     },
     "image": "https://edotstudio.com/images/hero/about-hero.jpg",
-    "award": "95% Client Satisfaction Rate"
+    "award": "95% Client Satisfaction Rate",
+    "telephone": ["+916282381374", "+918304081013", "+919188108310"],
+    "email": "contact.edotstudio@gmail.com"
   }
 };
 
@@ -104,10 +106,10 @@ export default function About() {
                 ABOUT US
               </div>
               <h1 className="text-4xl md:text-7xl mb-6 font-technor text-black dark:text-white">
-                Redefining Digital Solutions
+                Your Complete Business Partner
               </h1>
               <p className="text-gray-700 dark:text-gray-300 max-w-3xl mx-auto text-lg mb-12 font-pilcrow">
-                We're pioneering a new approach to digital services by combining our core technical expertise with a carefully curated network of specialized agency partners.
+                We're revolutionizing business solutions by combining our core technical expertise with a carefully curated network of specialized partners to provide everything your business needs under one roof.
               </p>
             </motion.div>
           </div>
@@ -127,16 +129,16 @@ export default function About() {
                   <div className="inline-block bg-[#FF4D00] text-white px-4 py-1 rounded-full text-sm font-medium mb-4">
                     OUR STORY
                   </div>
-                  <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Innovation Through Integration</h2>
+                  <h2 className="text-3xl md:text-4xl font-technor text-black dark:text-white">Complete Business Solutions Revolution</h2>
                   <div className="space-y-4 text-gray-700 dark:text-gray-300 font-pilcrow">
                     <p>
-                      Founded in February 2022, EdotStudio began with a vision to revolutionize how businesses access digital services. We recognized that while specialized expertise is crucial, businesses need comprehensive solutions without the complexity of managing multiple vendors.
+                      Founded in February 2022, EdotStudio began with a vision to revolutionize how businesses access comprehensive solutions. We recognized that while specialized expertise is crucial, businesses need one trusted partner for all their growth needs.
                     </p>
                     <p>
-                      Today, we've built a unique model that combines our core technical excellence in web, app, and software development with a carefully vetted network of specialized agency partners. This approach allows us to deliver both depth and breadth in digital solutions.
+                      Today, we've built a unique model that combines our core technical excellence in web, app, and software development with a carefully vetted network of specialized partners providing marketing, legal services, business consulting, and more.
                     </p>
                     <p>
-                      Our in-house team focuses on what we do best - delivering exceptional technical solutions - while our partner network provides specialized services in their respective domains, all managed seamlessly through a single point of contact.
+                      Our approach ensures businesses get the best of both worlds - deep technical expertise from our in-house team and specialized services from industry leaders, all managed seamlessly through a single point of contact.
                     </p>
                   </div>
                 </motion.div>

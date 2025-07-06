@@ -157,7 +157,7 @@ export default function CookiePolicy() {
               </div>
               <div className="space-y-4">
                 <p className="text-white/80 font-pilcrow">
-                  For more information about cookies and how to manage them, please visit our Privacy Policy page or contact us at contact@edotstudio.com
+                  For more information about cookies and how to manage them, please visit our Privacy Policy page or contact us at contact.edotstudio@gmail.com
                 </p>
                 <p className="text-white/80 font-pilcrow">
                   By using our website, you consent to the use of cookies as described in this policy.

@@ -64,8 +64,8 @@ export default function Privacy() {
       icon: <Mail className="w-6 h-6 text-primary" />,
       title: "Contact Us",
       content: [
-        "For privacy-related inquiries: contact@edotstudio.com",
-        "For data access requests: contact@edotstudio.com",
+        "For privacy-related inquiries: contact.edotstudio@gmail.com",
+        "For data access requests: contact.edotstudio@gmail.com",
         "Last updated: 8 April 2025"
       ]
     }
