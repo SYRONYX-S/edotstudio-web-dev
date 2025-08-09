@@ -3,7 +3,6 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import { Inter } from 'next/font/google';
 import ClientLayout from "@/components/ClientLayout";
-import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 
 // Load local fonts
 const roundo = localFont({
@@ -205,7 +204,6 @@ export default function RootLayout({
       </head>
       <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
         <ClientLayout>{children}</ClientLayout>
-        <MaintenanceOverlay />
       </body>
     </html>
   );

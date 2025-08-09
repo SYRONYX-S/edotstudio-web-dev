@@ -6,15 +6,10 @@ import Button from './Button';
 
 const textVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
+  visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.8,
-      ease: [0.43, 0.13, 0.23, 0.96]
-    }
-  })
+  }
 };
 
 const waveVariants = {
@@ -22,10 +17,6 @@ const waveVariants = {
   visible: {
     pathLength: 1,
     opacity: 1,
-    transition: {
-      duration: 1.5,
-      ease: "easeInOut"
-    }
   }
 };
 
@@ -45,6 +36,7 @@ export default function Hero() {
               viewBox="0 0 100 20"
               className="w-24 h-6 mx-auto mb-8 text-primary"
               variants={waveVariants}
+              transition={{ duration: 1.5 }}
             >
               <motion.path
                 d="M0 10 Q25 0, 50 10 T100 10"
@@ -52,28 +44,29 @@ export default function Hero() {
                 stroke="currentColor"
                 strokeWidth="2"
                 variants={waveVariants}
+                transition={{ duration: 1.5 }}
               />
             </motion.svg>
 
             <motion.h1
-              custom={0}
               variants={textVariants}
+              transition={{ delay: 0, duration: 0.8 }}
               className="text-4xl md:text-6xl font-bold leading-tight"
             >
               Crafting Digital Excellence
             </motion.h1>
 
             <motion.p
-              custom={1}
               variants={textVariants}
+              transition={{ delay: 0.1, duration: 0.8 }}
               className="text-xl md:text-2xl text-gray-600 dark:text-gray-300"
             >
               We combine creativity and technology to deliver exceptional digital solutions that drive results for your business.
             </motion.p>
 
             <motion.div
-              custom={2}
               variants={textVariants}
+              transition={{ delay: 0.2, duration: 0.8 }}
               className="flex flex-wrap justify-center gap-4"
             >
               <Button href="/contact" variant="default" size="lg">

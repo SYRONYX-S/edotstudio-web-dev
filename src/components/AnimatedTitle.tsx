@@ -33,10 +33,13 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
   // Animation variants for staggered words
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: (i = 1) => ({
+    visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: delay * i }
-    })
+      transition: { 
+        staggerChildren: 0.12, 
+        delayChildren: delay
+      }
+    }
   };
 
   const staggerChild = {
@@ -47,11 +50,6 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: 'spring',
-        damping: 12,
-        stiffness: 100
-      }
     }
   };
 
@@ -72,10 +70,6 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
     visible: { 
       y: 0,
       opacity: 1,
-      transition: { 
-        duration: 0.8,
-        ease: "easeOut"
-      }
     }
   };
 

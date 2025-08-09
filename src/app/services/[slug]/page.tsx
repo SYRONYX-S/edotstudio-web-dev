@@ -1,9 +1,6 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { RiArrowLeftLine, RiCheckLine, RiArrowRightLine } from 'react-icons/ri';
 import { FaCode, FaMobileAlt, FaCogs, FaPalette, FaMegaport, FaBalanceScale } from 'react-icons/fa';
 import { IconType } from 'react-icons';
