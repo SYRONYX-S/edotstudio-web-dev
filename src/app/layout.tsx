@@ -3,7 +3,6 @@ import localFont from 'next/font/local';
 import "./globals.css";
 import { Inter } from 'next/font/google';
 import ClientLayout from "@/components/ClientLayout";
-import MaintenanceOverlay from '@/components/MaintenanceOverlay';
 
 // Load local fonts
 const roundo = localFont({
@@ -101,9 +100,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: {
     template: '%s | EdotStudio - Custom Web & App Development Agency',
-    default: 'EdotStudio - Website Under Maintenance | Premium Web Development & Digital Solutions Agency',
+    default: 'EdotStudio - Custom Web & App Development Agency',
   },
-  description: 'EdotStudio website is currently under maintenance. We are revamping our site to bring you an even better experience. Contact us directly for immediate assistance with web development, app development, and digital solutions.',
+  description: 'EdotStudio crafts high-performance websites and apps. We provide custom development, UI/UX, branding, and ongoing digital solutions for growing businesses.',
   keywords: [
     'website development',
     'professional web design',
@@ -120,8 +119,7 @@ export const metadata: Metadata = {
     'enterprise web solutions',
     'digital transformation',
     'e-commerce websites',
-    'website maintenance',
-    'under construction'
+    'website optimization'
   ],
   authors: [{ name: 'EdotStudio Team' }],
   metadataBase: new URL('https://edotstudio.com'),
@@ -129,10 +127,10 @@ export const metadata: Metadata = {
   creator: 'EdotStudio',
   publisher: 'EdotStudio',
   robots: {
-    index: false,
+    index: true,
     follow: true,
     googleBot: {
-      index: false,
+      index: true,
       follow: true,
       'max-image-preview': 'large',
       'max-video-preview': -1,
@@ -143,22 +141,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://edotstudio.com/',
-    title: 'EdotStudio - Website Under Maintenance | Premium Web & App Development Agency',
-    description: 'EdotStudio website is currently under maintenance. We are revamping our site to bring you an even better experience. Contact us directly for immediate assistance.',
+    title: 'EdotStudio - Custom Web & App Development Agency',
+    description: 'Premium web and app development, UI/UX, and digital solutions tailored for your business growth.',
     siteName: 'EdotStudio',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'EdotStudio - Website Under Maintenance',
+        alt: 'EdotStudio - Custom Web & App Development',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'EdotStudio - Website Under Maintenance | Premium Web & App Development Agency',
-    description: 'EdotStudio website is currently under maintenance. Contact us directly for immediate assistance with web development and digital solutions.',
+    title: 'EdotStudio - Custom Web & App Development Agency',
+    description: 'Custom websites, apps, and digital experiences. UI/UX, branding, and ongoing support for modern brands.',
     images: ['/images/twitter-image.jpg'],
     creator: '@edotstudio',
   },
@@ -205,7 +203,6 @@ export default function RootLayout({
       </head>
       <body className={`${roundo.variable} ${pilcrow.variable} ${technor.variable} ${supreme.variable} antialiased relative`}>
         <ClientLayout>{children}</ClientLayout>
-        <MaintenanceOverlay />
       </body>
     </html>
   );
